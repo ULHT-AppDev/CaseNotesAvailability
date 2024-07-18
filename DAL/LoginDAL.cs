@@ -12,7 +12,7 @@ namespace DAL
 
         public int SelectUserID(Guid userGuid)
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from i in ctx.People
                         from g in i.PersonUniqueGuids.Where(x => x.Guid == userGuid)
@@ -23,7 +23,7 @@ namespace DAL
 
         public short? SelectUserID(int sessionID)
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return ctx.LogSessions.Where(x => x.SessionID == sessionID).Select(x => x.PersonID).Cast<Nullable<short>>().SingleOrDefault();
             }
@@ -31,7 +31,7 @@ namespace DAL
 
         public int? CheckIfUserExists(Guid guid, string username, string forename, string surname)
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from i in ctx.People
                         from g in i.PersonUniqueGuids.Where(x => x.Guid == guid)
@@ -42,7 +42,7 @@ namespace DAL
 
         public int? CheckIfUserExistsByGuid(Guid guid)
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from i in ctx.People
                         from g in i.PersonUniqueGuids.Where(x => x.Guid == guid)
@@ -53,7 +53,7 @@ namespace DAL
 
         public int InsertNewUserWithRole(Guid guid, string username, string forename, string surname, string jobRole, string email, string contactNumber, UserRoles role)
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
 
                 PersonUniqueGuid guidList = new PersonUniqueGuid()
@@ -96,7 +96,7 @@ namespace DAL
 
         public int InsertNewUserWithoutRole(Guid guid, string username, string forename, string surname, string jobRole, string email, string contactNumber)
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
 
                 PersonUniqueGuid guidList = new PersonUniqueGuid()
@@ -130,7 +130,7 @@ namespace DAL
 
         public void UpdateAccountDetails(int userID, string username, string forename, string surname, string logDetails, int? sessionID)
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 using (var trans = ctx.Database.BeginTransaction())
                 {
@@ -159,7 +159,7 @@ namespace DAL
 
         public UsersOldAccountDetails SelectOldAccountDetails(int userID)
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from i in ctx.People
                         where i.PersonID == userID && i.IsActive

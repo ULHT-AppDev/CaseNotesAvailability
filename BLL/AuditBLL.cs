@@ -56,7 +56,7 @@ namespace BLL
             try
             {
                 List<SpecilatyBO> Specility = new List<SpecilatyBO>();
-                Specility = new DAL.AuditDAL().GetSpeciality().OrderByDescending(x => x.Specilaties_Name).ToList();
+                Specility = new DAL.AuditDAL().GetSpeciality().OrderByDescending(x => x.SpecilatiesName).ToList();
 
                 return Specility;
             }
@@ -83,6 +83,23 @@ namespace BLL
                 return null;
             }
         }
+
+
+        public bool InsertAudit(AuditBO Audit)
+        {
+            try
+            {
+                new DAL.AuditDAL().InsertAudit(Audit);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return false;
+            }
+        }
+
 
     }
 }

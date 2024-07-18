@@ -15,6 +15,6 @@ namespace Model
     public partial class Specilaty
     {
         public int SpecilatiesID { get; set; }
-        public string Specilaties_Name { get; set; }
+        public string SpecilatiesName { get; set; }
     }
 }

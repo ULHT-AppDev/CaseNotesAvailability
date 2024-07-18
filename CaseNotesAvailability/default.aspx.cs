@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,18 +17,17 @@ namespace CaseNotesAvailability
         }
         protected void Audit_Updating(object sender, ObjectDataSourceMethodEventArgs e)
         {
-            //var obj = e.InputParameters["Application"] as ApplicationBO;
-            //short test = Login.CookieHelper.GetCookieUserID();
-            //obj.EditedByUserID = (byte)test;
-            //obj.DateLastEdited = DateTime.Now;
+            var obj = e.InputParameters["AuditID"] as AuditBO;
+            short test = Login.CookieHelper.GetCookieUserID();
+            obj.CreatedByUserID = (byte)test;
         }
 
         protected void Audit_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
         {
-            //var obj = e.InputParameters["Application"] as ApplicationBO;
-            //short test = Login.CookieHelper.GetCookieUserID();
-            //obj.CreatedByUserID = (byte)test;
-            //obj.DateCreated = DateTime.Now;
+            var obj = e.InputParameters["AuditID"] as AuditBO;
+            short test = Login.CookieHelper.GetCookieUserID();
+            obj.CreatedByUserID = (byte)test;
+            //obj.Date = DateTime.Now;
         }
 
     }

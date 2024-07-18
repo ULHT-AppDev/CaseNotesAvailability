@@ -9,6 +9,6 @@ namespace BusinessObjects
     public class SpecilatyBO
     {
         public int SpecilatiesID { get; set; }
-        public string Specilaties_Name { get; set; }
+        public string SpecilatiesName { get; set; }
     }
 }

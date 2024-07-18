@@ -14,7 +14,7 @@ namespace DAL
         public List<AuditBO> GetAudit()
         {
 
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
@@ -34,7 +34,7 @@ namespace DAL
 
         public List<AuditClinicAnswersBO> GetAuditClincAnswers()
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from u in ctx.AuditClincAnswers
                             //where u.IsActive 
@@ -53,15 +53,15 @@ namespace DAL
 
         public List<SitesBO> GetSites()
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from u in ctx.Sites
                             //where u.IsActive 
                         select new BusinessObjects.SitesBO
                         {
-                          SiteId= u.SiteId,
-                          SiteName= u.SiteName,
-                          SiteCode = u.SiteCode
+                            SiteId = u.SiteId,
+                            SiteName = u.SiteName,
+                            SiteCode = u.SiteCode
                             //,isactive = u.IsActive
                         }).ToList();
             }
@@ -69,18 +69,78 @@ namespace DAL
 
         public List<SpecilatyBO> GetSpeciality()
         {
-            using (var ctx = new Model.Entities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from u in ctx.Specilaties
                             //where u.IsActive 
                         select new BusinessObjects.SpecilatyBO
                         {
-                          SpecilatiesID = u.SpecilatiesID,
-                          Specilaties_Name=u.Specilaties_Name
+                            SpecilatiesID = u.SpecilatiesID,
+                            SpecilatiesName = u.SpecilatiesName
                             //,isactive = u.IsActive
                         }).ToList();
             }
         }
+
+        public void InsertAudit(AuditBO audit)
+        {
+            using (var ctxIns = new Model.CNAEntities())
+            {
+                using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (audit.ClinicCodes != null)
+                        {
+                            Model.Audit dt = new Model.Audit()
+                            {
+
+                                Date = audit.Date,
+                                SpecialtyID = audit.SpecialtyID,
+                                SiteID = audit.SiteID,
+                                CreatedByUserID = audit.CreatedByUserID,
+                                CompletedByUserID = audit.CompletedByUserID,
+                                DueByDate = audit.DueByDate,
+                                IsActive = true
+
+                            };
+                            ctxIns.Audits.Add(dt);
+                            ctxIns.SaveChanges();
+                            //.NotesID = dt.ApplicationNotesID;
+                        }
+
+                        var elements = audit.ClinicCodes.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries);
+
+                        foreach (string items in elements)
+                        {
+                            if (items != null)
+                            {
+                                Model.AuditClincAnswer dt = new Model.AuditClincAnswer()
+                                {
+                                    AuditID=audit.AuditID,
+                                    ClinicCode = items,
+                                    IsActive = true
+                                };
+                                ctxIns.AuditClincAnswers.Add(dt);
+                                ctxIns.SaveChanges();
+                                //.NotesID = dt.ApplicationNotesID;
+                            }
+                        }
+
+                        dbContextTransactionIns.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransactionIns.Rollback();
+                    }
+                }
+            }
+        }
+
+
+
+
+
     }
 
 }

@@ -1,0 +1,108 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="MasterPage.Master.cs" Inherits="CaseNotesAvailability.MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+
+    <asp:PlaceHolder ID="PlaceHolder1" runat="server">
+
+        <script src="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/Scripts/jquery-3.6.0.min.js", VersionNumber))%>"></script>
+        <script src="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/Scripts/bootstrap.min.js", VersionNumber))%>"></script>
+        <link href="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/Content/bootstrap.min.css", VersionNumber))%>" rel="stylesheet" />
+        <script src="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/Scripts/fontawesome/all.min.js", VersionNumber))%>"></script>
+        <link href="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/Content/fontawesome.min.css", VersionNumber))%>" rel="stylesheet" />
+        <link href="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/CustomCSS/Master.css", VersionNumber))%>" rel="stylesheet" />
+        <link href="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/CustomCSS/AppHeaderMenu.css", VersionNumber))%>" rel="stylesheet" />
+
+    </asp:PlaceHolder>
+
+</head>
+
+<body>
+
+    <form id="form1" runat="server">
+
+        <div id="PageContainer">
+
+            <div id="Header" class="container-fluid">
+                <div class="d-flex h-100 align-items-center">
+
+                    <div id="AppHeaderContainer" class="ps-2">
+                        <a id="AppHeaderLink" runat="server" class="AppLinkAnchor">
+                            <div>
+                                <dx:ASPxLabel ID="AppHeaderLabel" runat="server" OnInit="AppHeaderLabel_Init"
+                                    Font-Size="16px" CssClass="weight500" ForeColor="#fafafa" EncodeHtml="false">
+                                </dx:ASPxLabel>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="ms-auto me-4">
+                        <dx:ASPxMenu ID="MainAppMenu"
+                            ClientInstanceName="MainAppMenu"
+                            runat="server"
+                            CssClass="AdminMenu weight500"
+                            SeparatorColor="#ffffff"
+                            Font-Size="13px"
+                            ForeColor="#fafafa"
+                            DisabledStyle-ForeColor="#a7a7a7"
+                            SeparatorWidth="0"
+                            EncodeHtml="false"
+                            OnInit="MainAppMenu_Init">
+
+                            <SettingsAdaptivity Enabled="true"
+                                EnableAutoHideRootItems="true"
+                                EnableCollapseToSideMenu="false"
+                                EnableCollapseRootItemsToIcons="true"
+                                CollapseRootItemsToIconsAtWindowInnerWidth="899" />
+                            <ItemStyle CssClass="d-flex align-items-center px-3 AdminMenuItem" SelectedStyle-BackColor="#424242" SelectedStyle-ForeColor="#fafafa" HoverStyle-ForeColor="#fafafa" />
+                            <SubMenuItemStyle CssClass="MenuSubMenuItem" HoverStyle-BackColor="#5a585a" ForeColor="#fafafa" SelectedStyle-BackColor="#424242" HoverStyle-ForeColor="#fafafa"></SubMenuItemStyle>
+                            <SubMenuStyle CssClass="MenuSubMenu" />
+                            <Items>
+                                <dx:MenuItem Name="Default" Text="Example header" NavigateUrl="default.aspx" ToolTip="Example">
+                                    <Image>
+                                        <SpriteProperties CssClass="adminNavMenuIcon fas fa-edit" />
+                                    </Image>
+                                </dx:MenuItem>
+                            </Items>
+                        </dx:ASPxMenu>
+                    </div>
+
+                    <div class="px-4 text-right">
+                        <div id="LoggedInUserContainer">
+                            <dx:ASPxLabel ID="LoggedInUser" runat="server" Font-Size="Small" EncodeHtml="false" ForeColor="#FAFAFA"></dx:ASPxLabel>
+                        </div>
+                        <div>
+                            <dx:ASPxButton ID="LoggoutButton"
+                                runat="server"
+                                Text="Logout"
+                                RenderMode="Link"
+                                CausesValidation="false"
+                                UseSubmitBehavior="false"
+                                OnClick="LoggoutButton_Click"
+                                ForeColor="#fafafa">
+                            </dx:ASPxButton>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <div id="SideMainContainer">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+
+        </div>
+    </form>
+
+</body>
+</html>

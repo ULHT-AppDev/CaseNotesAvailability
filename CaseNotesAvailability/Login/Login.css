@@ -1,0 +1,91 @@
+﻿
+
+/*defaults*/
+/*body {
+    background: #fafafa;
+}*/
+
+/*ID's*/
+.hideContent{
+    display:none;
+}
+
+#modalHeader i {
+    padding-left: 5px;
+    color: #008BFF;
+    font-size: large;
+}
+
+#HeaderContainer {
+    background-color: #f4f4f4;
+    border-bottom: solid;
+    border-bottom-color: #DCDCDC;
+    border-bottom-width: 1px;
+}
+
+#CompanyLogo {
+    width: 350px;
+    height: auto;
+}
+
+/*Classes*/
+.BorderBottomLogin {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.blueText {
+    color: #008BFF;
+}
+
+.orangeText {
+    color: #e69500;
+}
+
+.redText {
+    color: red;
+}
+
+.font-Large {
+    font-size: large;
+}
+
+.font-Medium {
+    font-size: medium;
+}
+
+.font-XL {
+    font-size: x-large;
+}
+
+.StartEndWidth {
+    width: 30px;
+}
+
+.focusStylePriority.LoginEditorFocusStyle {
+    border-color: #24323f !important;
+}
+
+
+#LoginLoadingPanel, #RolesLoginLoadingPanel {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+}
+
+    #LoginLoadingPanel > table, #RolesLoginLoadingPanel > table {
+        margin: 0 !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        -moz-box-shadow: none !important;
+    }
+
+
+@media only screen and (max-width: 767px) {
+
+    #CompanyLogoContainer {
+        display: none !important;
+    }
+}

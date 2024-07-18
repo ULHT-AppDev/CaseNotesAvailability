@@ -1,0 +1,1244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Audit">
+          <Key>
+            <PropertyRef Name="AuditID" />
+          </Key>
+          <Property Name="AuditID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="SpecialtyID" Type="int" Nullable="false" />
+          <Property Name="SiteID" Type="int" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="int" Nullable="false" />
+          <Property Name="CompletedByUserID" Type="int" Nullable="false" />
+          <Property Name="DueByDate" Type="date" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.AuditClincAnswers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="AuditClincAnswers">
+          <Key>
+            <PropertyRef Name="AuditClinicAnswersID" />
+            <PropertyRef Name="AuditID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="AuditClinicAnswersID" Type="int" Nullable="false" />
+          <Property Name="AuditID" Type="int" Nullable="false" />
+          <Property Name="ClinicCode" Type="varchar" MaxLength="100" />
+          <Property Name="NumberOfAppointmentsAllocated" Type="int" />
+          <Property Name="CaseNotesAvailableStartCount" Type="int" />
+          <Property Name="TemporaryNotesCount" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.Genericusers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Genericusers">
+          <Key>
+            <PropertyRef Name="GenericusersID" />
+            <PropertyRef Name="Generic users Name" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="GenericusersID" Type="int" Nullable="false" />
+          <Property Name="Generic users Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Issues">
+          <Key>
+            <PropertyRef Name="Issue ID" />
+          </Key>
+          <Property Name="Issue ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Issue" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.List.ReasonUnavailable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="List_ReasonUnavailable">
+          <Key>
+            <PropertyRef Name="ReasonUnavailableID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="ReasonUnavailableID" Type="int" Nullable="false" />
+          <Property Name="ReasonText" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Patients">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="Unumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="NHSNumber" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Forename" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.RequiresImprovementActionPoints' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RequiresImprovementActionPoints">
+          <Key>
+            <PropertyRef Name="RequiresImprovementActionPointID" />
+            <PropertyRef Name="AuditID" />
+            <PropertyRef Name="ReviewedByUserID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="RequiresImprovementActionPointID" Type="int" Nullable="false" />
+          <Property Name="AuditID" Type="int" Nullable="false" />
+          <Property Name="ActionPointComment" Type="nvarchar" MaxLength="100" />
+          <Property Name="ReviewedByUserID" Type="int" Nullable="false" />
+          <Property Name="ReviewedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.RequiresImprovementDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="RequiresImprovementDetails">
+          <Key>
+            <PropertyRef Name="RequiresImprovementDetailsID" />
+            <PropertyRef Name="AuditID" />
+            <PropertyRef Name="ReviewedByUserID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="RequiresImprovementDetailsID" Type="int" Nullable="false" />
+          <Property Name="AuditID" Type="int" Nullable="false" />
+          <Property Name="ImprovementReasonID" Type="int" />
+          <Property Name="Comment" Type="varchar" MaxLength="250" />
+          <Property Name="ReviewedByUserID" Type="int" Nullable="false" />
+          <Property Name="ReviewedDate" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sites">
+          <Key>
+            <PropertyRef Name="SiteId" />
+          </Key>
+          <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specilaties">
+          <Key>
+            <PropertyRef Name="SpecilatiesID" />
+          </Key>
+          <Property Name="SpecilatiesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Specilaties Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnavailableCaseNotes">
+          <Key>
+            <PropertyRef Name="UnavailableCaseNotesID" />
+          </Key>
+          <Property Name="UnavailableCaseNotesID" Type="int" Nullable="false" />
+          <Property Name="AuditClinicAnswersID" Type="int" Nullable="false" />
+          <Property Name="PatientID" Type="int" Nullable="false" />
+          <Property Name="ReasonUnavailableID" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="userrole">
+          <Key>
+            <PropertyRef Name="userroleID" />
+            <PropertyRef Name="user role Name" />
+          </Key>
+          <Property Name="userroleID" Type="int" Nullable="false" />
+          <Property Name="user role Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginRights">
+          <Key>
+            <PropertyRef Name="RightID" />
+          </Key>
+          <Property Name="RightID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RightName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginRoleRights">
+          <Key>
+            <PropertyRef Name="RoleRightID" />
+          </Key>
+          <Property Name="RoleRightID" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleID" Type="tinyint" Nullable="false" />
+          <Property Name="RightID" Type="smallint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LoginRoles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Role" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogActions">
+          <Key>
+            <PropertyRef Name="ActionID" />
+          </Key>
+          <Property Name="ActionID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogDetails">
+          <Key>
+            <PropertyRef Name="DetailsID" />
+          </Key>
+          <Property Name="DetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LogID" Type="int" Nullable="false" />
+          <Property Name="Details" Type="varchar" MaxLength="750" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogErrors">
+          <Key>
+            <PropertyRef Name="LogErrorID" />
+          </Key>
+          <Property Name="LogErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionID" Type="int" />
+          <Property Name="Type" Type="varchar" MaxLength="100" />
+          <Property Name="Message" Type="varchar" MaxLength="250" />
+          <Property Name="StackTrace" Type="varchar" MaxLength="2000" />
+          <Property Name="Source" Type="varchar" MaxLength="100" />
+          <Property Name="LoggedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Logs">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ActionID" Type="tinyint" Nullable="false" />
+          <Property Name="SessionID" Type="int" />
+          <Property Name="LoggedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogSessions">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="StartDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EndDateTime" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="64" />
+          <Property Name="Forename" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="JobRole" Type="varchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="320" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonGuid">
+          <Key>
+            <PropertyRef Name="GuidID" />
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="GuidID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonRoles">
+          <Key>
+            <PropertyRef Name="PersonRoleID" />
+          </Key>
+          <Property Name="PersonRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="tinyint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonUniqueGuids">
+          <Key>
+            <PropertyRef Name="GuidID" />
+          </Key>
+          <Property Name="GuidID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_LogDetails_Logs">
+          <End Role="Logs" Type="Self.Logs" Multiplicity="1" />
+          <End Role="LogDetails" Type="Self.LogDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logs">
+              <PropertyRef Name="LogID" />
+            </Principal>
+            <Dependent Role="LogDetails">
+              <PropertyRef Name="LogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogErrors_LogSessions">
+          <End Role="LogSessions" Type="Self.LogSessions" Multiplicity="0..1" />
+          <End Role="LogErrors" Type="Self.LogErrors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogSessions">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="LogErrors">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginRoleRights_LoginRights">
+          <End Role="LoginRights" Type="Self.LoginRights" Multiplicity="1" />
+          <End Role="LoginRoleRights" Type="Self.LoginRoleRights" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginRights">
+              <PropertyRef Name="RightID" />
+            </Principal>
+            <Dependent Role="LoginRoleRights">
+              <PropertyRef Name="RightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginRoleRights_LoginRoles">
+          <End Role="LoginRoles" Type="Self.LoginRoles" Multiplicity="1" />
+          <End Role="LoginRoleRights" Type="Self.LoginRoleRights" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginRoles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="LoginRoleRights">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_LogActions">
+          <End Role="LogActions" Type="Self.LogActions" Multiplicity="1" />
+          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogActions">
+              <PropertyRef Name="ActionID" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_LogSessions">
+          <End Role="LogSessions" Type="Self.LogSessions" Multiplicity="0..1" />
+          <End Role="Logs" Type="Self.Logs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogSessions">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogSessions_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="LogSessions" Type="Self.LogSessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="LogSessions">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Patients_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="Patients1" Type="Self.Patients" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Patients1">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonGuid_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="PersonGuid" Type="Self.PersonGuid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonGuid">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonGuid_PersonUniqueGuids">
+          <End Role="PersonUniqueGuids" Type="Self.PersonUniqueGuids" Multiplicity="1" />
+          <End Role="PersonGuid" Type="Self.PersonGuid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonUniqueGuids">
+              <PropertyRef Name="GuidID" />
+            </Principal>
+            <Dependent Role="PersonGuid">
+              <PropertyRef Name="GuidID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonRoles_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="PersonRoles" Type="Self.PersonRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonRoles">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UnavailableCaseNotes_Patients">
+          <End Role="Patients" Type="Self.Patients" Multiplicity="1" />
+          <End Role="UnavailableCaseNotes" Type="Self.UnavailableCaseNotes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="UnavailableCaseNotes">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="Audit" EntityType="Self.Audit" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Issues" EntityType="Self.Issues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Specilaties" EntityType="Self.Specilaties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UnavailableCaseNotes" EntityType="Self.UnavailableCaseNotes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoginRights" EntityType="Self.LoginRights" Schema="List" store:Type="Tables" />
+          <EntitySet Name="LoginRoleRights" EntityType="Self.LoginRoleRights" Schema="List" store:Type="Tables" />
+          <EntitySet Name="LoginRoles" EntityType="Self.LoginRoles" Schema="List" store:Type="Tables" />
+          <EntitySet Name="LogActions" EntityType="Self.LogActions" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="LogDetails" EntityType="Self.LogDetails" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="LogErrors" EntityType="Self.LogErrors" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="Logs" EntityType="Self.Logs" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="LogSessions" EntityType="Self.LogSessions" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="People" EntityType="Self.People" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonGuid" EntityType="Self.PersonGuid" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonRoles" EntityType="Self.PersonRoles" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuids" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="AuditClincAnswers" EntityType="Self.AuditClincAnswers" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [AuditClincAnswers].[AuditClinicAnswersID] AS [AuditClinicAnswersID], 
+    [AuditClincAnswers].[AuditID] AS [AuditID], 
+    [AuditClincAnswers].[ClinicCode] AS [ClinicCode], 
+    [AuditClincAnswers].[NumberOfAppointmentsAllocated] AS [NumberOfAppointmentsAllocated], 
+    [AuditClincAnswers].[CaseNotesAvailableStartCount] AS [CaseNotesAvailableStartCount], 
+    [AuditClincAnswers].[TemporaryNotesCount] AS [TemporaryNotesCount], 
+    [AuditClincAnswers].[IsActive] AS [IsActive]
+    FROM [dbo].[AuditClincAnswers] AS [AuditClincAnswers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Genericusers" EntityType="Self.Genericusers" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Genericusers].[GenericusersID] AS [GenericusersID], 
+    [Genericusers].[Generic users Name] AS [Generic users Name], 
+    [Genericusers].[IsActive] AS [IsActive]
+    FROM [dbo].[Genericusers] AS [Genericusers]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="List_ReasonUnavailable" EntityType="Self.List_ReasonUnavailable" store:Type="Tables" store:Schema="dbo" store:Name="List.ReasonUnavailable">
+            <DefiningQuery>SELECT 
+    [List_ReasonUnavailable].[ReasonUnavailableID] AS [ReasonUnavailableID], 
+    [List_ReasonUnavailable].[ReasonText] AS [ReasonText], 
+    [List_ReasonUnavailable].[IsActive] AS [IsActive]
+    FROM [dbo].[List.ReasonUnavailable] AS [List_ReasonUnavailable]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RequiresImprovementActionPoints" EntityType="Self.RequiresImprovementActionPoints" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RequiresImprovementActionPoints].[RequiresImprovementActionPointID] AS [RequiresImprovementActionPointID], 
+    [RequiresImprovementActionPoints].[AuditID] AS [AuditID], 
+    [RequiresImprovementActionPoints].[ActionPointComment] AS [ActionPointComment], 
+    [RequiresImprovementActionPoints].[ReviewedByUserID] AS [ReviewedByUserID], 
+    [RequiresImprovementActionPoints].[ReviewedDate] AS [ReviewedDate], 
+    [RequiresImprovementActionPoints].[IsActive] AS [IsActive]
+    FROM [dbo].[RequiresImprovementActionPoints] AS [RequiresImprovementActionPoints]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="RequiresImprovementDetails" EntityType="Self.RequiresImprovementDetails" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [RequiresImprovementDetails].[RequiresImprovementDetailsID] AS [RequiresImprovementDetailsID], 
+    [RequiresImprovementDetails].[AuditID] AS [AuditID], 
+    [RequiresImprovementDetails].[ImprovementReasonID] AS [ImprovementReasonID], 
+    [RequiresImprovementDetails].[Comment] AS [Comment], 
+    [RequiresImprovementDetails].[ReviewedByUserID] AS [ReviewedByUserID], 
+    [RequiresImprovementDetails].[ReviewedDate] AS [ReviewedDate], 
+    [RequiresImprovementDetails].[IsActive] AS [IsActive]
+    FROM [dbo].[RequiresImprovementDetails] AS [RequiresImprovementDetails]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="userrole" EntityType="Self.userrole" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [userrole].[userroleID] AS [userroleID], 
+    [userrole].[user role Name] AS [user role Name]
+    FROM [dbo].[userrole] AS [userrole]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_LogDetails_Logs" Association="Self.FK_LogDetails_Logs">
+            <End Role="Logs" EntitySet="Logs" />
+            <End Role="LogDetails" EntitySet="LogDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogErrors_LogSessions" Association="Self.FK_LogErrors_LogSessions">
+            <End Role="LogSessions" EntitySet="LogSessions" />
+            <End Role="LogErrors" EntitySet="LogErrors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginRoleRights_LoginRights" Association="Self.FK_LoginRoleRights_LoginRights">
+            <End Role="LoginRights" EntitySet="LoginRights" />
+            <End Role="LoginRoleRights" EntitySet="LoginRoleRights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginRoleRights_LoginRoles" Association="Self.FK_LoginRoleRights_LoginRoles">
+            <End Role="LoginRoles" EntitySet="LoginRoles" />
+            <End Role="LoginRoleRights" EntitySet="LoginRoleRights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_LogActions" Association="Self.FK_Logs_LogActions">
+            <End Role="LogActions" EntitySet="LogActions" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_LogSessions" Association="Self.FK_Logs_LogSessions">
+            <End Role="LogSessions" EntitySet="LogSessions" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogSessions_People" Association="Self.FK_LogSessions_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="LogSessions" EntitySet="LogSessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Patients_Patients" Association="Self.FK_Patients_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Patients1" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonGuid_People" Association="Self.FK_PersonGuid_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonGuid" EntitySet="PersonGuid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonGuid_PersonUniqueGuids" Association="Self.FK_PersonGuid_PersonUniqueGuids">
+            <End Role="PersonUniqueGuids" EntitySet="PersonUniqueGuids" />
+            <End Role="PersonGuid" EntitySet="PersonGuid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonRoles_People" Association="Self.FK_PersonRoles_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonRoles" EntitySet="PersonRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UnavailableCaseNotes_Patients" Association="Self.FK_UnavailableCaseNotes_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="UnavailableCaseNotes" EntitySet="UnavailableCaseNotes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Audit">
+          <Key>
+            <PropertyRef Name="AuditID" />
+          </Key>
+          <Property Name="AuditID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="SpecialtyID" Type="Int32" Nullable="false" />
+          <Property Name="SiteID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedByUserID" Type="Int32" Nullable="false" />
+          <Property Name="CompletedByUserID" Type="Int32" Nullable="false" />
+          <Property Name="DueByDate" Type="DateTime" Precision="0" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="Issue_ID" />
+          </Key>
+          <Property Name="Issue_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Issue1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Patient">
+          <Key>
+            <PropertyRef Name="PatientID" />
+          </Key>
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="Unumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NHSNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Forename" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Patients1" Relationship="Self.FK_Patients_Patients" FromRole="Patients" ToRole="Patients1" />
+          <NavigationProperty Name="Patient1" Relationship="Self.FK_Patients_Patients" FromRole="Patients1" ToRole="Patients" />
+          <NavigationProperty Name="UnavailableCaseNotes" Relationship="Self.FK_UnavailableCaseNotes_Patients" FromRole="Patients" ToRole="UnavailableCaseNotes" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="SiteId" />
+          </Key>
+          <Property Name="SiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SiteName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specilaty">
+          <Key>
+            <PropertyRef Name="SpecilatiesID" />
+          </Key>
+          <Property Name="SpecilatiesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Specilaties_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UnavailableCaseNote">
+          <Key>
+            <PropertyRef Name="UnavailableCaseNotesID" />
+          </Key>
+          <Property Name="UnavailableCaseNotesID" Type="Int32" Nullable="false" />
+          <Property Name="AuditClinicAnswersID" Type="Int32" Nullable="false" />
+          <Property Name="PatientID" Type="Int32" Nullable="false" />
+          <Property Name="ReasonUnavailableID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Patient" Relationship="Self.FK_UnavailableCaseNotes_Patients" FromRole="UnavailableCaseNotes" ToRole="Patients" />
+        </EntityType>
+        <EntityType Name="LoginRight">
+          <Key>
+            <PropertyRef Name="RightID" />
+          </Key>
+          <Property Name="RightID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RightName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LoginRoleRights" Relationship="Self.FK_LoginRoleRights_LoginRights" FromRole="LoginRights" ToRole="LoginRoleRights" />
+        </EntityType>
+        <EntityType Name="LoginRoleRight">
+          <Key>
+            <PropertyRef Name="RoleRightID" />
+          </Key>
+          <Property Name="RoleRightID" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleID" Type="Byte" Nullable="false" />
+          <Property Name="RightID" Type="Int16" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LoginRight" Relationship="Self.FK_LoginRoleRights_LoginRights" FromRole="LoginRoleRights" ToRole="LoginRights" />
+          <NavigationProperty Name="LoginRole" Relationship="Self.FK_LoginRoleRights_LoginRoles" FromRole="LoginRoleRights" ToRole="LoginRoles" />
+        </EntityType>
+        <EntityType Name="LoginRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LoginRoleRights" Relationship="Self.FK_LoginRoleRights_LoginRoles" FromRole="LoginRoles" ToRole="LoginRoleRights" />
+        </EntityType>
+        <EntityType Name="LogAction">
+          <Key>
+            <PropertyRef Name="ActionID" />
+          </Key>
+          <Property Name="ActionID" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Logs" Relationship="Self.FK_Logs_LogActions" FromRole="LogActions" ToRole="Logs" />
+        </EntityType>
+        <EntityType Name="LogDetail">
+          <Key>
+            <PropertyRef Name="DetailsID" />
+          </Key>
+          <Property Name="DetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LogID" Type="Int32" Nullable="false" />
+          <Property Name="Details" Type="String" MaxLength="750" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Log" Relationship="Self.FK_LogDetails_Logs" FromRole="LogDetails" ToRole="Logs" />
+        </EntityType>
+        <EntityType Name="LogError">
+          <Key>
+            <PropertyRef Name="LogErrorID" />
+          </Key>
+          <Property Name="LogErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionID" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="StackTrace" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Source" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LoggedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="LogSession" Relationship="Self.FK_LogErrors_LogSessions" FromRole="LogErrors" ToRole="LogSessions" />
+        </EntityType>
+        <EntityType Name="Log">
+          <Key>
+            <PropertyRef Name="LogID" />
+          </Key>
+          <Property Name="LogID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ActionID" Type="Byte" Nullable="false" />
+          <Property Name="SessionID" Type="Int32" />
+          <Property Name="LoggedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="LogAction" Relationship="Self.FK_Logs_LogActions" FromRole="Logs" ToRole="LogActions" />
+          <NavigationProperty Name="LogDetails" Relationship="Self.FK_LogDetails_Logs" FromRole="Logs" ToRole="LogDetails" />
+          <NavigationProperty Name="LogSession" Relationship="Self.FK_Logs_LogSessions" FromRole="Logs" ToRole="LogSessions" />
+        </EntityType>
+        <EntityType Name="LogSession">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="StartDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LogErrors" Relationship="Self.FK_LogErrors_LogSessions" FromRole="LogSessions" ToRole="LogErrors" />
+          <NavigationProperty Name="Logs" Relationship="Self.FK_Logs_LogSessions" FromRole="LogSessions" ToRole="Logs" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_LogSessions_People" FromRole="LogSessions" ToRole="People" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Forename" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobRole" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="320" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LogSessions" Relationship="Self.FK_LogSessions_People" FromRole="People" ToRole="LogSessions" />
+          <NavigationProperty Name="PersonRoles" Relationship="Self.FK_PersonRoles_People" FromRole="People" ToRole="PersonRoles" />
+          <NavigationProperty Name="PersonUniqueGuids" Relationship="Self.PersonGuid" FromRole="People" ToRole="PersonUniqueGuids" />
+        </EntityType>
+        <EntityType Name="PersonRole">
+          <Key>
+            <PropertyRef Name="PersonRoleID" />
+          </Key>
+          <Property Name="PersonRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Byte" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_PersonRoles_People" FromRole="PersonRoles" ToRole="People" />
+        </EntityType>
+        <EntityType Name="PersonUniqueGuid">
+          <Key>
+            <PropertyRef Name="GuidID" />
+          </Key>
+          <Property Name="GuidID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="People" Relationship="Self.PersonGuid" FromRole="PersonUniqueGuids" ToRole="People" />
+        </EntityType>
+        <EntityType Name="AuditClincAnswer">
+          <Key>
+            <PropertyRef Name="AuditClinicAnswersID" />
+            <PropertyRef Name="AuditID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="AuditClinicAnswersID" Type="Int32" Nullable="false" />
+          <Property Name="AuditID" Type="Int32" Nullable="false" />
+          <Property Name="ClinicCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NumberOfAppointmentsAllocated" Type="Int32" />
+          <Property Name="CaseNotesAvailableStartCount" Type="Int32" />
+          <Property Name="TemporaryNotesCount" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Genericuser">
+          <Key>
+            <PropertyRef Name="GenericusersID" />
+            <PropertyRef Name="Generic_users_Name" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="GenericusersID" Type="Int32" Nullable="false" />
+          <Property Name="Generic_users_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="List_ReasonUnavailable">
+          <Key>
+            <PropertyRef Name="ReasonUnavailableID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="ReasonUnavailableID" Type="Int32" Nullable="false" />
+          <Property Name="ReasonText" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequiresImprovementActionPoint">
+          <Key>
+            <PropertyRef Name="RequiresImprovementActionPointID" />
+            <PropertyRef Name="AuditID" />
+            <PropertyRef Name="ReviewedByUserID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="RequiresImprovementActionPointID" Type="Int32" Nullable="false" />
+          <Property Name="AuditID" Type="Int32" Nullable="false" />
+          <Property Name="ActionPointComment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReviewedByUserID" Type="Int32" Nullable="false" />
+          <Property Name="ReviewedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequiresImprovementDetail">
+          <Key>
+            <PropertyRef Name="RequiresImprovementDetailsID" />
+            <PropertyRef Name="AuditID" />
+            <PropertyRef Name="ReviewedByUserID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="RequiresImprovementDetailsID" Type="Int32" Nullable="false" />
+          <Property Name="AuditID" Type="Int32" Nullable="false" />
+          <Property Name="ImprovementReasonID" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewedByUserID" Type="Int32" Nullable="false" />
+          <Property Name="ReviewedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="userrole">
+          <Key>
+            <PropertyRef Name="userroleID" />
+            <PropertyRef Name="user_role_Name" />
+          </Key>
+          <Property Name="userroleID" Type="Int32" Nullable="false" />
+          <Property Name="user_role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Patients_Patients">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="Patients1" Type="Self.Patient" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="Patients1">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UnavailableCaseNotes_Patients">
+          <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
+          <End Role="UnavailableCaseNotes" Type="Self.UnavailableCaseNote" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Patients">
+              <PropertyRef Name="PatientID" />
+            </Principal>
+            <Dependent Role="UnavailableCaseNotes">
+              <PropertyRef Name="PatientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginRoleRights_LoginRights">
+          <End Role="LoginRights" Type="Self.LoginRight" Multiplicity="1" />
+          <End Role="LoginRoleRights" Type="Self.LoginRoleRight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginRights">
+              <PropertyRef Name="RightID" />
+            </Principal>
+            <Dependent Role="LoginRoleRights">
+              <PropertyRef Name="RightID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LoginRoleRights_LoginRoles">
+          <End Role="LoginRoles" Type="Self.LoginRole" Multiplicity="1" />
+          <End Role="LoginRoleRights" Type="Self.LoginRoleRight" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginRoles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="LoginRoleRights">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_LogActions">
+          <End Role="LogActions" Type="Self.LogAction" Multiplicity="1" />
+          <End Role="Logs" Type="Self.Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogActions">
+              <PropertyRef Name="ActionID" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="ActionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogDetails_Logs">
+          <End Role="Logs" Type="Self.Log" Multiplicity="1" />
+          <End Role="LogDetails" Type="Self.LogDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Logs">
+              <PropertyRef Name="LogID" />
+            </Principal>
+            <Dependent Role="LogDetails">
+              <PropertyRef Name="LogID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogErrors_LogSessions">
+          <End Role="LogSessions" Type="Self.LogSession" Multiplicity="0..1" />
+          <End Role="LogErrors" Type="Self.LogError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogSessions">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="LogErrors">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Logs_LogSessions">
+          <End Role="LogSessions" Type="Self.LogSession" Multiplicity="0..1" />
+          <End Role="Logs" Type="Self.Log" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogSessions">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="Logs">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogSessions_People">
+          <End Role="People" Type="Self.Person" Multiplicity="1" />
+          <End Role="LogSessions" Type="Self.LogSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="LogSessions">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonRoles_People">
+          <End Role="People" Type="Self.Person" Multiplicity="1" />
+          <End Role="PersonRoles" Type="Self.PersonRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonRoles">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonGuid">
+          <End Role="People" Type="Self.Person" Multiplicity="*" />
+          <End Role="PersonUniqueGuids" Type="Self.PersonUniqueGuid" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Audits" EntityType="Self.Audit" />
+          <EntitySet Name="Issues" EntityType="Self.Issue" />
+          <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="Sites" EntityType="Self.Site" />
+          <EntitySet Name="Specilaties" EntityType="Self.Specilaty" />
+          <EntitySet Name="UnavailableCaseNotes" EntityType="Self.UnavailableCaseNote" />
+          <EntitySet Name="LoginRights" EntityType="Self.LoginRight" />
+          <EntitySet Name="LoginRoleRights" EntityType="Self.LoginRoleRight" />
+          <EntitySet Name="LoginRoles" EntityType="Self.LoginRole" />
+          <EntitySet Name="LogActions" EntityType="Self.LogAction" />
+          <EntitySet Name="LogDetails" EntityType="Self.LogDetail" />
+          <EntitySet Name="LogErrors" EntityType="Self.LogError" />
+          <EntitySet Name="Logs" EntityType="Self.Log" />
+          <EntitySet Name="LogSessions" EntityType="Self.LogSession" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PersonRoles" EntityType="Self.PersonRole" />
+          <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuid" />
+          <EntitySet Name="AuditClincAnswers" EntityType="Self.AuditClincAnswer" />
+          <EntitySet Name="Genericusers" EntityType="Self.Genericuser" />
+          <EntitySet Name="List_ReasonUnavailable" EntityType="Self.List_ReasonUnavailable" />
+          <EntitySet Name="RequiresImprovementActionPoints" EntityType="Self.RequiresImprovementActionPoint" />
+          <EntitySet Name="RequiresImprovementDetails" EntityType="Self.RequiresImprovementDetail" />
+          <EntitySet Name="userroles" EntityType="Self.userrole" />
+          <AssociationSet Name="FK_Patients_Patients" Association="Self.FK_Patients_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="Patients1" EntitySet="Patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UnavailableCaseNotes_Patients" Association="Self.FK_UnavailableCaseNotes_Patients">
+            <End Role="Patients" EntitySet="Patients" />
+            <End Role="UnavailableCaseNotes" EntitySet="UnavailableCaseNotes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginRoleRights_LoginRights" Association="Self.FK_LoginRoleRights_LoginRights">
+            <End Role="LoginRights" EntitySet="LoginRights" />
+            <End Role="LoginRoleRights" EntitySet="LoginRoleRights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LoginRoleRights_LoginRoles" Association="Self.FK_LoginRoleRights_LoginRoles">
+            <End Role="LoginRoles" EntitySet="LoginRoles" />
+            <End Role="LoginRoleRights" EntitySet="LoginRoleRights" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_LogActions" Association="Self.FK_Logs_LogActions">
+            <End Role="LogActions" EntitySet="LogActions" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogDetails_Logs" Association="Self.FK_LogDetails_Logs">
+            <End Role="Logs" EntitySet="Logs" />
+            <End Role="LogDetails" EntitySet="LogDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogErrors_LogSessions" Association="Self.FK_LogErrors_LogSessions">
+            <End Role="LogSessions" EntitySet="LogSessions" />
+            <End Role="LogErrors" EntitySet="LogErrors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Logs_LogSessions" Association="Self.FK_Logs_LogSessions">
+            <End Role="LogSessions" EntitySet="LogSessions" />
+            <End Role="Logs" EntitySet="Logs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogSessions_People" Association="Self.FK_LogSessions_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="LogSessions" EntitySet="LogSessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonRoles_People" Association="Self.FK_PersonRoles_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonRoles" EntitySet="PersonRoles" />
+          </AssociationSet>
+          <AssociationSet Name="PersonGuid" Association="Self.PersonGuid">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonUniqueGuids" EntitySet="PersonUniqueGuids" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="Audits">
+            <EntityTypeMapping TypeName="Model.Audit">
+              <MappingFragment StoreEntitySet="Audit">
+                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="SpecialtyID" ColumnName="SpecialtyID" />
+                <ScalarProperty Name="SiteID" ColumnName="SiteID" />
+                <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
+                <ScalarProperty Name="CompletedByUserID" ColumnName="CompletedByUserID" />
+                <ScalarProperty Name="DueByDate" ColumnName="DueByDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Issues">
+            <EntityTypeMapping TypeName="Model.Issue">
+              <MappingFragment StoreEntitySet="Issues">
+                <ScalarProperty Name="Issue_ID" ColumnName="Issue ID" />
+                <ScalarProperty Name="Issue1" ColumnName="Issue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Patients">
+            <EntityTypeMapping TypeName="Model.Patient">
+              <MappingFragment StoreEntitySet="Patients">
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="Unumber" ColumnName="Unumber" />
+                <ScalarProperty Name="NHSNumber" ColumnName="NHSNumber" />
+                <ScalarProperty Name="Forename" ColumnName="Forename" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sites">
+            <EntityTypeMapping TypeName="Model.Site">
+              <MappingFragment StoreEntitySet="Sites">
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="SiteCode" ColumnName="SiteCode" />
+                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specilaties">
+            <EntityTypeMapping TypeName="Model.Specilaty">
+              <MappingFragment StoreEntitySet="Specilaties">
+                <ScalarProperty Name="SpecilatiesID" ColumnName="SpecilatiesID" />
+                <ScalarProperty Name="Specilaties_Name" ColumnName="Specilaties Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnavailableCaseNotes">
+            <EntityTypeMapping TypeName="Model.UnavailableCaseNote">
+              <MappingFragment StoreEntitySet="UnavailableCaseNotes">
+                <ScalarProperty Name="UnavailableCaseNotesID" ColumnName="UnavailableCaseNotesID" />
+                <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
+                <ScalarProperty Name="PatientID" ColumnName="PatientID" />
+                <ScalarProperty Name="ReasonUnavailableID" ColumnName="ReasonUnavailableID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginRights">
+            <EntityTypeMapping TypeName="Model.LoginRight">
+              <MappingFragment StoreEntitySet="LoginRights">
+                <ScalarProperty Name="RightID" ColumnName="RightID" />
+                <ScalarProperty Name="RightName" ColumnName="RightName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginRoleRights">
+            <EntityTypeMapping TypeName="Model.LoginRoleRight">
+              <MappingFragment StoreEntitySet="LoginRoleRights">
+                <ScalarProperty Name="RoleRightID" ColumnName="RoleRightID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="RightID" ColumnName="RightID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoginRoles">
+            <EntityTypeMapping TypeName="Model.LoginRole">
+              <MappingFragment StoreEntitySet="LoginRoles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogActions">
+            <EntityTypeMapping TypeName="Model.LogAction">
+              <MappingFragment StoreEntitySet="LogActions">
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogDetails">
+            <EntityTypeMapping TypeName="Model.LogDetail">
+              <MappingFragment StoreEntitySet="LogDetails">
+                <ScalarProperty Name="DetailsID" ColumnName="DetailsID" />
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="Details" ColumnName="Details" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogErrors">
+            <EntityTypeMapping TypeName="Model.LogError">
+              <MappingFragment StoreEntitySet="LogErrors">
+                <ScalarProperty Name="LogErrorID" ColumnName="LogErrorID" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="LoggedTime" ColumnName="LoggedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logs">
+            <EntityTypeMapping TypeName="Model.Log">
+              <MappingFragment StoreEntitySet="Logs">
+                <ScalarProperty Name="LogID" ColumnName="LogID" />
+                <ScalarProperty Name="ActionID" ColumnName="ActionID" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="LoggedTime" ColumnName="LoggedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogSessions">
+            <EntityTypeMapping TypeName="Model.LogSession">
+              <MappingFragment StoreEntitySet="LogSessions">
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="Model.Person">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Forename" ColumnName="Forename" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="JobRole" ColumnName="JobRole" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonRoles">
+            <EntityTypeMapping TypeName="Model.PersonRole">
+              <MappingFragment StoreEntitySet="PersonRoles">
+                <ScalarProperty Name="PersonRoleID" ColumnName="PersonRoleID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonUniqueGuids">
+            <EntityTypeMapping TypeName="Model.PersonUniqueGuid">
+              <MappingFragment StoreEntitySet="PersonUniqueGuids">
+                <ScalarProperty Name="GuidID" ColumnName="GuidID" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditClincAnswers">
+            <EntityTypeMapping TypeName="Model.AuditClincAnswer">
+              <MappingFragment StoreEntitySet="AuditClincAnswers">
+                <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
+                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+                <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
+                <ScalarProperty Name="NumberOfAppointmentsAllocated" ColumnName="NumberOfAppointmentsAllocated" />
+                <ScalarProperty Name="CaseNotesAvailableStartCount" ColumnName="CaseNotesAvailableStartCount" />
+                <ScalarProperty Name="TemporaryNotesCount" ColumnName="TemporaryNotesCount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Genericusers">
+            <EntityTypeMapping TypeName="Model.Genericuser">
+              <MappingFragment StoreEntitySet="Genericusers">
+                <ScalarProperty Name="GenericusersID" ColumnName="GenericusersID" />
+                <ScalarProperty Name="Generic_users_Name" ColumnName="Generic users Name" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="List_ReasonUnavailable">
+            <EntityTypeMapping TypeName="Model.List_ReasonUnavailable">
+              <MappingFragment StoreEntitySet="List_ReasonUnavailable">
+                <ScalarProperty Name="ReasonUnavailableID" ColumnName="ReasonUnavailableID" />
+                <ScalarProperty Name="ReasonText" ColumnName="ReasonText" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequiresImprovementActionPoints">
+            <EntityTypeMapping TypeName="Model.RequiresImprovementActionPoint">
+              <MappingFragment StoreEntitySet="RequiresImprovementActionPoints">
+                <ScalarProperty Name="RequiresImprovementActionPointID" ColumnName="RequiresImprovementActionPointID" />
+                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+                <ScalarProperty Name="ActionPointComment" ColumnName="ActionPointComment" />
+                <ScalarProperty Name="ReviewedByUserID" ColumnName="ReviewedByUserID" />
+                <ScalarProperty Name="ReviewedDate" ColumnName="ReviewedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequiresImprovementDetails">
+            <EntityTypeMapping TypeName="Model.RequiresImprovementDetail">
+              <MappingFragment StoreEntitySet="RequiresImprovementDetails">
+                <ScalarProperty Name="RequiresImprovementDetailsID" ColumnName="RequiresImprovementDetailsID" />
+                <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+                <ScalarProperty Name="ImprovementReasonID" ColumnName="ImprovementReasonID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ReviewedByUserID" ColumnName="ReviewedByUserID" />
+                <ScalarProperty Name="ReviewedDate" ColumnName="ReviewedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="userroles">
+            <EntityTypeMapping TypeName="Model.userrole">
+              <MappingFragment StoreEntitySet="userrole">
+                <ScalarProperty Name="userroleID" ColumnName="userroleID" />
+                <ScalarProperty Name="user_role_Name" ColumnName="user role Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PersonGuid" TypeName="Model.PersonGuid" StoreEntitySet="PersonGuid">
+            <EndProperty Name="People">
+              <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+            </EndProperty>
+            <EndProperty Name="PersonUniqueGuids">
+              <ScalarProperty Name="GuidID" ColumnName="GuidID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

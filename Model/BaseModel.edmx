@@ -1,0 +1,381 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LogErrors">
+          <Key>
+            <PropertyRef Name="LogErrorID" />
+          </Key>
+          <Property Name="LogErrorID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SessionID" Type="int" />
+          <Property Name="Type" Type="varchar" MaxLength="100" />
+          <Property Name="Message" Type="varchar" MaxLength="250" />
+          <Property Name="StackTrace" Type="varchar" MaxLength="2000" />
+          <Property Name="Source" Type="varchar" MaxLength="100" />
+          <Property Name="LoggedTime" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogSessions">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="StartDateTime" Type="datetime" Nullable="false" />
+          <Property Name="EndDateTime" Type="datetime" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="People">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="64" />
+          <Property Name="Forename" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="Surname" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="JobRole" Type="varchar" MaxLength="100" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="320" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonGuid">
+          <Key>
+            <PropertyRef Name="GuidID" />
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="GuidID" Type="int" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonRoles">
+          <Key>
+            <PropertyRef Name="PersonRoleID" />
+          </Key>
+          <Property Name="PersonRoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="tinyint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PersonUniqueGuids">
+          <Key>
+            <PropertyRef Name="GuidID" />
+          </Key>
+          <Property Name="GuidID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Guid" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_LogErrors_LogSessions">
+          <End Role="LogSessions" Type="Self.LogSessions" Multiplicity="0..1" />
+          <End Role="LogErrors" Type="Self.LogErrors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogSessions">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="LogErrors">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogSessions_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="LogSessions" Type="Self.LogSessions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="LogSessions">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonGuid_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="PersonGuid" Type="Self.PersonGuid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonGuid">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonGuid_PersonUniqueGuids">
+          <End Role="PersonUniqueGuids" Type="Self.PersonUniqueGuids" Multiplicity="1" />
+          <End Role="PersonGuid" Type="Self.PersonGuid" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PersonUniqueGuids">
+              <PropertyRef Name="GuidID" />
+            </Principal>
+            <Dependent Role="PersonGuid">
+              <PropertyRef Name="GuidID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonRoles_People">
+          <End Role="People" Type="Self.People" Multiplicity="1" />
+          <End Role="PersonRoles" Type="Self.PersonRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonRoles">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="LogErrors" EntityType="Self.LogErrors" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="LogSessions" EntityType="Self.LogSessions" Schema="Log" store:Type="Tables" />
+          <EntitySet Name="People" EntityType="Self.People" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonGuid" EntityType="Self.PersonGuid" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonRoles" EntityType="Self.PersonRoles" Schema="Person" store:Type="Tables" />
+          <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuids" Schema="Person" store:Type="Tables" />
+          <AssociationSet Name="FK_LogErrors_LogSessions" Association="Self.FK_LogErrors_LogSessions">
+            <End Role="LogSessions" EntitySet="LogSessions" />
+            <End Role="LogErrors" EntitySet="LogErrors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogSessions_People" Association="Self.FK_LogSessions_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="LogSessions" EntitySet="LogSessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonGuid_People" Association="Self.FK_PersonGuid_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonGuid" EntitySet="PersonGuid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonGuid_PersonUniqueGuids" Association="Self.FK_PersonGuid_PersonUniqueGuids">
+            <End Role="PersonUniqueGuids" EntitySet="PersonUniqueGuids" />
+            <End Role="PersonGuid" EntitySet="PersonGuid" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonRoles_People" Association="Self.FK_PersonRoles_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonRoles" EntitySet="PersonRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="LogError">
+          <Key>
+            <PropertyRef Name="LogErrorID" />
+          </Key>
+          <Property Name="LogErrorID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SessionID" Type="Int32" />
+          <Property Name="Type" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Message" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="StackTrace" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
+          <Property Name="Source" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LoggedTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="LogSession" Relationship="Self.FK_LogErrors_LogSessions" FromRole="LogErrors" ToRole="LogSessions" />
+        </EntityType>
+        <EntityType Name="LogSession">
+          <Key>
+            <PropertyRef Name="SessionID" />
+          </Key>
+          <Property Name="SessionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="StartDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="EndDateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LogErrors" Relationship="Self.FK_LogErrors_LogSessions" FromRole="LogSessions" ToRole="LogErrors" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_LogSessions_People" FromRole="LogSessions" ToRole="People" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="64" FixedLength="false" Unicode="false" />
+          <Property Name="Forename" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Surname" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="JobRole" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="320" FixedLength="false" Unicode="false" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LogSessions" Relationship="Self.FK_LogSessions_People" FromRole="People" ToRole="LogSessions" />
+          <NavigationProperty Name="PersonRoles" Relationship="Self.FK_PersonRoles_People" FromRole="People" ToRole="PersonRoles" />
+          <NavigationProperty Name="PersonUniqueGuids" Relationship="Self.PersonGuid" FromRole="People" ToRole="PersonUniqueGuids" />
+        </EntityType>
+        <EntityType Name="PersonRole">
+          <Key>
+            <PropertyRef Name="PersonRoleID" />
+          </Key>
+          <Property Name="PersonRoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Byte" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Person" Relationship="Self.FK_PersonRoles_People" FromRole="PersonRoles" ToRole="People" />
+        </EntityType>
+        <EntityType Name="PersonUniqueGuid">
+          <Key>
+            <PropertyRef Name="GuidID" />
+          </Key>
+          <Property Name="GuidID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Guid" Type="Guid" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="People" Relationship="Self.PersonGuid" FromRole="PersonUniqueGuids" ToRole="People" />
+        </EntityType>
+        <Association Name="FK_LogErrors_LogSessions">
+          <End Role="LogSessions" Type="Self.LogSession" Multiplicity="0..1" />
+          <End Role="LogErrors" Type="Self.LogError" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LogSessions">
+              <PropertyRef Name="SessionID" />
+            </Principal>
+            <Dependent Role="LogErrors">
+              <PropertyRef Name="SessionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogSessions_People">
+          <End Role="People" Type="Self.Person" Multiplicity="1" />
+          <End Role="LogSessions" Type="Self.LogSession" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="LogSessions">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonRoles_People">
+          <End Role="People" Type="Self.Person" Multiplicity="1" />
+          <End Role="PersonRoles" Type="Self.PersonRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="People">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="PersonRoles">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonGuid">
+          <End Role="People" Type="Self.Person" Multiplicity="*" />
+          <End Role="PersonUniqueGuids" Type="Self.PersonUniqueGuid" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="CaseNotesAvailabilityEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LogErrors" EntityType="Self.LogError" />
+          <EntitySet Name="LogSessions" EntityType="Self.LogSession" />
+          <EntitySet Name="People" EntityType="Self.Person" />
+          <EntitySet Name="PersonRoles" EntityType="Self.PersonRole" />
+          <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuid" />
+          <AssociationSet Name="FK_LogErrors_LogSessions" Association="Self.FK_LogErrors_LogSessions">
+            <End Role="LogSessions" EntitySet="LogSessions" />
+            <End Role="LogErrors" EntitySet="LogErrors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogSessions_People" Association="Self.FK_LogSessions_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="LogSessions" EntitySet="LogSessions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonRoles_People" Association="Self.FK_PersonRoles_People">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonRoles" EntitySet="PersonRoles" />
+          </AssociationSet>
+          <AssociationSet Name="PersonGuid" Association="Self.PersonGuid">
+            <End Role="People" EntitySet="People" />
+            <End Role="PersonUniqueGuids" EntitySet="PersonUniqueGuids" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CaseNotesAvailabilityEntities">
+          <EntitySetMapping Name="LogErrors">
+            <EntityTypeMapping TypeName="Model.LogError">
+              <MappingFragment StoreEntitySet="LogErrors">
+                <ScalarProperty Name="LogErrorID" ColumnName="LogErrorID" />
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="StackTrace" ColumnName="StackTrace" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="LoggedTime" ColumnName="LoggedTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogSessions">
+            <EntityTypeMapping TypeName="Model.LogSession">
+              <MappingFragment StoreEntitySet="LogSessions">
+                <ScalarProperty Name="SessionID" ColumnName="SessionID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="StartDateTime" ColumnName="StartDateTime" />
+                <ScalarProperty Name="EndDateTime" ColumnName="EndDateTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="Model.Person">
+              <MappingFragment StoreEntitySet="People">
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Forename" ColumnName="Forename" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="JobRole" ColumnName="JobRole" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonRoles">
+            <EntityTypeMapping TypeName="Model.PersonRole">
+              <MappingFragment StoreEntitySet="PersonRoles">
+                <ScalarProperty Name="PersonRoleID" ColumnName="PersonRoleID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PersonUniqueGuids">
+            <EntityTypeMapping TypeName="Model.PersonUniqueGuid">
+              <MappingFragment StoreEntitySet="PersonUniqueGuids">
+                <ScalarProperty Name="GuidID" ColumnName="GuidID" />
+                <ScalarProperty Name="Guid" ColumnName="Guid" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PersonGuid" TypeName="Model.PersonGuid" StoreEntitySet="PersonGuid">
+            <EndProperty Name="People">
+              <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+            </EndProperty>
+            <EndProperty Name="PersonUniqueGuids">
+              <ScalarProperty Name="GuidID" ColumnName="GuidID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

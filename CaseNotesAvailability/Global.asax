@@ -1,0 +1,1 @@
+<%@ Application Codebehind="Global.asax.cs" Inherits="CaseNotesAvailability.Global_asax" Language="C#" %>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b683a50f023c4017aeb8b97012ff5462" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Audit" Width="1.5" PointX="10.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Issue" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Patient" Width="1.5" PointX="5.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Site" Width="1.5" PointX="10.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Specilaty" Width="1.5" PointX="2.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UnavailableCaseNote" Width="1.5" PointX="8" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LoginRight" Width="1.5" PointX="5.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LoginRoleRight" Width="1.5" PointX="8" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LoginRole" Width="1.5" PointX="5.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LogAction" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LogDetail" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LogError" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Log" Width="1.5" PointX="8.25" PointY="3.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LogSession" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Person" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PersonRole" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.PersonUniqueGuid" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AuditClincAnswer" Width="1.5" PointX="10.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Genericuser" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.List_ReasonUnavailable" Width="1.5" PointX="2.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RequiresImprovementActionPoint" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RequiresImprovementDetail" Width="1.5" PointX="12.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.userrole" Width="1.5" PointX="12.75" PointY="8.125" IsExpanded="true" />
+        <AssociationConnector Association="Model.FK_Patients_Patients" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_UnavailableCaseNotes_Patients" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LoginRoleRights_LoginRights" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LoginRoleRights_LoginRoles" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Logs_LogActions" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LogDetails_Logs" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LogErrors_LogSessions" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_Logs_LogSessions" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_LogSessions_People" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_PersonRoles_People" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.PersonGuid" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

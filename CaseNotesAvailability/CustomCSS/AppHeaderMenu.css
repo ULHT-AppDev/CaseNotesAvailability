@@ -1,0 +1,66 @@
+﻿#Header {
+    position: fixed;
+    height: 60px;
+    top: 0px;
+    left: 0px;
+    background: #646264;
+    z-index: 8;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.30);
+    -webkit-box-shadow: 0px -2px 8px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px -2px 8px rgba(0,0,0,0.6);
+}
+
+#SideMainContainer {
+    height: 100%;
+    width: 100%;
+    margin-top: 60px;
+}
+
+.AppLinkAnchor {
+    text-decoration: none;
+}
+
+.AdminMenu {
+    border: none !important;
+    background-color: rgba(0,0,0,0) !important;
+}
+
+.AdminMenuItem {
+    height: 60px;
+}
+
+.MenuSubMenuItem {
+    padding: 10px;
+    background: #646264;
+}
+
+
+.MenuSubMenu {
+    border: none !important;
+}
+
+
+
+@media only screen and (max-width:710px) {
+    .AdminMenuItem {
+        padding: 0px !important;
+    }
+}
+
+@media only screen and (max-width:1000px) {
+    #AppHeaderContainer {
+        display: none;
+    }
+}
+
+@media only screen and (min-width:900px) {
+    .adminNavMenuIcon {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width:678px) {
+    #LoggedInUser {
+        display: none;
+    }
+}

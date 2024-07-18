@@ -14,7 +14,7 @@ namespace DAL
         public List<AuditBO> GetAudit()
         {
 
-            using (var ctx = new Model.CaseNotesAvailabilityEntities())
+            using (var ctx = new Model.Entities())
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
@@ -34,7 +34,7 @@ namespace DAL
 
         public List<AuditClinicAnswersBO> GetAuditClincAnswers()
         {
-            using (var ctx = new Model.CaseNotesAvailabilityEntities())
+            using (var ctx = new Model.Entities())
             {
                 return (from u in ctx.AuditClincAnswers
                             //where u.IsActive 
@@ -53,14 +53,15 @@ namespace DAL
 
         public List<SitesBO> GetSites()
         {
-            using (var ctx = new Model.CaseNotesAvailabilityEntities())
+            using (var ctx = new Model.Entities())
             {
                 return (from u in ctx.Sites
                             //where u.IsActive 
                         select new BusinessObjects.SitesBO
                         {
-                          SiteId= u.Sites__SiteId,
+                          SiteId= u.SiteId,
                           SiteName= u.SiteName,
+                          SiteCode = u.SiteCode
                             //,isactive = u.IsActive
                         }).ToList();
             }
@@ -68,7 +69,7 @@ namespace DAL
 
         public List<SpecilatyBO> GetSpeciality()
         {
-            using (var ctx = new Model.CaseNotesAvailabilityEntities())
+            using (var ctx = new Model.Entities())
             {
                 return (from u in ctx.Specilaties
                             //where u.IsActive 

@@ -13,10 +13,10 @@ namespace Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CNAEntities : DbContext
+    public partial class CNAModel : DbContext
     {
-        public CNAEntities()
-            : base("name=CNAEntities")
+        public CNAModel()
+            : base("name=CNAModel")
         {
         }
     
@@ -26,10 +26,12 @@ namespace Model
         }
     
         public virtual DbSet<Audit> Audits { get; set; }
+        public virtual DbSet<AuditClincAnswer> AuditClincAnswers { get; set; }
         public virtual DbSet<Issue> Issues { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
         public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<Specilaty> Specilaties { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UnavailableCaseNote> UnavailableCaseNotes { get; set; }
         public virtual DbSet<LoginRight> LoginRights { get; set; }
         public virtual DbSet<LoginRoleRight> LoginRoleRights { get; set; }
@@ -42,7 +44,6 @@ namespace Model
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<PersonRole> PersonRoles { get; set; }
         public virtual DbSet<PersonUniqueGuid> PersonUniqueGuids { get; set; }
-        public virtual DbSet<AuditClincAnswer> AuditClincAnswers { get; set; }
         public virtual DbSet<Genericuser> Genericusers { get; set; }
         public virtual DbSet<List_ReasonUnavailable> List_ReasonUnavailable { get; set; }
         public virtual DbSet<RequiresImprovementActionPoint> RequiresImprovementActionPoints { get; set; }

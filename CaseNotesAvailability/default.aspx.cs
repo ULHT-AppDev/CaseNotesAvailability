@@ -17,14 +17,14 @@ namespace CaseNotesAvailability
         }
         protected void Audit_Updating(object sender, ObjectDataSourceMethodEventArgs e)
         {
-            var obj = e.InputParameters["AuditID"] as AuditBO;
+            var obj = e.InputParameters["Audit"] as AuditBO;
             short test = Login.CookieHelper.GetCookieUserID();
             obj.CreatedByUserID = (byte)test;
         }
 
         protected void Audit_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
         {
-            var obj = e.InputParameters["AuditID"] as AuditBO;
+            var obj = e.InputParameters["Audit"] as AuditBO;
             short test = Login.CookieHelper.GetCookieUserID();
             obj.CreatedByUserID = (byte)test;
             //obj.Date = DateTime.Now;

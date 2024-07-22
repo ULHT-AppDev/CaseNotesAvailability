@@ -11,7 +11,7 @@ namespace DAL
     {
         public int CreateNewSession(int userID)
         {
-            using (var ctx = new Model.CNAEntities())
+            using (var ctx = new Model.CNAModel())
             {
                 LogSession newSession = new LogSession()
                 {
@@ -30,7 +30,7 @@ namespace DAL
 
         public void EndUserSession(int sessionID)
         {
-            using (var ctx = new Model.CNAEntities())
+            using (var ctx = new Model.CNAModel())
             {
                 var session = ctx.LogSessions.Where(x => x.SessionID == sessionID).First();
                 session.EndDateTime = System.DateTime.Now;
@@ -40,7 +40,7 @@ namespace DAL
 
         public void LogError(ErrorLog le)
         {
-            using (var ctx = new Model.CNAEntities())
+            using (var ctx = new Model.CNAModel())
             {
                 LogError lg = new LogError()
                 {

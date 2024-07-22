@@ -14,7 +14,7 @@ namespace DAL
         public List<AuditBO> GetAudit()
         {
 
-            using (var ctx = new Model.CNAEntities())
+            using (var ctx = new Model.CNAModel())
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
@@ -34,7 +34,7 @@ namespace DAL
 
         public List<AuditClinicAnswersBO> GetAuditClincAnswers()
         {
-            using (var ctx = new Model.CNAEntities())
+            using (var ctx = new Model.CNAModel())
             {
                 return (from u in ctx.AuditClincAnswers
                             //where u.IsActive 
@@ -53,7 +53,7 @@ namespace DAL
 
         public List<SitesBO> GetSites()
         {
-            using (var ctx = new Model.CNAEntities())
+            using (var ctx = new Model.CNAModel())
             {
                 return (from u in ctx.Sites
                             //where u.IsActive 
@@ -69,7 +69,7 @@ namespace DAL
 
         public List<SpecilatyBO> GetSpeciality()
         {
-            using (var ctx = new Model.CNAEntities())
+            using (var ctx = new Model.CNAModel())
             {
                 return (from u in ctx.Specilaties
                             //where u.IsActive 
@@ -84,7 +84,7 @@ namespace DAL
 
         public void InsertAudit(AuditBO audit)
         {
-            using (var ctxIns = new Model.CNAEntities())
+            using (var ctxIns = new Model.CNAModel())
             {
                 using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
                 {

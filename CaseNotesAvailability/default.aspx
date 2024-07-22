@@ -3,7 +3,7 @@
 <%--<%@ Register Src="~/UserControl/UserAlertControl/UserAlertPopupControl.ascx" TagPrefix="uc1" TagName="UserAlertPopupControl" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script src="CustomJS/Default.js"></script>
+  
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -29,11 +29,11 @@
                         <Items>
                             <dx:GridViewColumnLayoutItem ColumnName="AuditID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="Date" Width="300" Height="30" ColSpan="1"></dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem Caption="Specialty ID" Width="300" ColumnName="SpecilatiesID" ColSpan="1"></dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem Caption="Specilaties Name" Width="300" ColumnName="Specialities" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem Caption="SiteID" ColumnName="SiteID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes" Width="400" Height="30" ColSpan="1"></dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem Caption="CreatedByUserID" ColumnName="CreatedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem Caption="CompletedByUserID" ColumnName="CompletedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem Caption="CreatedByUserID"  Visible ="false" ColumnName="CreatedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem Caption="CompletedByUserID" Visible ="false" ColumnName="CompletedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem Caption="DueByDate" ColumnName="AuditDate" Width="300" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:EditModeCommandLayoutItem ColSpan="1"></dx:EditModeCommandLayoutItem>
                         </Items>
@@ -56,7 +56,7 @@
                 <dx:GridViewCommandColumn VisibleIndex="0" Width="100px" Caption="Edit" ShowNewButtonInHeader="true" ShowEditButton="true" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
                 <dx:GridViewDataTextColumn Caption="AuditID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100"></dx:GridViewDataTextColumn>
                 <dx:GridViewDataDateColumn Caption="Date" PropertiesDateEdit-ClientInstanceName="AuditDate" FieldName="Date" VisibleIndex="2" MinWidth="50" MaxWidth="100" PropertiesDateEdit-ValidationSettings-Display="Dynamic" PropertiesDateEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesDateEdit-ValidationSettings-RequiredField-ErrorText="Please enter a date"></dx:GridViewDataDateColumn>
-                <dx:GridViewDataComboBoxColumn Caption="Specialities" PropertiesComboBox-ClientInstanceName="Specialities" FieldName="SpecilatiesName" VisibleIndex="3" MinWidth="200" MaxWidth="500" PropertiesComboBox-ValidationSettings-Display="Dynamic" PropertiesComboBox-ValidationSettings-RequiredField-IsRequired="true" PropertiesComboBox-ValidationSettings-RequiredField-ErrorText="Please enter Application Type">
+                <dx:GridViewDataComboBoxColumn Caption="Specialities" PropertiesComboBox-ClientInstanceName="Specialities" FieldName="SpecialtyID" VisibleIndex="3" MinWidth="200" MaxWidth="500" PropertiesComboBox-ValidationSettings-Display="Dynamic" PropertiesComboBox-ValidationSettings-RequiredField-IsRequired="true" PropertiesComboBox-ValidationSettings-RequiredField-ErrorText="Please enter Application Type">
                     <PropertiesComboBox DataSourceID="GetSpeciality" TextField="SpecilatiesName" ValueField="SpecilatiesID"></PropertiesComboBox>
                 </dx:GridViewDataComboBoxColumn>
                 <dx:GridViewDataComboBoxColumn Caption="Sites" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true" PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="SiteID" VisibleIndex="4" MinWidth="200" MaxWidth="400">
@@ -64,7 +64,7 @@
                 </dx:GridViewDataComboBoxColumn>
                 <dx:GridViewDataDateColumn Caption="Date" PropertiesDateEdit-ClientInstanceName="AuditDate" FieldName="Date" VisibleIndex="5" MinWidth="200" MaxWidth="200" PropertiesDateEdit-ValidationSettings-Display="Dynamic" PropertiesDateEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesDateEdit-ValidationSettings-RequiredField-ErrorText="Please enter a date"></dx:GridViewDataDateColumn>
                 <dx:GridViewDataMemoColumn FieldName="ClinicCodes" VisibleIndex="6" PropertiesMemoEdit-MaxLength="255" MinWidth="200" MaxWidth="500" PropertiesMemoEdit-ValidationSettings-Display="Dynamic" PropertiesMemoEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesMemoEdit-ValidationSettings-RequiredField-ErrorText="Please enter Clinic codes"></dx:GridViewDataMemoColumn>
-                <dx:GridViewDataTextColumn Caption="CreatedByUserID" ReadOnly="true" FieldName="AuditID" VisibleIndex="7" MinWidth="50" MaxWidth="100"></dx:GridViewDataTextColumn>
+                <dx:GridViewDataTextColumn Caption="CreatedByUserID" Visible ="false" ReadOnly="true" FieldName="AuditID" VisibleIndex="7" MinWidth="50" MaxWidth="100"></dx:GridViewDataTextColumn>
                 <dx:GridViewDataDateColumn Caption="DueByDate" PropertiesDateEdit-ClientInstanceName="DueByDate" FieldName="Date" VisibleIndex="8" MinWidth="50" MaxWidth="100" PropertiesDateEdit-ValidationSettings-Display="Dynamic" PropertiesDateEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesDateEdit-ValidationSettings-RequiredField-ErrorText="Please enter a date"></dx:GridViewDataDateColumn>
             </Columns>
             <Settings ShowFilterRow="true" />

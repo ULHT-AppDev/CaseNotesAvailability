@@ -40,22 +40,7 @@ namespace CaseNotesAvailability
             }
             else
             {
-                //if (valDiff.Keys.Contains("ITNumber"))
-                //{
-                //    var iTNumber = e.NewValues["ITNumber"];
-                //    ITNNumberChanged = true;
-
-                //    //check for duplication if it number is not null
-                //    if (iTNumber != null)
-                //    {
-                //        var rowID = grid.EditingRowVisibleIndex;
-
-                //        if (HandleITNumberDuplication(grid, iTNumber.ToString().ToLower(), rowID))
-                //        {
-                //            e.Cancel = true;
-                //        }
-                //    }
-                //}
+            
                 e.Cancel = false;
             }
 

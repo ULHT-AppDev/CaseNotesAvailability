@@ -3,7 +3,6 @@
 <%--<%@ Register Src="~/UserControl/UserAlertControl/UserAlertPopupControl.ascx" TagPrefix="uc1" TagName="UserAlertPopupControl" %>--%>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-  
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -29,11 +28,11 @@
                         <Items>
                             <dx:GridViewColumnLayoutItem ColumnName="AuditID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="Date" Width="300" Height="30" ColSpan="1"></dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem Caption="Specilaties Name" Width="300" ColumnName="Specialities" ColSpan="1"></dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem Caption="Specilaties Name" Width="300" ColumnName="SpecialtyID" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem Caption="SiteID" ColumnName="SiteID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes" Width="400" Height="30" ColSpan="1"></dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem Caption="CreatedByUserID"  Visible ="false" ColumnName="CreatedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem Caption="CompletedByUserID" Visible ="false" ColumnName="CompletedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem Caption="CreatedByUserID" Visible="false" ColumnName="CreatedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem Caption="CompletedByUserID" Visible="false" ColumnName="CompletedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem Caption="DueByDate" ColumnName="AuditDate" Width="300" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:EditModeCommandLayoutItem ColSpan="1"></dx:EditModeCommandLayoutItem>
                         </Items>
@@ -42,15 +41,17 @@
                 </Items>
             </EditFormLayoutProperties>
 
-            <%--   <SettingsDataSecurity AllowInsert="false" />
-        <EditFormLayoutProperties>
-            <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="700" />
-        </EditFormLayoutProperties>
-        <SettingsPopup>
-            <EditForm Width="600">
-                <SettingsAdaptivity Mode="OnWindowInnerWidth" SwitchAtWindowInnerWidth="768" />
-            </EditForm>
-        </SettingsPopup>--%>
+            <%--   
+                <SettingsDataSecurity AllowInsert="false" />
+                    <EditFormLayoutProperties>
+                        <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="700" />
+                    </EditFormLayoutProperties>
+                    <SettingsPopup>
+                        <EditForm Width="600">
+                            <SettingsAdaptivity Mode="OnWindowInnerWidth" SwitchAtWindowInnerWidth="768" />
+                        </EditForm>
+                    </SettingsPopup>
+            --%>
 
             <Columns>
                 <dx:GridViewCommandColumn VisibleIndex="0" Width="100px" Caption="Edit" ShowNewButtonInHeader="true" ShowEditButton="true" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
@@ -64,7 +65,7 @@
                 </dx:GridViewDataComboBoxColumn>
                 <dx:GridViewDataDateColumn Caption="Date" PropertiesDateEdit-ClientInstanceName="AuditDate" FieldName="Date" VisibleIndex="5" MinWidth="200" MaxWidth="200" PropertiesDateEdit-ValidationSettings-Display="Dynamic" PropertiesDateEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesDateEdit-ValidationSettings-RequiredField-ErrorText="Please enter a date"></dx:GridViewDataDateColumn>
                 <dx:GridViewDataMemoColumn FieldName="ClinicCodes" VisibleIndex="6" PropertiesMemoEdit-MaxLength="255" MinWidth="200" MaxWidth="500" PropertiesMemoEdit-ValidationSettings-Display="Dynamic" PropertiesMemoEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesMemoEdit-ValidationSettings-RequiredField-ErrorText="Please enter Clinic codes"></dx:GridViewDataMemoColumn>
-                <dx:GridViewDataTextColumn Caption="CreatedByUserID" Visible ="false" ReadOnly="true" FieldName="AuditID" VisibleIndex="7" MinWidth="50" MaxWidth="100"></dx:GridViewDataTextColumn>
+                <dx:GridViewDataTextColumn Caption="CreatedByUserID" Visible="false" ReadOnly="true" FieldName="AuditID" VisibleIndex="7" MinWidth="50" MaxWidth="100"></dx:GridViewDataTextColumn>
                 <dx:GridViewDataDateColumn Caption="DueByDate" PropertiesDateEdit-ClientInstanceName="DueByDate" FieldName="Date" VisibleIndex="8" MinWidth="50" MaxWidth="100" PropertiesDateEdit-ValidationSettings-Display="Dynamic" PropertiesDateEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesDateEdit-ValidationSettings-RequiredField-ErrorText="Please enter a date"></dx:GridViewDataDateColumn>
             </Columns>
             <Settings ShowFilterRow="true" />

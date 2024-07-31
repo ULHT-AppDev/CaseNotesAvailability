@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="AuditID" />
           </Key>
-          <Property Name="AuditID" Type="int" Nullable="false" />
+          <Property Name="AuditID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Date" Type="date" />
           <Property Name="SpecialtyID" Type="int" Nullable="false" />
           <Property Name="SiteID" Type="int" Nullable="false" />
@@ -18,7 +18,7 @@
           <Property Name="DueByDate" Type="date" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <EntityType Name="AuditClincAnswers">
+        <EntityType Name="AuditClinicAnswers">
           <Key>
             <PropertyRef Name="AuditClinicAnswersID" />
           </Key>
@@ -30,35 +30,12 @@
           <Property Name="TemporaryNotesCount" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.Genericusers' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="Genericusers">
-          <Key>
-            <PropertyRef Name="GenericusersID" />
-            <PropertyRef Name="Generic users Name" />
-            <PropertyRef Name="IsActive" />
-          </Key>
-          <Property Name="GenericusersID" Type="int" Nullable="false" />
-          <Property Name="Generic users Name" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
-        </EntityType>
         <EntityType Name="Issues">
           <Key>
             <PropertyRef Name="Issue ID" />
           </Key>
           <Property Name="Issue ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Issue" Type="varchar" MaxLength="50" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.List.ReasonUnavailable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="List_ReasonUnavailable">
-          <Key>
-            <PropertyRef Name="ReasonUnavailableID" />
-            <PropertyRef Name="IsActive" />
-          </Key>
-          <Property Name="ReasonUnavailableID" Type="int" Nullable="false" />
-          <Property Name="ReasonText" Type="nvarchar" MaxLength="100" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Patients">
           <Key>
@@ -103,21 +80,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.RequiresImprovementD
           <Property Name="ReviewedByUserID" Type="int" Nullable="false" />
           <Property Name="ReviewedDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Sites">
-          <Key>
-            <PropertyRef Name="SiteId" />
-          </Key>
-          <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SiteCode" Type="varchar" MaxLength="10" Nullable="false" />
-          <Property Name="SiteName" Type="varchar" MaxLength="50" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Specilaties">
-          <Key>
-            <PropertyRef Name="SpecilatiesID" />
-          </Key>
-          <Property Name="SpecilatiesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="SpecilatiesName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -172,6 +134,32 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           <Property Name="RoleID" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Role" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ReasonUnavailable">
+          <Key>
+            <PropertyRef Name="ReasonUnavailableID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="ReasonUnavailableID" Type="int" Nullable="false" />
+          <Property Name="ReasonText" Type="nvarchar" MaxLength="100" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Sites">
+          <Key>
+            <PropertyRef Name="SiteId" />
+          </Key>
+          <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SiteCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="SiteName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Specialities">
+          <Key>
+            <PropertyRef Name="SpecilatiesID" />
+          </Key>
+          <Property Name="SpecilatiesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SpecilatiesName" Type="nvarchar" MaxLength="50" Nullable="false" />
         </EntityType>
         <EntityType Name="LogActions">
           <Key>
@@ -405,16 +393,16 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
         </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Audit" EntityType="Self.Audit" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="AuditClincAnswers" EntityType="Self.AuditClincAnswers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditClinicAnswers" EntityType="Self.AuditClinicAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Issues" EntityType="Self.Issues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Sites" EntityType="Self.Sites" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Specilaties" EntityType="Self.Specilaties" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnavailableCaseNotes" EntityType="Self.UnavailableCaseNotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginRights" EntityType="Self.LoginRights" Schema="List" store:Type="Tables" />
           <EntitySet Name="LoginRoleRights" EntityType="Self.LoginRoleRights" Schema="List" store:Type="Tables" />
           <EntitySet Name="LoginRoles" EntityType="Self.LoginRoles" Schema="List" store:Type="Tables" />
+          <EntitySet Name="Sites" EntityType="Self.Sites" Schema="List" store:Type="Tables" />
+          <EntitySet Name="Specialities" EntityType="Self.Specialities" Schema="List" store:Type="Tables" />
           <EntitySet Name="LogActions" EntityType="Self.LogActions" Schema="Log" store:Type="Tables" />
           <EntitySet Name="LogDetails" EntityType="Self.LogDetails" Schema="Log" store:Type="Tables" />
           <EntitySet Name="LogErrors" EntityType="Self.LogErrors" Schema="Log" store:Type="Tables" />
@@ -424,20 +412,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           <EntitySet Name="PersonGuid" EntityType="Self.PersonGuid" Schema="Person" store:Type="Tables" />
           <EntitySet Name="PersonRoles" EntityType="Self.PersonRoles" Schema="Person" store:Type="Tables" />
           <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuids" Schema="Person" store:Type="Tables" />
-          <EntitySet Name="Genericusers" EntityType="Self.Genericusers" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Genericusers].[GenericusersID] AS [GenericusersID], 
-    [Genericusers].[Generic users Name] AS [Generic users Name], 
-    [Genericusers].[IsActive] AS [IsActive]
-    FROM [dbo].[Genericusers] AS [Genericusers]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="List_ReasonUnavailable" EntityType="Self.List_ReasonUnavailable" store:Type="Tables" store:Schema="dbo" store:Name="List.ReasonUnavailable">
-            <DefiningQuery>SELECT 
-    [List_ReasonUnavailable].[ReasonUnavailableID] AS [ReasonUnavailableID], 
-    [List_ReasonUnavailable].[ReasonText] AS [ReasonText], 
-    [List_ReasonUnavailable].[IsActive] AS [IsActive]
-    FROM [dbo].[List.ReasonUnavailable] AS [List_ReasonUnavailable]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="RequiresImprovementActionPoints" EntityType="Self.RequiresImprovementActionPoints" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [RequiresImprovementActionPoints].[RequiresImprovementActionPointID] AS [RequiresImprovementActionPointID], 
@@ -464,6 +438,13 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
     [userrole].[userroleID] AS [userroleID], 
     [userrole].[user role Name] AS [user role Name]
     FROM [dbo].[userrole] AS [userrole]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ReasonUnavailable" EntityType="Self.ReasonUnavailable" store:Type="Tables" store:Schema="List">
+            <DefiningQuery>SELECT 
+    [ReasonUnavailable].[ReasonUnavailableID] AS [ReasonUnavailableID], 
+    [ReasonUnavailable].[ReasonText] AS [ReasonText], 
+    [ReasonUnavailable].[IsActive] AS [IsActive]
+    FROM [List].[ReasonUnavailable] AS [ReasonUnavailable]</DefiningQuery>
           </EntitySet>
           <AssociationSet Name="FK_LogDetails_Logs" Association="Self.FK_LogDetails_Logs">
             <End Role="Logs" EntitySet="Logs" />
@@ -523,7 +504,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           <Key>
             <PropertyRef Name="AuditID" />
           </Key>
-          <Property Name="AuditID" Type="Int32" Nullable="false" />
+          <Property Name="AuditID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="SpecialtyID" Type="Int32" Nullable="false" />
           <Property Name="SiteID" Type="Int32" Nullable="false" />
@@ -532,7 +513,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           <Property Name="DueByDate" Type="DateTime" Precision="0" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
-        <EntityType Name="AuditClincAnswer">
+        <EntityType Name="AuditClinicAnswer">
           <Key>
             <PropertyRef Name="AuditClinicAnswersID" />
           </Key>
@@ -564,21 +545,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           <NavigationProperty Name="Patients1" Relationship="Self.FK_Patients_Patients" FromRole="Patients" ToRole="Patients1" />
           <NavigationProperty Name="Patient1" Relationship="Self.FK_Patients_Patients" FromRole="Patients1" ToRole="Patients" />
           <NavigationProperty Name="UnavailableCaseNotes" Relationship="Self.FK_UnavailableCaseNotes_Patients" FromRole="Patients" ToRole="UnavailableCaseNotes" />
-        </EntityType>
-        <EntityType Name="Site">
-          <Key>
-            <PropertyRef Name="SiteId" />
-          </Key>
-          <Property Name="SiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SiteCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="SiteName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Specilaty">
-          <Key>
-            <PropertyRef Name="SpecilatiesID" />
-          </Key>
-          <Property Name="SpecilatiesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="SpecilatiesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -628,6 +594,21 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="LoginRoleRights" Relationship="Self.FK_LoginRoleRights_LoginRoles" FromRole="LoginRoles" ToRole="LoginRoleRights" />
+        </EntityType>
+        <EntityType Name="Site">
+          <Key>
+            <PropertyRef Name="SiteId" />
+          </Key>
+          <Property Name="SiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SiteCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SiteName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Speciality">
+          <Key>
+            <PropertyRef Name="SpecilatiesID" />
+          </Key>
+          <Property Name="SpecilatiesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SpecilatiesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="LogAction">
           <Key>
@@ -721,25 +702,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="People" Relationship="Self.PersonGuid" FromRole="PersonUniqueGuids" ToRole="People" />
         </EntityType>
-        <EntityType Name="Genericuser">
-          <Key>
-            <PropertyRef Name="GenericusersID" />
-            <PropertyRef Name="Generic_users_Name" />
-            <PropertyRef Name="IsActive" />
-          </Key>
-          <Property Name="GenericusersID" Type="Int32" Nullable="false" />
-          <Property Name="Generic_users_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="List_ReasonUnavailable">
-          <Key>
-            <PropertyRef Name="ReasonUnavailableID" />
-            <PropertyRef Name="IsActive" />
-          </Key>
-          <Property Name="ReasonUnavailableID" Type="Int32" Nullable="false" />
-          <Property Name="ReasonText" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="RequiresImprovementActionPoint">
           <Key>
             <PropertyRef Name="RequiresImprovementActionPointID" />
@@ -776,6 +738,15 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           </Key>
           <Property Name="userroleID" Type="Int32" Nullable="false" />
           <Property Name="user_role_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReasonUnavailable">
+          <Key>
+            <PropertyRef Name="ReasonUnavailableID" />
+            <PropertyRef Name="IsActive" />
+          </Key>
+          <Property Name="ReasonUnavailableID" Type="Int32" Nullable="false" />
+          <Property Name="ReasonText" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Patients_Patients">
           <End Role="Patients" Type="Self.Patient" Multiplicity="1" />
@@ -903,16 +874,16 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
         </Association>
         <EntityContainer Name="CNAModel" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Audits" EntityType="Self.Audit" />
-          <EntitySet Name="AuditClincAnswers" EntityType="Self.AuditClincAnswer" />
+          <EntitySet Name="AuditClinicAnswers" EntityType="Self.AuditClinicAnswer" />
           <EntitySet Name="Issues" EntityType="Self.Issue" />
           <EntitySet Name="Patients" EntityType="Self.Patient" />
-          <EntitySet Name="Sites" EntityType="Self.Site" />
-          <EntitySet Name="Specilaties" EntityType="Self.Specilaty" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="UnavailableCaseNotes" EntityType="Self.UnavailableCaseNote" />
           <EntitySet Name="LoginRights" EntityType="Self.LoginRight" />
           <EntitySet Name="LoginRoleRights" EntityType="Self.LoginRoleRight" />
           <EntitySet Name="LoginRoles" EntityType="Self.LoginRole" />
+          <EntitySet Name="Sites" EntityType="Self.Site" />
+          <EntitySet Name="Specialities" EntityType="Self.Speciality" />
           <EntitySet Name="LogActions" EntityType="Self.LogAction" />
           <EntitySet Name="LogDetails" EntityType="Self.LogDetail" />
           <EntitySet Name="LogErrors" EntityType="Self.LogError" />
@@ -921,11 +892,10 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
           <EntitySet Name="People" EntityType="Self.Person" />
           <EntitySet Name="PersonRoles" EntityType="Self.PersonRole" />
           <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuid" />
-          <EntitySet Name="Genericusers" EntityType="Self.Genericuser" />
-          <EntitySet Name="List_ReasonUnavailable" EntityType="Self.List_ReasonUnavailable" />
           <EntitySet Name="RequiresImprovementActionPoints" EntityType="Self.RequiresImprovementActionPoint" />
           <EntitySet Name="RequiresImprovementDetails" EntityType="Self.RequiresImprovementDetail" />
           <EntitySet Name="userroles" EntityType="Self.userrole" />
+          <EntitySet Name="ReasonUnavailables" EntityType="Self.ReasonUnavailable" />
           <AssociationSet Name="FK_Patients_Patients" Association="Self.FK_Patients_Patients">
             <End Role="Patients" EntitySet="Patients" />
             <End Role="Patients1" EntitySet="Patients" />
@@ -991,9 +961,9 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="AuditClincAnswers">
-            <EntityTypeMapping TypeName="Model.AuditClincAnswer">
-              <MappingFragment StoreEntitySet="AuditClincAnswers">
+          <EntitySetMapping Name="AuditClinicAnswers">
+            <EntityTypeMapping TypeName="Model.AuditClinicAnswer">
+              <MappingFragment StoreEntitySet="AuditClinicAnswers">
                 <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
                 <ScalarProperty Name="AuditID" ColumnName="AuditID" />
                 <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
@@ -1021,23 +991,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
                 <ScalarProperty Name="Forename" ColumnName="Forename" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sites">
-            <EntityTypeMapping TypeName="Model.Site">
-              <MappingFragment StoreEntitySet="Sites">
-                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
-                <ScalarProperty Name="SiteCode" ColumnName="SiteCode" />
-                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Specilaties">
-            <EntityTypeMapping TypeName="Model.Specilaty">
-              <MappingFragment StoreEntitySet="Specilaties">
-                <ScalarProperty Name="SpecilatiesID" ColumnName="SpecilatiesID" />
-                <ScalarProperty Name="SpecilatiesName" ColumnName="SpecilatiesName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1087,6 +1040,23 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sites">
+            <EntityTypeMapping TypeName="Model.Site">
+              <MappingFragment StoreEntitySet="Sites">
+                <ScalarProperty Name="SiteId" ColumnName="SiteId" />
+                <ScalarProperty Name="SiteCode" ColumnName="SiteCode" />
+                <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Specialities">
+            <EntityTypeMapping TypeName="Model.Speciality">
+              <MappingFragment StoreEntitySet="Specialities">
+                <ScalarProperty Name="SpecilatiesID" ColumnName="SpecilatiesID" />
+                <ScalarProperty Name="SpecilatiesName" ColumnName="SpecilatiesName" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1176,24 +1146,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Genericusers">
-            <EntityTypeMapping TypeName="Model.Genericuser">
-              <MappingFragment StoreEntitySet="Genericusers">
-                <ScalarProperty Name="GenericusersID" ColumnName="GenericusersID" />
-                <ScalarProperty Name="Generic_users_Name" ColumnName="Generic users Name" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="List_ReasonUnavailable">
-            <EntityTypeMapping TypeName="Model.List_ReasonUnavailable">
-              <MappingFragment StoreEntitySet="List_ReasonUnavailable">
-                <ScalarProperty Name="ReasonUnavailableID" ColumnName="ReasonUnavailableID" />
-                <ScalarProperty Name="ReasonText" ColumnName="ReasonText" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="RequiresImprovementActionPoints">
             <EntityTypeMapping TypeName="Model.RequiresImprovementActionPoint">
               <MappingFragment StoreEntitySet="RequiresImprovementActionPoints">
@@ -1224,6 +1176,15 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not h
               <MappingFragment StoreEntitySet="userrole">
                 <ScalarProperty Name="userroleID" ColumnName="userroleID" />
                 <ScalarProperty Name="user_role_Name" ColumnName="user role Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReasonUnavailables">
+            <EntityTypeMapping TypeName="Model.ReasonUnavailable">
+              <MappingFragment StoreEntitySet="ReasonUnavailable">
+                <ScalarProperty Name="ReasonUnavailableID" ColumnName="ReasonUnavailableID" />
+                <ScalarProperty Name="ReasonText" ColumnName="ReasonText" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

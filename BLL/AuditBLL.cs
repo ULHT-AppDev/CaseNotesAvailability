@@ -15,10 +15,10 @@ namespace BLL
         {
             try
             {
-                List<AuditClinicAnswersBO> FullAuditClincAnswers = new List<AuditClinicAnswersBO>();
-                FullAuditClincAnswers = new DAL.AuditDAL().GetAuditClincAnswers().OrderByDescending(x => x.AuditID).ToList();
+                List<AuditClinicAnswersBO> FullAuditClincAnswer = new List<AuditClinicAnswersBO>();
+                FullAuditClincAnswer = new DAL.AuditDAL().GetAuditClincAnswer().OrderByDescending(x => x.AuditID).ToList();
 
-                FullAuditClincAnswers = FullAuditClincAnswers.GroupBy(x => x.AuditID).Select(x => new AuditClinicAnswersBO
+                FullAuditClincAnswer = FullAuditClincAnswer.GroupBy(x => x.AuditID).Select(x => new AuditClinicAnswersBO
                 {
                     AuditID = x.Key,
                     //AuditClinicAnswersID = string.Join(",", x.ToList().Select(y => y.AuditClinicAnswersID.ToString()).ToArray()), // get group roles into string for token box seperated by comma
@@ -29,7 +29,7 @@ namespace BLL
 
                 foreach (var AuditBO in Audit)
                 {
-                    var ClinicCode = FullAuditClincAnswers.Where(x => x.AuditID == AuditBO.AuditID).Select(x => x.ClinicCode).ToList();
+                    var ClinicCode = FullAuditClincAnswer.Where(x => x.AuditID == AuditBO.AuditID).Select(x => x.ClinicCode).ToList();
 
                     if (ClinicCode.Any())
                     {
@@ -99,6 +99,22 @@ namespace BLL
                 return false;
             }
         }
+
+        public bool UpdateAuditRecords(AuditBO Audit)
+        {
+            try
+            {
+                new DAL.AuditDAL().UpdateAudit(Audit);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return false;
+            }
+        }
+        
 
 
     }

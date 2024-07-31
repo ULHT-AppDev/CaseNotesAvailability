@@ -1,5 +1,7 @@
 ﻿using BusinessObjects;
+using DevExpress.Web;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,11 +17,52 @@ namespace CaseNotesAvailability
         {
 
         }
-        protected void Audit_Updating(object sender, ObjectDataSourceMethodEventArgs e)
+        protected void Audit_Updating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
         {
-            var obj = e.InputParameters["Audit"] as AuditBO;
-            short test = Login.CookieHelper.GetCookieUserID();
-            obj.CreatedByUserID = (byte)test;
+            //var obj = e.InputParameters["Audit"] as AuditBO;
+            //short test = Login.CookieHelper.GetCookieUserID();
+            //obj.CreatedByUserID = (byte)test;
+
+            ASPxGridView grid = sender as ASPxGridView;
+
+            Dictionary<string, string> oldVals = e.OldValues.Cast<DictionaryEntry>()
+                                               .ToDictionary(k => k.Key == null ? "" : k.Key.ToString(), v => v.Value == null ? "" : v.Value.ToString());
+            Dictionary<string, string> newVals = e.NewValues.Cast<DictionaryEntry>()
+                                                .ToDictionary(k => k.Key == null ? "" : k.Key.ToString(), v => v.Value == null ? "" : v.Value.ToString());
+
+            Dictionary<string, string> valDiff = oldVals.Where(x => newVals[x.Key] != x.Value).ToDictionary(x => x.Key, x => x.Value);
+
+            if (valDiff.Count == 0)
+            {
+                grid.JSProperties["cpNoUpdateMade"] = true;
+                e.Cancel = true;
+                grid.CancelEdit();
+            }
+            else
+            {
+                //if (valDiff.Keys.Contains("ITNumber"))
+                //{
+                //    var iTNumber = e.NewValues["ITNumber"];
+                //    ITNNumberChanged = true;
+
+                //    //check for duplication if it number is not null
+                //    if (iTNumber != null)
+                //    {
+                //        var rowID = grid.EditingRowVisibleIndex;
+
+                //        if (HandleITNumberDuplication(grid, iTNumber.ToString().ToLower(), rowID))
+                //        {
+                //            e.Cancel = true;
+                //        }
+                //    }
+                //}
+                e.Cancel = false;
+            }
+
+
+
+
+
         }
 
         protected void Audit_Inserting(object sender, ObjectDataSourceMethodEventArgs e)

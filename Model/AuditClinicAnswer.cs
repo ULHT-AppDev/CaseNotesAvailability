@@ -12,10 +12,14 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class List_ReasonUnavailable
+    public partial class AuditClinicAnswer
     {
-        public int ReasonUnavailableID { get; set; }
-        public string ReasonText { get; set; }
+        public int AuditClinicAnswersID { get; set; }
+        public int AuditID { get; set; }
+        public string ClinicCode { get; set; }
+        public Nullable<int> NumberOfAppointmentsAllocated { get; set; }
+        public Nullable<int> CaseNotesAvailableStartCount { get; set; }
+        public Nullable<int> TemporaryNotesCount { get; set; }
         public bool IsActive { get; set; }
     }
 }

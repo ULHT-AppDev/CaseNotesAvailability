@@ -12,14 +12,9 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class AuditClincAnswer
+    public partial class Speciality
     {
-        public int AuditClinicAnswersID { get; set; }
-        public int AuditID { get; set; }
-        public string ClinicCode { get; set; }
-        public Nullable<int> NumberOfAppointmentsAllocated { get; set; }
-        public Nullable<int> CaseNotesAvailableStartCount { get; set; }
-        public Nullable<int> TemporaryNotesCount { get; set; }
-        public bool IsActive { get; set; }
+        public int SpecilatiesID { get; set; }
+        public string SpecilatiesName { get; set; }
     }
 }

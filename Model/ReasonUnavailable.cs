@@ -12,10 +12,10 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Genericuser
+    public partial class ReasonUnavailable
     {
-        public int GenericusersID { get; set; }
-        public string Generic_users_Name { get; set; }
+        public int ReasonUnavailableID { get; set; }
+        public string ReasonText { get; set; }
         public bool IsActive { get; set; }
     }
 }

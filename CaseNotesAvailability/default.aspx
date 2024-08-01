@@ -6,12 +6,13 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ObjectDataSource ID="HealthRecordsView" runat="server" SelectMethod="GetAudit" UpdateMethod="UpdateAuditRecords" OnUpdating="Audit_Updating" OnInserting="Audit_Inserting" TypeName="BLL.AuditBLL" DataObjectTypeName="BusinessObjects.AuditBO" InsertMethod="InsertAudit"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="HealthRecordsView" runat="server" SelectMethod="GetAudit" UpdateMethod="UpdateAuditRecords" 
+        OnUpdating="Audit_Updating" OnInserting="Audit_Inserting" TypeName="BLL.AuditBLL" DataObjectTypeName="BusinessObjects.AuditBO" InsertMethod="InsertAudit"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSpeciality" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSites" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <div>
         <dx:ASPxGridView ID="HealthRecordsGridView" runat="server" AllowSorting="true"
-            ClientInstanceName="HealthRecordsGridView" KeyFieldName="AuditID" DataSourceID="HealthRecordsView"
+            ClientInstanceName="HealthRecordsGridView" OnRowUpdating ="AuditRow_Updating" KeyFieldName="AuditID" DataSourceID="HealthRecordsView"
             AutoGenerateColumns="False" Width="100%">
             <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
             <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
@@ -31,9 +32,9 @@
                             <dx:GridViewColumnLayoutItem Caption="Specilaties Name" Width="300" ColumnName="SpecialtyID" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem Caption="SiteID" ColumnName="SiteID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes" Width="400" Height="30" ColSpan="1"></dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem Caption="CreatedByUserID" Visible="false" ColumnName="CreatedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
+                            <%--<dx:GridViewColumnLayoutItem Caption="CreatedByUserID" Visible="false" ColumnName="CreatedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>--%>
                             <dx:GridViewColumnLayoutItem Caption="CompletedByUserID" Visible="false" ColumnName="CompletedByUserID" Width="500" ColSpan="1"></dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem Caption="DueByDate" ColumnName="AuditDate" Width="300" ColSpan="1"></dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem Caption="DueByDate" ColumnName="DueByDate" Width="300" ColSpan="1"></dx:GridViewColumnLayoutItem>
                             <dx:EditModeCommandLayoutItem ColSpan="1"></dx:EditModeCommandLayoutItem>
                         </Items>
 
@@ -41,8 +42,7 @@
                 </Items>
             </EditFormLayoutProperties>
 
-            <%--   
-                <SettingsDataSecurity AllowInsert="false" />
+            <%--                   <SettingsDataSecurity AllowInsert="false" />
                     <EditFormLayoutProperties>
                         <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="700" />
                     </EditFormLayoutProperties>
@@ -65,8 +65,8 @@
                 </dx:GridViewDataComboBoxColumn>
                 <dx:GridViewDataDateColumn Caption="Date" PropertiesDateEdit-ClientInstanceName="AuditDate" FieldName="Date" VisibleIndex="5" MinWidth="200" MaxWidth="200" PropertiesDateEdit-ValidationSettings-Display="Dynamic" PropertiesDateEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesDateEdit-ValidationSettings-RequiredField-ErrorText="Please enter a date"></dx:GridViewDataDateColumn>
                 <dx:GridViewDataMemoColumn FieldName="ClinicCodes" VisibleIndex="6" PropertiesMemoEdit-MaxLength="255" MinWidth="200" MaxWidth="500" PropertiesMemoEdit-ValidationSettings-Display="Dynamic" PropertiesMemoEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesMemoEdit-ValidationSettings-RequiredField-ErrorText="Please enter Clinic codes"></dx:GridViewDataMemoColumn>
-                <dx:GridViewDataTextColumn Caption="CreatedByUserID" Visible="false" ReadOnly="true" FieldName="AuditID" VisibleIndex="7" MinWidth="50" MaxWidth="100"></dx:GridViewDataTextColumn>
-                <dx:GridViewDataDateColumn Caption="DueByDate" PropertiesDateEdit-ClientInstanceName="DueByDate" FieldName="Date" VisibleIndex="8" MinWidth="50" MaxWidth="100" PropertiesDateEdit-ValidationSettings-Display="Dynamic" PropertiesDateEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesDateEdit-ValidationSettings-RequiredField-ErrorText="Please enter a date"></dx:GridViewDataDateColumn>
+                <dx:GridViewDataDateColumn Caption="DueByDate" PropertiesDateEdit-ClientInstanceName="DueByDate" FieldName="DueByDate" VisibleIndex="8" MinWidth="200" MaxWidth="200" PropertiesDateEdit-ValidationSettings-Display="Dynamic" PropertiesDateEdit-ValidationSettings-RequiredField-IsRequired="true" PropertiesDateEdit-ValidationSettings-RequiredField-ErrorText="Please enter a date"></dx:GridViewDataDateColumn>
+                <%--<dx:GridViewDataTextColumn Caption="CreatedByUserID" Visible="false" ReadOnly="true" FieldName="AuditID" VisibleIndex="7" MinWidth="50" MaxWidth="100"></dx:GridViewDataTextColumn>--%>
             </Columns>
             <Settings ShowFilterRow="true" />
             <SettingsBehavior AllowEllipsisInText="true" />

@@ -13,10 +13,10 @@ namespace Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CNAModel : DbContext
+    public partial class CNAModelEntities : DbContext
     {
-        public CNAModel()
-            : base("name=CNAModel")
+        public CNAModelEntities()
+            : base("name=CNAModelEntities")
         {
         }
     

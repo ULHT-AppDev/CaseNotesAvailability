@@ -17,12 +17,8 @@ namespace CaseNotesAvailability
         {
 
         }
-        protected void Audit_Updating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
+        protected void AuditRow_Updating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
         {
-            //var obj = e.InputParameters["Audit"] as AuditBO;
-            //short test = Login.CookieHelper.GetCookieUserID();
-            //obj.CreatedByUserID = (byte)test;
-
             ASPxGridView grid = sender as ASPxGridView;
 
             Dictionary<string, string> oldVals = e.OldValues.Cast<DictionaryEntry>()
@@ -40,14 +36,17 @@ namespace CaseNotesAvailability
             }
             else
             {
-            
+
                 e.Cancel = false;
             }
 
+        }
 
-
-
-
+        protected void Audit_Updating(object sender, ObjectDataSourceMethodEventArgs e)
+        {
+            var obj = e.InputParameters["Audit"] as AuditBO;
+            short test = Login.CookieHelper.GetCookieUserID();
+            obj.CreatedByUserID = (byte)test;
         }
 
         protected void Audit_Inserting(object sender, ObjectDataSourceMethodEventArgs e)

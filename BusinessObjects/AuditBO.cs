@@ -16,7 +16,7 @@ namespace BusinessObjects
         public int CreatedByUserID { get; set; }
         public int CompletedByUserID { get; set; }
         public Nullable<System.DateTime> DueByDate { get; set; }
-
+        public bool IsActive { get; set; }
         public string ClinicCodes { get; set; }
     }
 }

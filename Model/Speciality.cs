@@ -16,5 +16,6 @@ namespace Model
     {
         public int SpecilatiesID { get; set; }
         public string SpecilatiesName { get; set; }
+        public bool IsActive { get; set; }
     }
 }

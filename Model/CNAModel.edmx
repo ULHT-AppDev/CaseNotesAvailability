@@ -36,6 +36,7 @@
           </Key>
           <Property Name="Issue ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Issue" Type="varchar" MaxLength="50" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Patients">
           <Key>
@@ -99,6 +100,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.RequiresImprovementD
           <Property Name="AuditClinicAnswersID" Type="int" Nullable="false" />
           <Property Name="PatientID" Type="int" Nullable="false" />
           <Property Name="ReasonUnavailableID" Type="int" Nullable="false" />
+          <Property Name="IsActive" Type="bit" />
         </EntityType>
         <!--Errors Found During Generation:
 warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.userrole' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -153,6 +155,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="SiteId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SiteCode" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="SiteName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Specialities">
           <Key>
@@ -160,6 +163,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           </Key>
           <Property Name="SpecilatiesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SpecilatiesName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="LogActions">
           <Key>
@@ -531,6 +535,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           </Key>
           <Property Name="Issue_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Issue1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Patient">
           <Key>
@@ -564,6 +569,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="AuditClinicAnswersID" Type="Int32" Nullable="false" />
           <Property Name="PatientID" Type="Int32" Nullable="false" />
           <Property Name="ReasonUnavailableID" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" />
           <NavigationProperty Name="Patient" Relationship="Self.FK_UnavailableCaseNotes_Patients" FromRole="UnavailableCaseNotes" ToRole="Patients" />
         </EntityType>
         <EntityType Name="LoginRight">
@@ -602,6 +608,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="SiteId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SiteCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="SiteName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Speciality">
           <Key>
@@ -609,6 +616,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           </Key>
           <Property Name="SpecilatiesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SpecilatiesName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="LogAction">
           <Key>
@@ -872,7 +880,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <End Role="People" Type="Self.Person" Multiplicity="*" />
           <End Role="PersonUniqueGuids" Type="Self.PersonUniqueGuid" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="CNAModel" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CNAModelEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Audits" EntityType="Self.Audit" />
           <EntitySet Name="AuditClinicAnswers" EntityType="Self.AuditClinicAnswer" />
           <EntitySet Name="Issues" EntityType="Self.Issue" />
@@ -946,7 +954,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CNAModel">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CNAModelEntities">
           <EntitySetMapping Name="Audits">
             <EntityTypeMapping TypeName="Model.Audit">
               <MappingFragment StoreEntitySet="Audit">
@@ -979,6 +987,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
               <MappingFragment StoreEntitySet="Issues">
                 <ScalarProperty Name="Issue_ID" ColumnName="Issue ID" />
                 <ScalarProperty Name="Issue1" ColumnName="Issue" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1012,6 +1021,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
                 <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
                 <ScalarProperty Name="PatientID" ColumnName="PatientID" />
                 <ScalarProperty Name="ReasonUnavailableID" ColumnName="ReasonUnavailableID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1049,6 +1059,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
                 <ScalarProperty Name="SiteId" ColumnName="SiteId" />
                 <ScalarProperty Name="SiteCode" ColumnName="SiteCode" />
                 <ScalarProperty Name="SiteName" ColumnName="SiteName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1057,6 +1068,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
               <MappingFragment StoreEntitySet="Specialities">
                 <ScalarProperty Name="SpecilatiesID" ColumnName="SpecilatiesID" />
                 <ScalarProperty Name="SpecilatiesName" ColumnName="SpecilatiesName" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

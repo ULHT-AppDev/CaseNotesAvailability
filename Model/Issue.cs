@@ -16,5 +16,6 @@ namespace Model
     {
         public int Issue_ID { get; set; }
         public string Issue1 { get; set; }
+        public bool IsActive { get; set; }
     }
 }

@@ -18,6 +18,7 @@ namespace Model
         public int AuditClinicAnswersID { get; set; }
         public int PatientID { get; set; }
         public int ReasonUnavailableID { get; set; }
+        public Nullable<bool> IsActive { get; set; }
     
         public virtual Patient Patient { get; set; }
     }

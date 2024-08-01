@@ -4,18 +4,18 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b59ba17604604961b214e2fff3aa9ce6" Name="Diagram1">
+      <Diagram DiagramId="e9bff950ec0c4e8b87ae4c19ab71ad2c" Name="Diagram1">
         <EntityTypeShape EntityType="Model.Audit" Width="1.5" PointX="10.75" PointY="7.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.AuditClinicAnswer" Width="1.5" PointX="10.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Issue" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Issue" Width="1.5" PointX="10.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Patient" Width="1.5" PointX="5.75" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.UnavailableCaseNote" Width="1.5" PointX="8" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UnavailableCaseNote" Width="1.5" PointX="8" PointY="7.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LoginRight" Width="1.5" PointX="5.75" PointY="11.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LoginRoleRight" Width="1.5" PointX="8" PointY="11.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LoginRole" Width="1.5" PointX="5.75" PointY="14.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Site" Width="1.5" PointX="10.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Speciality" Width="1.5" PointX="2.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Site" Width="1.5" PointX="2.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Speciality" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LogAction" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LogDetail" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LogError" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
@@ -24,10 +24,10 @@
         <EntityTypeShape EntityType="Model.Person" Width="1.5" PointX="0.75" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.PersonRole" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.PersonUniqueGuid" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.RequiresImprovementActionPoint" Width="1.5" PointX="2.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.RequiresImprovementDetail" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.userrole" Width="1.5" PointX="12.75" PointY="5.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ReasonUnavailable" Width="1.5" PointX="12.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RequiresImprovementActionPoint" Width="1.5" PointX="12.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RequiresImprovementDetail" Width="1.5" PointX="12.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.userrole" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ReasonUnavailable" Width="1.5" PointX="12.75" PointY="11.125" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_Patients_Patients" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_UnavailableCaseNotes_Patients" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_LoginRoleRights_LoginRights" ManuallyRouted="false" />

@@ -21,8 +21,7 @@ namespace BLL
                 FullAuditClincAnswer = FullAuditClincAnswer.GroupBy(x => x.AuditID).Select(x => new AuditClinicAnswersBO
                 {
                     AuditID = x.Key,
-                    //AuditClinicAnswersID = string.Join(",", x.ToList().Select(y => y.AuditClinicAnswersID.ToString()).ToArray()), // get group roles into string for token box seperated by comma
-                    ClinicCode = string.Join(",", x.ToList().Select(y => y.ClinicCode.ToString()).ToArray()) // get group roles into string for token box seperated by comma
+                    ClinicCode = string.Join(",", x.ToList().Select(y => y.ClinicCode.ToString()).ToArray()) // get clinic codes into string for clinic id seperated by comma
                 }).ToList();
 
                 List<AuditBO> Audit = new DAL.AuditDAL().GetAudit().OrderByDescending(x => x.AuditID).ToList();
@@ -104,7 +103,13 @@ namespace BLL
         {
             try
             {
-                new DAL.AuditDAL().UpdateAudit(Audit);
+                List<string> ClinicCodes = Audit.ClinicCodes.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries).ToList();
+                List<string> CurrentClinicCodes = new DAL.AuditDAL().SelectClinicCodesforAuditId(Audit.AuditID);
+
+               var ClinicCodesToAdd = ClinicCodes.Where(x => !CurrentClinicCodes.Contains(x)).ToList();
+                var ClinicCodesToToRemove = CurrentClinicCodes.Where(x => !ClinicCodes.Contains(x)).ToList();
+
+                new DAL.AuditDAL().UpdateAudit(Audit, ClinicCodesToAdd, ClinicCodesToToRemove);
                 return true;
             }
             catch (Exception ex)

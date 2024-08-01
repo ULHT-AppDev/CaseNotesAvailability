@@ -364,3 +364,5 @@ FodyWeavers.xsd
 /CaseNotesAvailability/Web.config
 /CaseNotesAvailability/Web.Debug.config
 /CaseNotesAvailability/Web.Release.config
+/CaseNotesAvailability/ConnectionStrings/ConnectionStrings-Example.config
+/CaseNotesAvailability/ConnectionStrings/README-ConnectionStrings.md

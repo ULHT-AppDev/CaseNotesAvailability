@@ -1,0 +1,30 @@
+﻿.ErrorContainer {
+    background: #ffd7d7;
+    border-radius: 5px;
+}
+
+.ErrorLabel {
+    color: #f34235;
+}
+
+.WarningContainer {
+    background: #ffeac5;
+    border-radius: 5px;
+}
+
+.WarningLabel {
+    color: #f77200;
+}
+
+.InformationLabel {
+    color: #547ce0;
+}
+
+.InformationContainer {
+    background: #dee7ff;
+    border-radius: 5px;
+}
+
+.LabelIcon {
+    font-size: 20px;
+}

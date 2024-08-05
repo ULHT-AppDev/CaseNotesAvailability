@@ -19,7 +19,7 @@ namespace DAL
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
-                            where p.IsActive
+                        where p.IsActive
                         select new BusinessObjects.AuditBO
                         {
                             AuditID = p.AuditID,
@@ -38,7 +38,7 @@ namespace DAL
             using (var ctx = new Model.CNAModelEntities())
             {
                 return (from u in ctx.AuditClinicAnswers
-                            where u.IsActive 
+                        where u.IsActive
                         select new BusinessObjects.AuditClinicAnswersBO
                         {
                             AuditClinicAnswersID = u.AuditClinicAnswersID,
@@ -57,7 +57,7 @@ namespace DAL
             using (var ctx = new Model.CNAModelEntities())
             {
                 return (from u in ctx.Sites
-                            where u.IsActive 
+                        where u.IsActive
                         select new BusinessObjects.SitesBO
                         {
                             SiteId = u.SiteId,
@@ -73,7 +73,7 @@ namespace DAL
             using (var ctx = new Model.CNAModelEntities())
             {
                 return (from u in ctx.Specialities
-                            where u.IsActive 
+                        where u.IsActive
                         select new BusinessObjects.SpecilatyBO
                         {
                             SpecilatiesID = u.SpecilatiesID,
@@ -141,21 +141,12 @@ namespace DAL
         public List<string> SelectClinicCodesforAuditId(int auditID)
         {
             List<string> ClinicCodesforAudit = new List<string>();
+            
             using (var ctxSelect = new Model.CNAModelEntities())
             {
-                using (var dbContextTransactionIns = ctxSelect.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID).Select(x => x.ClinicCode).ToList();
-                    }
-                    catch (Exception ex)
-                    {
-                        dbContextTransactionIns.Rollback();
-                    }
-
-                }
+                ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive).Select(x => x.ClinicCode).ToList();
             }
+
             return ClinicCodesforAudit;
         }
 

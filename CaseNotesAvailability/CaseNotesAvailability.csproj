@@ -179,6 +179,7 @@
     <Content Include="Content\v4-shims.min.css" />
     <Content Include="CustomCSS\AppHeaderMenu.css" />
     <Content Include="CustomCSS\Master.css" />
+    <Content Include="CustomCSS\NotificationHelper.css" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login\Login.aspx" />
@@ -353,6 +354,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HelperClasses\NotificationHelper.cs" />
     <Compile Include="Login\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -378,7 +380,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="CustomJS\" />
-    <Folder Include="HelperClasses\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

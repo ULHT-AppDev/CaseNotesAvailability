@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using Model;
 using System.Data.Entity.Migrations;
+using System.Data.Entity.Infrastructure.Interception;
 
 namespace DAL
 {
@@ -19,7 +20,7 @@ namespace DAL
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
-                            where p.IsActive
+                        where p.IsActive
                         select new BusinessObjects.AuditBO
                         {
                             AuditID = p.AuditID,
@@ -38,7 +39,7 @@ namespace DAL
             using (var ctx = new Model.CNAModelEntities())
             {
                 return (from u in ctx.AuditClinicAnswers
-                            where u.IsActive 
+                        where u.IsActive
                         select new BusinessObjects.AuditClinicAnswersBO
                         {
                             AuditClinicAnswersID = u.AuditClinicAnswersID,
@@ -57,7 +58,7 @@ namespace DAL
             using (var ctx = new Model.CNAModelEntities())
             {
                 return (from u in ctx.Sites
-                            where u.IsActive 
+                        where u.IsActive
                         select new BusinessObjects.SitesBO
                         {
                             SiteId = u.SiteId,
@@ -73,7 +74,7 @@ namespace DAL
             using (var ctx = new Model.CNAModelEntities())
             {
                 return (from u in ctx.Specialities
-                            where u.IsActive 
+                        where u.IsActive
                         select new BusinessObjects.SpecilatyBO
                         {
                             SpecilatiesID = u.SpecilatiesID,
@@ -107,24 +108,27 @@ namespace DAL
                             };
                             ctxIns.Audits.Add(dt);
                             ctxIns.SaveChanges();
+                            audit.AuditID = dt.AuditID;
+
                             //.NotesID = dt.ApplicationNotesID;
-                        }
 
-                        var elements = audit.ClinicCodes.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries);
 
-                        foreach (string items in elements)
-                        {
-                            if (items != null)
+                            var elements = audit.ClinicCodes.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries);
+
+                            foreach (string items in elements)
                             {
-                                Model.AuditClinicAnswer dt = new Model.AuditClinicAnswer()
+                                if (items != null)
                                 {
-                                    AuditID = audit.AuditID,
-                                    ClinicCode = items,
-                                    IsActive = true
-                                };
-                                ctxIns.AuditClinicAnswers.Add(dt);
-                                ctxIns.SaveChanges();
-                                //.NotesID = dt.ApplicationNotesID;
+                                    Model.AuditClinicAnswer dt1 = new Model.AuditClinicAnswer()
+                                    {
+                                        AuditID = audit.AuditID,
+                                        ClinicCode = items,
+                                        IsActive = true
+                                    };
+                                    ctxIns.AuditClinicAnswers.Add(dt1);
+                                    ctxIns.SaveChanges();
+                                    //.NotesID = dt.ApplicationNotesID;
+                                }
                             }
                         }
 

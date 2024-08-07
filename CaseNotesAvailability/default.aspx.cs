@@ -45,17 +45,53 @@ namespace CaseNotesAvailability
         protected void Audit_Updating(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var obj = e.InputParameters["Audit"] as AuditBO;
-            short test = Login.CookieHelper.GetCookieUserID();
-            obj.CreatedByUserID = (byte)test;
+            short userID = Login.CookieHelper.GetCookieUserID();
+            obj.CreatedByUserID = userID;
         }
 
         protected void Audit_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var obj = e.InputParameters["Audit"] as AuditBO;
-            short test = Login.CookieHelper.GetCookieUserID();
-            obj.CreatedByUserID = (byte)test;
+            short userID = Login.CookieHelper.GetCookieUserID();
+            obj.CreatedByUserID = userID;
             //obj.Date = DateTime.Now;
         }
 
+        protected void HealthRecordsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
+        {
+            ASPxGridView grid = sender as ASPxGridView;
+            GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
+            group.Caption = "Create new Audit";
+            grid.SettingsCommandButton.UpdateButton.Text = "Create new Audit";
+
+            // hide audit column on new row
+            GridViewColumnLayoutItem auditCol = grid.EditFormLayoutProperties.FindItemOrGroupByName("AuditID") as GridViewColumnLayoutItem;
+            auditCol.Visible = false;
+
+        }
+
+        protected void HealthRecordsGridView_StartRowEditing(object sender, DevExpress.Web.Data.ASPxStartRowEditingEventArgs e)
+        {
+            ASPxGridView grid = sender as ASPxGridView;
+            GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
+            group.Caption = $"Update Audit (ID: {e.EditingKeyValue})";
+            grid.SettingsCommandButton.UpdateButton.Text = "Update Audit";
+        }
+
+        protected void ClinicCodesHelpLabel_Init(object sender, EventArgs e)
+        {
+            ASPxLabel lbl = sender as ASPxLabel;
+            string lbltext = "To add a clinic code below type the clinic code then press comma \",\". Blank entries are not allowed.";
+            lbl.Text = HelperClasses.NotificationHelper.CreateNotificationAlert(HelperClasses.NotificationHelper.NotificationType.Information, lbltext, false, false);
+        }
+
+        protected void HealthRecordsGridView_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+        {
+            if(e.Column.FieldName == "Date" || e.Column.FieldName == "DueByDate")
+            {
+                var date = e.Editor as ASPxDateEdit;
+                date.MinDate = DateTime.Now.Date;
+            }
+        }
     }
 }

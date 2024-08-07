@@ -145,21 +145,12 @@ namespace DAL
         public List<string> SelectClinicCodesforAuditId(int auditID)
         {
             List<string> ClinicCodesforAudit = new List<string>();
+            
             using (var ctxSelect = new Model.CNAModelEntities())
             {
-                using (var dbContextTransactionIns = ctxSelect.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID).Select(x => x.ClinicCode).ToList();
-                    }
-                    catch (Exception ex)
-                    {
-                        dbContextTransactionIns.Rollback();
-                    }
-
-                }
+                ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive).Select(x => x.ClinicCode).ToList();
             }
+
             return ClinicCodesforAudit;
         }
 

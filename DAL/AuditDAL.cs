@@ -16,7 +16,7 @@ namespace DAL
         public List<AuditBO> GetAudit()
         {
 
-            using (var ctx = new Model.CNAModelEntities())
+            using (var ctx = new Model.CNAEntities())
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
@@ -36,7 +36,7 @@ namespace DAL
 
         public List<AuditClinicAnswersBO> GetAuditClincAnswer()
         {
-            using (var ctx = new Model.CNAModelEntities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from u in ctx.AuditClinicAnswers
                         where u.IsActive
@@ -48,14 +48,14 @@ namespace DAL
                             NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
                             CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
                             TemporaryNotesCount = u.TemporaryNotesCount
-                            //,IsActive = u.IsActive                            
+                            ,IsActive = u.IsActive                            
                         }).ToList();
             }
         }
 
         public List<SitesBO> GetSites()
         {
-            using (var ctx = new Model.CNAModelEntities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from u in ctx.Sites
                         where u.IsActive
@@ -64,14 +64,15 @@ namespace DAL
                             SiteId = u.SiteId,
                             SiteName = u.SiteName,
                             SiteCode = u.SiteCode
-                            //,isactive = u.IsActive
+                            ,
+                            IsActive = u.IsActive
                         }).ToList();
             }
         }
 
         public List<SpecilatyBO> GetSpeciality()
         {
-            using (var ctx = new Model.CNAModelEntities())
+            using (var ctx = new Model.CNAEntities())
             {
                 return (from u in ctx.Specialities
                         where u.IsActive
@@ -79,14 +80,31 @@ namespace DAL
                         {
                             SpecilatiesID = u.SpecilatiesID,
                             SpecilatiesName = u.SpecilatiesName
-                            //,isactive = u.IsActive
+                            ,
+                            IsActive = u.IsActive
+                        }).ToList();
+            }
+        }
+
+     
+        public List<StatusBO> GetStatus()
+        {
+            using (var ctx = new Model.CNAEntities())
+            {
+                return (from u in ctx.Status
+                        where u.IsActive
+                        select new BusinessObjects.StatusBO
+                        {
+                            StatusID =u.StatusId, 
+                            StatusName = u.StatusName,
+                            IsActive = u.IsActive
                         }).ToList();
             }
         }
 
         public void InsertAudit(AuditBO audit)
         {
-            using (var ctxIns = new Model.CNAModelEntities())
+            using (var ctxIns = new Model.CNAEntities())
             {
                 using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
                 {
@@ -113,7 +131,7 @@ namespace DAL
                             //.NotesID = dt.ApplicationNotesID;
 
 
-                            var elements = audit.ClinicCodes.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries);
+                            var elements = audit.ClinicCodes.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries).Distinct();
 
                             foreach (string items in elements)
                             {
@@ -146,9 +164,9 @@ namespace DAL
         {
             List<string> ClinicCodesforAudit = new List<string>();
             
-            using (var ctxSelect = new Model.CNAModelEntities())
+            using (var ctxSelect = new Model.CNAEntities())
             {
-                ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive).Select(x => x.ClinicCode).ToList();
+                ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive).Select(x => x.ClinicCode).Distinct().ToList();
             }
 
             return ClinicCodesforAudit;
@@ -156,7 +174,7 @@ namespace DAL
 
         public void UpdateAudit(AuditBO d, List<String> ClinicCodesToAdd, List<String> ClinicCodesToToRemove)
         {
-            using (var ctxUpdate = new Model.CNAModelEntities())
+            using (var ctxUpdate = new Model.CNAEntities())
             {
                 using (var dbContextTransactionIns = ctxUpdate.Database.BeginTransaction())
                 {
@@ -181,16 +199,17 @@ namespace DAL
                                     IsActive = true
                                 };
                                 ctxUpdate.AuditClinicAnswers.Add(dt);
-
+                               
                             }
                         }
                         if (ClinicCodesToToRemove.Count > 0)
                         {
                             foreach (String ClinicCodeId in ClinicCodesToToRemove)
                             {
-                                var clinicAns = ctxUpdate.AuditClinicAnswers.Where(x => x.AuditID == d.AuditID && x.ClinicCode == ClinicCodeId).FirstOrDefault();
+                                var clinicAns = ctxUpdate.AuditClinicAnswers.Where(x => x.AuditID == d.AuditID && x.ClinicCode == ClinicCodeId && x.IsActive == true).FirstOrDefault();
 
                                 clinicAns.IsActive = false;
+                                ctxUpdate.SaveChanges();
                             }
                         }
 

@@ -133,6 +133,9 @@
     <Compile Include="Speciality.cs">
       <DependentUpon>CNAModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Status.cs">
+      <DependentUpon>CNAModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="sysdiagram.cs">
       <DependentUpon>CNAModel.tt</DependentUpon>
     </Compile>

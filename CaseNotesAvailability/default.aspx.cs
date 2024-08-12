@@ -55,6 +55,7 @@ namespace CaseNotesAvailability
             short userID = Login.CookieHelper.GetCookieUserID();
             obj.CreatedByUserID = userID;
             //obj.Date = DateTime.Now;
+            obj.StatusID = 1;
         }
 
         protected void HealthRecordsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)

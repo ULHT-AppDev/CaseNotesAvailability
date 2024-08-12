@@ -13,10 +13,10 @@ namespace Model
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class CNAModelEntities : DbContext
+    public partial class CNAEntities : DbContext
     {
-        public CNAModelEntities()
-            : base("name=CNAModelEntities")
+        public CNAEntities()
+            : base("name=CNAEntities")
         {
         }
     
@@ -36,6 +36,7 @@ namespace Model
         public virtual DbSet<LoginRole> LoginRoles { get; set; }
         public virtual DbSet<Site> Sites { get; set; }
         public virtual DbSet<Speciality> Specialities { get; set; }
+        public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<LogAction> LogActions { get; set; }
         public virtual DbSet<LogDetail> LogDetails { get; set; }
         public virtual DbSet<LogError> LogErrors { get; set; }

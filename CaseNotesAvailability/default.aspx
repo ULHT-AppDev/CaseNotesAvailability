@@ -11,6 +11,7 @@
         OnUpdating="Audit_Updating" OnInserting="Audit_Inserting" TypeName="BLL.AuditBLL" DataObjectTypeName="BusinessObjects.AuditBO" InsertMethod="InsertAudit"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSpeciality" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSites" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="Status" runat="server" SelectMethod="GetStatus" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <div>
         <dx:ASPxGridView ID="HealthRecordsGridView" runat="server" AllowSorting="true"
             ClientInstanceName="HealthRecordsGridView"
@@ -20,7 +21,7 @@
             AutoGenerateColumns="False"
             OnInitNewRow="HealthRecordsGridView_InitNewRow"
             OnStartRowEditing="HealthRecordsGridView_StartRowEditing"
-             OnCellEditorInitialize="HealthRecordsGridView_CellEditorInitialize"
+            OnCellEditorInitialize="HealthRecordsGridView_CellEditorInitialize"
             Width="100%">
             <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
 
@@ -57,6 +58,8 @@
                             </dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes" Caption="Clinic Codes" ColSpan="2" Width="100%">
                             </dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem ColumnName="StatusName" Caption="Status" ColSpan="2" Width="100%">
+                            </dx:GridViewColumnLayoutItem>
 
                             <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                         </Items>
@@ -90,7 +93,7 @@
                     </PropertiesDateEdit>
                 </dx:GridViewDataDateColumn>
 
-                <dx:GridViewDataComboBoxColumn Caption="Specialities" FieldName="SpecialtyID" VisibleIndex="4" MinWidth="200" MaxWidth="500" >
+                <dx:GridViewDataComboBoxColumn Caption="Specialities" FieldName="SpecialtyID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
                     <PropertiesComboBox ClientInstanceName="Specialities" DataSourceID="GetSpeciality" TextField="SpecilatiesName" ValueField="SpecilatiesID">
                         <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                             <RequiredField IsRequired="true" ErrorText="Specialty is required" />
@@ -115,6 +118,14 @@
                     </PropertiesTokenBox>
                 </dx:GridViewDataTokenBoxColumn>
 
+                <dx:GridViewDataComboBoxColumn Caption="Staus" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
+                    PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="StatusID" VisibleIndex="7" MinWidth="200" MaxWidth="400">
+                    <PropertiesComboBox  DataSourceID="Status" TextField="StatusName" ValueField="StatusID">
+                        <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
+                            <RequiredField IsRequired="true" ErrorText="Status is required" />
+                        </ValidationSettings>
+                    </PropertiesComboBox>
+                </dx:GridViewDataComboBoxColumn>
             </Columns>
             <Settings ShowFilterRow="true" />
             <SettingsBehavior AllowEllipsisInText="true" />

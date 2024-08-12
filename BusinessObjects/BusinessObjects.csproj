@@ -54,6 +54,7 @@
     <Compile Include="Enums.cs" />
     <Compile Include="ErrorLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StatusBO.cs" />
     <Compile Include="SitesBO.cs" />
     <Compile Include="SpecilatyBO.cs" />
     <Compile Include="UsersOldAccountDetails.cs" />

@@ -18,5 +18,6 @@ namespace BusinessObjects
         public Nullable<System.DateTime> DueByDate { get; set; }
         public bool IsActive { get; set; }
         public string ClinicCodes { get; set; }
+        public int StatusID { get; set; }
     }
 }

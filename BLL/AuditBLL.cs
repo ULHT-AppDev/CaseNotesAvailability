@@ -21,14 +21,14 @@ namespace BLL
                 FullAuditClincAnswer = FullAuditClincAnswer.GroupBy(x => x.AuditID).Select(x => new AuditClinicAnswersBO
                 {
                     AuditID = x.Key,
-                    ClinicCode = string.Join(",", x.ToList().Select(y => y.ClinicCode.ToString()).ToArray()) // get clinic codes into string for clinic id seperated by comma
+                    ClinicCode = string.Join(",", x.ToList().Select(y => y.ClinicCode.ToString()).Distinct().ToArray()) // get clinic codes into string for clinic id seperated by comma
                 }).ToList();
 
                 List<AuditBO> Audit = new DAL.AuditDAL().GetAudit().OrderByDescending(x => x.AuditID).ToList();
 
                 foreach (var AuditBO in Audit)
                 {
-                    var ClinicCode = FullAuditClincAnswer.Where(x => x.AuditID == AuditBO.AuditID).Select(x => x.ClinicCode).ToList();
+                    var ClinicCode = FullAuditClincAnswer.Where(x => x.AuditID == AuditBO.AuditID  ).Select(x => x.ClinicCode).Distinct().ToList();
 
                     if (ClinicCode.Any())
                     {
@@ -83,6 +83,23 @@ namespace BLL
             }
         }
 
+        public List<StatusBO> GetStatus()
+        {
+            try
+            {
+                List<StatusBO> Status = new List<StatusBO>();
+                Status = new DAL.AuditDAL().GetStatus().OrderBy(x => x.StatusID).ToList();
+
+                return Status;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, sessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return null;
+            }
+        }
+        
 
         public bool InsertAudit(AuditBO Audit)
         {
@@ -103,7 +120,7 @@ namespace BLL
         {
             try
             {
-                List<string> ClinicCodes = Audit.ClinicCodes.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries).ToList();
+                List<string> ClinicCodes = Audit.ClinicCodes.Split(new[] { ',' }, System.StringSplitOptions.RemoveEmptyEntries).Distinct().ToList();
                 List<string> CurrentClinicCodes = new DAL.AuditDAL().SelectClinicCodesforAuditId(Audit.AuditID);
 
                 var ClinicCodesToAdd = ClinicCodes.Where(x => !CurrentClinicCodes.Contains(x)).ToList();

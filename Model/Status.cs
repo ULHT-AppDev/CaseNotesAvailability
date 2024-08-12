@@ -12,18 +12,19 @@ namespace Model
     using System;
     using System.Collections.Generic;
     
-    public partial class Audit
+    public partial class Status
     {
-        public int AuditID { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
-        public int SpecialtyID { get; set; }
-        public int SiteID { get; set; }
-        public int CreatedByUserID { get; set; }
-        public int CompletedByUserID { get; set; }
-        public Nullable<System.DateTime> DueByDate { get; set; }
-        public bool IsActive { get; set; }
-        public byte StatusID { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Status()
+        {
+            this.Audits = new HashSet<Audit>();
+        }
     
-        public virtual Status Status { get; set; }
+        public byte StatusId { get; set; }
+        public string StatusName { get; set; }
+        public bool IsActive { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Audit> Audits { get; set; }
     }
 }

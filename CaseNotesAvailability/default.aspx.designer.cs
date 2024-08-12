@@ -42,6 +42,15 @@ namespace CaseNotesAvailability
         protected global::System.Web.UI.WebControls.ObjectDataSource GetSites;
 
         /// <summary>
+        /// Status control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource Status;
+
+        /// <summary>
         /// HealthRecordsGridView control.
         /// </summary>
         /// <remarks>

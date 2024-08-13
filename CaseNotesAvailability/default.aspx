@@ -58,7 +58,7 @@
                             </dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes" Caption="Clinic Codes" ColSpan="2" Width="100%">
                             </dx:GridViewColumnLayoutItem>
-                            <dx:GridViewColumnLayoutItem ColumnName="StatusName" Caption="Status" ColSpan="2" Width="100%">
+                            <dx:GridViewColumnLayoutItem ColumnName="StatusID" Caption="Status" ColSpan="2" Width="100%">
                             </dx:GridViewColumnLayoutItem>
 
                             <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>

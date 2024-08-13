@@ -30,6 +30,7 @@ namespace DAL
                             CreatedByUserID = p.CreatedByUserID,
                             CompletedByUserID = p.CompletedByUserID,
                             DueByDate = p.DueByDate,
+                            StatusID = p.StatusID
                         }).ToList();
             }
         }
@@ -121,6 +122,7 @@ namespace DAL
                                 CreatedByUserID = audit.CreatedByUserID,
                                 CompletedByUserID = audit.CompletedByUserID,
                                 DueByDate = audit.DueByDate,
+                                StatusID= 1,
                                 IsActive = true
 
                             };

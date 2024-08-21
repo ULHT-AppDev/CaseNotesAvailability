@@ -4,15 +4,26 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CustomCSS/NotificationHelper.css" rel="stylesheet" />
+    <script src="CustomJS/Audit.js"></script>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ObjectDataSource ID="HealthRecordsView" runat="server" SelectMethod="GetAudit" UpdateMethod="UpdateAuditRecords"
+    <asp:ObjectDataSource ID="HealthRecordsView" runat="server" SelectMethod="GetAudit" UpdateMethod="UpdateAuditRecords" DeleteMethod=""
         OnUpdating="Audit_Updating" OnInserting="Audit_Inserting" TypeName="BLL.AuditBLL" DataObjectTypeName="BusinessObjects.AuditBO" InsertMethod="InsertAudit"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSpeciality" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSites" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="Status" runat="server" SelectMethod="GetStatus" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <div>
+        <dx:ASPxButton ID="NewRef"
+            runat="server"
+            Text="Create New Audit"
+            RenderMode="Button"
+            AutoPostBack="false"
+            UseSubmitBehavior="false"
+            CausesValidation="false"
+            OnInit="NewRef_Init">
+        </dx:ASPxButton>
         <dx:ASPxGridView ID="HealthRecordsGridView" runat="server" AllowSorting="true"
             ClientInstanceName="HealthRecordsGridView"
             OnRowUpdating="AuditRow_Updating"
@@ -69,7 +80,34 @@
             </EditFormLayoutProperties>
 
             <Columns>
-                <dx:GridViewCommandColumn VisibleIndex="0" Width="100px" Caption="Edit" ShowNewButtonInHeader="true" ShowEditButton="true" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
+                <dx:GridViewCommandColumn Visible="false" VisibleIndex="0" Width="100px" Caption="Edit" ShowNewButtonInHeader="true" ShowEditButton="true" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
+
+                <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="75" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
+                    <DataItemTemplate>
+                        <div>
+                            <dx:ASPxButton ID="ChooseUserButton"
+                                runat="server"
+                                Text="Choose"
+                                RenderMode="Button"
+                                AutoPostBack="false"
+                                UseSubmitBehavior="false"
+                                CausesValidation="false"
+                                OnInit="ChooseUserButton_Init">
+                            </dx:ASPxButton>
+                            <t></t>
+
+                            <dx:ASPxButton ID="ChooseUserButton1"
+                                runat="server"
+                                Text="Choose"
+                                RenderMode="Button"
+                                AutoPostBack="false"
+                                UseSubmitBehavior="false"
+                                CausesValidation="false"
+                                OnInit="ChooseUserButton1_Init">
+                            </dx:ASPxButton>
+                        </div>
+                    </DataItemTemplate>
+                </dx:GridViewDataColumn>
 
                 <dx:GridViewDataTextColumn Caption="AuditID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
                     <EditItemTemplate>
@@ -120,7 +158,7 @@
 
                 <dx:GridViewDataComboBoxColumn Caption="Staus" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
                     PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="StatusID" VisibleIndex="7" MinWidth="200" MaxWidth="400">
-                    <PropertiesComboBox  DataSourceID="Status" TextField="StatusName" ValueField="StatusID">
+                    <PropertiesComboBox DataSourceID="Status" TextField="StatusName" ValueField="StatusID">
                         <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                             <RequiredField IsRequired="true" ErrorText="Status is required" />
                         </ValidationSettings>

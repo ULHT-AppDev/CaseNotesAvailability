@@ -152,7 +152,9 @@ namespace BLL
             }
         }
 
-
-
+        public static void DeleteAudit(int AuditID, string StatusID)
+        {
+            new DAL.AuditDAL().DeleteAudit(AuditID, StatusID);
+        }
     }
 }

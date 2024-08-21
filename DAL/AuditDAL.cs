@@ -20,7 +20,7 @@ namespace DAL
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
-                        where p.IsActive
+                        where p.IsActive 
                         select new BusinessObjects.AuditBO
                         {
                             AuditID = p.AuditID,
@@ -49,7 +49,8 @@ namespace DAL
                             NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
                             CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
                             TemporaryNotesCount = u.TemporaryNotesCount
-                            ,IsActive = u.IsActive                            
+                            ,
+                            IsActive = u.IsActive
                         }).ToList();
             }
         }
@@ -87,7 +88,7 @@ namespace DAL
             }
         }
 
-     
+
         public List<StatusBO> GetStatus()
         {
             using (var ctx = new Model.CNAEntities())
@@ -96,7 +97,7 @@ namespace DAL
                         where u.IsActive
                         select new BusinessObjects.StatusBO
                         {
-                            StatusID =u.StatusId, 
+                            StatusID = u.StatusId,
                             StatusName = u.StatusName,
                             IsActive = u.IsActive
                         }).ToList();
@@ -122,7 +123,7 @@ namespace DAL
                                 CreatedByUserID = audit.CreatedByUserID,
                                 CompletedByUserID = audit.CompletedByUserID,
                                 DueByDate = audit.DueByDate,
-                                StatusID= 1,
+                                StatusID = 1,
                                 IsActive = true
 
                             };
@@ -165,7 +166,7 @@ namespace DAL
         public List<string> SelectClinicCodesforAuditId(int auditID)
         {
             List<string> ClinicCodesforAudit = new List<string>();
-            
+
             using (var ctxSelect = new Model.CNAEntities())
             {
                 ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive).Select(x => x.ClinicCode).Distinct().ToList();
@@ -201,7 +202,7 @@ namespace DAL
                                     IsActive = true
                                 };
                                 ctxUpdate.AuditClinicAnswers.Add(dt);
-                               
+
                             }
                         }
                         if (ClinicCodesToToRemove.Count > 0)
@@ -226,7 +227,32 @@ namespace DAL
                 }
             }
         }
+
+        public void DeleteAudit(int AuditID, string StatusID)
+        {
+            using (var ctxUpdate = new Model.CNAEntities())
+            {
+                using (var dbContextTransactionDel = ctxUpdate.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        var clinicAudit = ctxUpdate.Audits.Where(x => x.AuditID == AuditID && x.IsActive == true).FirstOrDefault();
+                        if (clinicAudit != null)
+                        {
+                            clinicAudit.IsActive = false;
+                            ctxUpdate.SaveChanges();
+                            dbContextTransactionDel.Commit();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransactionDel.Rollback();
+                    }
+                }
+            }
+        }
     }
 }
+
 
 

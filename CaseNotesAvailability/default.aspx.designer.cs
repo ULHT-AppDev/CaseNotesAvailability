@@ -51,6 +51,15 @@ namespace CaseNotesAvailability
         protected global::System.Web.UI.WebControls.ObjectDataSource Status;
 
         /// <summary>
+        /// NewRef control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton NewRef;
+
+        /// <summary>
         /// HealthRecordsGridView control.
         /// </summary>
         /// <remarks>

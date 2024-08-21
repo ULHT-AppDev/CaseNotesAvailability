@@ -181,6 +181,7 @@
     <Content Include="CustomCSS\AppHeaderMenu.css" />
     <Content Include="CustomCSS\Master.css" />
     <Content Include="CustomCSS\NotificationHelper.css" />
+    <Content Include="CustomJS\Audit.js" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login\Login.aspx" />
@@ -380,7 +381,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="CustomJS\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BLL\BLL.csproj">

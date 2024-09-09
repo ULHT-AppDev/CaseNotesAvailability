@@ -181,7 +181,10 @@
     <Content Include="CustomCSS\AppHeaderMenu.css" />
     <Content Include="CustomCSS\Master.css" />
     <Content Include="CustomCSS\NotificationHelper.css" />
+    <Content Include="CustomJS\AuditorView.js" />
     <Content Include="CustomJS\Audit.js" />
+    <Content Include="AuditorView.aspx" />
+    <Content Include="CaseNoteAvailabilitAudit.aspx" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login\Login.aspx" />
@@ -346,6 +349,20 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditorView.aspx.cs">
+      <DependentUpon>AuditorView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AuditorView.aspx.designer.cs">
+      <DependentUpon>AuditorView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CaseNoteAvailabilitAudit.aspx.cs">
+      <DependentUpon>CaseNoteAvailabilitAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CaseNoteAvailabilitAudit.aspx.designer.cs">
+      <DependentUpon>CaseNoteAvailabilitAudit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

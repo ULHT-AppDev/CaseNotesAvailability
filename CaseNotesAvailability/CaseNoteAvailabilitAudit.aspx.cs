@@ -1,4 +1,5 @@
-﻿using BusinessObjects;
+﻿using BLL;
+using BusinessObjects;
 using DevExpress.Web;
 using DevExpress.XtraRichEdit.Commands;
 using Newtonsoft.Json.Linq;
@@ -21,6 +22,10 @@ namespace CaseNotesAvailability
         protected void Page_PreInit(object sender, EventArgs e)
         {
             AuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
+            AuditClinicAnswersBLL loginBLL = new AuditClinicAnswersBLL();
+            loginBLL.SetAuditID(AuditId);
+
+            
         }
         protected void Page_Load(object sender, EventArgs e)
         {

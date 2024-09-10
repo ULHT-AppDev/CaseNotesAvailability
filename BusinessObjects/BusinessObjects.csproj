@@ -57,6 +57,7 @@
     <Compile Include="StatusBO.cs" />
     <Compile Include="SitesBO.cs" />
     <Compile Include="SpecilatyBO.cs" />
+    <Compile Include="UnavailableCaseNotesBO.cs" />
     <Compile Include="UsersOldAccountDetails.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

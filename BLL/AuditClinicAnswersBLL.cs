@@ -20,7 +20,6 @@ namespace BLL
                 FullAuditClincAnswer = new DAL.AuditClinicAnswersDAL().GetAuditClincAnswer(localAuditId).OrderByDescending(x => x.AuditID).ToList();
                 //FullAuditClincAnswer = FullAuditClincAnswer.Where(x => !FullAuditClincAnswer.Contains(x)).ToList(); 
                 return FullAuditClincAnswer;
-                 
             }
             catch (Exception ex)
             {

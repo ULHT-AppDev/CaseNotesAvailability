@@ -27,7 +27,7 @@
         <dx:ASPxGridView ID="CaseNoteAvailabilitAuditRecordsGridView" runat="server" AllowSorting="true"
             ClientInstanceName="CaseNoteAvailabilitAuditRecordsGridView"
             OnRowUpdating="AuditRow_Updating"
-            KeyFieldName="AuditID"
+            KeyFieldName="AuditClinicAnswersID"
             DataSourceID="CaseNoteAvailabilitAuditRecordsView"
             AutoGenerateColumns="False"
             OnInitNewRow="CaseNoteAvailabilitAuditRecordsGridView_InitNewRow"
@@ -55,13 +55,13 @@
                 <Items>
                     <dx:GridViewLayoutGroup Name="FieldGroup" Caption="Audit Details" ColCount="2" ColumnCount="2" ColSpan="1" ColumnSpan="1">
                         <Items>
-                            <dx:GridViewColumnLayoutItem Visible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColSpan="2"></dx:GridViewColumnLayoutItem>
+                            <dx:GridViewColumnLayoutItem ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColSpan="2"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="AuditID" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem Caption="Number Of Appointments Allocated" ColumnName="NumberOfAppointmentsAllocated" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem Caption="CaseNotes Available StartCount" ColumnName="CaseNotesAvailableStartCount" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                             <dx:GridViewColumnLayoutItem Caption="TemporaryNotes Count" ColumnName="TemporaryNotesCount" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
-                            <%-- <dx:GridViewColumnLayoutItem Caption="" Width="100%">
+                             <%-- <dx:GridViewColumnLayoutItem Caption="" Width="100%">
                                 <Template>
                                     <dx:ASPxLabel ID="ClinicCodesHelpLabel" runat="server" OnInit="ClinicCodesHelpLabel_Init" EncodeHtml="false"></dx:ASPxLabel>
                                 </Template>
@@ -134,6 +134,7 @@
             <Settings ShowFilterRow="true" />
             <SettingsBehavior AllowEllipsisInText="true" />
             <SettingsResizing ColumnResizeMode="NextColumn" />
+            <Templates><EditForm></EditForm> </Templates>
         </dx:ASPxGridView>
 
     </div>

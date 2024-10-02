@@ -2,14 +2,14 @@
 
 function StartAudit_Click(s, e,AuditID,Index) {
 
-         const relativeURL = 'CaseNoteAvailabilitAudit.aspx?Audit='+AuditID;
+         const relativeURL = 'CaseNoteAvailabilityAudit.aspx?AuditID='+AuditID;
          const absoluteURL = 
          new URL(relativeURL, window.location.href);
 //      console.log('Redirecting to:', absoluteURL.href);
         window.location.href = absoluteURL.href;
 
 HealthRecordsGridView.StartEditRow(Index);
-   for 
+   
 }
 function DeleteRow_Click() {
    HealthRecordsGridView.Refresh();
@@ -30,7 +30,6 @@ function ChooseUserButton1_Click(s, e, AuditID, StatusID) {
     let personName;
 
     //let personName = forename + " " + surname + " (" + username + ")";
-    /*
     switch (ADSender) {
         case "Expedite":
         case "Expedite_Existing":
@@ -54,7 +53,4 @@ function ChooseUserButton1_Click(s, e, AuditID, StatusID) {
     GradedByUserHiddenField.Set("GradedByUserID", personID);
     ResetCreatePopup();
     GradedUserPopup.Hide();
-    */
-
-
 }

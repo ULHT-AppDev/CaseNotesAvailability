@@ -85,6 +85,16 @@
                 <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="75" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
                     <DataItemTemplate>
                         <div>
+                            <dx:ASPxButton ID="AuditorView"
+                                runat="server"
+                                Text="Choose"
+                                RenderMode="Button"
+                                AutoPostBack="false"
+                                UseSubmitBehavior="false"
+                                CausesValidation="false"
+                                OnInit="AuditorView_Init">
+                            </dx:ASPxButton>
+                            <t></t>
                             <dx:ASPxButton ID="ChooseUserButton"
                                 runat="server"
                                 Text="Choose"
@@ -171,5 +181,6 @@
         </dx:ASPxGridView>
 
     </div>
+    <a href='/AuditorView.aspx?%>'>AuditorView</a>
     <%--<uc1:UserAlertPopupControl runat="server" ID="UserAlertPopupControl" />--%>
 </asp:Content>

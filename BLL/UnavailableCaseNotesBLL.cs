@@ -9,17 +9,18 @@ using DAL;
 
 namespace BLL
 {
-    public class AuditClinicAnswersBLL
+    public class UnavailableCaseNotesBLL
     {
-       
-        public List<AuditClinicAnswersBO> GetAuditClinicAnswers(int CSAAuditId)
+        private int localAuditId;
+        public List<UnavailableCaseNotesBO> GetUnAvailableCaseNotes()
         {
             try
             {
-                List<AuditClinicAnswersBO> FullAuditClincAnswer = new List<AuditClinicAnswersBO>();
-                FullAuditClincAnswer = new DAL.AuditClinicAnswersDAL().GetAuditClincAnswers(CSAAuditId).OrderByDescending(x => x.AuditID).ToList();
+                List<UnavailableCaseNotesBO> UnavailableCaseNotes = new List<UnavailableCaseNotesBO>();
+
+                UnavailableCaseNotes = new DAL.UnavailableCaseNotesDAL().GetUnAvailableCaseNotes().OrderByDescending(x => x.UnavailableCaseNotesID).ToList();
                 //FullAuditClincAnswer = FullAuditClincAnswer.Where(x => !FullAuditClincAnswer.Contains(x)).ToList(); 
-                return FullAuditClincAnswer;
+                return UnavailableCaseNotes;
             }
             catch (Exception ex)
             {
@@ -28,7 +29,10 @@ namespace BLL
                 return null;
             }
         }
-        
+        public void SetAuditID(int auditID)
+        {
+            localAuditId = auditID;
+        }
         
         public List<SpecilatyBO> GetSpeciality()
         {
@@ -135,23 +139,6 @@ namespace BLL
         public static void DeleteAudit(int AuditID, string StatusID)
         {
             new DAL.AuditDAL().DeleteAudit(AuditID, StatusID);
-        }
-
-        public List<AuditClinicAnswersBO> GetAuditClinicAnswer(int rowID)
-        {
-            try
-            {
-                List<AuditClinicAnswersBO> FullAuditClincAnswer = new List<AuditClinicAnswersBO>();
-                FullAuditClincAnswer = new DAL.AuditClinicAnswersDAL().GetAuditClincAnswer(rowID).OrderByDescending(x => x.AuditID).ToList();
-                //FullAuditClincAnswer = FullAuditClincAnswer.Where(x => !FullAuditClincAnswer.Contains(x)).ToList(); 
-                return FullAuditClincAnswer;
-            }
-            catch (Exception ex)
-            {
-                //ErrorLog error = new ErrorLog(ex, sessionID, null);
-                //new LogsBLL().LogAnError(error);
-                return null;
-            }
         }
     }
 }

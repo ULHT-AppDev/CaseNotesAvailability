@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-    internal class UnavailableCaseNotesBO
+    public class UnavailableCaseNotesBO
     {
         public int UnavailableCaseNotesID { get; set; }
         public int AuditClinicAnswersID { get; set; }

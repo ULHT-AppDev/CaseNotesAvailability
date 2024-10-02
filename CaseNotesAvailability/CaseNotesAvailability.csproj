@@ -181,10 +181,11 @@
     <Content Include="CustomCSS\AppHeaderMenu.css" />
     <Content Include="CustomCSS\Master.css" />
     <Content Include="CustomCSS\NotificationHelper.css" />
+    <Content Include="CustomJS\CaseNoteAvailabilityAudit.js" />
     <Content Include="CustomJS\AuditorView.js" />
     <Content Include="CustomJS\Audit.js" />
     <Content Include="AuditorView.aspx" />
-    <Content Include="CaseNoteAvailabilitAudit.aspx" />
+    <Content Include="CaseNoteAvailabilityAudit.aspx" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Login\Login.aspx" />
@@ -356,12 +357,12 @@
     <Compile Include="AuditorView.aspx.designer.cs">
       <DependentUpon>AuditorView.aspx</DependentUpon>
     </Compile>
-    <Compile Include="CaseNoteAvailabilitAudit.aspx.cs">
-      <DependentUpon>CaseNoteAvailabilitAudit.aspx</DependentUpon>
+    <Compile Include="CaseNoteAvailabilityAudit.aspx.cs">
+      <DependentUpon>CaseNoteAvailabilityAudit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="CaseNoteAvailabilitAudit.aspx.designer.cs">
-      <DependentUpon>CaseNoteAvailabilitAudit.aspx</DependentUpon>
+    <Compile Include="CaseNoteAvailabilityAudit.aspx.designer.cs">
+      <DependentUpon>CaseNoteAvailabilityAudit.aspx</DependentUpon>
     </Compile>
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>

@@ -18,6 +18,14 @@ function NewRef_Init(s,e)
     HealthRecordsGridView.AddNewRow();
 }
 
+function AuditorView_Click(s, e,AuditID,Index,date, Speciality, Site) {
+     const relativeURL = 'CaseNoteAvailabilityAudit.aspx?AuditID='+AuditID+'&Speciality='+Speciality;
+         const absoluteURL = 
+         new URL(relativeURL, window.location.href);
+//      console.log('Redirecting to:', absoluteURL.href);
+        window.location.href = absoluteURL.href;
+   
+}
 
 function ChooseUserButton1_Click(s, e, AuditID, StatusID) {
     let personName;

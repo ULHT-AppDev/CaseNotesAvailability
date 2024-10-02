@@ -8,6 +8,7 @@ using static System.Net.Mime.MediaTypeNames;
 using Model;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Infrastructure.Interception;
+using System.Data.Entity;
 
 namespace DAL
 {
@@ -35,7 +36,7 @@ namespace DAL
             }
         }
 
-        public List<AuditClinicAnswersBO> GetAuditClincAnswer(int AuditID)
+        public List<AuditClinicAnswersBO> GetAuditClincAnswers(int AuditID)
         {
             using (var ctx = new Model.CNAEntities())
             {
@@ -249,6 +250,26 @@ namespace DAL
                         dbContextTransactionDel.Rollback();
                     }
                 }
+            }
+        }
+
+        public List<AuditClinicAnswersBO> GetAuditClincAnswer(int cSAAuditId)
+        {
+            using (var ctx = new Model.CNAEntities())
+            {
+                return (from u in ctx.AuditClinicAnswers
+                        where u.IsActive
+                        && u.AuditClinicAnswersID == cSAAuditId
+                        select new BusinessObjects.AuditClinicAnswersBO
+                        {
+                            AuditClinicAnswersID = u.AuditClinicAnswersID,
+                            AuditID = u.AuditID,
+                            ClinicCode = u.ClinicCode,
+                            NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
+                            CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
+                            TemporaryNotesCount = u.TemporaryNotesCount,
+                            IsActive = u.IsActive
+                        }).ToList();
             }
         }
     }

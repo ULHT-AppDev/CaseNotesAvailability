@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CaseNotesAvailability {
-    
-    
-    public partial class MasterPage {
-        
+namespace CaseNotesAvailability
+{
+
+
+    public partial class MasterPage
+    {
+
         /// <summary>
         /// head control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
-        
+
         /// <summary>
         /// PlaceHolder1 control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.PlaceHolder PlaceHolder1;
-        
+
         /// <summary>
         /// form1 control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
-        
+
         /// <summary>
         /// AppHeaderLink control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlAnchor AppHeaderLink;
-        
+
         /// <summary>
         /// AppHeaderLabel control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel AppHeaderLabel;
-        
+
         /// <summary>
         /// MainAppMenu control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxMenu MainAppMenu;
-        
+
         /// <summary>
         /// LoggedInUser control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel LoggedInUser;
-        
+
         /// <summary>
         /// LoggoutButton control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxButton LoggoutButton;
-        
+
         /// <summary>
         /// ContentPlaceHolder1 control.
         /// </summary>
@@ -92,5 +94,14 @@ namespace CaseNotesAvailability {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder1;
+
+        /// <summary>
+        /// ContentPlaceHolder2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder2;
     }
 }

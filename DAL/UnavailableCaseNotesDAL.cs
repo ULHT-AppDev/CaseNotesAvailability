@@ -24,9 +24,25 @@ namespace DAL
                         select new BusinessObjects.UnavailableCaseNotesBO
                         {
                             AuditClinicAnswersID = p.AuditClinicAnswersID,
-                            PatientID = p.PatientID,
+                            PatientDetails = p.PatientDetails,
                             ReasonUnavailableID = p.ReasonUnavailableID,
                             UnavailableCaseNotesID = p.UnavailableCaseNotesID
+                        }).ToList();
+            }
+        }
+
+        public List<ReasonUnavailableBO> GetUnAvailableReasons()
+        {
+            using (var ctx = new Model.CNAEntities())
+            {
+                //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
+                return (from p in ctx.ReasonUnavailables
+                        where p.IsActive
+                        select new BusinessObjects.ReasonUnavailableBO
+                        {
+                            ReasonUnavailableID = p.ReasonUnavailableID,
+                            ReasonText = p.ReasonText,
+                            IsActive = p.IsActive
                         }).ToList();
             }
         }

@@ -253,7 +253,7 @@ namespace DAL
             }
         }
 
-        public List<AuditClinicAnswersBO> GetAuditClincAnswer(int cSAAuditId)
+        public AuditClinicAnswersBO GetAuditClincAnswer(int cSAAuditId)
         {
             using (var ctx = new Model.CNAEntities())
             {
@@ -269,7 +269,7 @@ namespace DAL
                             CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
                             TemporaryNotesCount = u.TemporaryNotesCount,
                             IsActive = u.IsActive
-                        }).ToList();
+                        }).FirstOrDefault();
             }
         }
     }

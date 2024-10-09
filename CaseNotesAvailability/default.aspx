@@ -181,6 +181,5 @@
         </dx:ASPxGridView>
 
     </div>
-    <a href='/AuditorView.aspx?%>'>AuditorView</a>
     <%--<uc1:UserAlertPopupControl runat="server" ID="UserAlertPopupControl" />--%>
 </asp:Content>

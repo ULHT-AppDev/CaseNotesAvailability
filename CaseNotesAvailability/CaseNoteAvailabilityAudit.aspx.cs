@@ -2,6 +2,7 @@
 using BusinessObjects;
 using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Web;
+using DevExpress.Web.Internal.Dialogs;
 using DevExpress.XtraRichEdit.Commands;
 using Newtonsoft.Json.Linq;
 using System;
@@ -9,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -44,11 +46,11 @@ namespace CaseNotesAvailability
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditClinicAnswersID", "AuditID" }) as object[];
+            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID" }) as object[];
 
             if (values != null)
             {
-                string AuditAnswerID = values[0]?.ToString() ?? "";
+                string ClinicCode = values[0]?.ToString() ?? "";
                 string AuditID = values[1]?.ToString() ?? "";
 
 
@@ -57,7 +59,7 @@ namespace CaseNotesAvailability
                 //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
                 //}
 
-                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}'); }}", AuditAnswerID, AuditID);
+                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}'); }}", ClinicCode, AuditID);
                 //btn.Click += new System.EventHandler(this.Button_Click);
 
             }
@@ -66,15 +68,16 @@ namespace CaseNotesAvailability
                 btn.Visible = false;
             }
         }
-        
+
         protected void CaseNoteAvailabilityUnAvailabilityCallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
             if (e.Parameter != null) // select patient referrals & details sent from patient search grid
             {
-                int rowID = Convert.ToInt32(e.Parameter);
-                lblClinicCode1.Text = rowID.ToString();
+                UnAvailabilityCallbackBO obj = Newtonsoft.Json.JsonConvert.DeserializeObject<UnAvailabilityCallbackBO>(e.Parameter);
 
-                getAuditClinicAnswer(rowID);
+                string ClinicCode = obj.ClinicCode;    
+                int AuditClinicAnswerId = obj.AuditClinicAnswerId;
+                getAuditClinicAnswer(AuditClinicAnswerId);
             }
 
         }
@@ -83,12 +86,18 @@ namespace CaseNotesAvailability
         {
             if (e.Parameter != null && int.TryParse(e.Parameter, out int iterations))
             {
-                ASPxFormLayout form = new ASPxFormLayout()
-                {
-                    AlignItemCaptions = true,
-                    Width = Unit.Percentage(100)
-                };
-                form.ID = "UnavailabilityFormLayout";
+
+                List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
+                UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons();
+
+
+                //ASPxFormLayout form = new ASPxFormLayout()
+                //{
+                //    AlignItemCaptions = true,
+                //    Width = Unit.Percentage(100)
+                //};
+                //form.ID = "UnavailabilityFormLayout";
+                //form.ClientInstanceName= "UnavailabilityFormLayout";
 
                 for (int i = 1; i < (iterations + 1); i++)
                 {
@@ -121,9 +130,9 @@ namespace CaseNotesAvailability
                     ASPxComboBox comboBox = new ASPxComboBox();
                     comboBox.ID = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
                     comboBox.ClientInstanceName = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                    comboBox.DataSource = null; // datasource here etc
-                    comboBox.TextField = ""; // whatever it is here
-                    comboBox.ValueField = ""; // whatever it is here
+                    comboBox.DataSource = UnAvailableReason; // datasource here etc
+                    comboBox.TextField = "ReasonText"; // whatever it is here
+                    comboBox.ValueField = "ReasonUnavailableID"; // whatever it is here
                     comboBox.DataBind();
 
                     comboBox.ValidationSettings.RequiredField.IsRequired = true;
@@ -138,11 +147,11 @@ namespace CaseNotesAvailability
                     lg.Items.Add(reasonItem);
 
                     // add group to form
-                    form.Items.Add(lg);
+                    UnavailabilityFormLayout.Items.Add(lg);
                 }
 
                 // finally add form to page (div)
-                DynamicFormContainer.Controls.Add(form);
+                // DynamicFormContainer.Controls.Add(form);
 
             }
 
@@ -151,12 +160,14 @@ namespace CaseNotesAvailability
 
         private void getAuditClinicAnswer(int rowID)
         {
-            List<AuditClinicAnswersBO> FullAuditClincAnswer = new List<AuditClinicAnswersBO>();
+            AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();
             FullAuditClincAnswer = new BLL.AuditClinicAnswersBLL().GetAuditClinicAnswer(rowID);
             //TextBox1.Text = FullAuditClincAnswer[0].ClinicCode;
-            txtNumAppointments.Text = FullAuditClincAnswer[0].NumberOfAppointmentsAllocated.ToString();
-            txtStartCount.Text = FullAuditClincAnswer[0].CaseNotesAvailableStartCount.ToString();
-            txtTempNotesCount.Text = FullAuditClincAnswer[0].TemporaryNotesCount.ToString();
+            lblClinicCode1.Text = FullAuditClincAnswer.ClinicCode;
+            txtAuditClinicAnswerId.Value = FullAuditClincAnswer.AuditClinicAnswersID;
+            txtNumAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
+            txtStartCount.Text = FullAuditClincAnswer.CaseNotesAvailableStartCount.ToString();
+            txtTempNotesCount.Text = FullAuditClincAnswer.TemporaryNotesCount.ToString();
             //txtCaseNoteCount.Text = FullAuditClincAnswer[0]..ToString();
         }
 
@@ -405,6 +416,144 @@ namespace CaseNotesAvailability
             //Speciality
         }
 
+        //protected void CompleteButton_Click(object sender, EventArgs e)
+        //{
+        //    //AuditClinicAnswersBO ClinicAns = new AuditClinicAnswersBO();
+        //    //ClinicAns.AuditID = Convert.ToInt32(lblClinicCode1.Text);
+        //    //ClinicAns.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Text);
+        //    //ClinicAns.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Text);
+        //    //ClinicAns.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Text);
 
+
+        //    /*
+        //                foreach (LayoutItemBase item in UnavailabilityFormLayout.Items)
+        //                {
+        //                    if (item is LayoutItem)
+        //                    {
+        //                        LayoutItem layoutItem = (LayoutItem)item;
+        //                        Control control = layoutItem.GetNestedControl();
+
+        //                        if (control != null)
+        //                        {
+        //                            // Check the type of the control and process accordingly
+        //                            if (control is ASPxTextBox)
+        //                            {
+        //                                ASPxTextBox textBox = (ASPxTextBox)control;
+        //                                string textValue = textBox.Text;
+        //                                // Do something with the text value
+        //                            }
+        //                            else if (control is ASPxComboBox)
+        //                            {
+        //                                ASPxComboBox comboBox = (ASPxComboBox)control;
+        //                                string selectedValue = comboBox.SelectedItem?.Value.ToString();
+        //                                // Do something with the selected value
+        //                            }
+
+        //                        }
+        //                    }
+        //                }
+
+        //                */
+        //    // Find the ASPxCallbackPanel on the page
+        //    //ASPxCallbackPanel callbackPanel = FindControl("myCallbackPanel") as ASPxCallbackPanel;
+
+        //    //if (callbackPanel != null)
+        //    //{
+        //    // Find the form layout inside the callback panel
+
+        //}
+
+
+
+
+        //protected void ButtonSubmit_Click(object sender, EventArgs e)
+        //{
+        //    Dictionary<String, List<String>> CatValues = new Dictionary<String, List<String>>();
+        //    foreach (var item in UnavailabilityFormLayout.Items)
+        //        if (item is LayoutGroupBase)
+        //            (item as LayoutGroupBase).ForEach(BaseItem => GetNestedControls(BaseItem, BaseItem.Caption, CatValues));
+        //}
+
+        private void ReadLayoutItemControls(LayoutItemBase layoutItem)
+        {
+            if (layoutItem is LayoutItem)
+            {
+                LayoutItem item = (LayoutItem)layoutItem;
+
+                // Get the control within the layout item (e.g., ASPxTextBox, ASPxComboBox, etc.)
+                if (item.Controls.Count > 0)
+                {
+                    var control = item.Controls[0]; // Assuming one control per LayoutItem
+
+                    // Example: Checking for specific control types
+                    if (control is ASPxTextBox)
+                    {
+                        ASPxTextBox textBox = (ASPxTextBox)control;
+                        string text = textBox.Text;
+                        // Perform operations with the textBox value
+                    }
+                    else if (control is ASPxComboBox)
+                    {
+                        ASPxComboBox comboBox = (ASPxComboBox)control;
+                        string selectedItem = comboBox.SelectedItem.Text;
+                        // Perform operations with the comboBox value
+                    }
+                    // Handle other control types similarly
+                }
+            }
+        }
+
+        protected void CompleteCallback_Callback(object source, CallbackEventArgs e)
+        {
+            if (e.Parameter != null) // select patient referrals & details sent from patient search grid
+            {
+                string eventArgument = e.Parameter;
+                if (!string.IsNullOrEmpty(eventArgument))
+                {
+                    // Deserialize the JSON string back to an array
+                    var myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<string[][]>(eventArgument);
+
+                    // Use the array on server side
+                    List<UnavailableCaseNotesBO> UnAvailabelCaseNotes = new List<UnavailableCaseNotesBO>();
+                    foreach (string[] item in myArray)
+                    {
+                        UnavailableCaseNotesBO UnAvailable = new UnavailableCaseNotesBO();
+                        UnAvailable.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
+                        UnAvailable.PatientDetails = item[0];
+                        UnAvailable.ReasonUnavailableID = Convert.ToInt32(item[1]);
+                        UnAvailabelCaseNotes.Add(UnAvailable);
+                    }
+                }
+            }
+        }
+
+        //protected void CaseNoteAvailabilityUnAvailabilityPopup_WindowCallback(object source, PopupWindowCallbackArgs e)
+        //{
+        //    FindAllControls(CaseNoteAvailabilityUnAvailabilityPopup);
+        //}
+        private void FindAllControls(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is ASPxTextBox)
+                {
+                    ASPxTextBox textBox = (ASPxTextBox)ctrl;
+                    string value = textBox.Text;
+                    // Do something with the value, e.g., display or process it
+                }
+                else if (ctrl.HasControls())
+                {
+                    // Recursively search through the child controls
+                    FindAllControls(ctrl);
+                }
+            }
+        }
+
+        protected void CompleteButton_Init(object sender, EventArgs e)
+        {
+            ASPxButton btn = sender as ASPxButton;
+            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Complete_Click(s, e); }}");
+
+        }
     }
 }

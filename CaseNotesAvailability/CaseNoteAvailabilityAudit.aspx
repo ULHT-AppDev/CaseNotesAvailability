@@ -98,7 +98,8 @@
                     <Items>
                         <dx:GridViewLayoutGroup Name="FieldGroup" Caption="Health Records View" ColCount="2" ColumnCount="2" ColSpan="1" ColumnSpan="1">
                             <Items>
-                                <dx:GridViewColumnLayoutItem ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem ClientVisible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem ColumnName="AuditID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <%--<dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
                                 <dx:GridViewColumnLayoutItem Caption="Number Of Appointments Allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
@@ -127,9 +128,14 @@
                             </div>
                         </DataItemTemplate>
                     </dx:GridViewDataColumn>
-                    <dx:GridViewDataTextColumn Caption="AuditClinicAnswersID" ReadOnly="true" FieldName="AuditClinicAnswersID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+                    <dx:GridViewDataTextColumn Caption="AuditClinicAnswersID" Visible="false" ReadOnly="true" FieldName="AuditClinicAnswersID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
                         <EditItemTemplate>
                             <dx:ASPxLabel ID="AuditClinicAnswersIDReadonlyLabel" runat="server" Text='<%# Eval("AuditClinicAnswersID") %>'></dx:ASPxLabel>
+                        </EditItemTemplate>
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="ClinicCode" ReadOnly="true" FieldName="ClinicCode" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+                        <EditItemTemplate>
+                            <dx:ASPxLabel ID="ClinicCodeReadonlyLabel" runat="server" Text='<%# Eval("ClinicCode") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
                     </dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="AuditID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
@@ -164,6 +170,7 @@
 
         </div>
         <%--<uc1:UserAlertPopupControl runat="server" ID="UserAlertPopupControl" />--%>
+    </div>
 </asp:Content>
 <%-- Starts here  --%>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
@@ -240,10 +247,20 @@
                                             Width="100%">
                                             <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="676"></SettingsAdaptivity>
                                             <Items>
+                                                <dx:LayoutItem Caption="Audit Clinic AnswerId :" ClientVisible="false" Name="ClinicCode" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                    <LayoutItemNestedControlCollection>
+                                                        <dx:LayoutItemNestedControlContainer runat="server">
+                                                            <%--<dx:ASPxLabel ID="lblAuditClinicAnswerId" runat="server" ClientInstanceName="lblAuditClinicAnswerId"></dx:ASPxLabel>--%>
+                                                            <dx:ASPxTextBox ID="txtAuditClinicAnswerId" ClientInstanceName="txtAuditClinicAnswerId" runat="server" Width="170px"></dx:ASPxTextBox>
+                                                        </dx:LayoutItemNestedControlContainer>
+                                                    </LayoutItemNestedControlCollection>
+                                                    <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
+                                                </dx:LayoutItem>
+
                                                 <dx:LayoutItem Caption="Clinic Code :" Name="ClinicCode" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <asp:Label ID="lblClinicCode1" runat="server" CssClass="mylabel2"></asp:Label>
+                                                            <dx:ASPxLabel ID="lblClinicCode1" runat="server" ClientInstanceName="lblClinicCode1"></dx:ASPxLabel>
                                                         </dx:LayoutItemNestedControlContainer>
                                                     </LayoutItemNestedControlCollection>
 
@@ -253,7 +270,7 @@
                                                 <dx:LayoutItem Caption="Number of Appointments :" Name="NumberofAppointments" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <asp:TextBox ID="txtNumAppointments" runat="server" Width="200px" MaxLength="50"></asp:TextBox>
+                                                            <dx:ASPxTextBox ID="txtNumAppointments" ClientInstanceName="txtNumAppointments" runat="server" Width="170px"></dx:ASPxTextBox>
                                                         </dx:LayoutItemNestedControlContainer>
                                                     </LayoutItemNestedControlCollection>
 
@@ -263,7 +280,7 @@
                                                 <dx:LayoutItem Caption="Case notes available Start Count :" Name="CaseNoteAvailabileStartCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <asp:TextBox ID="txtStartCount" runat="server" Width="200px" MaxLength="50"></asp:TextBox>
+                                                            <dx:ASPxTextBox ID="txtStartCount" ClientInstanceName="txtStartCount" runat="server" Width="170px"></dx:ASPxTextBox>
                                                         </dx:LayoutItemNestedControlContainer>
                                                     </LayoutItemNestedControlCollection>
 
@@ -273,14 +290,14 @@
                                                 <dx:LayoutItem Caption="Temporary notes count :" Name="TempNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <asp:TextBox ID="txtTempNotesCount" runat="server" Width="200px" MaxLength="50"></asp:TextBox>
+                                                            <dx:ASPxTextBox ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" Width="170px"></dx:ASPxTextBox>
                                                         </dx:LayoutItemNestedControlContainer>
                                                     </LayoutItemNestedControlCollection>
 
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
 
-                                                <dx:LayoutItem Caption="Unavailable case note count :" Name="UnavailableCaseNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <%-- <dx:LayoutItem Caption="Unavailable case note count :" Name="UnavailableCaseNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <asp:TextBox ID="txtCaseNoteCount" runat="server" Width="200px" MaxLength="50"></asp:TextBox>
@@ -288,7 +305,7 @@
                                                     </LayoutItemNestedControlCollection>
 
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
-                                                </dx:LayoutItem>
+                                                </dx:LayoutItem>--%>
 
                                                 <dx:LayoutItem Name="UnavailableCaseNoteCount" Caption="Unavailable case note count :" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
@@ -314,35 +331,40 @@
                                         </dx:ASPxFormLayout>
                                     </div>
                                 </div>
-
-                                <div class="p-4">
-                                    <div class="d-flex align-items-center">
-                                        <div>
-                                            <dx:ASPxButton ID="CompleteButton"
-                                                ClientInstanceName="CompleteButton"
-                                                runat="server"
-                                                Text="Complete"
-                                                AutoPostBack="false"
-                                                UseSubmitBehavior="false">
-                                                <ClientSideEvents Click="Complete_Click" />
-                                            </dx:ASPxButton>
-                                        </div>
-                                        <%-- <div id="NoReferralsContainer" runat="server" class="mt-3" visible="false">
-                                            <dx:ASPxLabel ID="NoReferralsLabel" runat="server"></dx:ASPxLabel>
-                                        </div>--%>
-                                        <%--<dx:GridViewDataCheckColumn FieldName="DocumentsToUpload" VisibleIndex="1" Visible="false"></dx:GridViewDataCheckColumn>--%>
-                                    </div>
-                                </div>
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>
                     <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" ClientVisible="false" ClientInstanceName="CreateFormDynamically_CallbackPanel" OnCallback="CreateFormDynamically_CallbackPanel_Callback" runat="server">
                         <PanelCollection>
                             <dx:PanelContent>
-                                <div id="DynamicFormContainer" runat="server"></div>
+                                <div id="DynamicFormContainer" runat="server">
+                                    <dx:ASPxFormLayout ID="UnavailabilityFormLayout" ClientInstanceName="UnavailabilityFormLayout" runat="server" ColCount="1">
+                                    </dx:ASPxFormLayout>
+                                </div>
+
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>
+                    <div class="p-4">
+                        <div class="d-flex align-items-center">
+                            <div>
+                                <dx:ASPxButton ID="CompleteButton"
+                                    ClientInstanceName="CompleteButton"
+                                    runat="server"
+                                    Text="Complete"
+                                    AutoPostBack="false"
+                                    UseSubmitBehavior="false"
+                                    OnInit="CompleteButton_Init">
+                                </dx:ASPxButton>
+                            </div>
+                            <%-- <div id="NoReferralsContainer" runat="server" class="mt-3" visible="false">
+                <dx:ASPxLabel ID="NoReferralsLabel" runat="server"></dx:ASPxLabel>
+            </div>--%>
+                            <%--<dx:GridViewDataCheckColumn FieldName="DocumentsToUpload" VisibleIndex="1" Visible="false"></dx:GridViewDataCheckColumn>--%>
+                        </div>
+
+                    </div>
+                    <dx:ASPxCallback ID="CompleteCallback" ClientInstanceName="CompleteCallback" OnCallback="CompleteCallback_Callback" runat="server"></dx:ASPxCallback>
                 </dx:PopupControlContentControl>
             </ContentCollection>
         </dx:ASPxPopupControl>

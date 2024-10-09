@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-    public class UnavailableCaseNotesBO
+    public class ReasonUnavailableBO
     {
-        public int UnavailableCaseNotesID { get; set; }
-        public int AuditClinicAnswersID { get; set; }
-        public string PatientDetails { get; set; }
         public int ReasonUnavailableID { get; set; }
+        public string ReasonText { get; set; }
         public bool IsActive { get; set; }
+
+
     }
 }
+

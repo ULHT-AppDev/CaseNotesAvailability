@@ -1,48 +1,79 @@
-﻿function onDismissalDateChanged(s, e) {
-           var contactLayoutGroup = CaseNoteAvailabilityAuditRecordsGridView.GetEditFormLayoutItemOrGroup("groupContactInfo");
-            var isContactLayoutGroupVisible = contactLayoutGroup.GetVisible();
-            //s.SetText(isContactLayoutGroupVisible ? "Show Details..." : "Hide Details");
-            contactLayoutGroup.SetVisible(!isContactLayoutGroupVisible);
-        }
-    function AuditorView_ClientClick(s, e,AuditAnswerID, AuditID) 
+﻿function onDismissalDateChanged(s, e)
+{
+    var contactLayoutGroup = CaseNoteAvailabilityAuditRecordsGridView.GetEditFormLayoutItemOrGroup("groupContactInfo");
+    var isContactLayoutGroupVisible = contactLayoutGroup.GetVisible();
+    //s.SetText(isContactLayoutGroupVisible ? "Show Details..." : "Hide Details");
+    contactLayoutGroup.SetVisible(!isContactLayoutGroupVisible);
+}
+function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId)
+{
+    //ASPxPopupControl
+    if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback())
     {
-        //ASPxPopupControl
-          if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback()) {
-        
-        CaseNoteAvailabilityUnAvailabilityCallbackPanel.PerformCallback(AuditAnswerID,AuditID);
-        CaseNoteAvailabilityUnAvailabilityPopup.Show();
+
+        let callbackString = {
+        ClinicCode: ClinicCode,
+        AuditClinicAnswerId: AuditClinicAnswerId
+    };
+
+CaseNoteAvailabilityUnAvailabilityCallbackPanel.PerformCallback(JSON.stringify(callbackString));
+CaseNoteAvailabilityUnAvailabilityPopup.Show();
     }
 
         }
-        function Complete_Click(s, e)
-        {
-        }
 
-        function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback (s,e)
-        {
-        
-        }
+function Complete_Click(s, e)
+{
+
+    var arr = [];
+    for (var i = 1; i <= UnavailableCaseNoteCount1; i++)
+    {
+        arr[i - 1] = [];
+        var Namee = "PatientNameTextBox_" + i;
+        var PatientNameTextBox = ASPxClientTextBox.Cast(Namee);
+        var PatientNametVal = PatientNameTextBox.GetText();
+        var Reason = "ReasonComboBox_" + i;
+        var ReasonTextBox = ASPxClientComboBox.Cast(Reason);
+        var ReasonVal = ReasonTextBox.GetValue();
+
+        arr[i - 1][0] = PatientNameTextBox.GetText();
+        arr[i - 1][1] = ReasonTextBox.GetValue();
+    }
+
+    /*  arr[0]*/
+
+    var jsonArray = JSON.stringify(arr);
+
+    CompleteCallback.PerformCallback(jsonArray);
+}
+
+function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e)
+{
+
+}
 
 
-      function UnavailableCaseNoteCount_SelectedIndexChanged(s, e) {
+function UnavailableCaseNoteCount_SelectedIndexChanged(s, e)
+{
 
     var Count = UnavailableCaseNoteCount.GetValue();
-    if (Count > 0) {
-       // int i= 0;
+    if (Count > 0)
+    {
+        // int i= 0;
         //While (i<=count)
         //{
-            //i+=1;
-            CreateFormDynamically_CallbackPanel.PerformCallback(Count);    
-            CreateFormDynamically_CallbackPanel.SetVisible(true);
-            //PatientLayoutCallLayout.SetVisible(true);
+        //i+=1;
+        CreateFormDynamically_CallbackPanel.PerformCallback(Count);
+        CreateFormDynamically_CallbackPanel.SetVisible(true);
+        //PatientLayoutCallLayout.SetVisible(true);
         //}
-        }
-        else
-        {
-            CreateFormDynamically_CallbackPanel.SetVisible(false);
-        }
-    } 
+    }
+    else
+    {
+        CreateFormDynamically_CallbackPanel.SetVisible(false);
+    }
+}
 
-    //BodyMassIndexCalculatedLabel.SetText(valueToSet);
-    //document.getElementById('HiddenBMIValue').value = valueToSet;
+//BodyMassIndexCalculatedLabel.SetText(valueToSet);
+//document.getElementById('HiddenBMIValue').value = valueToSet;
 

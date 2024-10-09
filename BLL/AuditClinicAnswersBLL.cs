@@ -137,12 +137,12 @@ namespace BLL
             new DAL.AuditDAL().DeleteAudit(AuditID, StatusID);
         }
 
-        public List<AuditClinicAnswersBO> GetAuditClinicAnswer(int rowID)
+        public AuditClinicAnswersBO GetAuditClinicAnswer(int rowID)
         {
             try
             {
-                List<AuditClinicAnswersBO> FullAuditClincAnswer = new List<AuditClinicAnswersBO>();
-                FullAuditClincAnswer = new DAL.AuditClinicAnswersDAL().GetAuditClincAnswer(rowID).OrderByDescending(x => x.AuditID).ToList();
+                AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();
+                FullAuditClincAnswer = new DAL.AuditClinicAnswersDAL().GetAuditClincAnswer(rowID);
                 //FullAuditClincAnswer = FullAuditClincAnswer.Where(x => !FullAuditClincAnswer.Contains(x)).ToList(); 
                 return FullAuditClincAnswer;
             }

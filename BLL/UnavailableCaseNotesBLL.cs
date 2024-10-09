@@ -29,6 +29,26 @@ namespace BLL
                 return null;
             }
         }
+
+        public List<ReasonUnavailableBO> GetUnAvailableReasons()
+        {
+            try
+            {
+                List<ReasonUnavailableBO> UnavailableReasons = new List<ReasonUnavailableBO>();
+
+                UnavailableReasons = new DAL.UnavailableCaseNotesDAL().GetUnAvailableReasons().OrderByDescending(x => x.ReasonUnavailableID).ToList();
+                //FullAuditClincAnswer = FullAuditClincAnswer.Where(x => !FullAuditClincAnswer.Contains(x)).ToList(); 
+                return UnavailableReasons;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, sessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return null;
+            }
+
+        }
+
         public void SetAuditID(int auditID)
         {
             localAuditId = auditID;

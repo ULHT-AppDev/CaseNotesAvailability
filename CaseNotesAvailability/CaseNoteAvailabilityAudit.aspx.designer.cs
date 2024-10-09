@@ -141,13 +141,22 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxFormLayout ReferralTopSectionFormLayout;
 
         /// <summary>
+        /// txtAuditClinicAnswerId control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtAuditClinicAnswerId;
+
+        /// <summary>
         /// lblClinicCode1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblClinicCode1;
+        protected global::DevExpress.Web.ASPxLabel lblClinicCode1;
 
         /// <summary>
         /// txtNumAppointments control.
@@ -156,7 +165,7 @@ namespace CaseNotesAvailability
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNumAppointments;
+        protected global::DevExpress.Web.ASPxTextBox txtNumAppointments;
 
         /// <summary>
         /// txtStartCount control.
@@ -165,7 +174,7 @@ namespace CaseNotesAvailability
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtStartCount;
+        protected global::DevExpress.Web.ASPxTextBox txtStartCount;
 
         /// <summary>
         /// txtTempNotesCount control.
@@ -174,16 +183,7 @@ namespace CaseNotesAvailability
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTempNotesCount;
-
-        /// <summary>
-        /// txtCaseNoteCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtCaseNoteCount;
+        protected global::DevExpress.Web.ASPxTextBox txtTempNotesCount;
 
         /// <summary>
         /// UnavailableCaseNoteCount control.
@@ -193,15 +193,6 @@ namespace CaseNotesAvailability
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxSpinEdit UnavailableCaseNoteCount;
-
-        /// <summary>
-        /// CompleteButton control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton CompleteButton;
 
         /// <summary>
         /// CreateFormDynamically_CallbackPanel control.
@@ -220,5 +211,32 @@ namespace CaseNotesAvailability
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl DynamicFormContainer;
+
+        /// <summary>
+        /// UnavailabilityFormLayout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxFormLayout UnavailabilityFormLayout;
+
+        /// <summary>
+        /// CompleteButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton CompleteButton;
+
+        /// <summary>
+        /// CompleteCallback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCallback CompleteCallback;
     }
 }

@@ -24,8 +24,8 @@ CaseNoteAvailabilityUnAvailabilityPopup.Show();
 
 function Complete_Click(s, e)
 {
-
-    var arr = [];
+   var arr = [];
+    var UnavailableCaseNoteCount1 = UnavailableCaseNoteCount.GetValue();
     for (var i = 1; i <= UnavailableCaseNoteCount1; i++)
     {
         arr[i - 1] = [];
@@ -40,7 +40,7 @@ function Complete_Click(s, e)
         arr[i - 1][1] = ReasonTextBox.GetValue();
     }
 
-    /*  arr[0]*/
+  
 
     var jsonArray = JSON.stringify(arr);
 

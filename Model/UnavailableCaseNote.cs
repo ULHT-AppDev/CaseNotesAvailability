@@ -11,14 +11,13 @@ namespace Model
 {
     using System;
     using System.Collections.Generic;
-
+    
     public partial class UnavailableCaseNote
     {
         public int UnavailableCaseNotesID { get; set; }
         public int AuditClinicAnswersID { get; set; }
-        public int PatientID { get; set; }
+        public string PatientDetails { get; set; }
         public int ReasonUnavailableID { get; set; }
         public bool IsActive { get; set; }
-        public virtual Patient Patient { get; set; }
     }
 }

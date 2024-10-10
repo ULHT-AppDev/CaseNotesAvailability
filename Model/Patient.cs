@@ -14,22 +14,11 @@ namespace Model
     
     public partial class Patient
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Patient()
-        {
-            this.UnavailableCaseNotes = new HashSet<UnavailableCaseNote>();
-        }
-    
         public int PatientID { get; set; }
         public string Unumber { get; set; }
         public string NHSNumber { get; set; }
         public string Forename { get; set; }
         public string Surname { get; set; }
         public bool IsActive { get; set; }
-    
-        public virtual Patient Patients1 { get; set; }
-        public virtual Patient Patient1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<UnavailableCaseNote> UnavailableCaseNotes { get; set; }
     }
 }

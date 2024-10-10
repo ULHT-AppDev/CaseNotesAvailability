@@ -521,8 +521,11 @@ namespace CaseNotesAvailability
                         UnAvailable.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
                         UnAvailable.PatientDetails = item[0];
                         UnAvailable.ReasonUnavailableID = Convert.ToInt32(item[1]);
+                        UnAvailable.IsActive = true;
                         UnAvailabelCaseNotes.Add(UnAvailable);
                     }
+
+
                 }
             }
         }

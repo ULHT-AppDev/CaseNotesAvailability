@@ -78,6 +78,15 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxLabel CasenoteLabel;
 
         /// <summary>
+        /// lblSpeciality control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblSpeciality;
+
+        /// <summary>
         /// CaseNoteAvailabilityAuditRecordsGridView control.
         /// </summary>
         /// <remarks>
@@ -150,13 +159,22 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxTextBox txtAuditClinicAnswerId;
 
         /// <summary>
-        /// lblClinicCode1 control.
+        /// txtAuditId control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblClinicCode1;
+        protected global::DevExpress.Web.ASPxTextBox txtAuditId;
+
+        /// <summary>
+        /// txtClinicCode control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxTextBox txtClinicCode;
 
         /// <summary>
         /// txtNumAppointments control.

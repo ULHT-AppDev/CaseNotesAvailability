@@ -29,7 +29,7 @@ namespace CaseNotesAvailability
             int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
             AuditClinicAnswersBLL loginBLL = new AuditClinicAnswersBLL();
             SetAuditID(lAuditId);
-            string Speciality = Request.QueryString["Speciality"];
+             Speciality = Request.QueryString["Speciality"];
 
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -46,12 +46,13 @@ namespace CaseNotesAvailability
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID" }) as object[];
+            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID", "AuditID" }) as object[];
 
             if (values != null)
             {
                 string ClinicCode = values[0]?.ToString() ?? "";
-                string AuditID = values[1]?.ToString() ?? "";
+                string AuditClinicAnswersID = values[1]?.ToString() ?? "";
+                string AuditID = values[2]?.ToString() ?? "";
 
 
                 //if (!String.IsNullOrEmpty(AuditID))
@@ -59,7 +60,7 @@ namespace CaseNotesAvailability
                 //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
                 //}
 
-                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}'); }}", ClinicCode, AuditID);
+                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}'); }}", ClinicCode, AuditClinicAnswersID, AuditID);
                 //btn.Click += new System.EventHandler(this.Button_Click);
 
             }
@@ -77,6 +78,8 @@ namespace CaseNotesAvailability
 
                 string ClinicCode = obj.ClinicCode;    
                 int AuditClinicAnswerId = obj.AuditClinicAnswerId;
+                int AuditID = obj.AuditID;
+                txtAuditId.Value = AuditID;
                 getAuditClinicAnswer(AuditClinicAnswerId);
             }
 
@@ -163,7 +166,7 @@ namespace CaseNotesAvailability
             AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();
             FullAuditClincAnswer = new BLL.AuditClinicAnswersBLL().GetAuditClinicAnswer(rowID);
             //TextBox1.Text = FullAuditClincAnswer[0].ClinicCode;
-            lblClinicCode1.Text = FullAuditClincAnswer.ClinicCode;
+            txtClinicCode.Text = FullAuditClincAnswer.ClinicCode;
             txtAuditClinicAnswerId.Value = FullAuditClincAnswer.AuditClinicAnswersID;
             txtNumAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
             txtStartCount.Text = FullAuditClincAnswer.CaseNotesAvailableStartCount.ToString();
@@ -410,12 +413,19 @@ namespace CaseNotesAvailability
         }
         protected void CasenoteLabel_Init(object sender, EventArgs e)
         {
-            ASPxLabel lbl = sender as ASPxLabel;
-            lbl.Text = $"In Progress Audit: ID <span class='MainColour'>{Speciality}</span>";
+            ASPxLabel lbl1 = sender as ASPxLabel;
+            lbl1.Text = $"Audit Date:{DateTime.Now.ToShortDateString()}";
 
             //Speciality
         }
+        protected void lblSpeciality_Init(object sender, EventArgs e)
+        {
+            ASPxLabel lbl2 = sender as ASPxLabel;
+            lbl2.Text = $"Speciality:{Speciality}";
 
+            //Speciality
+        }
+        
         //protected void CompleteButton_Click(object sender, EventArgs e)
         //{
         //    //AuditClinicAnswersBO ClinicAns = new AuditClinicAnswersBO();
@@ -512,7 +522,6 @@ namespace CaseNotesAvailability
                 {
                     // Deserialize the JSON string back to an array
                     var myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<string[][]>(eventArgument);
-
                     // Use the array on server side
                     List<UnavailableCaseNotesBO> UnAvailabelCaseNotes = new List<UnavailableCaseNotesBO>();
                     foreach (string[] item in myArray)
@@ -525,6 +534,18 @@ namespace CaseNotesAvailability
                         UnAvailabelCaseNotes.Add(UnAvailable);
                     }
 
+                    AuditClinicAnswersBO AuditClinicAnswers = new AuditClinicAnswersBO();
+                    AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
+                    AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
+                    AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
+                    AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
+                    AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
+                    AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
+
+                    bool update =  new BLL.AuditBLL().SaveCaseNoteAvailability(AuditClinicAnswers);
+                    if (update) {
+                        bool update1 = new BLL.AuditBLL().InsertUnAvailableCaseNoteAvailability(UnAvailabelCaseNotes);
+                    }
 
                 }
             }

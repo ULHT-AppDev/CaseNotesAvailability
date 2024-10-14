@@ -51,6 +51,15 @@
                                             ForeColor="#316bff">
                                         </dx:ASPxLabel>
                                     </div>
+                                    <div>
+                                        <dx:ASPxLabel ID="lblSpeciality"
+                                            ClientInstanceName="lblSpeciality"
+                                            runat="server"
+                                            OnInit="lblSpeciality_Init"
+                                            Font-Size="20px"
+                                            ForeColor="#316bff">
+                                        </dx:ASPxLabel>
+                                    </div>
                                     <%-- <div>
                             <dx:ASPxLabel ID="LockedToUserInfoLabel"
                                 ClientInstanceName="LockedToUserInfoLabel"
@@ -257,10 +266,21 @@
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
 
+                                                <dx:LayoutItem Caption="AuditId :" ClientVisible="false" Name="AuditId" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                    <LayoutItemNestedControlCollection>
+                                                        <dx:LayoutItemNestedControlContainer runat="server">
+                                                            <%--<dx:ASPxLabel ID="lblAuditClinicAnswerId" runat="server" ClientInstanceName="lblAuditClinicAnswerId"></dx:ASPxLabel>--%>
+                                                            <dx:ASPxTextBox ID="txtAuditId" ClientInstanceName="txtAuditId" runat="server" Width="170px"></dx:ASPxTextBox>
+                                                        </dx:LayoutItemNestedControlContainer>
+                                                    </LayoutItemNestedControlCollection>
+                                                    <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
+                                                </dx:LayoutItem>
+
                                                 <dx:LayoutItem Caption="Clinic Code :" Name="ClinicCode" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <dx:ASPxLabel ID="lblClinicCode1" runat="server" ClientInstanceName="lblClinicCode1"></dx:ASPxLabel>
+                                                            <%--<dx:ASPxLabel ID="lblClinicCode1" runat="server" ClientInstanceName="lblClinicCode1"></dx:ASPxLabel>--%>
+                                                            <dx:ASPxTextBox ID="txtClinicCode" ClientEnabled="false" ClientInstanceName="txtClinicCode" runat="server" Width="170px"></dx:ASPxTextBox>
                                                         </dx:LayoutItemNestedControlContainer>
                                                     </LayoutItemNestedControlCollection>
 

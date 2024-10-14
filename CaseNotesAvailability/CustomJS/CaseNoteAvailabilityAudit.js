@@ -5,7 +5,7 @@
     //s.SetText(isContactLayoutGroupVisible ? "Show Details..." : "Hide Details");
     contactLayoutGroup.SetVisible(!isContactLayoutGroupVisible);
 }
-function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId)
+function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId,AuditID)
 {
     //ASPxPopupControl
     if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback())
@@ -13,7 +13,8 @@ function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId)
 
         let callbackString = {
         ClinicCode: ClinicCode,
-        AuditClinicAnswerId: AuditClinicAnswerId
+        AuditClinicAnswerId: AuditClinicAnswerId,
+        AuditID:AuditID
     };
 
 CaseNoteAvailabilityUnAvailabilityCallbackPanel.PerformCallback(JSON.stringify(callbackString));

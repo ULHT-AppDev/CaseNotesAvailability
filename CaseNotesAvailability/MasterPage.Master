@@ -66,7 +66,7 @@
                             <SubMenuItemStyle CssClass="MenuSubMenuItem" HoverStyle-BackColor="#5a585a" ForeColor="#fafafa" SelectedStyle-BackColor="#424242" HoverStyle-ForeColor="#fafafa"></SubMenuItemStyle>
                             <SubMenuStyle CssClass="MenuSubMenu" />
                             <Items>
-                                <dx:MenuItem Name="Default" Text="Example header" NavigateUrl="default.aspx" ToolTip="Example">
+                                <dx:MenuItem Name="Default" Text="Audits" NavigateUrl="default.aspx" ToolTip="Example">
                                     <Image>
                                         <SpriteProperties CssClass="adminNavMenuIcon fas fa-edit" />
                                     </Image>

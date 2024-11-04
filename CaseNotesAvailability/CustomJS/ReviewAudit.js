@@ -1,25 +1,26 @@
 ﻿function onDismissalDateChanged(s, e)
 {
-    var contactLayoutGroup = CaseNoteAvailabilityAuditRecordsGridView.GetEditFormLayoutItemOrGroup("groupContactInfo");
+    var contactLayoutGroup = ReviewAuditRecordsGridView.GetEditFormLayoutItemOrGroup("groupContactInfo");
     var isContactLayoutGroupVisible = contactLayoutGroup.GetVisible();
     //s.SetText(isContactLayoutGroupVisible ? "Show Details..." : "Hide Details");
     contactLayoutGroup.SetVisible(!isContactLayoutGroupVisible);
 }
-function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId,AuditID)
+
+function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId,AuditID,nIndex)
 {
     //ASPxPopupControl
-    if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback())
+   /* if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback())
     {
 
         let callbackString = {
         ClinicCode: ClinicCode,
         AuditClinicAnswerId: AuditClinicAnswerId,
         AuditID:AuditID
-    };
-
-CaseNoteAvailabilityUnAvailabilityCallbackPanel.PerformCallback(JSON.stringify(callbackString));
-CaseNoteAvailabilityUnAvailabilityPopup.Show();
-    }
+    };*/
+    ReviewAuditRecordsGridView.StartEditRow(nIndex);
+//CaseNoteAvailabilityUnAvailabilityCallbackPanel.PerformCallback(JSON.stringify(callbackString));
+//CaseNoteAvailabilityUnAvailabilityPopup.Show();
+   // }
 
         }
 
@@ -31,7 +32,7 @@ function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId,AuditID)
         window.location.href = absoluteURL.href;
  }
 
-function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s,e)
+function ReviewAuditRecordsGridView_EndCallBack(s,e)
 {
     if (s.cpUpdated == true)
     {
@@ -46,7 +47,7 @@ function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s,e)
        if (s.cpPopupUpdated == true)
         {
 CaseNoteAvailabilityUnAvailabilityPopup.Hide();
-CaseNoteAvailabilityAuditRecordsGridView.Refresh();
+ReviewAuditRecordsGridView.Refresh();
         SetAndShowAlert(1,'Record Inserted Successfully','');
         delete s.cpPopupUpdated;        
       }
@@ -102,7 +103,7 @@ function Complete_Click(s, e)
     var jsonArray = JSON.stringify(arr);
 
     //CompleteCallback.PerformCallback(jsonArray);
-    CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
+    ReviewAuditRecordsGridView.PerformCallback(jsonArray);
 }
 
 function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e)

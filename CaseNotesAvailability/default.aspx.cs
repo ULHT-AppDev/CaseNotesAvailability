@@ -39,42 +39,48 @@ namespace CaseNotesAvailability
                 string Speciality = values[3]?.ToString() ?? "";
                 string Site = values[4]?.ToString() ?? "";
 
+                int status = (int)values[1];
+
                 if (!String.IsNullOrEmpty(AuditID))
                 {
                     AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
                 }
 
-                if (!String.IsNullOrEmpty(StatusID))
+                //if (!String.IsNullOrEmpty(StatusID))
+                //{
+                //  StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
+
+                switch (status)
                 {
-                    StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
+                    case (byte)Enums.AuditStatus.NotStarted:
+                        //btn.Text = "Not Started";
+                        btn.Text = "Start Audit";
+                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}'); }}", values[0]);
+                        break;
+                    case (byte)Enums.AuditStatus.InProgress:
+                        btn.Text = "Continue Audit";
+                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}'); }}", values[0]);
+                        break;
+                    case (byte)Enums.AuditStatus.Completed:
+                        btn.Text = "Send for review";
+                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
+                        break;
 
-                    switch (StatusID)
-                    {
-                        case "1":
-                            //btn.Text = "Not Started";
-                            btn.Text = "Start Audit";
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}', '{1}','{2}','{3}','{4}'); }}", values[0], container.VisibleIndex, date, Speciality, Site);
-                            break;
-                        case "2":
-                            btn.Text = "Continue Audit";
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click1(s, e, '{0}', '{1}','{2}','{3}','{4}'); }}", values[0], container.VisibleIndex, date, Speciality, Site);
-                            btn.Visible = false;
-                            break;
-                    }
                 }
-
-
-
-
-                // btn.Click += new System.EventHandler(this.Button_Click);
-
             }
-            else
-            {
-                btn.Visible = false;
-            }
+
+
+
+
+            // btn.Click += new System.EventHandler(this.Button_Click);
+
+            //}
+            //else
+            //{
+            //    btn.Visible = false;
+            //}
         }
-        protected void ChooseUserButton_Init(object sender, EventArgs e)
+        protected void EditUserButton_Init(object sender, EventArgs e)
         {
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
@@ -84,50 +90,51 @@ namespace CaseNotesAvailability
             if (values != null)
             {
                 string AuditID = values[0]?.ToString() ?? "";
-                string StatusID = values[1]?.ToString() ?? "";
-
+                //string StatusID = values[1]?.ToString() ?? "";
+                int status = (int)values[1];
 
                 if (!String.IsNullOrEmpty(AuditID))
                 {
                     AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
                 }
 
-                if (!String.IsNullOrEmpty(StatusID))
+                //  if (!String.IsNullOrEmpty(StatusID))
+                // {
+                //StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
+
+                switch (status)
                 {
-                    StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
+                    case (byte)Enums.AuditStatus.NotStarted:
+                        //btn.Text = "Not Started";
+                        btn.Text = "Edit";
+                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
+                        break;
+                    //case (byte)Enums.AuditStatus.InProgress:
+                    //    //btn.Text = "In Progress";
+                    //    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], status);
+                    //    btn.Visible = false;
+                    //    break;
+                    //case (byte)Enums.AuditStatus.PendingHRreview:
+                    //    //btn.Text = "Pending HR review";
+                    //    btn.Text = "Review audit";
+                    //    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], status);
+                    //    break;
+                    //case (byte)Enums.AuditStatus.Completed:
+                    //    //btn.Text = "Completed";
+                    //    btn.Visible = false;
+                    //    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], status);
+                    //    break;
+                    default:
+                        btn.Visible = false;
+                        //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], status);
+                        break;
 
-                    switch (StatusID)
-                    {
-                        case "1":
-                            //btn.Text = "Not Started";
-                            btn.Text = "Edit";
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
-                            break;
-                        case "2":
-                            //btn.Text = "In Progress";
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-                            btn.Visible = false;
-                            break;
-                        case "3":
-                            //btn.Text = "Pending HR review";
-                            btn.Text = "Review audit";
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-                            break;
-                        case "4":
-                            //btn.Text = "Completed";
-                            btn.Visible = false;
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-                            break;
-                        default:
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-                            break;
-
-                    }
                 }
+                //}
 
 
 
-               
+
                 // btn.Click += new System.EventHandler(this.Button_Click);
 
             }
@@ -142,10 +149,10 @@ namespace CaseNotesAvailability
 
             ASPxButton btn = sender as ASPxButton;
             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
-            
+
         }
 
-        protected void ChooseUserButton1_Init(object sender, EventArgs e)
+        protected void DeleteUserButton_Init(object sender, EventArgs e)
         {
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
@@ -155,7 +162,8 @@ namespace CaseNotesAvailability
             if (values != null)
             {
                 string AuditID = values[0]?.ToString() ?? "";
-                string StatusID = values[1]?.ToString() ?? "";
+                //string StatusID = values[1]?.ToString() ?? "";
+                int status = (int)values[1];
 
 
                 if (!String.IsNullOrEmpty(AuditID))
@@ -163,29 +171,29 @@ namespace CaseNotesAvailability
                     AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
                 }
 
-                if (!String.IsNullOrEmpty(StatusID))
+                //if (!String.IsNullOrEmpty(StatusID))
+                //{
+                //  StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
+                switch (status)
                 {
-                    StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
-                    switch (StatusID)
-                    {
-                        case "1":
-                            btn.Text = "Delete";
-                            //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ DeleteRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
-                            break;
-                        default:
-                            btn.Visible = false;
-                            break;
+                    case (byte)Enums.AuditStatus.NotStarted:
+                        btn.Text = "Delete";
+                        //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ DeleteRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
+                        break;
+                    default:
+                        btn.Visible = false;
+                        break;
 
-                    }
                 }
-                btn.Click += Btn_Click;
+            }
+            btn.Click += Btn_Click;
 
-                //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton1_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-            }
-            else
-            {
-                btn.Visible = false;
-            }
+            //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton1_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
+            //  }
+            //else
+            // {
+            //   btn.Visible = false;
+            //}
         }
 
         private void Btn_Click(object sender, EventArgs e)
@@ -276,6 +284,16 @@ namespace CaseNotesAvailability
                 var date = e.Editor as ASPxDateEdit;
                 date.MinDate = DateTime.Now.Date;
             }
+        }
+
+        protected void HealthRecordsGridView_RowUpdated(object sender, DevExpress.Web.Data.ASPxDataUpdatedEventArgs e)
+        {
+            HealthRecordsGridView.JSProperties["cpUpdated"] = true;
+        }
+
+        protected void HealthRecordsGridView_RowInserted(object sender, DevExpress.Web.Data.ASPxDataInsertedEventArgs e)
+        {
+            HealthRecordsGridView.JSProperties["cpUpdated"] = true;
         }
     }
 }

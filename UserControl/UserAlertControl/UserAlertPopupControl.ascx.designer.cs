@@ -7,83 +7,63 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CaseNotesAvailability
-{
-
-
-    public partial class _default
-    {
-
+namespace UserControls.UserAlertControl {
+    
+    
+    public partial class UserAlertPopupControl {
+        
         /// <summary>
-        /// HealthRecordsView control.
+        /// UserToastNotification control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource HealthRecordsView;
-
+        protected global::DevExpress.Web.ASPxPopupControl UserToastNotification;
+        
         /// <summary>
-        /// GetSpeciality control.
+        /// UserToastNotificationIconLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource GetSpeciality;
-
+        protected global::DevExpress.Web.ASPxLabel UserToastNotificationIconLabel;
+        
         /// <summary>
-        /// GetSites control.
+        /// UserToastPopupHeaderLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource GetSites;
-
+        protected global::DevExpress.Web.ASPxLabel UserToastPopupHeaderLabel;
+        
         /// <summary>
-        /// Status control.
+        /// UserToastPopupContentLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ObjectDataSource Status;
-
+        protected global::DevExpress.Web.ASPxLabel UserToastPopupContentLabel;
+        
         /// <summary>
-        /// LoginPageTitle control.
+        /// CustomAlertPopup control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LoginPageTitle;
-
+        protected global::DevExpress.Web.ASPxPopupControl CustomAlertPopup;
+        
         /// <summary>
-        /// NewRef control.
+        /// CustomAlertPopupMessage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxButton NewRef;
-
-        /// <summary>
-        /// HealthRecordsGridView control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxGridView HealthRecordsGridView;
-
-        /// <summary>
-        /// UserAlertPopupControl control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::UserControls.UserAlertControl.UserAlertPopupControl UserAlertPopupControl;
+        protected global::DevExpress.Web.ASPxLabel CustomAlertPopupMessage;
     }
 }

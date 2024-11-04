@@ -1,0 +1,19 @@
+﻿.UserNotificationToastPopup {
+    border: none;
+    border-radius: 6px;
+}
+
+.SuccessPopupMessageLabelClass > a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.InformationToast {
+    background: #316BFF !important;
+    border-color: #316BFF !important;
+}
+
+.SuccessToast {
+    background: #00bd73 !important;
+    border-color: #00bd73 !important;
+}

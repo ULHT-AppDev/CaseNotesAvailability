@@ -21,5 +21,6 @@ namespace Model
         public Nullable<int> CaseNotesAvailableStartCount { get; set; }
         public Nullable<int> TemporaryNotesCount { get; set; }
         public bool IsActive { get; set; }
+        public byte StatusID { get; set; }
     }
 }

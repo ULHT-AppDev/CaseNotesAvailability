@@ -157,36 +157,6 @@ namespace BLL
             new DAL.AuditDAL().DeleteAudit(AuditID, StatusID);
         }
 
-        public bool SaveCaseNoteAvailability(AuditClinicAnswersBO auditClinicAnswers)
-        {
-            try
-            {
 
-                new DAL.AuditDAL().SaveCaseNoteAvailability(auditClinicAnswers);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
-                //new LogsBLL().LogAnError(error);
-                return false;
-            }
-        }
-
-        public bool InsertUnAvailableCaseNoteAvailability(List<UnavailableCaseNotesBO> unAvailabelCaseNotes)
-        {
-            try
-            {
-
-                new DAL.AuditDAL().InsertUnAvailableCaseNoteAvailability(unAvailabelCaseNotes);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
-                //new LogsBLL().LogAnError(error);
-                return false;
-            }
-        }
     }
 }

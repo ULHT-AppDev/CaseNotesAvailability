@@ -1,10 +1,12 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.Master" AutoEventWireup="true" CodeBehind="CaseNoteAvailabilityAudit.aspx.cs" Inherits="CaseNotesAvailability._CaseNoteAvailabilityAudit" %>
 
-<%--<%@ Register Src="~/UserControl/UserAlertControl/UserAlertPopupControl.ascx" TagPrefix="uc1" TagName="UserAlertPopupControl" %>--%>
+<%@ Register Src="~/UserControl/UserAlertControl/UserAlertPopupControl.ascx" TagPrefix="uc1" TagName="UserAlertPopupControl" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CustomCSS/NotificationHelper.css" rel="stylesheet" />
     <script src="CustomJS/CaseNoteAvailabilityAudit.js"></script>
+    <script src="UserControl/UserAlertControl/Scripts/UserAlert.js"></script>
+    <link href="UserControl/UserAlertControl/CSS/UserAlert.css" rel="stylesheet" />
 
 </asp:Content>
 
@@ -40,15 +42,14 @@
 
                             <br />
                             <asp:Panel ID="Panel1" runat="server" BorderStyle="Ridge" Width="400px">
-                                <br />
-                                <div class="ml-auto text-right">
+                                <div class="ml-auto text-black text-right">
                                     <div>
                                         <dx:ASPxLabel ID="CasenoteLabel"
                                             ClientInstanceName="CasenoteLabel"
                                             runat="server"
                                             OnInit="CasenoteLabel_Init"
                                             Font-Size="20px"
-                                            ForeColor="#316bff">
+                                            ForeColor="GrayText">
                                         </dx:ASPxLabel>
                                     </div>
                                     <div>
@@ -57,7 +58,16 @@
                                             runat="server"
                                             OnInit="lblSpeciality_Init"
                                             Font-Size="20px"
-                                            ForeColor="#316bff">
+                                            ForeColor="GrayText">
+                                        </dx:ASPxLabel>
+                                    </div>
+                                    <div>
+                                        <dx:ASPxLabel ID="lblSite"
+                                            ClientInstanceName="lblSite"
+                                            runat="server"
+                                            OnInit="lblSite_Init"
+                                            Font-Size="20px"
+                                            ForeColor="GrayText">
                                         </dx:ASPxLabel>
                                     </div>
                                     <%-- <div>
@@ -75,6 +85,24 @@
                     </div>
                 </div>
             </div>
+            <div class="ml-auto text-black text-right">
+            </div>
+            <div>
+                <dx:ASPxButton ID="AuditDetails"
+                    runat="server"
+                    Text="Edit audit details"
+                    RenderMode="Button"
+                    AutoPostBack="false"
+                    UseSubmitBehavior="false"
+                    CausesValidation="false"
+                    Paddings-PaddingTop="10px"
+                    Paddings-PaddingBottom="10px">
+                    <ClientSideEvents Click="AuditDetails_Click" />
+                    <Image>
+                        <SpriteProperties CssClass="fas fa-chevron-left" />
+                    </Image>
+                </dx:ASPxButton>
+            </div>
 
             <dx:ASPxGridView ID="CaseNoteAvailabilityAuditRecordsGridView" runat="server" AllowSorting="true"
                 ClientInstanceName="CaseNoteAvailabilityAuditRecordsGridView"
@@ -85,7 +113,9 @@
                 OnInitNewRow="CaseNoteAvailabilityAuditRecordsGridView_InitNewRow"
                 OnStartRowEditing="CaseNoteAvailabilityAuditRecordsGridView_StartRowEditing"
                 OnCellEditorInitialize="CaseNoteAvailabilityAuditRecordsGridView_CellEditorInitialize"
+                OnCustomCallback="CaseNoteAvailabilityAuditRecordsGridView_CustomCallback"
                 Width="100%">
+                <ClientSideEvents EndCallback="CaseNoteAvailabilityAuditRecordsGridView_EndCallBack" />
                 <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
 
                 <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
@@ -121,8 +151,8 @@
                     </Items>
                 </EditFormLayoutProperties>
                 <Columns>
-                    <dx:GridViewCommandColumn VisibleIndex="0" Width="100px" Caption="Action" ShowNewButtonInHeader="false" ShowEditButton="false" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
-                    <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="75" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
+                    <%--<dx:GridViewCommandColumn VisibleIndex="0" Width="100px" Caption="Action" ShowNewButtonInHeader="false" ShowEditButton="false" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>--%>
+                    <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="100" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
                         <DataItemTemplate>
                             <div>
                                 <dx:ASPxButton ID="AuditorView"
@@ -147,11 +177,11 @@
                             <dx:ASPxLabel ID="ClinicCodeReadonlyLabel" runat="server" Text='<%# Eval("ClinicCode") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
                     </dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="AuditID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+                    <%-- <dx:GridViewDataTextColumn Caption="AuditID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
                         <EditItemTemplate>
                             <dx:ASPxLabel ID="AuditIDReadonlyLabel" runat="server" Text='<%# Eval("AuditID") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
-                    </dx:GridViewDataTextColumn>
+                    </dx:GridViewDataTextColumn>--%>
                     <dx:GridViewDataTextColumn Caption="Number Of Appointments Allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="CaseNotes Available Start Count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Temporary Notes Count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
@@ -178,16 +208,16 @@
 
 
         </div>
-        <%--<uc1:UserAlertPopupControl runat="server" ID="UserAlertPopupControl" />--%>
+        <uc1:UserAlertPopupControl runat="server" ID="UserAlertPopupControl" />
     </div>
 </asp:Content>
 <%-- Starts here  --%>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <div class="p-4">
 
-        <div id="DefaultPageTitleContainer1" class="DefaultPageTitleContainer">
+        <%--  <div id="DefaultPageTitleContainer1" class="DefaultPageTitleContainer">
             <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="Please fill out the clinic audit details" CssClass="PageHeader"></dx:ASPxLabel>
-        </div>
+        </div>--%>
 
         <dx:ASPxPopupControl ID="CaseNoteAvailabilityUnAvailabilityPopup"
             ClientInstanceName="CaseNoteAvailabilityUnAvailabilityPopup"
@@ -389,5 +419,4 @@
             </ContentCollection>
         </dx:ASPxPopupControl>
     </div>
-
 </asp:Content>

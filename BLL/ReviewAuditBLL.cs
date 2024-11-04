@@ -9,17 +9,38 @@ using DAL;
 
 namespace BLL
 {
-    public class AuditClinicAnswersBLL
+    public class ReviewAuditBLL
     {
-       
-        public List<AuditClinicAnswersBO> GetAuditClinicAnswers(int CSAAuditId)
+        public List<AuditBO> GetAudit()
         {
             try
             {
                 List<AuditClinicAnswersBO> FullAuditClincAnswer = new List<AuditClinicAnswersBO>();
-                FullAuditClincAnswer = new DAL.AuditClinicAnswersDAL().GetAuditClincAnswers(CSAAuditId).OrderByDescending(x => x.AuditID).ToList();
-                //FullAuditClincAnswer = FullAuditClincAnswer.Where(x => !FullAuditClincAnswer.Contains(x)).ToList(); 
-                return FullAuditClincAnswer;
+                FullAuditClincAnswer = new DAL.AuditDAL().GetAuditClincAnswer().OrderByDescending(x => x.AuditID).ToList();
+
+                FullAuditClincAnswer = FullAuditClincAnswer.GroupBy(x => x.AuditID).Select(x => new AuditClinicAnswersBO
+                {
+                    AuditID = x.Key,
+                    ClinicCode = string.Join(",", x.ToList().Select(y => y.ClinicCode.ToString()).Distinct().ToArray()) // get clinic codes into string for clinic id seperated by comma
+                }).ToList();
+
+                List<AuditBO> Audit = new DAL.AuditDAL().GetAudit().OrderByDescending(x => x.AuditID).ToList();
+
+                foreach (var AuditBO in Audit)
+                {
+                    var ClinicCode = FullAuditClincAnswer.Where(x => x.AuditID == AuditBO.AuditID).Select(x => x.ClinicCode).Distinct().ToList();
+
+                    if (ClinicCode.Any())
+                    {
+                        AuditBO.ClinicCodes = string.Join(",", ClinicCode.ToArray());
+                    }
+                    else
+                    {
+                        AuditBO.ClinicCodes = "";
+                    }
+                }
+
+                return Audit;
             }
             catch (Exception ex)
             {
@@ -28,8 +49,7 @@ namespace BLL
                 return null;
             }
         }
-        
-        
+
         public List<SpecilatyBO> GetSpeciality()
         {
             try
@@ -79,7 +99,7 @@ namespace BLL
                 return null;
             }
         }
-        
+
 
         public bool InsertAudit(AuditBO Audit)
         {
@@ -95,6 +115,26 @@ namespace BLL
                 return false;
             }
         }
+
+        
+         public List<StatusBO> GetImpAuditReview()
+        {
+            try
+            {
+                List<StatusBO> Status = new List<StatusBO>();
+                Status = new DAL.AuditDAL().GetStatus().OrderBy(x => x.StatusID).ToList();
+
+                return Status;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, sessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return null;
+            }
+        }
+
+
 
         public bool UpdateAuditRecords(AuditBO Audit)
         {
@@ -137,58 +177,6 @@ namespace BLL
             new DAL.AuditDAL().DeleteAudit(AuditID, StatusID);
         }
 
-        public AuditClinicAnswersBO GetAuditClinicAnswer(int rowID)
-        {
-            try
-            {
-                AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();
-                FullAuditClincAnswer = new DAL.AuditClinicAnswersDAL().GetAuditClincAnswer(rowID);
-                //FullAuditClincAnswer = FullAuditClincAnswer.Where(x => !FullAuditClincAnswer.Contains(x)).ToList(); 
-                return FullAuditClincAnswer;
-            }
-            catch (Exception ex)
-            {
-                //ErrorLog error = new ErrorLog(ex, sessionID, null);
-                //new LogsBLL().LogAnError(error);
-                return null;
-            }
-        }
-        //public bool GetAwaitingActionCount(int AuditClinicAnswer, int auditid)
-        //{
 
-        //    return new DAL.AuditClinicAnswersDAL().GetAwaitingActionCount(AuditClinicAnswer,auditid);
-        //}
-
-        public bool SaveCaseNoteAvailability(AuditClinicAnswersUnAvailableBO auditClinicAnswers)
-        {
-            try
-            {
-
-                new DAL.AuditClinicAnswersDAL().SaveCaseNoteAvailability(auditClinicAnswers);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
-                //new LogsBLL().LogAnError(error);
-                return false;
-            }
-        }
-
-        public bool InsertUnAvailableCaseNoteAvailability(AuditClinicAnswersUnAvailableBO unAvailabelCaseNotes)
-        {
-            try
-            {
-
-                new DAL.AuditClinicAnswersDAL().InsertUnAvailableCaseNoteAvailability(unAvailabelCaseNotes);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
-                //new LogsBLL().LogAnError(error);
-                return false;
-            }
-        }
     }
 }

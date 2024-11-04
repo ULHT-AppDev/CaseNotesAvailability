@@ -6,11 +6,6 @@
 <head runat="server">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title></title>
-    <asp:ContentPlaceHolder ID="head" runat="server">
-    </asp:ContentPlaceHolder>
-
     <asp:PlaceHolder ID="PlaceHolder1" runat="server">
 
         <script src="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/Scripts/jquery-3.6.0.min.js", VersionNumber))%>"></script>
@@ -20,8 +15,10 @@
         <link href="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/Content/fontawesome.min.css", VersionNumber))%>" rel="stylesheet" />
         <link href="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/CustomCSS/Master.css", VersionNumber))%>" rel="stylesheet" />
         <link href="<%=Page.ResolveUrl(String.Format("{0}?{1}","~/CustomCSS/AppHeaderMenu.css", VersionNumber))%>" rel="stylesheet" />
-
     </asp:PlaceHolder>
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
 
 </head>
 

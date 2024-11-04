@@ -9,6 +9,10 @@ using Model;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Infrastructure.Interception;
 using System.Data.Entity;
+using System.Xml.Linq;
+using System.Security.Cryptography;
+using static BusinessObjects.Enums;
+using System.Runtime.Remoting.Contexts;
 
 namespace DAL
 {
@@ -21,7 +25,7 @@ namespace DAL
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
-                        where p.IsActive 
+                        where p.IsActive
                         select new BusinessObjects.AuditBO
                         {
                             AuditID = p.AuditID,
@@ -102,6 +106,129 @@ namespace DAL
                             StatusName = u.StatusName,
                             IsActive = u.IsActive
                         }).ToList();
+            }
+        }
+        public void SaveCaseNoteAvailability(AuditClinicAnswersUnAvailableBO auditClinicAnswers)
+        {
+            using (var ctxUpdate = new Model.CNAEntities())
+            {
+                using (var dbContextTransactionIns = ctxUpdate.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        //List<AuditBO> audit = new List<AuditBO>();
+                        var audit1 = ctxUpdate.AuditClinicAnswers.Where(x => x.AuditClinicAnswersID == auditClinicAnswers.AuditClinicAnswersID).Single();
+                        audit1.TemporaryNotesCount = auditClinicAnswers.TemporaryNotesCount;
+                        audit1.CaseNotesAvailableStartCount = auditClinicAnswers.CaseNotesAvailableStartCount;
+                        audit1.NumberOfAppointmentsAllocated = auditClinicAnswers.NumberOfAppointmentsAllocated;
+                        audit1.StatusID = 4;
+                        ctxUpdate.SaveChanges();
+                        dbContextTransactionIns.Commit();
+                        // - 
+                        UpdateAuditStatus(auditClinicAnswers.AuditID);
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransactionIns.Rollback();
+                    }
+                }
+            }
+        }
+
+        public void UpdateAuditStatus(int Auditid)
+        {
+            using (var ctxSelect = new Model.CNAEntities())
+            {
+                try
+                {
+
+
+                    bool hasOnlyCompletedStatus = ctxSelect.AuditClinicAnswers
+                                        .Where(e => e.AuditID == Auditid)    // Filter by the specific Id
+                                            .All(e => e.StatusID == (byte)Enums.AuditStatus.Completed); // Ensure all statuses are "Completed"
+
+                    bool hasOnlyNotStartedStatus = ctxSelect.AuditClinicAnswers
+                                       .Where(e => e.AuditID == Auditid)    // Filter by the specific Id
+                                           .All(e => e.StatusID == (byte)Enums.AuditStatus.NotStarted); // Ensure all statuses are "Completed"
+
+                    byte status = !hasOnlyCompletedStatus && !hasOnlyNotStartedStatus ? (byte)Enums.AuditStatus.InProgress : hasOnlyCompletedStatus ? (byte)Enums.AuditStatus.PendingHRreview : (byte)Enums.AuditStatus.NotStarted;
+                    if (status != (byte)Enums.AuditStatus.NotStarted)
+                    {
+                        //update as in progress
+
+                        using (var ctxUpdate = new Model.CNAEntities())
+                        {
+                            using (var dbContextTransactionIns = ctxUpdate.Database.BeginTransaction())
+                            {
+                                try
+                                {
+                                    //List<AuditBO> audit = new List<AuditBO>();
+                                    var audit1 = ctxUpdate.Audits.Where(x => x.AuditID == Auditid).FirstOrDefault();
+                                    audit1.StatusID = status; //(byte)Enums.AuditStatus.InProgress;
+                                    ctxUpdate.SaveChanges();
+                                    dbContextTransactionIns.Commit();
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    dbContextTransactionIns.Rollback();
+                                }
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+
+        //public bool GetAwaitingActionCount(int AuditClinicAnswer, int auditid)
+        //{
+        //    using (var ctx = new Model.CNAEntities())
+        //    {
+        //        var AuditClinicAnswersNumber = ctx.AuditClinicAnswers.Count(me => me.AuditID == auditid && me.IsActive);
+        //        var UnavailableCaseNotesNumber = ctx.UnavailableCaseNotes.Where(p => p.IsActive).GroupBy(p => p.AuditClinicAnswersID).Count();
+        //        var UnavailableCaseNotesNumber1 = ctx.UnavailableCaseNotes
+        //                                            .Where(e => e.IsActive && e.AuditClinicAnswersID == AuditClinicAnswer)
+        //                                            .GroupBy(e => e.AuditClinicAnswersID).Count();
+        //        return true;
+
+        //    }
+        //}
+        public void InsertUnAvailableCaseNoteAvailability(AuditClinicAnswersUnAvailableBO unAvailabelCaseNotes)
+        {
+            using (var ctxIns = new Model.CNAEntities())
+            {
+                using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (unAvailabelCaseNotes.Unavailable.Count() != 0)
+                        {
+                            foreach (CompleteCallbackBO UnAvailableCaseN in unAvailabelCaseNotes.Unavailable)
+                            {
+                                Model.UnavailableCaseNote dt = new Model.UnavailableCaseNote()
+                                {
+                                    AuditClinicAnswersID = unAvailabelCaseNotes.AuditClinicAnswersID,
+                                    PatientDetails = UnAvailableCaseN.PatientDetails,
+                                    ReasonUnavailableID = UnAvailableCaseN.ReasonID,
+                                    IsActive = true
+                                };
+
+                                ctxIns.UnavailableCaseNotes.Add(dt);
+                                ctxIns.SaveChanges();
+                            }
+                        }
+
+                        dbContextTransactionIns.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransactionIns.Rollback();
+                    }
+                }
             }
         }
 

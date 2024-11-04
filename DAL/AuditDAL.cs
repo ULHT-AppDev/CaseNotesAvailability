@@ -252,62 +252,29 @@ namespace DAL
             }
         }
 
-        public void SaveCaseNoteAvailability(AuditClinicAnswersBO auditClinicAnswers)
-        {
-            using (var ctxUpdate = new Model.CNAEntities())
-            {
-                using (var dbContextTransactionIns = ctxUpdate.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        //List<AuditBO> audit = new List<AuditBO>();
-                        var audit1 = ctxUpdate.AuditClinicAnswers.Where(x => x.AuditClinicAnswersID == auditClinicAnswers.AuditClinicAnswersID).Single();
-                        audit1.TemporaryNotesCount = auditClinicAnswers.TemporaryNotesCount;
-                        audit1.CaseNotesAvailableStartCount = auditClinicAnswers.CaseNotesAvailableStartCount;
-                        audit1.NumberOfAppointmentsAllocated = auditClinicAnswers.NumberOfAppointmentsAllocated;
-                        ctxUpdate.SaveChanges();
-                        dbContextTransactionIns.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        dbContextTransactionIns.Rollback();
-                    }
-                }
-            }
-        }
+       
 
-        public void InsertUnAvailableCaseNoteAvailability(List<UnavailableCaseNotesBO> unAvailabelCaseNotes)
+
+        public SingleAuditBO GetSingleAudit(int auditID)
         {
-            using (var ctxIns = new Model.CNAEntities())
+
+            using (var ctx = new Model.CNAEntities())
             {
-                using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
-                {
-                    try
-                    {
-                        if (unAvailabelCaseNotes.Count() != 0)
+                //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
+                return (from p in ctx.Audits
+                        where p.IsActive && auditID == p.AuditID    
+                        join t in ctx.Specialities on p.SpecialtyID equals t.SpecilatiesID
+                        join s in ctx.Sites on p.SiteID equals s.SiteId
+                        select new BusinessObjects.SingleAuditBO
                         {
-                            foreach (UnavailableCaseNotesBO UnAvailableCaseN in unAvailabelCaseNotes)
-                            {
-                                Model.UnavailableCaseNote dt = new Model.UnavailableCaseNote()
-                                {
-                                    AuditClinicAnswersID = UnAvailableCaseN.AuditClinicAnswersID,
-                                    PatientDetails = UnAvailableCaseN.PatientDetails,
-                                    ReasonUnavailableID = UnAvailableCaseN.ReasonUnavailableID
-                                };
-
-                                ctxIns.UnavailableCaseNotes.Add(dt);
-                                ctxIns.SaveChanges();
-                            }
-                        }
-
-                        dbContextTransactionIns.Commit();
-                    }
-                    catch (Exception ex)
-                    {
-                        dbContextTransactionIns.Rollback();
-                    }
-                }
+                            AuditID = p.AuditID,
+                            Date = p.Date,
+                            Specialty = t.SpecilatiesName,
+                            Site = s.SiteName,
+                            StatusID = p.StatusID
+                        }).FirstOrDefault();
             }
+
         }
     }
 }

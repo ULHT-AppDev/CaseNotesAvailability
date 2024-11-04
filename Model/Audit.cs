@@ -21,8 +21,8 @@ namespace Model
         public int CreatedByUserID { get; set; }
         public int CompletedByUserID { get; set; }
         public Nullable<System.DateTime> DueByDate { get; set; }
-        public bool IsActive { get; set; }
         public byte StatusID { get; set; }
+        public bool IsActive { get; set; }
     
         public virtual Status Status { get; set; }
     }

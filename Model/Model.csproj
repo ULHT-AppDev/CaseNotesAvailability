@@ -58,102 +58,102 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Audit.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="AuditClinicAnswer.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="CNAModel.Context.cs">
+    <Compile Include="CNAEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CNAModel.Context.tt</DependentUpon>
+      <DependentUpon>CNAEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="CNAModel.cs">
+    <Compile Include="CNAEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="CNAModel.Designer.cs">
+    <Compile Include="CNAEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CNAModel.edmx</DependentUpon>
+      <DependentUpon>CNAEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Issue.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Log.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="LogAction.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="LogDetail.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="LogError.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginRight.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginRole.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="LoginRoleRight.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="LogSession.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Patient.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Person.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="PersonRole.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="PersonUniqueGuid.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ReasonUnavailable.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="RequiresImprovementActionPoint.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="RequiresImprovementDetail.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Site.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Speciality.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Status.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="UnavailableCaseNote.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="userrole.cs">
-      <DependentUpon>CNAModel.tt</DependentUpon>
+      <DependentUpon>CNAEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="CNAModel.edmx">
+    <EntityDeploy Include="CNAEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CNAModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>CNAEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="CNAModel.edmx.diagram">
-      <DependentUpon>CNAModel.edmx</DependentUpon>
+    <None Include="CNAEntities.edmx.diagram">
+      <DependentUpon>CNAEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
@@ -161,15 +161,15 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CNAModel.Context.tt">
+    <Content Include="CNAEntities.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CNAModel.edmx</DependentUpon>
-      <LastGenOutput>CNAModel.Context.cs</LastGenOutput>
+      <DependentUpon>CNAEntities.edmx</DependentUpon>
+      <LastGenOutput>CNAEntities.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="CNAModel.tt">
+    <Content Include="CNAEntities.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CNAModel.edmx</DependentUpon>
-      <LastGenOutput>CNAModel.cs</LastGenOutput>
+      <DependentUpon>CNAEntities.edmx</DependentUpon>
+      <LastGenOutput>CNAEntities.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

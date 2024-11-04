@@ -107,6 +107,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ASPxScriptIntelliSense.js" />
+    <Content Include="CustomJS\ReviewAudit.js" />
+    <Content Include="ReviewAudit.aspx" />
     <Content Include="Content\all.css" />
     <Content Include="Content\all.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -184,7 +186,7 @@
     <Content Include="CustomJS\CaseNoteAvailabilityAudit.js" />
     <Content Include="CustomJS\AuditorView.js" />
     <Content Include="CustomJS\Audit.js" />
-    <Content Include="AuditorView.aspx" />
+    <Content Include="AuditorView_Old.aspx" />
     <Content Include="CaseNoteAvailabilityAudit.aspx" />
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
@@ -298,6 +300,9 @@
     <Content Include="Scripts\umd\popper.min.js" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="UserControl\UserAlertControl\CSS\UserAlert.css" />
+    <Content Include="UserControl\UserAlertControl\Scripts\UserAlert.js" />
+    <Content Include="UserControl\UserAlertControl\UserAlertPopupControl.ascx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -350,12 +355,19 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditorView.aspx.cs">
-      <DependentUpon>AuditorView.aspx</DependentUpon>
+    <Compile Include="AuditorView_Old.aspx.cs">
+      <DependentUpon>AuditorView_Old.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="AuditorView.aspx.designer.cs">
-      <DependentUpon>AuditorView.aspx</DependentUpon>
+    <Compile Include="AuditorView_Old.aspx.designer.cs">
+      <DependentUpon>AuditorView_Old.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ReviewAudit.aspx.cs">
+      <DependentUpon>ReviewAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ReviewAudit.aspx.designer.cs">
+      <DependentUpon>ReviewAudit.aspx</DependentUpon>
     </Compile>
     <Compile Include="CaseNoteAvailabilityAudit.aspx.cs">
       <DependentUpon>CaseNoteAvailabilityAudit.aspx</DependentUpon>
@@ -395,6 +407,13 @@
     </Compile>
     <Compile Include="MasterPage.Master.designer.cs">
       <DependentUpon>MasterPage.Master</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UserAlertControl\UserAlertPopupControl.ascx.cs">
+      <DependentUpon>UserAlertPopupControl.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UserAlertControl\UserAlertPopupControl.ascx.designer.cs">
+      <DependentUpon>UserAlertPopupControl.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

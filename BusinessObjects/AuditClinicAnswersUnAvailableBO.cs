@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-    public class AuditClinicAnswersBO
+    public class AuditClinicAnswersUnAvailableBO
     {
         public int AuditClinicAnswersID { get; set; }
         public int AuditID { get; set; }
@@ -15,6 +15,6 @@ namespace BusinessObjects
         public Nullable<int> CaseNotesAvailableStartCount { get; set; }
         public Nullable<int> TemporaryNotesCount { get; set; }
         public bool IsActive { get; set; }
-        public byte StatusID { get; set; }
+        public List<CompleteCallbackBO> Unavailable {  get; set; }  
     }
 }

@@ -18,9 +18,9 @@ using System.Xml.Linq;
 using static System.Data.Entity.Infrastructure.Design.Executor;
 using static System.Net.Mime.MediaTypeNames;
 
-namespace CaseNotesAvailability
+namespace ReviewAudit
 {
-    public partial class _CaseNoteAvailabilityAudit : System.Web.UI.Page
+    public partial class _ReviewAudit : System.Web.UI.Page
     {
         // in memory 
         private int CASAuditId;
@@ -60,7 +60,7 @@ namespace CaseNotesAvailability
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID", "AuditID" }) as object[];
+            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID", "AuditID" }) as object[];
 
             if (values != null)
             {
@@ -74,7 +74,7 @@ namespace CaseNotesAvailability
                 //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
                 //}
 
-                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}'); }}", ClinicCode, AuditClinicAnswersID, AuditID);
+                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}','{3}'); }}", ClinicCode, AuditClinicAnswersID, AuditID, container.VisibleIndex);
                 //btn.Click += new System.EventHandler(this.Button_Click);
 
             }
@@ -84,96 +84,95 @@ namespace CaseNotesAvailability
             }
         }
 
-        protected void CaseNoteAvailabilityUnAvailabilityCallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
-        {
-            if (e.Parameter != null) // select patient referrals & details sent from patient search grid
-            {
-                UnAvailabilityCallbackBO obj = Newtonsoft.Json.JsonConvert.DeserializeObject<UnAvailabilityCallbackBO>(e.Parameter);
+        //protected void CaseNoteAvailabilityUnAvailabilityCallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
+        //{
+        //    if (e.Parameter != null) // select patient referrals & details sent from patient search grid
+        //    {
+        //        UnAvailabilityCallbackBO obj = Newtonsoft.Json.JsonConvert.DeserializeObject<UnAvailabilityCallbackBO>(e.Parameter);
 
-                string ClinicCode = obj.ClinicCode;    
-                int AuditClinicAnswerId = obj.AuditClinicAnswerId;
-                int AuditID = obj.AuditID;
-                txtAuditId.Value = AuditID;
-                getAuditClinicAnswer(AuditClinicAnswerId);
-            }
+        //        string ClinicCode = obj.ClinicCode;    
+        //        int AuditClinicAnswerId = obj.AuditClinicAnswerId;
+        //        int AuditID = obj.AuditID;
+        //        txtAuditId.Value = AuditID;
+        //        getAuditClinicAnswer(AuditClinicAnswerId);
+        //    }
 
-        }
+        //}
 
-        protected void CreateFormDynamically_CallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
-        {
-            if (e.Parameter != null && int.TryParse(e.Parameter, out int iterations))
-            {
+        //protected void CreateFormDynamically_CallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
+        //{
+        //    if (e.Parameter != null && int.TryParse(e.Parameter, out int iterations))
+        //    {
 
-                List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
-                UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons();
+        //        List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
+        //        UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons();
 
 
-                //ASPxFormLayout form = new ASPxFormLayout()
-                //{
-                //    AlignItemCaptions = true,
-                //    Width = Unit.Percentage(100)
-                //};
-                //form.ID = "UnavailabilityFormLayout";
-                //form.ClientInstanceName= "UnavailabilityFormLayout";
+        //        //ASPxFormLayout form = new ASPxFormLayout()
+        //        //{
+        //        //    AlignItemCaptions = true,
+        //        //    Width = Unit.Percentage(100)
+        //        //};
+        //        //form.ID = "UnavailabilityFormLayout";
+        //        //form.ClientInstanceName= "UnavailabilityFormLayout";
 
-                for (int i = 1; i < (iterations + 1); i++)
-                {
+        //        for (int i = 1; i < (iterations + 1); i++)
+        //        {
 
-                    LayoutGroup lg = new LayoutGroup()
-                    {
-                        Caption = $"Details for Patient {i}",
-                        GroupBoxDecoration = GroupBoxDecoration.Box,
-                        AlignItemCaptions = true,
-                    };
+        //            LayoutGroup lg = new LayoutGroup()
+        //            {
+        //                Caption = $"Details for Patient {i}",
+        //                GroupBoxDecoration = GroupBoxDecoration.Box,
+        //                AlignItemCaptions = true,
+        //            };
 
-                    LayoutItem nameItem = new LayoutItem()
-                    {
-                        Caption = $"Patient Name"
-                    };
+        //            LayoutItem nameItem = new LayoutItem()
+        //            {
+        //                Caption = $"Patient Name"
+        //            };
 
-                    ASPxTextBox patientNameTextBox = new ASPxTextBox();
-                    patientNameTextBox.ID = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                    patientNameTextBox.ClientInstanceName = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
+        //            ASPxTextBox patientNameTextBox = new ASPxTextBox();
+        //            patientNameTextBox.ID = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
+        //            patientNameTextBox.ClientInstanceName = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
 
-                    // add in validation settings and stuff here like below one (look at combo below)
-                    patientNameTextBox.ValidationSettings.RequiredField.IsRequired = true;
-                    patientNameTextBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
-                    nameItem.Controls.Add(patientNameTextBox); // add control 
+        //            // add in validation settings and stuff here like below one (look at combo below)
 
-                    LayoutItem reasonItem = new LayoutItem()
-                    {
-                        Caption = $"Reason for unavailable"
-                    };
+        //            nameItem.Controls.Add(patientNameTextBox); // add control 
 
-                    ASPxComboBox comboBox = new ASPxComboBox();
-                    comboBox.ID = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                    comboBox.ClientInstanceName = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                    comboBox.DataSource = UnAvailableReason; // datasource here etc
-                    comboBox.TextField = "ReasonText"; // whatever it is here
-                    comboBox.ValueField = "ReasonUnavailableID"; // whatever it is here
-                    comboBox.DataBind();
+        //            LayoutItem reasonItem = new LayoutItem()
+        //            {
+        //                Caption = $"Reason for unavailable"
+        //            };
 
-                    comboBox.ValidationSettings.RequiredField.IsRequired = true;
-                    comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
-                    comboBox.ValidationSettings.Display = Display.Dynamic;
-                    comboBox.ValidationSettings.ValidationGroup = ""; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
+        //            ASPxComboBox comboBox = new ASPxComboBox();
+        //            comboBox.ID = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
+        //            comboBox.ClientInstanceName = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
+        //            comboBox.DataSource = UnAvailableReason; // datasource here etc
+        //            comboBox.TextField = "ReasonText"; // whatever it is here
+        //            comboBox.ValueField = "ReasonUnavailableID"; // whatever it is here
+        //            comboBox.DataBind();
 
-                    reasonItem.Controls.Add(comboBox); // add the control
+        //            comboBox.ValidationSettings.RequiredField.IsRequired = true;
+        //            comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
+        //            comboBox.ValidationSettings.Display = Display.Dynamic;
+        //            comboBox.ValidationSettings.ValidationGroup = ""; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
 
-                    // add layoutitems to group
-                    lg.Items.Add(nameItem);
-                    lg.Items.Add(reasonItem);
+        //            reasonItem.Controls.Add(comboBox); // add the control
 
-                    // add group to form
-                    UnavailabilityFormLayout.Items.Add(lg);
-                }
+        //            // add layoutitems to group
+        //            lg.Items.Add(nameItem);
+        //            lg.Items.Add(reasonItem);
 
-                // finally add form to page (div)
-                // DynamicFormContainer.Controls.Add(form);
+        //            // add group to form
+        //            UnavailabilityFormLayout.Items.Add(lg);
+        //        }
 
-            }
+        //        // finally add form to page (div)
+        //        // DynamicFormContainer.Controls.Add(form);
 
-        }
+        //    }
+
+        //}
 
 
         private void getAuditClinicAnswer(int rowID)
@@ -181,11 +180,11 @@ namespace CaseNotesAvailability
             AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();
             FullAuditClincAnswer = new BLL.AuditClinicAnswersBLL().GetAuditClinicAnswer(rowID);
             //TextBox1.Text = FullAuditClincAnswer[0].ClinicCode;
-            txtClinicCode.Text = FullAuditClincAnswer.ClinicCode;
-            txtAuditClinicAnswerId.Value = FullAuditClincAnswer.AuditClinicAnswersID;
-            txtNumAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
-            txtStartCount.Text = FullAuditClincAnswer.CaseNotesAvailableStartCount.ToString();
-            txtTempNotesCount.Text = FullAuditClincAnswer.TemporaryNotesCount.ToString();
+            //txtClinicCode.Text = FullAuditClincAnswer.ClinicCode;
+            //            txtAuditClinicAnswerId.Value = FullAuditClincAnswer.AuditClinicAnswersID;
+            //txtNumAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
+            //txtStartCount.Text = FullAuditClincAnswer.CaseNotesAvailableStartCount.ToString();
+            //txtTempNotesCount.Text = FullAuditClincAnswer.TemporaryNotesCount.ToString();
             //txtCaseNoteCount.Text = FullAuditClincAnswer[0]..ToString();
         }
 
@@ -194,7 +193,7 @@ namespace CaseNotesAvailability
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
+            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
 
             if (values != null)
@@ -266,7 +265,7 @@ namespace CaseNotesAvailability
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
+            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
             if (values != null)
             {
@@ -309,7 +308,7 @@ namespace CaseNotesAvailability
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
+            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
             BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]), values[1].ToString());
 
@@ -357,7 +356,7 @@ namespace CaseNotesAvailability
             obj.StatusID = 1;
         }
 
-        protected void CaseNoteAvailabilityAuditRecordsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
+        protected void ReviewAuditRecordsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
         {
             ASPxGridView grid = sender as ASPxGridView;
             GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
@@ -370,7 +369,7 @@ namespace CaseNotesAvailability
 
         }
 
-        protected void CaseNoteAvailabilityAuditRecordsGridView_StartRowEditing(object sender, DevExpress.Web.Data.ASPxStartRowEditingEventArgs e)
+        protected void ReviewAuditRecordsGridView_StartRowEditing(object sender, DevExpress.Web.Data.ASPxStartRowEditingEventArgs e)
         {
             ASPxGridView grid = sender as ASPxGridView;
             GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
@@ -385,7 +384,7 @@ namespace CaseNotesAvailability
             lbl.Text = HelperClasses.NotificationHelper.CreateNotificationAlert(HelperClasses.NotificationHelper.NotificationType.Information, lbltext, false, false);
         }
 
-        protected void CaseNoteAvailabilityAuditRecordsGridView_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+        protected void ReviewAuditRecordsGridView_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
         {
             //if (e.Column.FieldName == "Date" || e.Column.FieldName == "DueByDate")
             //{
@@ -396,14 +395,14 @@ namespace CaseNotesAvailability
             if (e.Column.FieldName == "TemporaryNotesCount")
             {
                 ASPxTextBox fireDateEditor = e.Editor as ASPxTextBox;
-                fireDateEditor.ClientEnabled = !CaseNoteAvailabilityAuditRecordsGridView.IsNewRowEditing;
+                fireDateEditor.ClientEnabled = !ReviewAuditRecordsGridView.IsNewRowEditing;
                 //fireDateEditor.ClearButton.DisplayMode = ClearButtonDisplayMode.OnHover;
                 fireDateEditor.ClientSideEvents.ValueChanged = "onDismissalDateChanged";
 
             }
         }
 
-        protected void CaseNoteAvailabilityAuditRecordsView_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        protected void ReviewAuditRecordsView_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             e.InputParameters["CSAAuditId"] = CASAuditId;
         }
@@ -423,7 +422,7 @@ namespace CaseNotesAvailability
         protected void DefaultPageTitleLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl = sender as ASPxLabel;
-            lbl.Text = $"In Progress Audit: ID <span class='MainColour'>{CASAuditId}</span>";
+            lbl.Text = $"Reviewing Audit: ID <span class='MainColour'>{CASAuditId}</span>";
             //Speciality
         }
         protected void CasenoteLabel_Init(object sender, EventArgs e)
@@ -531,74 +530,74 @@ namespace CaseNotesAvailability
             }
         }
 
-        protected void CompleteCallback_Callback(object source, CallbackEventArgs e)
-        {
-            //if (e.Parameter != null) // select patient referrals & details sent from patient search grid
-            //{
-            //    string eventArgument = e.Parameter;
-            //    if (!string.IsNullOrEmpty(eventArgument))
-            //    {
-            //        // Deserialize the JSON string back to an array
-            //        List<CompleteCallbackBO> myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CompleteCallbackBO>>(e.Parameter);
-            //        // Use the array on server side
-            //        List<UnavailableCaseNotesBO> UnAvailabelCaseNotes = new List<UnavailableCaseNotesBO>();
-            //        foreach (CompleteCallbackBO item in myArray)
-            //        {
-            //            UnavailableCaseNotesBO UnAvailable = new UnavailableCaseNotesBO();
-            //            UnAvailable.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
-            //            UnAvailable.PatientDetails = item.PatientDetails;
-            //            UnAvailable.ReasonUnavailableID = Convert.ToInt32(item.ReasonID);
-            //            UnAvailable.IsActive = true;
-            //            UnAvailabelCaseNotes.Add(UnAvailable);
-            //        }
+        //protected void CompleteCallback_Callback(object source, CallbackEventArgs e)
+        //{
+        //    //if (e.Parameter != null) // select patient referrals & details sent from patient search grid
+        //    //{
+        //    //    string eventArgument = e.Parameter;
+        //    //    if (!string.IsNullOrEmpty(eventArgument))
+        //    //    {
+        //    //        // Deserialize the JSON string back to an array
+        //    //        List<CompleteCallbackBO> myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CompleteCallbackBO>>(e.Parameter);
+        //    //        // Use the array on server side
+        //    //        List<UnavailableCaseNotesBO> UnAvailabelCaseNotes = new List<UnavailableCaseNotesBO>();
+        //    //        foreach (CompleteCallbackBO item in myArray)
+        //    //        {
+        //    //            UnavailableCaseNotesBO UnAvailable = new UnavailableCaseNotesBO();
+        //    //            UnAvailable.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
+        //    //            UnAvailable.PatientDetails = item.PatientDetails;
+        //    //            UnAvailable.ReasonUnavailableID = Convert.ToInt32(item.ReasonID);
+        //    //            UnAvailable.IsActive = true;
+        //    //            UnAvailabelCaseNotes.Add(UnAvailable);
+        //    //        }
 
-            //        AuditClinicAnswersBO AuditClinicAnswers = new AuditClinicAnswersBO();
-            //        AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
-            //        AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
-            //        AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
-            //        AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
-            //        AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
-            //        AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
+        //    //        AuditClinicAnswersBO AuditClinicAnswers = new AuditClinicAnswersBO();
+        //    //        AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
+        //    //        AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
+        //    //        AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
+        //    //        AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
+        //    //        AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
+        //    //        AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
 
-            //        bool update =  new BLL.AuditBLL().SaveCaseNoteAvailability(AuditClinicAnswers);
-            //        if (update) {
-            //            bool update1 = new BLL.AuditBLL().InsertUnAvailableCaseNoteAvailability(UnAvailabelCaseNotes);
-            //        }
+        //    //        bool update =  new BLL.AuditBLL().SaveCaseNoteAvailability(AuditClinicAnswers);
+        //    //        if (update) {
+        //    //            bool update1 = new BLL.AuditBLL().InsertUnAvailableCaseNoteAvailability(UnAvailabelCaseNotes);
+        //    //        }
 
-            //    }
-            //}
-        }
+        //    //    }
+        //    //}
+        //}
 
         //protected void CaseNoteAvailabilityUnAvailabilityPopup_WindowCallback(object source, PopupWindowCallbackArgs e)
         //{
         //    FindAllControls(CaseNoteAvailabilityUnAvailabilityPopup);
         //}
-        private void FindAllControls(Control parent)
-        {
-            foreach (Control ctrl in parent.Controls)
-            {
-                if (ctrl is ASPxTextBox)
-                {
-                    ASPxTextBox textBox = (ASPxTextBox)ctrl;
-                    string value = textBox.Text;
-                    // Do something with the value, e.g., display or process it
-                }
-                else if (ctrl.HasControls())
-                {
-                    // Recursively search through the child controls
-                    FindAllControls(ctrl);
-                }
-            }
-        }
+        //private void FindAllControls(Control parent)
+        //{
+        //    foreach (Control ctrl in parent.Controls)
+        //    {
+        //        if (ctrl is ASPxTextBox)
+        //        {
+        //            ASPxTextBox textBox = (ASPxTextBox)ctrl;
+        //            string value = textBox.Text;
+        //            // Do something with the value, e.g., display or process it
+        //        }
+        //        else if (ctrl.HasControls())
+        //        {
+        //            // Recursively search through the child controls
+        //            FindAllControls(ctrl);
+        //        }
+        //    }
+        //}
 
-        protected void CompleteButton_Init(object sender, EventArgs e)
-        {
-            ASPxButton btn = sender as ASPxButton;
-            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Complete_Click(s, e); }}");
+        //protected void CompleteButton_Init(object sender, EventArgs e)
+        //{
+        //    ASPxButton btn = sender as ASPxButton;
+        //    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Complete_Click(s, e); }}");
 
-        }
+        //}
 
-        protected void CaseNoteAvailabilityAuditRecordsGridView_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        protected void ReviewAuditRecordsGridView_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
         {
             //e.Parameters = new Dictionary<string, object>();
             if (e.Parameters != null) // select patient referrals & details sent from patient search grid
@@ -623,12 +622,12 @@ namespace CaseNotesAvailability
                     //}
 
                     // AuditClinicAnswersBO AuditClinicAnswers = new AuditClinicAnswersBO();
-                    AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
-                    AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
-                    AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
-                    AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
-                    AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
-                    AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
+                    //AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
+                    //AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
+                    //AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
+                    //AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
+                    //AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
+                    //AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
 
                     bool update = new BLL.AuditClinicAnswersBLL().SaveCaseNoteAvailability(AuditClinicAnswers);
                     if (update)
@@ -636,12 +635,12 @@ namespace CaseNotesAvailability
                         bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(AuditClinicAnswers);
                         if (update1)
                         {
-                            CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
+                            ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
                             //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
                         }
                         else
                         {
-                            CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
+                            ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
                         }
                     }
                     

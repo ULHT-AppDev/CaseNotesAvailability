@@ -53,7 +53,7 @@ namespace BLL
         {
             localAuditId = auditID;
         }
-        
+
         public List<SpecilatyBO> GetSpeciality()
         {
             try
@@ -103,7 +103,7 @@ namespace BLL
                 return null;
             }
         }
-        
+
 
         public bool InsertAudit(AuditBO Audit)
         {
@@ -159,6 +159,13 @@ namespace BLL
         public static void DeleteAudit(int AuditID, string StatusID)
         {
             new DAL.AuditDAL().DeleteAudit(AuditID, StatusID);
+        }
+
+        public SingleAuditBO SelectedAudit(int auditID)
+        {
+            SingleAuditBO Audit = new DAL.AuditDAL().GetSingleAudit(auditID);
+            return Audit;
+
         }
     }
 }

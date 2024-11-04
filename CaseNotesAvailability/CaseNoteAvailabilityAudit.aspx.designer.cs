@@ -87,6 +87,24 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxLabel lblSpeciality;
 
         /// <summary>
+        /// lblSite control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblSite;
+
+        /// <summary>
+        /// AuditDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton AuditDetails;
+
+        /// <summary>
         /// CaseNoteAvailabilityAuditRecordsGridView control.
         /// </summary>
         /// <remarks>
@@ -96,13 +114,13 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxGridView CaseNoteAvailabilityAuditRecordsGridView;
 
         /// <summary>
-        /// ASPxLabel1 control.
+        /// UserAlertPopupControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
+        protected global::UserControls.UserAlertControl.UserAlertPopupControl UserAlertPopupControl;
 
         /// <summary>
         /// CaseNoteAvailabilityUnAvailabilityPopup control.

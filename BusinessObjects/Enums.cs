@@ -13,5 +13,12 @@ namespace BusinessObjects
             NotSet = -1,
             Admin = 0,
         }
+        public enum AuditStatus
+        {
+            NotStarted = 1,
+            InProgress = 2,
+            PendingHRreview = 3,
+            Completed = 4
+        }
     }
 }

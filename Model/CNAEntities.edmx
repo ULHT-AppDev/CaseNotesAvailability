@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CNAModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Audit">
           <Key>
             <PropertyRef Name="AuditID" />
@@ -16,8 +16,8 @@
           <Property Name="CreatedByUserID" Type="int" Nullable="false" />
           <Property Name="CompletedByUserID" Type="int" Nullable="false" />
           <Property Name="DueByDate" Type="date" />
-          <Property Name="IsActive" Type="bit" Nullable="false" />
           <Property Name="StatusID" Type="tinyint" Nullable="false" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="AuditClinicAnswers">
           <Key>
@@ -30,6 +30,7 @@
           <Property Name="CaseNotesAvailableStartCount" Type="int" />
           <Property Name="TemporaryNotesCount" Type="int" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="StatusID" Type="tinyint" Nullable="false" />
         </EntityType>
         <EntityType Name="Issues">
           <Key>
@@ -97,7 +98,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.RequiresImprovementD
           <Key>
             <PropertyRef Name="UnavailableCaseNotesID" />
           </Key>
-          <Property Name="UnavailableCaseNotesID" Type="int" Nullable="false" />
+          <Property Name="UnavailableCaseNotesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuditClinicAnswersID" Type="int" Nullable="false" />
           <Property Name="PatientDetails" Type="varchar" MaxLength="200" Nullable="false" />
           <Property Name="ReasonUnavailableID" Type="int" Nullable="false" />
@@ -392,7 +393,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CNAModelStoreContainer">
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Audit" EntityType="Self.Audit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuditClinicAnswers" EntityType="Self.AuditClinicAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Issues" EntityType="Self.Issues" Schema="dbo" store:Type="Tables" />
@@ -497,7 +498,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CNAModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Audit">
           <Key>
             <PropertyRef Name="AuditID" />
@@ -509,8 +510,8 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="CreatedByUserID" Type="Int32" Nullable="false" />
           <Property Name="CompletedByUserID" Type="Int32" Nullable="false" />
           <Property Name="DueByDate" Type="DateTime" Precision="0" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="StatusID" Type="Byte" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Status" Relationship="Self.FK_Audit_Status" FromRole="Audit" ToRole="Status" />
         </EntityType>
         <EntityType Name="AuditClinicAnswer">
@@ -524,6 +525,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="CaseNotesAvailableStartCount" Type="Int32" />
           <Property Name="TemporaryNotesCount" Type="Int32" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="StatusID" Type="Byte" Nullable="false" />
         </EntityType>
         <EntityType Name="Issue">
           <Key>
@@ -558,7 +560,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Key>
             <PropertyRef Name="UnavailableCaseNotesID" />
           </Key>
-          <Property Name="UnavailableCaseNotesID" Type="Int32" Nullable="false" />
+          <Property Name="UnavailableCaseNotesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuditClinicAnswersID" Type="Int32" Nullable="false" />
           <Property Name="PatientDetails" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ReasonUnavailableID" Type="Int32" Nullable="false" />
@@ -940,9 +942,9 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CNAModelStoreContainer" CdmEntityContainer="CNAEntities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="CNAEntities">
           <EntitySetMapping Name="Audits">
-            <EntityTypeMapping TypeName="CNAModel.Audit">
+            <EntityTypeMapping TypeName="Model.Audit">
               <MappingFragment StoreEntitySet="Audit">
                 <ScalarProperty Name="AuditID" ColumnName="AuditID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
@@ -951,13 +953,13 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
                 <ScalarProperty Name="CreatedByUserID" ColumnName="CreatedByUserID" />
                 <ScalarProperty Name="CompletedByUserID" ColumnName="CompletedByUserID" />
                 <ScalarProperty Name="DueByDate" ColumnName="DueByDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="AuditClinicAnswers">
-            <EntityTypeMapping TypeName="CNAModel.AuditClinicAnswer">
+            <EntityTypeMapping TypeName="Model.AuditClinicAnswer">
               <MappingFragment StoreEntitySet="AuditClinicAnswers">
                 <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
                 <ScalarProperty Name="AuditID" ColumnName="AuditID" />
@@ -966,11 +968,12 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
                 <ScalarProperty Name="CaseNotesAvailableStartCount" ColumnName="CaseNotesAvailableStartCount" />
                 <ScalarProperty Name="TemporaryNotesCount" ColumnName="TemporaryNotesCount" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Issues">
-            <EntityTypeMapping TypeName="CNAModel.Issue">
+            <EntityTypeMapping TypeName="Model.Issue">
               <MappingFragment StoreEntitySet="Issues">
                 <ScalarProperty Name="Issue_ID" ColumnName="Issue ID" />
                 <ScalarProperty Name="Issue1" ColumnName="Issue" />
@@ -979,7 +982,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Patients">
-            <EntityTypeMapping TypeName="CNAModel.Patient">
+            <EntityTypeMapping TypeName="Model.Patient">
               <MappingFragment StoreEntitySet="Patients">
                 <ScalarProperty Name="PatientID" ColumnName="PatientID" />
                 <ScalarProperty Name="Unumber" ColumnName="Unumber" />
@@ -991,7 +994,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="CNAModel.sysdiagram">
+            <EntityTypeMapping TypeName="Model.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1002,7 +1005,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UnavailableCaseNotes">
-            <EntityTypeMapping TypeName="CNAModel.UnavailableCaseNote">
+            <EntityTypeMapping TypeName="Model.UnavailableCaseNote">
               <MappingFragment StoreEntitySet="UnavailableCaseNotes">
                 <ScalarProperty Name="UnavailableCaseNotesID" ColumnName="UnavailableCaseNotesID" />
                 <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
@@ -1013,7 +1016,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoginRights">
-            <EntityTypeMapping TypeName="CNAModel.LoginRight">
+            <EntityTypeMapping TypeName="Model.LoginRight">
               <MappingFragment StoreEntitySet="LoginRights">
                 <ScalarProperty Name="RightID" ColumnName="RightID" />
                 <ScalarProperty Name="RightName" ColumnName="RightName" />
@@ -1022,7 +1025,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoginRoleRights">
-            <EntityTypeMapping TypeName="CNAModel.LoginRoleRight">
+            <EntityTypeMapping TypeName="Model.LoginRoleRight">
               <MappingFragment StoreEntitySet="LoginRoleRights">
                 <ScalarProperty Name="RoleRightID" ColumnName="RoleRightID" />
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
@@ -1032,7 +1035,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LoginRoles">
-            <EntityTypeMapping TypeName="CNAModel.LoginRole">
+            <EntityTypeMapping TypeName="Model.LoginRole">
               <MappingFragment StoreEntitySet="LoginRoles">
                 <ScalarProperty Name="RoleID" ColumnName="RoleID" />
                 <ScalarProperty Name="Role" ColumnName="Role" />
@@ -1041,7 +1044,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Sites">
-            <EntityTypeMapping TypeName="CNAModel.Site">
+            <EntityTypeMapping TypeName="Model.Site">
               <MappingFragment StoreEntitySet="Sites">
                 <ScalarProperty Name="SiteId" ColumnName="SiteId" />
                 <ScalarProperty Name="SiteCode" ColumnName="SiteCode" />
@@ -1051,7 +1054,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Specialities">
-            <EntityTypeMapping TypeName="CNAModel.Speciality">
+            <EntityTypeMapping TypeName="Model.Speciality">
               <MappingFragment StoreEntitySet="Specialities">
                 <ScalarProperty Name="SpecilatiesID" ColumnName="SpecilatiesID" />
                 <ScalarProperty Name="SpecilatiesName" ColumnName="SpecilatiesName" />
@@ -1060,7 +1063,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="CNAModel.Status">
+            <EntityTypeMapping TypeName="Model.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="StatusName" ColumnName="StatusName" />
@@ -1069,7 +1072,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogActions">
-            <EntityTypeMapping TypeName="CNAModel.LogAction">
+            <EntityTypeMapping TypeName="Model.LogAction">
               <MappingFragment StoreEntitySet="LogActions">
                 <ScalarProperty Name="ActionID" ColumnName="ActionID" />
                 <ScalarProperty Name="ActionName" ColumnName="ActionName" />
@@ -1078,7 +1081,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogDetails">
-            <EntityTypeMapping TypeName="CNAModel.LogDetail">
+            <EntityTypeMapping TypeName="Model.LogDetail">
               <MappingFragment StoreEntitySet="LogDetails">
                 <ScalarProperty Name="DetailsID" ColumnName="DetailsID" />
                 <ScalarProperty Name="LogID" ColumnName="LogID" />
@@ -1087,7 +1090,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogErrors">
-            <EntityTypeMapping TypeName="CNAModel.LogError">
+            <EntityTypeMapping TypeName="Model.LogError">
               <MappingFragment StoreEntitySet="LogErrors">
                 <ScalarProperty Name="LogErrorID" ColumnName="LogErrorID" />
                 <ScalarProperty Name="SessionID" ColumnName="SessionID" />
@@ -1100,7 +1103,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Logs">
-            <EntityTypeMapping TypeName="CNAModel.Log">
+            <EntityTypeMapping TypeName="Model.Log">
               <MappingFragment StoreEntitySet="Logs">
                 <ScalarProperty Name="LogID" ColumnName="LogID" />
                 <ScalarProperty Name="ActionID" ColumnName="ActionID" />
@@ -1110,7 +1113,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="LogSessions">
-            <EntityTypeMapping TypeName="CNAModel.LogSession">
+            <EntityTypeMapping TypeName="Model.LogSession">
               <MappingFragment StoreEntitySet="LogSessions">
                 <ScalarProperty Name="SessionID" ColumnName="SessionID" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
@@ -1121,7 +1124,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="People">
-            <EntityTypeMapping TypeName="CNAModel.Person">
+            <EntityTypeMapping TypeName="Model.Person">
               <MappingFragment StoreEntitySet="People">
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -1136,7 +1139,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PersonRoles">
-            <EntityTypeMapping TypeName="CNAModel.PersonRole">
+            <EntityTypeMapping TypeName="Model.PersonRole">
               <MappingFragment StoreEntitySet="PersonRoles">
                 <ScalarProperty Name="PersonRoleID" ColumnName="PersonRoleID" />
                 <ScalarProperty Name="PersonID" ColumnName="PersonID" />
@@ -1146,7 +1149,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PersonUniqueGuids">
-            <EntityTypeMapping TypeName="CNAModel.PersonUniqueGuid">
+            <EntityTypeMapping TypeName="Model.PersonUniqueGuid">
               <MappingFragment StoreEntitySet="PersonUniqueGuids">
                 <ScalarProperty Name="GuidID" ColumnName="GuidID" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
@@ -1155,7 +1158,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequiresImprovementActionPoints">
-            <EntityTypeMapping TypeName="CNAModel.RequiresImprovementActionPoint">
+            <EntityTypeMapping TypeName="Model.RequiresImprovementActionPoint">
               <MappingFragment StoreEntitySet="RequiresImprovementActionPoints">
                 <ScalarProperty Name="RequiresImprovementActionPointID" ColumnName="RequiresImprovementActionPointID" />
                 <ScalarProperty Name="AuditID" ColumnName="AuditID" />
@@ -1167,7 +1170,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="RequiresImprovementDetails">
-            <EntityTypeMapping TypeName="CNAModel.RequiresImprovementDetail">
+            <EntityTypeMapping TypeName="Model.RequiresImprovementDetail">
               <MappingFragment StoreEntitySet="RequiresImprovementDetails">
                 <ScalarProperty Name="RequiresImprovementDetailsID" ColumnName="RequiresImprovementDetailsID" />
                 <ScalarProperty Name="AuditID" ColumnName="AuditID" />
@@ -1180,7 +1183,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="userroles">
-            <EntityTypeMapping TypeName="CNAModel.userrole">
+            <EntityTypeMapping TypeName="Model.userrole">
               <MappingFragment StoreEntitySet="userrole">
                 <ScalarProperty Name="userroleID" ColumnName="userroleID" />
                 <ScalarProperty Name="user_role_Name" ColumnName="user role Name" />
@@ -1188,7 +1191,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ReasonUnavailables">
-            <EntityTypeMapping TypeName="CNAModel.ReasonUnavailable">
+            <EntityTypeMapping TypeName="Model.ReasonUnavailable">
               <MappingFragment StoreEntitySet="ReasonUnavailable">
                 <ScalarProperty Name="ReasonUnavailableID" ColumnName="ReasonUnavailableID" />
                 <ScalarProperty Name="ReasonText" ColumnName="ReasonText" />
@@ -1196,7 +1199,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <AssociationSetMapping Name="PersonGuid" TypeName="CNAModel.PersonGuid" StoreEntitySet="PersonGuid">
+          <AssociationSetMapping Name="PersonGuid" TypeName="Model.PersonGuid" StoreEntitySet="PersonGuid">
             <EndProperty Name="People">
               <ScalarProperty Name="PersonID" ColumnName="PersonID" />
             </EndProperty>

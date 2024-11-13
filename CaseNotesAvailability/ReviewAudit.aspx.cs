@@ -60,36 +60,14 @@ namespace ReviewAudit
         {
             ASPxButton btn = sender as ASPxButton;
             GridViewEditFormTemplateContainer container = btn.NamingContainer as GridViewEditFormTemplateContainer;
-            
+
             object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditID" }) as object[];
-                       
-            if(values !=null)
+
+            if (values != null)
             {
                 ClinicCode = values[0]?.ToString() ?? "";
                 btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AddImpDetails_ClientClick(s, e, '{0}'); }}", ClinicCode);
             }
-
-
-            //if (values != null)
-            //{
-            //    string ClinicCode = values[0]?.ToString() ?? "";
-            //    string AuditClinicAnswersID = values[1]?.ToString() ?? "";
-            //    string AuditID = values[2]?.ToString() ?? "";
-
-
-            //    //if (!String.IsNullOrEmpty(AuditID))
-            //    //{
-            //    //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
-            //    //}
-
-            //    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}','{3}'); }}", ClinicCode, AuditClinicAnswersID, AuditID, container.VisibleIndex);
-            //    //btn.Click += new System.EventHandler(this.Button_Click);
-
-            //}
-            //else
-            //{
-            //    btn.Visible = false;
-            //}
         }
 
         protected void AuditorView_Init(object sender, EventArgs e)
@@ -438,10 +416,11 @@ namespace ReviewAudit
 
         protected void ReviewAuditRecordsView_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
-            e.InputParameters["CSAAuditId"] = CASAuditId;
+            int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
+            e.InputParameters["CSAAuditId"] = lAuditId;
         }
 
-            protected void UnavailableCasenotes_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        protected void UnavailableCasenotes_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             //ASPxGridView gridView = sender as ASPxGridView;
 
@@ -463,26 +442,37 @@ namespace ReviewAudit
         protected void ClinicCodeLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl = sender as ASPxLabel;
-            lbl.Text = $"Reviewing Audit: ID <span class='MainColour'>{ClinicCode}</span>";
-            //Speciality
+
+            GridViewEditFormTemplateContainer container = lbl.NamingContainer as GridViewEditFormTemplateContainer;
+
+
+            var code = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "ClinicCode");
+
+            if (code != null)
+            {
+                ClinicCode = code?.ToString() ?? "Error getting clinic code";
+                lbl.Text = $"Add review for clinic code: <strong class='MainColour'>{ClinicCode}</strong>";
+            }
+
+
         }
 
         protected void CasenoteLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl1 = sender as ASPxLabel;
-            lbl1.Text = $"Audit Date:{AuditDate.ToShortDateString()}";
+            lbl1.Text = $"<span class='ReviewingCaption'>Audit Date:</span><span class='ReviewingItemDetails'>{AuditDate.ToShortDateString()}</span>";
 
             //Speciality
         }
         protected void lblSpeciality_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"Speciality:{Speciality}";
+            lbl2.Text = $"<span class='ReviewingCaption'>Speciality:</span><span class='ReviewingItemDetails'>{Speciality}</span>";
         }
         protected void lblSite_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"Site:{AuditSite}";
+            lbl2.Text = $"<span class='ReviewingCaption'>Site:</span><span class='ReviewingItemDetails'>{AuditSite}</span>";
         }
 
         //protected void CompleteButton_Click(object sender, EventArgs e)
@@ -689,6 +679,44 @@ namespace ReviewAudit
                 }
 
             }
+        }
+
+        protected void ImprovementDetailsGridView_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            if (e.Parameters != null)
+            {
+                List<ImprovementDetailsCallbackBO> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ImprovementDetailsCallbackBO>>(e.Parameters);
+
+                ASPxGridView grid = sender as ASPxGridView;
+
+                if (list != null && list.Any())
+                {
+                    grid.JSProperties["cpShowGrid"] = true;
+                    grid.DataSource = list;
+                }
+                else
+                {
+                    grid.JSProperties["cpHideGrid"] = true;
+                    grid.DataSource = null;
+                }
+
+                grid.DataBind();
+
+                grid.JSProperties["cpDataBound"] = true;
+
+            }
+        }
+
+        protected void DeleteReviewButton_Init(object sender, EventArgs e)
+        {
+            ASPxButton btn = sender as ASPxButton;
+            GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
+            ASPxGridView grid = btn.NamingContainer.NamingContainer.NamingContainer as ASPxGridView;
+
+            var id = grid.GetRowValues(container.VisibleIndex, "RequiresImprovementDetailsID")?.ToString() ?? "";
+
+            btn.ClientSideEvents.Click = $"function(s, e) {{ DeleteImprovementReview_Click(s, e, '{id}') }}";
+
         }
 
 

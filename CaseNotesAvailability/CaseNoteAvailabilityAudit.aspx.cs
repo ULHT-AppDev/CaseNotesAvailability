@@ -34,9 +34,9 @@ namespace CaseNotesAvailability
         protected void Page_PreInit(object sender, EventArgs e)
         {
             int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
-           
+
             SetAuditID(lAuditId);
-             //Speciality = Request.QueryString["Speciality"];
+            //Speciality = Request.QueryString["Speciality"];
 
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -49,11 +49,11 @@ namespace CaseNotesAvailability
             SingleAuditBO SelectedAudit = new SingleAuditBO();
             SelectedAudit = new BLL.UnavailableCaseNotesBLL().SelectedAudit(auditID);
             Speciality = SelectedAudit.Specialty;
-            AuditDate = SelectedAudit.Date?? DateTime.MinValue;
+            AuditDate = SelectedAudit.Date ?? DateTime.MinValue;
             Specialty = SelectedAudit.Specialty;
             AuditSite = SelectedAudit.Site;
 
-    }
+        }
 
         protected void AuditorView_Init(object sender, EventArgs e)
         {
@@ -90,7 +90,7 @@ namespace CaseNotesAvailability
             {
                 UnAvailabilityCallbackBO obj = Newtonsoft.Json.JsonConvert.DeserializeObject<UnAvailabilityCallbackBO>(e.Parameter);
 
-                string ClinicCode = obj.ClinicCode;    
+                string ClinicCode = obj.ClinicCode;
                 int AuditClinicAnswerId = obj.AuditClinicAnswerId;
                 int AuditID = obj.AuditID;
                 txtAuditId.Value = AuditID;
@@ -443,7 +443,7 @@ namespace CaseNotesAvailability
             ASPxLabel lbl2 = sender as ASPxLabel;
             lbl2.Text = $"Site:{AuditSite}";
         }
-        
+
         //protected void CompleteButton_Click(object sender, EventArgs e)
         //{
         //    //AuditClinicAnswersBO ClinicAns = new AuditClinicAnswersBO();
@@ -607,7 +607,7 @@ namespace CaseNotesAvailability
                 if (!string.IsNullOrEmpty(eventArgument))
                 {
                     // Deserialize the JSON string back to an array
-                    AuditClinicAnswersUnAvailableBO AuditClinicAnswers = new AuditClinicAnswersUnAvailableBO(); 
+                    AuditClinicAnswersUnAvailableBO AuditClinicAnswers = new AuditClinicAnswersUnAvailableBO();
                     List<CompleteCallbackBO> myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CompleteCallbackBO>>(e.Parameters);
                     // Use the array on server side
                     AuditClinicAnswers.Unavailable = myArray;
@@ -644,9 +644,9 @@ namespace CaseNotesAvailability
                             CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
                         }
                     }
-                    
+
                 }
-               
+
             }
         }
 

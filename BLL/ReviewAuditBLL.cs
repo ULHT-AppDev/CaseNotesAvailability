@@ -116,13 +116,13 @@ namespace BLL
             }
         }
 
-        
-         public List<StatusBO> GetImpAuditReview()
+
+        public List<RequiresImprovementDetailsBO> GetImprovementDetails()
         {
             try
             {
-                List<StatusBO> Status = new List<StatusBO>();
-                Status = new DAL.AuditDAL().GetStatus().OrderBy(x => x.StatusID).ToList();
+                List<RequiresImprovementDetailsBO> Status = new List<RequiresImprovementDetailsBO>();
+                Status = new DAL.ReviewAuditDAL().GetImprovementDetails().OrderBy(x => x.RequiresImprovementDetailsID).ToList();
 
                 return Status;
             }
@@ -133,6 +133,53 @@ namespace BLL
                 return null;
             }
         }
+
+        public bool UpdateImprovementDetails(RequiresImprovementDetailsBO Details)
+        {
+            try
+            {
+                new DAL.ReviewAuditDAL().UpdateImprovementDetails(Details);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return false;
+            }
+        }
+        public bool InsertImprovementDetails(RequiresImprovementDetailsBO Details)
+        {
+            try
+            {
+                new DAL.ReviewAuditDAL().InsertImprovementDetails(Details);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return false;
+            }
+        }
+        
+        public List<ReasonUnavailableBO> GetUnavailableReason()
+        {
+            try
+            {
+                List<ReasonUnavailableBO> Specility = new List<ReasonUnavailableBO>();
+                Specility = new DAL.ReviewAuditDAL().GetUnavailableReason().OrderBy(x => x.ReasonText).ToList();
+
+                return Specility;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, sessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return null;
+            }
+        }
+
 
 
 

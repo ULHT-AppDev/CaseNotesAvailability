@@ -16,7 +16,8 @@
     <asp:ObjectDataSource ID="GetSpeciality" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSites" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="Status" runat="server" SelectMethod="GetStatus" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="ImpReviewAudit" runat="server" SelectMethod="GetImpAuditReview" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="GetUnavailableReason" runat="server" SelectMethod="GetUnavailableReason" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ImpReviewAudit" runat="server" SelectMethod="GetImprovementDetails" UpdateMethod="UpdateImprovementDetails" DataObjectTypeName="BusinessObjects.RequiresImprovementDetailsBO" InsertMethod="InsertImprovementDetails" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="ActPointReviewAudit" runat="server" SelectMethod="GetActPointAuditReview" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
     <div id="HeaderSubContainer" class="container">
         <div id="HeaderRow" class="row align-items-center">
@@ -209,30 +210,39 @@
                 <SettingsResizing ColumnResizeMode="NextColumn" />
                 <Templates>
                     <EditForm>
+                        <asp:Panel ID="Panel1" runat="server" BorderStyle="Ridge" Width="400px">
+                            <div>
+                                <div>
+                                    <dx:ASPxLabel ID="ClinicCodeLabel"
+                                        ClientInstanceName="ClinicCodeLabel"
+                                        runat="server"
+                                        OnInit="ClinicCodeLabel_Init"
+                                        Font-Size="20px"
+                                        ForeColor="GrayText">
+                                    </dx:ASPxLabel>
+                                </div>
+                            </div>
+                        </asp:Panel>
                         <div>
-                            <dx:ASPxButton ID="AuditorView1"
+                            <dx:ASPxButton ID="AddImpDetails"
                                 runat="server"
                                 Text="Add Improvement Details"
                                 RenderMode="Button"
                                 AutoPostBack="false"
                                 UseSubmitBehavior="false"
-                                CausesValidation="false">
+                                CausesValidation="false"
+                                OnInit="AddImpDetails_Init">
                             </dx:ASPxButton>
 
                         </div>
                         <div>
                             <dx:ASPxGridView ID="ReviewAuditClinicsGridView" runat="server" AllowSorting="true"
                                 ClientInstanceName="ReviewAuditClinicsGridView"
-                                OnRowUpdating="ReviewAuditClinicsGridView_Updating"
-                                KeyFieldName="AuditClinicAnswersID"
-                                DataSourceID="ReviewAuditRecordsView"
+                                KeyFieldName="RequiresImprovementDetailsID"
+                                DataSourceID="ImpReviewAudit"
                                 AutoGenerateColumns="False"
-                                OnInitNewRow="ReviewAuditClinicsGridView_InitNewRow"
-                                OnStartRowEditing="ReviewAuditClinicsGridView_StartRowEditing"
-                                OnCellEditorInitialize="ReviewAuditClinicsGridView_CellEditorInitialize"
-                                OnCustomCallback="ReviewAuditClinicsGridView_CustomCallback"
                                 Width="100%">
-                                <ClientSideEvents EndCallback="ReviewAuditClinicsGridView_EndCallBack" />
+
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
 
                                 <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
@@ -252,15 +262,15 @@
                                         </LayoutGroupBox>
                                     </Styles>
                                     <Items>
-                                        <dx:GridViewLayoutGroup Name="FieldGroup" Caption="Health Records View" ColCount="2" ColumnCount="2" ColSpan="1" ColumnSpan="1">
+                                        <dx:GridViewLayoutGroup Name="FieldGroup" Caption="Improvement Details" ColCount="2" ColumnCount="2" ColSpan="1" ColumnSpan="1">
                                             <Items>
                                                 <dx:GridViewColumnLayoutItem ClientVisible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
-                                                <dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                                <dx:GridViewColumnLayoutItem ColumnName="RequiresImprovementDetailsID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                                 <%--<dx:GridViewColumnLayoutItem ColumnName="AuditID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
                                                 <%--<dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
-                                                <dx:GridViewColumnLayoutItem Caption="Number Of Appointments Allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                                <dx:GridViewColumnLayoutItem Caption="CaseNotes Available StartCount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                                <dx:GridViewColumnLayoutItem Caption="TemporaryNotes Count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                                <%--<dx:GridViewColumnLayoutItem Caption="AuditID" ColumnName="AuditID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
+                                                <dx:GridViewColumnLayoutItem Caption="Unavailable Reason" ColumnName="ImprovementReasonID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                                <dx:GridViewColumnLayoutItem Caption="Comment" ColumnName="Comment" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                                 <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                                             </Items>
                                         </dx:GridViewLayoutGroup>
@@ -268,7 +278,7 @@
                                     </Items>
                                 </EditFormLayoutProperties>
                                 <Columns>
-                                    <%--<dx:GridViewCommandColumn VisibleIndex="0" Width="100px" Caption="Action" ShowNewButtonInHeader="false" ShowEditButton="false" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>--%>
+                                    <dx:GridViewCommandColumn VisibleIndex="0" Width="100px" Caption="Action" ShowNewButtonInHeader="false" ShowEditButton="true" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
                                     <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="100" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
                                         <DataItemTemplate>
                                             <div>
@@ -278,30 +288,26 @@
                                                     RenderMode="Button"
                                                     AutoPostBack="false"
                                                     UseSubmitBehavior="false"
-                                                    CausesValidation="false"
-                                                    OnInit="AuditorView_Init">
+                                                    CausesValidation="false">
                                                 </dx:ASPxButton>
                                             </div>
                                         </DataItemTemplate>
                                     </dx:GridViewDataColumn>
-                                    <dx:GridViewDataTextColumn Caption="AuditClinicAnswersID" Visible="false" ReadOnly="true" FieldName="AuditClinicAnswersID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
-                                        <EditItemTemplate>
-                                            <dx:ASPxLabel ID="AuditClinicAnswersIDReadonlyLabel" runat="server" Text='<%# Eval("AuditClinicAnswersID") %>'></dx:ASPxLabel>
-                                        </EditItemTemplate>
+                                    <%--<dx:GridViewDataTextColumn FieldName="ClinicCode" PropertiesTextEdit-ClientInstanceName="ClinicCode" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="1" MinWidth="200" MaxWidth="300">
+                                    </dx:GridViewDataTextColumn>--%>
+                                    <dx:GridViewDataComboBoxColumn Caption="Unavailable Reason" FieldName="ReasonUnavailableID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+                                        <PropertiesComboBox ClientInstanceName="Specialities" DataSourceID="GetUnavailableReason" TextField="ReasonText" ValueField="ReasonUnavailableID">
+                                            <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
+                                                <RequiredField IsRequired="true" ErrorText="Unavailable reason is required" />
+                                            </ValidationSettings>
+                                        </PropertiesComboBox>
+                                    </dx:GridViewDataComboBoxColumn>
+
+                                    <%--<dx:GridViewDataTextColumn FieldName="ImprovementReasonID" PropertiesTextEdit-ClientInstanceName="ImprovementReasonID" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="2" MinWidth="200" MaxWidth="300">
+                                    </dx:GridViewDataTextColumn>--%>
+                                    <dx:GridViewDataTextColumn FieldName="Comment" PropertiesTextEdit-ClientInstanceName="Comment" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
                                     </dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn Caption="ClinicCode" ReadOnly="true" FieldName="ClinicCode" VisibleIndex="1" MinWidth="50" MaxWidth="100">
-                                        <EditItemTemplate>
-                                            <dx:ASPxLabel ID="ClinicCodeReadonlyLabel" runat="server" Text='<%# Eval("ClinicCode") %>'></dx:ASPxLabel>
-                                        </EditItemTemplate>
-                                    </dx:GridViewDataTextColumn>
-                                    <%-- <dx:GridViewDataTextColumn Caption="AuditID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
-             <EditItemTemplate>
-                 <dx:ASPxLabel ID="AuditIDReadonlyLabel" runat="server" Text='<%# Eval("AuditID") %>'></dx:ASPxLabel>
-             </EditItemTemplate>
-         </dx:GridViewDataTextColumn>--%>
-                                    <dx:GridViewDataTextColumn Caption="Number Of Appointments Allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn Caption="CaseNotes Available Start Count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                                    <dx:GridViewDataTextColumn Caption="Temporary Notes Count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+
                                 </Columns>
 
                                 <Settings ShowFilterRow="true" />

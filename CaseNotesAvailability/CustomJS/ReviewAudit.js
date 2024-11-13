@@ -1,4 +1,6 @@
-﻿function onDismissalDateChanged(s, e)
+﻿/// <reference path="../devexpress-web.d.ts" />
+
+function onDismissalDateChanged(s, e)
 {
     var contactLayoutGroup = ReviewAuditRecordsGridView.GetEditFormLayoutItemOrGroup("groupContactInfo");
     var isContactLayoutGroupVisible = contactLayoutGroup.GetVisible();
@@ -24,7 +26,11 @@ function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId,AuditID,n
 
         }
 
-
+function AddImpDetails_ClientClick(s,e,ClinicCode)
+{
+    ReviewAuditClinicsGridView.AddNewRow();
+    
+}
 function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId,AuditID)
 {
       const relativeURL = 'default.aspx?';

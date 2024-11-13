@@ -55,6 +55,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ReviewAuditDAL.cs" />
     <Compile Include="UnavailableCaseNotesDAL.cs" />
     <Compile Include="AuditClinicAnswersDAL.cs" />
     <Compile Include="AuditDAL.cs" />

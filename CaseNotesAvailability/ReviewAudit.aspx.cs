@@ -29,14 +29,15 @@ namespace ReviewAudit
         private string Specialty;
         private string AuditSite;
         //public int StatusID { get; set; }
+        private string ClinicCode;
 
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
             int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
-           
+
             SetAuditID(lAuditId);
-             //Speciality = Request.QueryString["Speciality"];
+            //Speciality = Request.QueryString["Speciality"];
 
         }
         protected void Page_Load(object sender, EventArgs e)
@@ -49,11 +50,47 @@ namespace ReviewAudit
             SingleAuditBO SelectedAudit = new SingleAuditBO();
             SelectedAudit = new BLL.UnavailableCaseNotesBLL().SelectedAudit(auditID);
             Speciality = SelectedAudit.Specialty;
-            AuditDate = SelectedAudit.Date?? DateTime.MinValue;
+            AuditDate = SelectedAudit.Date ?? DateTime.MinValue;
             Specialty = SelectedAudit.Specialty;
             AuditSite = SelectedAudit.Site;
 
-    }
+        }
+
+        protected void AddImpDetails_Init(object sender, EventArgs e)
+        {
+            ASPxButton btn = sender as ASPxButton;
+            GridViewEditFormTemplateContainer container = btn.NamingContainer as GridViewEditFormTemplateContainer;
+            
+            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditID" }) as object[];
+                       
+            if(values !=null)
+            {
+                ClinicCode = values[0]?.ToString() ?? "";
+                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AddImpDetails_ClientClick(s, e, '{0}'); }}", ClinicCode);
+            }
+
+
+            //if (values != null)
+            //{
+            //    string ClinicCode = values[0]?.ToString() ?? "";
+            //    string AuditClinicAnswersID = values[1]?.ToString() ?? "";
+            //    string AuditID = values[2]?.ToString() ?? "";
+
+
+            //    //if (!String.IsNullOrEmpty(AuditID))
+            //    //{
+            //    //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
+            //    //}
+
+            //    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}','{3}'); }}", ClinicCode, AuditClinicAnswersID, AuditID, container.VisibleIndex);
+            //    //btn.Click += new System.EventHandler(this.Button_Click);
+
+            //}
+            //else
+            //{
+            //    btn.Visible = false;
+            //}
+        }
 
         protected void AuditorView_Init(object sender, EventArgs e)
         {
@@ -96,7 +133,6 @@ namespace ReviewAudit
         //        txtAuditId.Value = AuditID;
         //        getAuditClinicAnswer(AuditClinicAnswerId);
         //    }
-
         //}
 
         //protected void CreateFormDynamically_CallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
@@ -106,8 +142,6 @@ namespace ReviewAudit
 
         //        List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
         //        UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons();
-
-
         //        //ASPxFormLayout form = new ASPxFormLayout()
         //        //{
         //        //    AlignItemCaptions = true,
@@ -364,8 +398,8 @@ namespace ReviewAudit
             grid.SettingsCommandButton.UpdateButton.Text = "Create new Audit";
 
             // hide audit column on new row
-            GridViewColumnLayoutItem auditCol = grid.EditFormLayoutProperties.FindItemOrGroupByName("AuditID") as GridViewColumnLayoutItem;
-            auditCol.Visible = false;
+            //GridViewColumnLayoutItem auditCol = grid.EditFormLayoutProperties.FindItemOrGroupByName("AuditID") as GridViewColumnLayoutItem;
+            //auditCol.Visible = false;
 
         }
 
@@ -406,7 +440,8 @@ namespace ReviewAudit
         {
             e.InputParameters["CSAAuditId"] = CASAuditId;
         }
-        protected void UnavailableCasenotes_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+
+            protected void UnavailableCasenotes_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             //ASPxGridView gridView = sender as ASPxGridView;
 
@@ -425,6 +460,13 @@ namespace ReviewAudit
             lbl.Text = $"Reviewing Audit: ID <span class='MainColour'>{CASAuditId}</span>";
             //Speciality
         }
+        protected void ClinicCodeLabel_Init(object sender, EventArgs e)
+        {
+            ASPxLabel lbl = sender as ASPxLabel;
+            lbl.Text = $"Reviewing Audit: ID <span class='MainColour'>{ClinicCode}</span>";
+            //Speciality
+        }
+
         protected void CasenoteLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl1 = sender as ASPxLabel;
@@ -442,7 +484,7 @@ namespace ReviewAudit
             ASPxLabel lbl2 = sender as ASPxLabel;
             lbl2.Text = $"Site:{AuditSite}";
         }
-        
+
         //protected void CompleteButton_Click(object sender, EventArgs e)
         //{
         //    //AuditClinicAnswersBO ClinicAns = new AuditClinicAnswersBO();
@@ -606,7 +648,7 @@ namespace ReviewAudit
                 if (!string.IsNullOrEmpty(eventArgument))
                 {
                     // Deserialize the JSON string back to an array
-                    AuditClinicAnswersUnAvailableBO AuditClinicAnswers = new AuditClinicAnswersUnAvailableBO(); 
+                    AuditClinicAnswersUnAvailableBO AuditClinicAnswers = new AuditClinicAnswersUnAvailableBO();
                     List<CompleteCallbackBO> myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CompleteCallbackBO>>(e.Parameters);
                     // Use the array on server side
                     AuditClinicAnswers.Unavailable = myArray;
@@ -643,11 +685,31 @@ namespace ReviewAudit
                             ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
                         }
                     }
-                    
+
                 }
-               
+
             }
         }
 
+
+        //protected void AddImpDetails_Click(object sender, EventArgs e)
+        //{
+        //    ReviewAuditRecordsGridView.AddNewRow();
+        //    //ReviewAuditRecordsGridView
+
+        //}
+
+
+        //protected void ReviewAuditClinicsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
+        //{
+        //    //GridView view = sender as GridView;
+        //    ////view.Columns["ClinicCode"]. = ClinicCode;
+        //    //view.SetFocusedRowCellValue("ClinicCode", ClinicCode);
+        //    ReviewAuditClinicsGridView.SetRowCellValue(e.RowHandle, ClinicCode", ClinicCode);
+
+        //    //view.SetRowCellValue(e.RowHandle, view.Columns[0], 1);
+        //    //view.SetRowCellValue(e.RowHandle, view.Columns[1], 2);
+        //    //view.SetRowCellValue(e.RowHandle, view.Columns[2], 3);
+        //}
     }
 }

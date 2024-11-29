@@ -212,24 +212,24 @@ namespace CaseNotesAvailability
                 {
                     StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
 
-                    switch (StatusID)
+                    switch (Convert.ToByte(StatusID))
                     {
-                        case "1":
+                        case (byte)Enums.AuditStatus.NotStarted:
                             //btn.Text = "Not Started";
                             btn.Text = "Edit";
                             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
                             break;
-                        case "2":
+                        case (byte)Enums.AuditStatus.InProgress:
                             //btn.Text = "In Progress";
                             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
                             btn.Visible = false;
                             break;
-                        case "3":
+                        case (byte)Enums.AuditStatus.PendingHRreview:
                             //btn.Text = "Pending HR review";
                             btn.Text = "Review audit";
                             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
                             break;
-                        case "4":
+                        case (byte)Enums.AuditStatus.Completed:
                             //btn.Text = "Completed";
                             btn.Visible = false;
                             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
@@ -241,11 +241,7 @@ namespace CaseNotesAvailability
                     }
                 }
 
-
-
-
                 // btn.Click += new System.EventHandler(this.Button_Click);
-
             }
             else
             {

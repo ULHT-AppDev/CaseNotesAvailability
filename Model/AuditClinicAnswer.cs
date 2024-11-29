@@ -20,7 +20,8 @@ namespace Model
         public Nullable<int> NumberOfAppointmentsAllocated { get; set; }
         public Nullable<int> CaseNotesAvailableStartCount { get; set; }
         public Nullable<int> TemporaryNotesCount { get; set; }
-        public bool IsActive { get; set; }
+        public Nullable<int> UnavailableCount { get; set; }
         public byte StatusID { get; set; }
+        public bool IsActive { get; set; }
     }
 }

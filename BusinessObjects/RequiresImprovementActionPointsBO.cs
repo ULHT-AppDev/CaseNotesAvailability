@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
-    public  class RequiresImprovementActionPointsBO
+    public class RequiresImprovementActionPointsBO
     {
         public int RequiresImprovementActionPointID { get; set; }
-        public int AuditID { get; set; }
+        public string ClinicCode { get; set; }
         public string ActionPointComment { get; set; }
         public int ReviewedByUserID { get; set; }
         public Nullable<System.DateTime> ReviewedDate { get; set; }

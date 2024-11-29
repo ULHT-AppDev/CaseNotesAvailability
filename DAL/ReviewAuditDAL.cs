@@ -21,7 +21,7 @@ namespace DAL
                         select new BusinessObjects.RequiresImprovementDetailsBO
                         {
                             RequiresImprovementDetailsID = p.RequiresImprovementDetailsID,
-                            AuditID = p.AuditID,
+                            ClinicCode = p.ClinicCode,
                             ImprovementReasonID = p.ImprovementReasonID,
                             Comment = p.Comment,
                             ReviewedByUserID = p.ReviewedByUserID,
@@ -105,21 +105,97 @@ namespace DAL
             }
         }
 
-        public List<ReasonUnavailableBO> GetUnavailableReason() 
+        public List<ReasonUnavailableBO> GetUnavailableReason()
         {
-          
-                using (var ctx = new Model.CNAEntities())
-                {
-                    return (from u in ctx.ReasonUnavailables
-                            where u.IsActive
-                            select new BusinessObjects.ReasonUnavailableBO
-                            {
-                               ReasonUnavailableID = u.ReasonUnavailableID,
-                               ReasonText = u.ReasonText
-                            }).ToList();
-                }
-          
 
+            using (var ctx = new Model.CNAEntities())
+            {
+                return (from u in ctx.ReasonUnavailables
+                        where u.IsActive
+                        select new BusinessObjects.ReasonUnavailableBO
+                        {
+                            ReasonUnavailableID = u.ReasonUnavailableID,
+                            ReasonText = u.ReasonText
+                        }).ToList();
+            }
+
+
+        }
+
+        public void ImprovementDetailsCallbackUpdate(List<ImprovementDetailsCallbackBO> ImprovementDetailsCallback, string clinicCode, int userID)
+        {
+            using (var ctxIns = new Model.CNAEntities())
+            {
+                using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (ImprovementDetailsCallback.Count != 0)
+                        {
+                            foreach (ImprovementDetailsCallbackBO SingleImprovementDetailsCallback in ImprovementDetailsCallback)
+                            {
+                                Model.RequiresImprovementDetail dt = new Model.RequiresImprovementDetail()
+                                {
+                                    ClinicCode = clinicCode,
+                                    ImprovementReasonID = SingleImprovementDetailsCallback.ImprovementDetailID,
+                                    Comment = SingleImprovementDetailsCallback.Comment,
+                                    ReviewedByUserID= userID,
+                                    ReviewedDate=DateTime.Now,
+                                    IsActive = true
+
+                                };
+                                ctxIns.RequiresImprovementDetails.Add(dt);
+                            }
+                            ctxIns.SaveChanges();
+                        }
+
+                        dbContextTransactionIns.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransactionIns.Rollback();
+                    }
+                }
+
+            }
+        }
+
+        public void ImprovementActionDetailsCallbackUpdate(List<ActionDetailsCallbackBO> actionDetailsCallback, string clinicCode, short userID)
+        {
+            using (var ctxIns = new Model.CNAEntities())
+            {
+                using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        if (actionDetailsCallback.Count != 0)
+                        {
+                            foreach (ActionDetailsCallbackBO SingleImprovementActionDetailsCallback in actionDetailsCallback)
+                            {
+                                Model.RequiresImprovementActionPoint dt = new Model.RequiresImprovementActionPoint()
+                                {
+                                    //ClinicCode = clinicCode,
+                                    //ImprovementReasonID = SingleImprovementDetailsCallback.ImprovementDetailID,
+                                    //ActionPointComment = SingleImprovementActionDetailsCallback.Comment,
+                                    //ReviewedByUserID = userID,
+                                    //ReviewedDate = DateTime.Now,
+                                    //IsActive = true
+
+                                };
+                                //ctxIns.RequiresImprovementDetails.Add(dt);
+                            }
+                            ctxIns.SaveChanges();
+                        }
+
+                        dbContextTransactionIns.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransactionIns.Rollback();
+                    }
+                }
+
+            }
         }
     }
 }

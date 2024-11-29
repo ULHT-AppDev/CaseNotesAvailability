@@ -8,3 +8,12 @@
     background: transparent !important;
     box-shadow: none !important;
 }
+
+.ReviewingCaption {
+    display: inline-block;
+    width: 90px;
+}
+
+.ReviewingItemDetails {
+    font-weight: bold;
+}

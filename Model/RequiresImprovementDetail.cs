@@ -6,14 +6,16 @@
 //     Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System;
-using System.Collections.Generic;
+
 namespace Model
 {
+    using System;
+    using System.Collections.Generic;
+    
     public partial class RequiresImprovementDetail
     {
         public int RequiresImprovementDetailsID { get; set; }
-        public int AuditID { get; set; }
+        public string ClinicCode { get; set; }
         public Nullable<int> ImprovementReasonID { get; set; }
         public string Comment { get; set; }
         public int ReviewedByUserID { get; set; }

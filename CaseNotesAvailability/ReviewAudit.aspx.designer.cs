@@ -78,13 +78,13 @@ namespace ReviewAudit
         protected global::System.Web.UI.WebControls.ObjectDataSource ActPointReviewAudit;
 
         /// <summary>
-        /// LoginPageTitle control.
+        /// AuditDetails control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LoginPageTitle;
+        protected global::DevExpress.Web.ASPxButton AuditDetails;
 
         /// <summary>
         /// DefaultPageTitleLabel control.
@@ -132,15 +132,6 @@ namespace ReviewAudit
         protected global::DevExpress.Web.ASPxLabel lblSite;
 
         /// <summary>
-        /// AuditDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton AuditDetails;
-
-        /// <summary>
         /// ReviewAuditRecordsGridView control.
         /// </summary>
         /// <remarks>
@@ -148,6 +139,78 @@ namespace ReviewAudit
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView ReviewAuditRecordsGridView;
+
+        /// <summary>
+        /// AddReviewPopup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPopupControl AddReviewPopup;
+
+        /// <summary>
+        /// AddReviewContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl AddReviewContainer;
+
+        /// <summary>
+        /// AddReviewFormLayout control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxFormLayout AddReviewFormLayout;
+
+        /// <summary>
+        /// ImpReasonComboBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxComboBox ImpReasonComboBox;
+
+        /// <summary>
+        /// ReviewCommentMemo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxMemo ReviewCommentMemo;
+
+        /// <summary>
+        /// ActReasonComboBox control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxComboBox ActReasonComboBox;
+
+        /// <summary>
+        /// ASPxMemo1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxMemo ASPxMemo1;
+
+        /// <summary>
+        /// CompleteCallback control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxCallback CompleteCallback;
 
         /// <summary>
         /// UserAlertPopupControl control.

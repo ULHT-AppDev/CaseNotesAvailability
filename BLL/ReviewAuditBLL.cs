@@ -162,7 +162,7 @@ namespace BLL
                 return false;
             }
         }
-        
+
         public List<ReasonUnavailableBO> GetUnavailableReason()
         {
             try
@@ -225,5 +225,34 @@ namespace BLL
         }
 
 
+        public bool ImprovementDetailsCallbackUpdate(List<ImprovementDetailsCallbackBO> ImprovementDetailsCallback, string ClinicCode, int userID)
+        {
+            try
+            {
+                new DAL.ReviewAuditDAL().ImprovementDetailsCallbackUpdate(ImprovementDetailsCallback, ClinicCode, userID);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return false;
+            }
+        }
+
+        public bool ImprovementActionDetailsCallbackUpdate(List<ActionDetailsCallbackBO> actionDetailsCallback, string clinicCode, short userID)
+        {
+            try
+            {
+                //new DAL.ReviewAuditDAL().ImprovementActionDetailsCallbackUpdate(actionDetailsCallback, clinicCode, userID);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return false;
+            }
+        }
     }
 }

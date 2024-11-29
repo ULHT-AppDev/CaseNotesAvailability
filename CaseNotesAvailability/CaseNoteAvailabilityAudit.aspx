@@ -77,7 +77,7 @@
                                 Font-Size="10px"
                                 ForeColor="Gray">
                             </dx:ASPxLabel>
-                        </div>--%>
+                        </div>--%>    
                                 </div>
                             </asp:Panel>
 

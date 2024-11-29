@@ -49,6 +49,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionDetailsCallbackBO.cs" />
+    <Compile Include="ImprovementDetailsCallbackBO.cs" />
     <Compile Include="RequiresImprovementActionPointsBO.cs" />
     <Compile Include="RequiresImprovementDetailsBO.cs" />
     <Compile Include="AuditClinicAnswersUnAvailableBO.cs" />

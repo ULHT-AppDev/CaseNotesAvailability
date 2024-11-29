@@ -61,8 +61,14 @@ namespace CaseNotesAvailability
                         btn.Text = "Continue Audit";
                         btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}'); }}", values[0]);
                         break;
-                    case (byte)Enums.AuditStatus.Completed:
+                    case (byte)Enums.AuditStatus.PendingHRreview:
+                        //btn.Text = "Pending HR review";
                         btn.Text = "Send for review";
+                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
+                        break;
+                    case (byte)Enums.AuditStatus.Completed:
+                        btn.Text = "Completed";
+                        btn.Visible = false;
                         btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
                         break;
 

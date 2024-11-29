@@ -212,118 +212,315 @@
                     <EditForm>
                         <asp:Panel ID="Panel1" runat="server" BorderStyle="Ridge" Width="400px">
                             <div>
-                                <div>
-                                    <dx:ASPxLabel ID="ClinicCodeLabel"
-                                        ClientInstanceName="ClinicCodeLabel"
-                                        runat="server"
-                                        OnInit="ClinicCodeLabel_Init"
-                                        Font-Size="20px"
-                                        ForeColor="GrayText">
-                                    </dx:ASPxLabel>
-                                </div>
+                                <dx:ASPxLabel ID="ClinicCodeLabel"
+                                    ClientInstanceName="ClinicCodeLabel"
+                                    runat="server"
+                                    OnInit="ClinicCodeLabel_Init"
+                                    Font-Size="20px"
+                                    EncodeHtml="false"
+                                    ForeColor="GrayText">
+                                </dx:ASPxLabel>
+                                <dx:ASPxLabel ID="LabelRead"
+                                    ClientInstanceName="LabelRead"
+                                    runat="server"
+                                    Font-Size="20px"
+                                    OnInit="LabelRead_Init"
+                                    ClientVisible ="false"
+                                    EncodeHtml="false"
+                                    ForeColor="GrayText">
+                                </dx:ASPxLabel>
                             </div>
-                        </asp:Panel>
-                        <div>
-                            <dx:ASPxButton ID="AddImpDetails"
-                                runat="server"
-                                Text="Add Improvement Details"
-                                RenderMode="Button"
-                                AutoPostBack="false"
-                                UseSubmitBehavior="false"
-                                CausesValidation="false"
-                                OnInit="AddImpDetails_Init">
-                            </dx:ASPxButton>
 
-                        </div>
-                        <div>
-                            <dx:ASPxGridView ID="ReviewAuditClinicsGridView" runat="server" AllowSorting="true"
-                                ClientInstanceName="ReviewAuditClinicsGridView"
-                                KeyFieldName="RequiresImprovementDetailsID"
-                                DataSourceID="ImpReviewAudit"
-                                AutoGenerateColumns="False"
-                                Width="100%">
+                            <div class="mt-2">
+                                <dx:ASPxButton ID="AddImpDetails"
+                                    runat="server"
+                                    Text="Add Improvement Details"
+                                    RenderMode="Button"
+                                    AutoPostBack="false"
+                                    UseSubmitBehavior="false"
+                                    CausesValidation="false"
+                                    OnInit="AddImpDetails_Init">
+                                </dx:ASPxButton>
+
+                            </div>
+
+                            <div class="mt-3">
+                                <dx:ASPxGridView ID="ImprovementDetailsGridView"
+                                    ClientInstanceName="ImprovementDetailsGridView"
+                                    OnCustomCallback="ImprovementDetailsGridView_CustomCallback"
+                                    runat="server"
+                                    AllowSorting="true"
+                                    KeyFieldName="RequiresImprovementDetailsID"
+                                    ClientVisible="false"
+                                    AutoGenerateColumns="False"
+                                    SettingsDataSecurity-AllowReadUnexposedColumnsFromClientApi="True"
+                                    SettingsDataSecurity-PreventLoadClientValuesForInvisibleColumns="True">
+                                    <ClientSideEvents EndCallback="ImprovementDetailsGridView_EndCallback" />
 
                                 <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
 
-                                <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
+                                    <Columns>
+                                        <dx:GridViewDataColumn FieldName="RequiresImprovementDetailsID" Visible="false"></dx:GridViewDataColumn>
+                                        <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="100" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
+                                            <DataItemTemplate>
+                                                <div>
+                                                    <dx:ASPxButton ID="DeleteReviewButton"
+                                                        OnInit="DeleteImpReviewButton_Init"
+                                                        runat="server"
+                                                        Text="Delete"
+                                                        RenderMode="Link"
+                                                        AutoPostBack="false"
+                                                        UseSubmitBehavior="false"
+                                                        CausesValidation="false">
+                                                    </dx:ASPxButton>
+                                                </div>
+                                            </DataItemTemplate>
+                                        </dx:GridViewDataColumn>
+                                        <dx:GridViewDataComboBoxColumn Caption="Improvement Details" PropertiesComboBox-ClientInstanceName="ImprovementDetailID" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+                                        </dx:GridViewDataComboBoxColumn>
+                                        <dx:GridViewDataTextColumn FieldName="Comment" PropertiesTextEdit-ClientInstanceName="Comment" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
+                                        </dx:GridViewDataTextColumn>
 
-                                <SettingsPopup>
-                                    <FilterControl AutoUpdatePosition="False"></FilterControl>
-                                </SettingsPopup>
+                                    </Columns>
+                                    <SettingsPager Mode="ShowAllRecords"></SettingsPager>
+                                    <Settings ShowFilterRow="false" />
+                                    <SettingsBehavior AllowEllipsisInText="true" AllowDragDrop="false" AllowSort="false" />
+                                    <SettingsResizing ColumnResizeMode="NextColumn" />
+                                </dx:ASPxGridView>
+                                <dx:ASPxLabel ID="NoImprovementDetailReviewLabel" ClientInstanceName="NoImprovementDetailReviewLabel" runat="server" Text="There are no improvement detail reviews"></dx:ASPxLabel>
+                            </div>
+                            <div class="mt-2">
+                                <dx:ASPxButton ID="AddActionPoint"
+                                    runat="server"
+                                    Text="Add Action Point"
+                                    RenderMode="Button"
+                                    AutoPostBack="false"
+                                    UseSubmitBehavior="false"
+                                    CausesValidation="false"
+                                    OnInit="AddActionPoint_Init">
+                                </dx:ASPxButton>
+                            </div>
+                            <div class="mt-3">
+                                <dx:ASPxGridView ID="ActionPointDetailsGridView"
+                                    ClientInstanceName="ActionPointDetailsGridView"
+                                    OnCustomCallback="ActionPointDetailsGridView_CustomCallback"
+                                    runat="server"
+                                    AllowSorting="true"
+                                    KeyFieldName="RequiresImprovementDetailsID"
+                                    ClientVisible="false"
+                                    AutoGenerateColumns="False">
+                                    <ClientSideEvents EndCallback="ActionPointDetailsGridView_EndCallback" />
 
-                                <Styles>
-                                    <EditingErrorRow BackColor="Yellow" />
-                                </Styles>
+                                    <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
 
-                                <EditFormLayoutProperties AlignItemCaptionsInAllGroups="false" AlignItemCaptions="true" LeftAndRightCaptionsWidth="125" Styles-LayoutGroup-CssClass="p-3">
-                                    <Styles>
-                                        <LayoutGroupBox>
-                                            <Caption Font-Bold="true" Font-Size="18px"></Caption>
-                                        </LayoutGroupBox>
-                                    </Styles>
-                                    <Items>
-                                        <dx:GridViewLayoutGroup Name="FieldGroup" Caption="Improvement Details" ColCount="2" ColumnCount="2" ColSpan="1" ColumnSpan="1">
-                                            <Items>
-                                                <dx:GridViewColumnLayoutItem ClientVisible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
-                                                <dx:GridViewColumnLayoutItem ColumnName="RequiresImprovementDetailsID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                                <%--<dx:GridViewColumnLayoutItem ColumnName="AuditID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
-                                                <%--<dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
-                                                <%--<dx:GridViewColumnLayoutItem Caption="AuditID" ColumnName="AuditID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
-                                                <dx:GridViewColumnLayoutItem Caption="Unavailable Reason" ColumnName="ImprovementReasonID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                                <dx:GridViewColumnLayoutItem Caption="Comment" ColumnName="Comment" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                                <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
-                                            </Items>
-                                        </dx:GridViewLayoutGroup>
+                                    <Columns>
+                                        <dx:GridViewDataColumn FieldName="RequiresImprovementDetailsID" Visible="false"></dx:GridViewDataColumn>
+                                        <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="100" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
+                                            <DataItemTemplate>
+                                                <div>
+                                                    <dx:ASPxButton ID="DeleteReviewButton"
+                                                        OnInit="DeleteActionReviewButton_Init"
+                                                        runat="server"
+                                                        Text="Delete"
+                                                        RenderMode="Link"
+                                                        AutoPostBack="false"
+                                                        UseSubmitBehavior="false"
+                                                        CausesValidation="false">
+                                                    </dx:ASPxButton>
+                                                </div>
+                                            </DataItemTemplate>
+                                        </dx:GridViewDataColumn>
+                                        <dx:GridViewDataComboBoxColumn Caption="Improvement Details" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+                                        </dx:GridViewDataComboBoxColumn>
+                                        <dx:GridViewDataTextColumn FieldName="Comment" PropertiesTextEdit-ClientInstanceName="Comment" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
+                                        </dx:GridViewDataTextColumn>
 
-                                    </Items>
-                                </EditFormLayoutProperties>
-                                <Columns>
-                                    <dx:GridViewCommandColumn VisibleIndex="0" Width="100px" Caption="Action" ShowNewButtonInHeader="false" ShowEditButton="true" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
-                                    <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="100" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
-                                        <DataItemTemplate>
-                                            <div>
-                                                <dx:ASPxButton ID="AuditorView"
-                                                    runat="server"
-                                                    Text="Add Review"
-                                                    RenderMode="Button"
-                                                    AutoPostBack="false"
-                                                    UseSubmitBehavior="false"
-                                                    CausesValidation="false">
-                                                </dx:ASPxButton>
-                                            </div>
-                                        </DataItemTemplate>
-                                    </dx:GridViewDataColumn>
-                                    <%--<dx:GridViewDataTextColumn FieldName="ClinicCode" PropertiesTextEdit-ClientInstanceName="ClinicCode" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="1" MinWidth="200" MaxWidth="300">
-                                    </dx:GridViewDataTextColumn>--%>
-                                    <dx:GridViewDataComboBoxColumn Caption="Unavailable Reason" FieldName="ReasonUnavailableID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
-                                        <PropertiesComboBox ClientInstanceName="Specialities" DataSourceID="GetUnavailableReason" TextField="ReasonText" ValueField="ReasonUnavailableID">
-                                            <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
-                                                <RequiredField IsRequired="true" ErrorText="Unavailable reason is required" />
-                                            </ValidationSettings>
-                                        </PropertiesComboBox>
-                                    </dx:GridViewDataComboBoxColumn>
+                                    </Columns>
+                                    <SettingsPager Mode="ShowAllRecords"></SettingsPager>
+                                    <Settings ShowFilterRow="false" />
+                                    <SettingsBehavior AllowEllipsisInText="true" AllowDragDrop="false" AllowSort="false" />
+                                    <SettingsResizing ColumnResizeMode="NextColumn" />
+                                </dx:ASPxGridView>
+                                <dx:ASPxLabel ID="ASPxLabel1" ClientInstanceName="NoActionPointDetailReviewLabel" runat="server" Text="There are no improvement detail reviews"></dx:ASPxLabel>
+                            </div>
 
-                                    <%--<dx:GridViewDataTextColumn FieldName="ImprovementReasonID" PropertiesTextEdit-ClientInstanceName="ImprovementReasonID" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="2" MinWidth="200" MaxWidth="300">
-                                    </dx:GridViewDataTextColumn>--%>
-                                    <dx:GridViewDataTextColumn FieldName="Comment" PropertiesTextEdit-ClientInstanceName="Comment" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
-                                    </dx:GridViewDataTextColumn>
+                            <div>
+                                Complete audit review button - popup to confirm then take the two in memory ds and save back to ReviewAuditRecordsGridView. 
+                                Button should probably also check for atleast one improvement and one action before allowing to submit
+                            </div>
 
-                                </Columns>
-
-                                <Settings ShowFilterRow="true" />
-                                <SettingsBehavior AllowEllipsisInText="true" />
-                                <SettingsResizing ColumnResizeMode="NextColumn" />
-                            </dx:ASPxGridView>
+                            <div>
+                                cancel button but with a warning that it will remove all existing comments on this clinic review
+                            </div>
+                        </div>
 
                         </div>
+                            <div class="mt-2">
+                                <dx:ASPxButton ID="btnComplete"
+                                    runat="server"
+                                    Text="Complete"
+                                    RenderMode="Button"
+                                    AutoPostBack="false"
+                                    UseSubmitBehavior="false"
+                                    CausesValidation="false">
+                                    <ClientSideEvents Click="CompleteClient_Click" />
+                                </dx:ASPxButton>
                     </EditForm>
                 </Templates>
             </dx:ASPxGridView>
-
-
         </div>
-        <uc1:UserAlertPopupControl runat="server" ID="UserAlertPopupControl" />
+        <%--                                            <PropertiesComboBox ClientInstanceName="Specialities" DataSourceID="GetUnavailableReason" TextField="ReasonText" ValueField="ReasonUnavailableID">
+                                                <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
+                                                    <RequiredField IsRequired="true" ErrorText="Unavailable reason is required" />
+                                                </ValidationSettings>
+                                            </PropertiesComboBox>--%>
     </div>
-</asp:Content>
-<%-- Starts here  --%>
 
+    <dx:ASPxPopupControl ID="AddReviewPopup"
+        ClientInstanceName="AddReviewPopup"
+        runat="server"
+        AutoUpdatePosition="true"
+        AllowDragging="true"
+        PopupVerticalAlign="WindowCenter"
+        PopupHorizontalAlign="WindowCenter"
+        CloseAction="CloseButton"
+        ScrollBars="Auto"
+        Modal="true"
+        ModalBackgroundStyle-Opacity="015"
+        ShowHeader="true"
+        ShowFooter="true"
+        HeaderStyle-CssClass="defaultBorderBottom">
+        <ClientSideEvents CloseButtonClick="" />
+
+        <SettingsAdaptivity Mode="Always" HorizontalAlign="WindowCenter" VerticalAlign="WindowCenter" MinWidth="600" MinHeight="400" />
+
+        <HeaderContentTemplate>
+            <div class="ps-3">
+                <dx:ASPxLabel ID="AddReviewPopupHeaderLabel"
+                    ClientInstanceName="AddReviewPopupHeaderLabel"
+                    EncodeHtml="false"
+                    runat="server" Text="Header text"
+                    Font-Size="16px"
+                    Font-Bold="true">
+                </dx:ASPxLabel>
+            </div>
+        </HeaderContentTemplate>
+
+        <ContentCollection>
+            <dx:PopupControlContentControl>
+                <div id="AddReviewContainer" runat="server" class="p-3">
+                    <dx:ASPxFormLayout ID="AddReviewFormLayout" ClientInstanceName="AddReviewFormLayout" runat="server" AlignItemCaptions="true" AlignItemCaptionsInAllGroups="true" Width="100%">
+                        <Items>
+                            <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Improvement Details Review" Name="ImprovementDetails" ClientVisible="false">
+                                <Items>
+                                    <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer runat="server">
+
+                                                <dx:ASPxComboBox ID="ImpReasonComboBox"
+                                                    ClientInstanceName="ImpReasonComboBox"
+                                                    runat="server"
+                                                    Width="200px"
+                                                    DataSourceID="GetUnavailableReason" TextField="ReasonText" ValueField="ReasonUnavailableID">
+
+
+                                                    <ValidationSettings ErrorDisplayMode="ImageWithTooltip" Display="Dynamic" ValidationGroup="SubmitReview">
+                                                        <RequiredField IsRequired="true" ErrorText="This field is required" />
+                                                    </ValidationSettings>
+                                                </dx:ASPxComboBox>
+
+
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:LayoutItem ColSpan="1" Caption="Review comment">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer runat="server">
+
+                                                <dx:ASPxMemo ID="ReviewCommentMemo" ClientInstanceName="ReviewCommentMemo" runat="server" Height="100px" Width="100%" MaxLength="1000">
+                                                    <ValidationSettings ErrorDisplayMode="ImageWithTooltip" Display="Dynamic" ValidationGroup="SubmitReview">
+                                                        <RequiredField IsRequired="true" ErrorText="This field is required" />
+                                                    </ValidationSettings>
+                                                </dx:ASPxMemo>
+
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                </Items>
+                            </dx:LayoutGroup>
+
+
+                            <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Action Points Review" Name="ActionPointsReview" ClientVisible="false">
+                                <Items>
+                                    <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer runat="server">
+
+                                                <dx:ASPxComboBox ID="ActReasonComboBox"
+                                                    ClientInstanceName="ActReasonComboBox"
+                                                    runat="server"
+                                                    Width="200px"
+                                                    DataSourceID="GetUnavailableReason" TextField="ReasonText" ValueField="ReasonUnavailableID">
+
+                                                    <ValidationSettings ErrorDisplayMode="ImageWithTooltip" Display="Dynamic" ValidationGroup="SubmitReview">
+                                                        <RequiredField IsRequired="true" ErrorText="This field is required" />
+                                                    </ValidationSettings>
+                                                </dx:ASPxComboBox>
+
+
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                    <dx:LayoutItem ColSpan="1" Caption="Review comment">
+                                        <LayoutItemNestedControlCollection>
+                                            <dx:LayoutItemNestedControlContainer runat="server">
+
+                                                <dx:ASPxMemo ID="ASPxMemo1" runat="server" Height="100px" Width="100%" MaxLength="1000">
+                                                    <ValidationSettings ErrorDisplayMode="ImageWithTooltip" Display="Dynamic" ValidationGroup="SubmitReview">
+                                                        <RequiredField IsRequired="true" ErrorText="This field is required" />
+                                                    </ValidationSettings>
+                                                </dx:ASPxMemo>
+
+                                            </dx:LayoutItemNestedControlContainer>
+                                        </LayoutItemNestedControlCollection>
+                                    </dx:LayoutItem>
+                                </Items>
+                            </dx:LayoutGroup>
+
+
+                        </Items>
+                    </dx:ASPxFormLayout>
+                </div>
+            </dx:PopupControlContentControl>
+        </ContentCollection>
+        <FooterContentTemplate>
+            <div class="d-flex align-items-center">
+                <div class="ms-auto px-3 py-1">
+                    <dx:ASPxButton ID="SubmitReviewButton"
+                        runat="server"
+                        Text="Submit"
+                        RenderMode="Button"
+                        AutoPostBack="false"
+                        UseSubmitBehavior="false"
+                        CausesValidation="true"
+                        ValidationGroup="SubmitReview">
+                        <ClientSideEvents Click="SubmitReviewButton_Click" />
+                    </dx:ASPxButton>
+                </div>
+                <div>
+                    <dx:ASPxButton ID="CloseReviewButton"
+                        runat="server"
+                        Text="Close"
+                        RenderMode="Link"
+                        AutoPostBack="false"
+                        UseSubmitBehavior="false"
+                        CausesValidation="false">
+                        <ClientSideEvents Click="CloseReviewButton_click" />
+                    </dx:ASPxButton>
+                </div>
+            </div>
+        </FooterContentTemplate>
+    </dx:ASPxPopupControl>
+    <dx:ASPxCallback ID="CompleteCallback" ClientInstanceName="CompleteCallback" OnCallback="CompleteCallback_Callback" runat="server"></dx:ASPxCallback>
+    <uc1:UserAlertPopupControl runat="server" ID="UserAlertPopupControl" />
+</asp:Content>

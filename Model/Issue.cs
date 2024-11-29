@@ -14,7 +14,7 @@ namespace Model
     
     public partial class Issue
     {
-        public int Issue_ID { get; set; }
+        public int ImprovementReasonID { get; set; }
         public string Issue1 { get; set; }
         public bool IsActive { get; set; }
     }

@@ -3,6 +3,7 @@ using BusinessObjects;
 using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Web;
 using DevExpress.Web.Internal.Dialogs;
+using DevExpress.XtraPrinting.Native;
 using DevExpress.XtraRichEdit.Commands;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,6 +12,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.Remoting.Lifetime;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -60,36 +62,28 @@ namespace ReviewAudit
         {
             ASPxButton btn = sender as ASPxButton;
             GridViewEditFormTemplateContainer container = btn.NamingContainer as GridViewEditFormTemplateContainer;
-            
+
             object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditID" }) as object[];
-                       
-            if(values !=null)
+
+            if (values != null)
             {
                 ClinicCode = values[0]?.ToString() ?? "";
-                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AddImpDetails_ClientClick(s, e, '{0}'); }}", ClinicCode);
+                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AddImpDetails_ClientClick(s, e, '{0}',{1}); }}", ClinicCode, '1');
             }
+        }
 
+        protected void AddActionPoint_Init(object sender, EventArgs e)
+        {
+            ASPxButton btn = sender as ASPxButton;
+            GridViewEditFormTemplateContainer container = btn.NamingContainer as GridViewEditFormTemplateContainer;
 
-            //if (values != null)
-            //{
-            //    string ClinicCode = values[0]?.ToString() ?? "";
-            //    string AuditClinicAnswersID = values[1]?.ToString() ?? "";
-            //    string AuditID = values[2]?.ToString() ?? "";
+            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditID" }) as object[];
 
-
-            //    //if (!String.IsNullOrEmpty(AuditID))
-            //    //{
-            //    //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
-            //    //}
-
-            //    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}','{3}'); }}", ClinicCode, AuditClinicAnswersID, AuditID, container.VisibleIndex);
-            //    //btn.Click += new System.EventHandler(this.Button_Click);
-
-            //}
-            //else
-            //{
-            //    btn.Visible = false;
-            //}
+            if (values != null)
+            {
+                ClinicCode = values[0]?.ToString() ?? "";
+                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AddImpDetails_ClientClick(s, e, '{0}',{1}); }}", ClinicCode, 2);
+            }
         }
 
         protected void AuditorView_Init(object sender, EventArgs e)
@@ -222,69 +216,69 @@ namespace ReviewAudit
             //txtCaseNoteCount.Text = FullAuditClincAnswer[0]..ToString();
         }
 
-        protected void EditUserButton_Init(object sender, EventArgs e)
-        {
-            ASPxButton btn = sender as ASPxButton;
-            GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
+        //protected void EditUserButton_Init(object sender, EventArgs e)
+        //{
+        //    ASPxButton btn = sender as ASPxButton;
+        //    GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
-
-
-            if (values != null)
-            {
-                string AuditID = values[0]?.ToString() ?? "";
-                string StatusID = values[1]?.ToString() ?? "";
+        //    object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
 
-                if (!String.IsNullOrEmpty(AuditID))
-                {
-                    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
-                }
-
-                if (!String.IsNullOrEmpty(StatusID))
-                {
-                    StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
-
-                    switch (StatusID)
-                    {
-                        case "1":
-                            //btn.Text = "Not Started";
-                            btn.Text = "Edit";
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
-                            break;
-                        case "2":
-                            //btn.Text = "In Progress";
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-                            btn.Visible = false;
-                            break;
-                        case "3":
-                            //btn.Text = "Pending HR review";
-                            btn.Text = "Review audit";
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-                            break;
-                        case "4":
-                            //btn.Text = "Completed";
-                            btn.Visible = false;
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-                            break;
-                        default:
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-                            break;
-
-                    }
-                }
+        //    if (values != null)
+        //    {
+        //        string AuditID = values[0]?.ToString() ?? "";
+        //        string StatusID = values[1]?.ToString() ?? "";
 
 
+        //        if (!String.IsNullOrEmpty(AuditID))
+        //        {
+        //            AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
+        //        }
+
+        //        if (!String.IsNullOrEmpty(StatusID))
+        //        {
+        //            StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
+
+        //            switch (StatusID)
+        //            {
+        //                case "1":
+        //                    //btn.Text = "Not Started";
+        //                    btn.Text = "Edit";
+        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
+        //                    break;
+        //                case "2":
+        //                    //btn.Text = "In Progress";
+        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
+        //                    btn.Visible = false;
+        //                    break;
+        //                case "3":
+        //                    //btn.Text = "Pending HR review";
+        //                    btn.Text = "Review audit";
+        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
+        //                    break;
+        //                case "4":
+        //                    //btn.Text = "Completed";
+        //                    btn.Visible = false;
+        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
+        //                    break;
+        //                default:
+        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
+        //                    break;
+
+        //            }
+        //        }
 
 
-                // btn.Click += new System.EventHandler(this.Button_Click);
 
-            }
-            else
-            {
-                btn.Visible = false;
-            }
-        }
+
+        //        // btn.Click += new System.EventHandler(this.Button_Click);
+
+        //    }
+        //    else
+        //    {
+        //        btn.Visible = false;
+        //    }
+        //}
 
         protected void NewRef_Init(object sender, EventArgs e)
         {
@@ -438,10 +432,11 @@ namespace ReviewAudit
 
         protected void ReviewAuditRecordsView_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
-            e.InputParameters["CSAAuditId"] = CASAuditId;
+            int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
+            e.InputParameters["CSAAuditId"] = lAuditId;
         }
 
-            protected void UnavailableCasenotes_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        protected void UnavailableCasenotes_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             //ASPxGridView gridView = sender as ASPxGridView;
 
@@ -463,26 +458,55 @@ namespace ReviewAudit
         protected void ClinicCodeLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl = sender as ASPxLabel;
-            lbl.Text = $"Reviewing Audit: ID <span class='MainColour'>{ClinicCode}</span>";
-            //Speciality
+
+            GridViewEditFormTemplateContainer container = lbl.NamingContainer as GridViewEditFormTemplateContainer;
+
+
+            var code = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "ClinicCode");
+
+            if (code != null)
+            {
+                ClinicCode = code?.ToString() ?? "Error getting clinic code";
+                lbl.Text = $"Add review for clinic code: <strong class='MainColour'>{ClinicCode}</strong>";
+            }
+
+
         }
+        protected void LabelRead_Init(object sender, EventArgs e)
+        {
+            ASPxLabel lbl = sender as ASPxLabel;
+
+            GridViewEditFormTemplateContainer container = lbl.NamingContainer as GridViewEditFormTemplateContainer;
+
+
+            var code = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "ClinicCode");
+
+            if (code != null)
+            {
+                ClinicCode = code?.ToString() ?? "Error getting clinic code";
+                lbl.Text = ClinicCode;
+            }
+
+
+        }
+        
 
         protected void CasenoteLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl1 = sender as ASPxLabel;
-            lbl1.Text = $"Audit Date:{AuditDate.ToShortDateString()}";
+            lbl1.Text = $"<span class='ReviewingCaption'>Audit Date:</span><span class='ReviewingItemDetails'>{AuditDate.ToShortDateString()}</span>";
 
             //Speciality
         }
         protected void lblSpeciality_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"Speciality:{Speciality}";
+            lbl2.Text = $"<span class='ReviewingCaption'>Speciality:</span><span class='ReviewingItemDetails'>{Speciality}</span>";
         }
         protected void lblSite_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"Site:{AuditSite}";
+            lbl2.Text = $"<span class='ReviewingCaption'>Site:</span><span class='ReviewingItemDetails'>{AuditSite}</span>";
         }
 
         //protected void CompleteButton_Click(object sender, EventArgs e)
@@ -648,68 +672,170 @@ namespace ReviewAudit
                 if (!string.IsNullOrEmpty(eventArgument))
                 {
                     // Deserialize the JSON string back to an array
-                    AuditClinicAnswersUnAvailableBO AuditClinicAnswers = new AuditClinicAnswersUnAvailableBO();
-                    List<CompleteCallbackBO> myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CompleteCallbackBO>>(e.Parameters);
-                    // Use the array on server side
-                    AuditClinicAnswers.Unavailable = myArray;
-                    //List<UnavailableCaseNotesBO> UnAvailabelCaseNotes = new List<UnavailableCaseNotesBO>();
-                    //foreach (CompleteCallbackBO item in myArray)
+                    //ReviewAuditCallbackBO AuditClinicAnswers = Newtonsoft.Json.JsonConvert.DeserializeObject<ReviewAuditCallbackBO>(e.Parameters);
+                    //List<ImprovementDetailsCallbackBO> ImprovementDetailsCallback = AuditClinicAnswers.ImprovementDetailsDS;
+                    //List<ActionDetailsCallbackBO> ActionDetailsCallback = AuditClinicAnswers.ActionPointsDS;
+                    //string ClinicCode = AuditClinicAnswers.ClinicCode;
+                    //short userID = Login.CookieHelper.GetCookieUserID();
+                    //bool update = new ReviewAuditBLL().ImprovementDetailsCallbackUpdate(ImprovementDetailsCallback,ClinicCode, userID);
+
+                    //if (update)
                     //{
-                    // UnavailableCaseNotesBO UnAvailable = new UnavailableCaseNotesBO();
-                    //auditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
-                    //auditClinicAnswers.PatientDetails = item.PatientDetails;
-                    //auditClinicAnswers.ReasonUnavailableID = Convert.ToInt32(item.ReasonID);
-                    //auditClinicAnswers.IsActive = true;
-                    //auditClinicAnswers.Add(UnAvailable);
-                    //}
+                    //    update = new ReviewAuditBLL().ImprovementActionDetailsCallbackUpdate(ActionDetailsCallback, ClinicCode, userID);
 
-                    // AuditClinicAnswersBO AuditClinicAnswers = new AuditClinicAnswersBO();
-                    //AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
-                    //AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
-                    //AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
-                    //AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
-                    //AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
-                    //AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
 
-                    bool update = new BLL.AuditClinicAnswersBLL().SaveCaseNoteAvailability(AuditClinicAnswers);
-                    if (update)
-                    {
-                        bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(AuditClinicAnswers);
-                        if (update1)
-                        {
-                            ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
-                            //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
-                        }
-                        else
-                        {
-                            ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
-                        }
-                    }
+                        //bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(ImprovementDetailsCallback,AuditClinicAnswers);
+                        //    if (update1)
+                        //    {
+                        //        ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
+                        //        //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
+                        //    }
+                        //    else
+                        //    {
+                        //        ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
+                        //    }
+                        //}
+
+                    
 
                 }
+            }
+        }
+
+        protected void ImprovementDetailsGridView_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            if (e.Parameters != null)
+            {
+                List<ImprovementDetailsCallbackBO> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ImprovementDetailsCallbackBO>>(e.Parameters);
+
+                ASPxGridView grid = sender as ASPxGridView;
+
+                if (list != null && list.Any())
+                {
+                    grid.JSProperties["cpShowGrid"] = true;
+                    grid.DataSource = list;
+                }
+                else
+                {
+                    grid.JSProperties["cpHideGrid"] = true;
+                    grid.DataSource = null;
+                }
+
+                grid.DataBind();
+
+                grid.JSProperties["cpDataBound"] = true;
 
             }
         }
 
 
-        //protected void AddImpDetails_Click(object sender, EventArgs e)
+        protected void ActionPointDetailsGridView_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            if (e.Parameters != null)
+            {
+                List<ImprovementDetailsCallbackBO> list = Newtonsoft.Json.JsonConvert.DeserializeObject<List<ImprovementDetailsCallbackBO>>(e.Parameters);
+
+                ASPxGridView grid = sender as ASPxGridView;
+
+                if (list != null && list.Any())
+                {
+                    grid.JSProperties["cpShowGrid"] = true;
+                    grid.DataSource = list;
+                }
+                else
+                {
+                    grid.JSProperties["cpHideGrid"] = true;
+                    grid.DataSource = null;
+                }
+
+                grid.DataBind();
+
+                grid.JSProperties["cpDataBound"] = true;
+
+            }
+        }
+
+
+
+        protected void DeleteImpReviewButton_Init(object sender, EventArgs e)
+        {
+            ASPxButton btn = sender as ASPxButton;
+            GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
+            ASPxGridView grid = btn.NamingContainer.NamingContainer.NamingContainer as ASPxGridView;
+
+            var id = grid.GetRowValues(container.VisibleIndex, "RequiresImprovementDetailsID")?.ToString() ?? "";
+
+            btn.ClientSideEvents.Click = $"function(s, e) {{ DeleteImprovementReview_Click(s, e, '{id}') }}";
+
+        }
+
+        protected void DeleteActionReviewButton_Init(object sender, EventArgs e)
+        {
+            ASPxButton btn = sender as ASPxButton;
+            GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
+            ASPxGridView grid = btn.NamingContainer.NamingContainer.NamingContainer as ASPxGridView;
+
+            var id = grid.GetRowValues(container.VisibleIndex, "RequiresImprovementDetailsID")?.ToString() ?? "";
+
+            btn.ClientSideEvents.Click = $"function(s, e) {{ DeleteActionReview_Click(s, e, '{id}') }}";
+
+        }
+
+        //protected void btnComplete_Click(object sender, EventArgs e)
         //{
-        //    ReviewAuditRecordsGridView.AddNewRow();
-        //    //ReviewAuditRecordsGridView
+        //    //    ASPxGridView parentGrid = (ASPxGridView)sender;
+        //    //    //ASPxGridView parentGrid = (ASPxGridView)Parent.FindControl("ReviewAuditRecordsGridView");
+
+        //    //    //ASPxGridView parentGrid = (ASPxGridView)sender; // This refers to the ASPxGridView1 (parent grid)
+        //    //    //GridViewEditFormTemplateContainer editForm = (GridViewEditFormTemplateContainer)parentGrid.EditForm;
+
+        //    //    //ASPxGridView childGrid = (ASPxGridView)editForm.FindControl("ASPxGridView2");
+
+
+
+
+
+
+        //    //    //GridViewEditFormTemplateContainer editTemplateContainer =
+        //    //    //                                            parentGrid.FindEditFormTemplateControl("ImprovementDetailsGridView") as GridViewEditFormTemplateContainer;
+
+        //    //    //if (editTemplateContainer != null)
+        //    //    //{
+        //    //    //    ASPxGridView childGrid = editTemplateContainer.FindControl("ImprovementDetailsGridView") as ASPxGridView;
+
+        //    //    //    if (childGrid != null)
+        //    //    //    {
+
+
+        //    //    //    }
+        //    //    //}
 
         //}
 
+        protected void CompleteCallback_Callback(object source, CallbackEventArgs e)
+        {
 
-        //protected void ReviewAuditClinicsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
-        //{
-        //    //GridView view = sender as GridView;
-        //    ////view.Columns["ClinicCode"]. = ClinicCode;
-        //    //view.SetFocusedRowCellValue("ClinicCode", ClinicCode);
-        //    ReviewAuditClinicsGridView.SetRowCellValue(e.RowHandle, ClinicCode", ClinicCode);
 
-        //    //view.SetRowCellValue(e.RowHandle, view.Columns[0], 1);
-        //    //view.SetRowCellValue(e.RowHandle, view.Columns[1], 2);
-        //    //view.SetRowCellValue(e.RowHandle, view.Columns[2], 3);
-        //}
-    }
+        }
+
+            //protected void AddImpDetails_Click(object sender, EventArgs e)
+            //{
+            //    ReviewAuditRecordsGridView.AddNewRow();
+            //    //ReviewAuditRecordsGridView
+
+            //}
+
+
+            //protected void ReviewAuditClinicsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
+            //{
+            //    //GridView view = sender as GridView;
+            //    ////view.Columns["ClinicCode"]. = ClinicCode;
+            //    //view.SetFocusedRowCellValue("ClinicCode", ClinicCode);
+            //    ReviewAuditClinicsGridView.SetRowCellValue(e.RowHandle, ClinicCode", ClinicCode);
+
+            //    //view.SetRowCellValue(e.RowHandle, view.Columns[0], 1);
+            //    //view.SetRowCellValue(e.RowHandle, view.Columns[1], 2);
+            //    //view.SetRowCellValue(e.RowHandle, view.Columns[2], 3);
+            //}
+        }
 }

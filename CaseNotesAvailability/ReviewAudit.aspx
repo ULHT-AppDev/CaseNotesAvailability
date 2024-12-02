@@ -19,110 +19,78 @@
     <asp:ObjectDataSource ID="GetUnavailableReason" runat="server" SelectMethod="GetUnavailableReason" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="ImpReviewAudit" runat="server" SelectMethod="GetImprovementDetails" UpdateMethod="UpdateImprovementDetails" DataObjectTypeName="BusinessObjects.RequiresImprovementDetailsBO" InsertMethod="InsertImprovementDetails" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="ActPointReviewAudit" runat="server" SelectMethod="GetActPointAuditReview" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
-    <div id="HeaderSubContainer" class="container">
-        <div id="HeaderRow" class="row align-items-center">
 
-            <div id="PageTitleContainer" class="col-md-6 pt-3 pb-3">
-                <h2 id="PageTitle">
-                    <asp:Literal ID="LoginPageTitle" Text="Audit" runat="server" />
-                </h2>
-                <%--  <div id="VersionNumber" class="pl-1" style="color: #e69500;">
-            <asp:Literal ID="VersionNumberText" runat="server" />
-        </div>
-    </div>--%>
-            </div>
-        </div>
-    </div>
-    <div>
-        <%--<dx:ASPxButton ID="NewRef"
-            runat="server"
-            Text="Create New Audit"
-            RenderMode="Button"
-            AutoPostBack="false"
-            UseSubmitBehavior="false"
-            CausesValidation="false"
-            OnInit="NewRef_Init">
-        </dx:ASPxButton>--%>
+    <div class="container-fluid p-4 mb-5">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="pb-2">
+                    <dx:ASPxButton ID="AuditDetails"
+                        runat="server"
+                        Text="Go back"
+                        RenderMode="Button"
+                        Width="200px"
+                        AutoPostBack="false"
+                        UseSubmitBehavior="false"
+                        CausesValidation="false">
+                        <ClientSideEvents Click="AuditDetails_Click" />
+                        <Image>
+                            <SpriteProperties CssClass="fas fa-chevron-left" />
+                        </Image>
+                    </dx:ASPxButton>
+                </div>
+                <div id="DefaultPageTitleContainer" class="DefaultPageTitleContainer d-flex align-items-center">
+                    <div>
+                        <dx:ASPxLabel ID="DefaultPageTitleLabel"
+                            runat="server"
+                            OnInit="DefaultPageTitleLabel_Init"
+                            CssClass="PageHeader"
+                            EncodeHtml="false"
+                            Font-Bold="true"
+                            Font-Size="20px">
+                        </dx:ASPxLabel>
 
-        <div class="container-fluid p-4 mb-5">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div id="DefaultPageTitleContainer" class="DefaultPageTitleContainer d-flex align-items-center">
-                        <div>
-                            <dx:ASPxLabel ID="DefaultPageTitleLabel"
-                                runat="server"
-                                OnInit="DefaultPageTitleLabel_Init"
-                                CssClass="PageHeader"
-                                EncodeHtml="false"
-                                Font-Bold="true" Font-Size="16px">
-                            </dx:ASPxLabel>
-
-                            <br />
-                            <asp:Panel ID="Panel1" runat="server" BorderStyle="Ridge" Width="400px">
+                        <br />
+                        <asp:Panel ID="Panel1" runat="server">
+                            <div>
                                 <div>
-                                    <div>
-                                        <dx:ASPxLabel ID="CasenoteLabel"
-                                            ClientInstanceName="CasenoteLabel"
-                                            runat="server"
-                                            OnInit="CasenoteLabel_Init"
-                                            Font-Size="20px"
-                                            ForeColor="GrayText">
-                                        </dx:ASPxLabel>
-                                    </div>
-                                    <div>
-                                        <dx:ASPxLabel ID="lblSpeciality"
-                                            ClientInstanceName="lblSpeciality"
-                                            runat="server"
-                                            OnInit="lblSpeciality_Init"
-                                            Font-Size="20px"
-                                            ForeColor="GrayText">
-                                        </dx:ASPxLabel>
-                                    </div>
-                                    <div>
-                                        <dx:ASPxLabel ID="lblSite"
-                                            ClientInstanceName="lblSite"
-                                            runat="server"
-                                            OnInit="lblSite_Init"
-                                            Font-Size="20px"
-                                            ForeColor="GrayText">
-                                        </dx:ASPxLabel>
-                                    </div>
-                                    <%-- <div>
-                            <dx:ASPxLabel ID="LockedToUserInfoLabel"
-                                ClientInstanceName="LockedToUserInfoLabel"
-                                runat="server"
-                                Font-Size="10px"
-                                ForeColor="Gray">
-                            </dx:ASPxLabel>
-                        </div>--%>
+                                    <dx:ASPxLabel ID="CasenoteLabel"
+                                        ClientInstanceName="CasenoteLabel"
+                                        runat="server"
+                                        OnInit="CasenoteLabel_Init"
+                                        ForeColor="GrayText"
+                                        EncodeHtml="false">
+                                    </dx:ASPxLabel>
                                 </div>
-                            </asp:Panel>
+                                <div>
+                                    <dx:ASPxLabel ID="lblSpeciality"
+                                        ClientInstanceName="lblSpeciality"
+                                        runat="server"
+                                        OnInit="lblSpeciality_Init"
+                                        ForeColor="GrayText"
+                                        EncodeHtml="false">
+                                    </dx:ASPxLabel>
+                                </div>
+                                <div>
+                                    <dx:ASPxLabel ID="lblSite"
+                                        ClientInstanceName="lblSite"
+                                        runat="server"
+                                        OnInit="lblSite_Init"
+                                        ForeColor="GrayText"
+                                        EncodeHtml="false">
+                                    </dx:ASPxLabel>
+                                </div>
+                            </div>
+                        </asp:Panel>
 
-                        </div>
                     </div>
                 </div>
             </div>
-            <div class="ml-auto text-black text-right">
-            </div>
-            <div>
-                <dx:ASPxButton ID="AuditDetails"
-                    runat="server"
-                    Text="Edit audit details"
-                    RenderMode="Button"
-                    AutoPostBack="false"
-                    UseSubmitBehavior="false"
-                    CausesValidation="false"
-                    Paddings-PaddingTop="10px"
-                    Paddings-PaddingBottom="10px">
-                    <ClientSideEvents Click="AuditDetails_Click" />
-                    <Image>
-                        <SpriteProperties CssClass="fas fa-chevron-left" />
-                    </Image>
-                </dx:ASPxButton>
-            </div>
-            <div class="ml-auto text-black text-right">
-            </div>
-            <dx:ASPxGridView ID="ReviewAuditRecordsGridView" runat="server" AllowSorting="true"
+        </div>
+
+        <div class="mt-3">
+            <dx:ASPxGridView ID="ReviewAuditRecordsGridView"
+                runat="server"
+                AllowSorting="true"
                 ClientInstanceName="ReviewAuditRecordsGridView"
                 OnRowUpdating="AuditRow_Updating"
                 KeyFieldName="AuditClinicAnswersID"
@@ -157,8 +125,6 @@
                             <Items>
                                 <dx:GridViewColumnLayoutItem ClientVisible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                <%--<dx:GridViewColumnLayoutItem ColumnName="AuditID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
-                                <%--<dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
                                 <dx:GridViewColumnLayoutItem Caption="Number Of Appointments Allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="CaseNotes Available StartCount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="TemporaryNotes Count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
@@ -176,7 +142,7 @@
                                 <dx:ASPxButton ID="AuditorView"
                                     runat="server"
                                     Text="Add Review"
-                                    RenderMode="Button"
+                                    RenderMode="Link"
                                     AutoPostBack="false"
                                     UseSubmitBehavior="false"
                                     CausesValidation="false"
@@ -195,11 +161,6 @@
                             <dx:ASPxLabel ID="ClinicCodeReadonlyLabel" runat="server" Text='<%# Eval("ClinicCode") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
                     </dx:GridViewDataTextColumn>
-                    <%-- <dx:GridViewDataTextColumn Caption="AuditID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
-                        <EditItemTemplate>
-                            <dx:ASPxLabel ID="AuditIDReadonlyLabel" runat="server" Text='<%# Eval("AuditID") %>'></dx:ASPxLabel>
-                        </EditItemTemplate>
-                    </dx:GridViewDataTextColumn>--%>
                     <dx:GridViewDataTextColumn Caption="Number Of Appointments Allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="CaseNotes Available Start Count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Temporary Notes Count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
@@ -210,7 +171,9 @@
                 <SettingsResizing ColumnResizeMode="NextColumn" />
                 <Templates>
                     <EditForm>
-                        <asp:Panel ID="Panel1" runat="server" BorderStyle="Ridge" Width="400px">
+
+                        <div class="p-4">
+
                             <div>
                                 <dx:ASPxLabel ID="ClinicCodeLabel"
                                     ClientInstanceName="ClinicCodeLabel"
@@ -257,7 +220,7 @@
                                     SettingsDataSecurity-PreventLoadClientValuesForInvisibleColumns="True">
                                     <ClientSideEvents EndCallback="ImprovementDetailsGridView_EndCallback" />
 
-                                <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
+                                    <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
 
                                     <Columns>
                                         <dx:GridViewDataColumn FieldName="RequiresImprovementDetailsID" Visible="false"></dx:GridViewDataColumn>

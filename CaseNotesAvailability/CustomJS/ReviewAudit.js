@@ -182,7 +182,7 @@ function CompleteClient_Click(s, e)
         ClinicCode:LabelRead.GetText();
         ImprovementDetailsDS:InMemoryImprovementDetailsDS,
         ActionPointsDS:InMemoryActionDetailsDS
-    }
+    };
       
      var jsonArray = JSON.stringify(CallbackObj);
 

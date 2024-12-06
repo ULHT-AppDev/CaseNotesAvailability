@@ -10,7 +10,7 @@ namespace BusinessObjects
     {
         public int RequiresImprovementDetailsID { get; set; }
         public string Comment { get; set; }
-        public int ImprovementDetailID { get; set; }
+        //public int ImprovementDetailID { get; set; }
 
     }
 }

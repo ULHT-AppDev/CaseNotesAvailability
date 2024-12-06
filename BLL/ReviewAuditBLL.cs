@@ -254,5 +254,11 @@ namespace BLL
                 return false;
             }
         }
+
+        public bool UpdateImprovementActionDetails(short userID,UpdateImprovementActionCallbackBO updateImprovementAction)
+        {
+            new DAL.ReviewAuditDAL().UpdateImprovementActionDetails(userID,updateImprovementAction);
+            return true;
+        }
     }
 }

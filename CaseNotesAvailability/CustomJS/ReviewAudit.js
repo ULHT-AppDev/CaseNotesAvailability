@@ -67,7 +67,7 @@ function SubmitReviewButton_Click(s, e) {
 
             let newItem = {
                 RequiresImprovementDetailsID: InMemoryImprovementDetailsCounter++,
-                ImprovementDetailID: ImpReasonComboBox.GetText(),
+                ImprovementDetailID: ImpReasonComboBox.GetValue(),
                 Comment: ReviewCommentMemo.GetText()                
             };
 
@@ -84,16 +84,15 @@ function SubmitReviewButton_Click(s, e) {
            // var comboBox = ASPxClientControl.GetControlCollection().GetByName("UnavailableReasonComboBox");
 
             let newItem = {
-                RequiresImprovementDetailsID: InMemoryActionDetailsCounter++,
-                ImprovementDetailID: ActReasonComboBox.GetText(),
-                Comment: ReviewCommentMemo.GetText()                
+                ReasonUnavailableID: InMemoryActionDetailsCounter++,
+               // ImprovementDetailID: ImpReasonComboBox.GetValue(),
+                Comment: ActReviewCommentMemo.GetText()                
             };
 
             InMemoryActionDetailsDS.push(newItem);
 
             ActionPointDetailsGridView.PerformCallback(JSON.stringify(InMemoryActionDetailsDS));
     }
-
 }
 }
 function CloseReviewButton_click(s, e) 
@@ -179,7 +178,7 @@ function CompleteClient_Click(s, e)
     let CallbackObj = 
     {
         ActionID : 1,
-        ClinicCode:LabelRead.GetText();
+        ClinicCode:LabelRead.GetText(),
         ImprovementDetailsDS:InMemoryImprovementDetailsDS,
         ActionPointsDS:InMemoryActionDetailsDS
     };
@@ -267,7 +266,7 @@ function Complete_Click(s, e) {
     var jsonArray = JSON.stringify(arr);
 
     //CompleteCallback.PerformCallback(jsonArray);
-    ReviewAuditRecordsGridView.PerformCallback(jsonArray,);
+    ReviewAuditRecordsGridView.PerformCallback(jsonArray);
 }
 
 function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e) {
@@ -292,7 +291,3 @@ function UnavailableCaseNoteCount_SelectedIndexChanged(s, e) {
         CreateFormDynamically_CallbackPanel.SetVisible(false);
     }
 }
-
-//BodyMassIndexCalculatedLabel.SetText(valueToSet);
-//document.getElementById('HiddenBMIValue').value = valueToSet;
-

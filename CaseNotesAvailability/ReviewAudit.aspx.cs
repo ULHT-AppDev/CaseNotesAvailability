@@ -10,6 +10,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Lifetime;
@@ -98,12 +99,6 @@ namespace ReviewAudit
                 string ClinicCode = values[0]?.ToString() ?? "";
                 string AuditClinicAnswersID = values[1]?.ToString() ?? "";
                 string AuditID = values[2]?.ToString() ?? "";
-
-
-                //if (!String.IsNullOrEmpty(AuditID))
-                //{
-                //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
-                //}
 
                 btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}','{3}'); }}", ClinicCode, AuditClinicAnswersID, AuditID, container.VisibleIndex);
                 //btn.Click += new System.EventHandler(this.Button_Click);
@@ -489,7 +484,7 @@ namespace ReviewAudit
 
 
         }
-        
+
 
         protected void CasenoteLabel_Init(object sender, EventArgs e)
         {
@@ -671,6 +666,18 @@ namespace ReviewAudit
                 string eventArgument = e.Parameters;
                 if (!string.IsNullOrEmpty(eventArgument))
                 {
+                    UpdateImprovementActionCallbackBO UpdateImprovementAction = Newtonsoft.Json.JsonConvert.DeserializeObject<UpdateImprovementActionCallbackBO>(e.Parameters);
+
+                    string ClinicCode = UpdateImprovementAction.ClinicCode;
+                    if (UpdateImprovementAction.ActionPointsDS != null || UpdateImprovementAction.ImprovementDetailsDS != null)
+                    {
+                        short userID = Login.CookieHelper.GetCookieUserID();
+                        bool update = new ReviewAuditBLL().UpdateImprovementActionDetails(userID,UpdateImprovementAction);
+                    }
+                    else
+                    {
+
+                    }
                     // Deserialize the JSON string back to an array
                     //ReviewAuditCallbackBO AuditClinicAnswers = Newtonsoft.Json.JsonConvert.DeserializeObject<ReviewAuditCallbackBO>(e.Parameters);
                     //List<ImprovementDetailsCallbackBO> ImprovementDetailsCallback = AuditClinicAnswers.ImprovementDetailsDS;
@@ -684,19 +691,19 @@ namespace ReviewAudit
                     //    update = new ReviewAuditBLL().ImprovementActionDetailsCallbackUpdate(ActionDetailsCallback, ClinicCode, userID);
 
 
-                        //bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(ImprovementDetailsCallback,AuditClinicAnswers);
-                        //    if (update1)
-                        //    {
-                        //        ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
-                        //        //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
-                        //    }
-                        //    else
-                        //    {
-                        //        ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
-                        //    }
-                        //}
+                    //bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(ImprovementDetailsCallback,AuditClinicAnswers);
+                    //    if (update1)
+                    //    {
+                    //        ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
+                    //        //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
+                    //    }
+                    //    else
+                    //    {
+                    //        ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
+                    //    }
+                    //}
 
-                    
+
 
                 }
             }
@@ -818,24 +825,75 @@ namespace ReviewAudit
 
         }
 
-            //protected void AddImpDetails_Click(object sender, EventArgs e)
-            //{
-            //    ReviewAuditRecordsGridView.AddNewRow();
-            //    //ReviewAuditRecordsGridView
+        //protected void AddImpDetails_Click(object sender, EventArgs e)
+        //{
+        //    ReviewAuditRecordsGridView.AddNewRow();
+        //    //ReviewAuditRecordsGridView
 
-            //}
+        //}
 
 
-            //protected void ReviewAuditClinicsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
-            //{
-            //    //GridView view = sender as GridView;
-            //    ////view.Columns["ClinicCode"]. = ClinicCode;
-            //    //view.SetFocusedRowCellValue("ClinicCode", ClinicCode);
-            //    ReviewAuditClinicsGridView.SetRowCellValue(e.RowHandle, ClinicCode", ClinicCode);
+        //protected void ReviewAuditClinicsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
+        //{
+        //    //GridView view = sender as GridView;
+        //    ////view.Columns["ClinicCode"]. = ClinicCode;
+        //    //view.SetFocusedRowCellValue("ClinicCode", ClinicCode);
+        //    ReviewAuditClinicsGridView.SetRowCellValue(e.RowHandle, ClinicCode", ClinicCode);
 
-            //    //view.SetRowCellValue(e.RowHandle, view.Columns[0], 1);
-            //    //view.SetRowCellValue(e.RowHandle, view.Columns[1], 2);
-            //    //view.SetRowCellValue(e.RowHandle, view.Columns[2], 3);
-            //}
+        //    //view.SetRowCellValue(e.RowHandle, view.Columns[0], 1);
+        //    //view.SetRowCellValue(e.RowHandle, view.Columns[1], 2);
+        //    //view.SetRowCellValue(e.RowHandle, view.Columns[2], 3);
+        //}
+
+        protected void Complete_Click(object sender, EventArgs e)
+        {
+            // Find the clicked button
+
+            ASPxButton btn = sender as ASPxButton;
+            GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
+            ASPxGridView gridViewRow = btn.NamingContainer.NamingContainer.NamingContainer as ASPxGridView;
+
+
+            //var button = (ASPxButton)sender;
+
+            //// Locate the parent GridView row for the clicked button
+            //var gridViewRow = (GridViewRow)button.NamingContainer as GridViewDataItemTemplateContainer; 
+            //GridViewDataItemTemplateContainer container = button.NamingContainer as GridViewDataItemTemplateContainer;
+
+
+            // Locate the child ASPxGridView from the current row
+            var childGridView = (ASPxGridView)gridViewRow.FindControl("ImprovementDetailsGridView");
+
+            if (childGridView != null)
+            {
+                var dataList = new List<ImprovementDetailsCallbackBO>();
+
+                // Loop through visible rows
+                foreach (var rowIndex in Enumerable.Range(0, childGridView.VisibleRowCount))
+                {
+                    var row = childGridView.GetRow(rowIndex);
+
+                    if (row != null)
+                    {
+                        dataList.Add(new ImprovementDetailsCallbackBO
+                        {
+                            //Column1 = row.Cells[0].Text,
+                            //Column2 = row.Cells[1].Text,
+                            //Column3 = row.Cells[2].Text,
+                        });
+                    }
+                }
+
+                // Process extracted data
+                //foreach (var item in dataList)
+                //{
+                //    Debug.WriteLine($"Column1: {item.Column1}, Column2: {item.Column2}, Column3: {item.Column3}");
+                //}
+            }
+
+
         }
+
+
+    }
 }

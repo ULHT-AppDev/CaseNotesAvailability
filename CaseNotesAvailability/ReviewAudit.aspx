@@ -293,8 +293,8 @@
                                                 </div>
                                             </DataItemTemplate>
                                         </dx:GridViewDataColumn>
-                                        <dx:GridViewDataComboBoxColumn Caption="Improvement Details" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
-                                        </dx:GridViewDataComboBoxColumn>
+                                        <%--<dx:GridViewDataComboBoxColumn Caption="Improvement Details" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+                                        </dx:GridViewDataComboBoxColumn>--%>
                                         <dx:GridViewDataTextColumn FieldName="Comment" PropertiesTextEdit-ClientInstanceName="Comment" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
                                         </dx:GridViewDataTextColumn>
 
@@ -415,7 +415,7 @@
 
                             <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Action Points Review" Name="ActionPointsReview" ClientVisible="false">
                                 <Items>
-                                    <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
+                                   <%-- <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
                                         <LayoutItemNestedControlCollection>
                                             <dx:LayoutItemNestedControlContainer runat="server">
 
@@ -433,12 +433,12 @@
 
                                             </dx:LayoutItemNestedControlContainer>
                                         </LayoutItemNestedControlCollection>
-                                    </dx:LayoutItem>
+                                    </dx:LayoutItem>--%>
                                     <dx:LayoutItem ColSpan="1" Caption="Review comment">
                                         <LayoutItemNestedControlCollection>
                                             <dx:LayoutItemNestedControlContainer runat="server">
 
-                                                <dx:ASPxMemo ID="ASPxMemo1" runat="server" Height="100px" Width="100%" MaxLength="1000">
+                                                <dx:ASPxMemo ID="ActReviewCommentMemo"  ClientInstanceName="ActReviewCommentMemo" runat="server" Height="100px" Width="100%" MaxLength="1000">
                                                     <ValidationSettings ErrorDisplayMode="ImageWithTooltip" Display="Dynamic" ValidationGroup="SubmitReview">
                                                         <RequiredField IsRequired="true" ErrorText="This field is required" />
                                                     </ValidationSettings>

@@ -186,22 +186,13 @@ namespace ReviewAudit
         protected global::DevExpress.Web.ASPxMemo ReviewCommentMemo;
 
         /// <summary>
-        /// ActReasonComboBox control.
+        /// ActReviewCommentMemo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxComboBox ActReasonComboBox;
-
-        /// <summary>
-        /// ASPxMemo1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxMemo ASPxMemo1;
+        protected global::DevExpress.Web.ASPxMemo ActReviewCommentMemo;
 
         /// <summary>
         /// CompleteCallback control.

@@ -197,5 +197,57 @@ namespace DAL
 
             }
         }
+
+        public void UpdateImprovementActionDetails(short userID,UpdateImprovementActionCallbackBO updateImprovementAction)
+        {
+
+            using (var ctxIns = new Model.CNAEntities())
+            {
+                using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
+                {
+                    try
+                    {
+
+                        if (updateImprovementAction.ActionID != 0)
+                        {
+                            foreach (ImprovementDetailsCallbackBO SingleImprovementDetailsCallback in updateImprovementAction.ImprovementDetailsDS)
+                            {
+                                Model.RequiresImprovementDetail dt = new Model.RequiresImprovementDetail()
+                                {
+                                    ClinicCode = updateImprovementAction.ClinicCode,
+                                    ImprovementReasonID = SingleImprovementDetailsCallback.ImprovementDetailID,
+                                    Comment = SingleImprovementDetailsCallback.Comment,
+                                    ReviewedByUserID = userID,
+                                    ReviewedDate = DateTime.Now,
+                                    IsActive = true
+                                };
+                                ctxIns.RequiresImprovementDetails.Add(dt);
+                            }
+                            foreach (ActionDetailsCallbackBO ActionDetailsCallback in updateImprovementAction.ActionPointsDS)
+                            {
+                                Model.RequiresImprovementActionPoint dt = new Model.RequiresImprovementActionPoint()
+                                {
+                                    ClinicCode = updateImprovementAction.ClinicCode,
+                                    ActionPointComment = ActionDetailsCallback.Comment,
+                                    ReviewedByUserID = userID,
+                                    ReviewedDate = DateTime.Now,
+                                    IsActive = true
+                                };
+                                ctxIns.RequiresImprovementActionPoints.Add(dt);
+                            }
+
+                            ctxIns.SaveChanges();
+                        }
+
+                        dbContextTransactionIns.Commit();
+                    }
+                    catch (Exception ex)
+                    {
+                        dbContextTransactionIns.Rollback();
+                    }
+                }
+
+            }
+        }
     }
 }

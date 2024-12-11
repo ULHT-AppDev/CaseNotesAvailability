@@ -41,12 +41,14 @@ namespace ReviewAudit
 
             SetAuditID(lAuditId);
             //Speciality = Request.QueryString["Speciality"];
-
         }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
         }
+
         public void SetAuditID(int auditID)
         {
             this.CASAuditId = auditID;
@@ -678,33 +680,6 @@ namespace ReviewAudit
                     {
 
                     }
-                    // Deserialize the JSON string back to an array
-                    //ReviewAuditCallbackBO AuditClinicAnswers = Newtonsoft.Json.JsonConvert.DeserializeObject<ReviewAuditCallbackBO>(e.Parameters);
-                    //List<ImprovementDetailsCallbackBO> ImprovementDetailsCallback = AuditClinicAnswers.ImprovementDetailsDS;
-                    //List<ActionDetailsCallbackBO> ActionDetailsCallback = AuditClinicAnswers.ActionPointsDS;
-                    //string ClinicCode = AuditClinicAnswers.ClinicCode;
-                    //short userID = Login.CookieHelper.GetCookieUserID();
-                    //bool update = new ReviewAuditBLL().ImprovementDetailsCallbackUpdate(ImprovementDetailsCallback,ClinicCode, userID);
-
-                    //if (update)
-                    //{
-                    //    update = new ReviewAuditBLL().ImprovementActionDetailsCallbackUpdate(ActionDetailsCallback, ClinicCode, userID);
-
-
-                    //bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(ImprovementDetailsCallback,AuditClinicAnswers);
-                    //    if (update1)
-                    //    {
-                    //        ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
-                    //        //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
-                    //    }
-                    //    else
-                    //    {
-                    //        ReviewAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
-                    //    }
-                    //}
-
-
-
                 }
             }
         }

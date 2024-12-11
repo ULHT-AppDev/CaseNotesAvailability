@@ -52,14 +52,9 @@
           <Property Name="Surname" Type="varchar" MaxLength="64" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.RequiresImprovementActionPoints' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RequiresImprovementActionPoints">
           <Key>
             <PropertyRef Name="RequiresImprovementActionPointID" />
-            <PropertyRef Name="ClinicCode" />
-            <PropertyRef Name="ReviewedByUserID" />
-            <PropertyRef Name="IsActive" />
           </Key>
           <Property Name="RequiresImprovementActionPointID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClinicCode" Type="varchar" MaxLength="100" Nullable="false" />
@@ -68,14 +63,9 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.RequiresImprovementA
           <Property Name="ReviewedDate" Type="datetime" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CaseNotesAvailability-Dev.dbo.RequiresImprovementDetails' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RequiresImprovementDetails">
           <Key>
             <PropertyRef Name="RequiresImprovementDetailsID" />
-            <PropertyRef Name="ClinicCode" />
-            <PropertyRef Name="ReviewedByUserID" />
-            <PropertyRef Name="IsActive" />
           </Key>
           <Property Name="RequiresImprovementDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClinicCode" Type="varchar" MaxLength="100" Nullable="false" />
@@ -399,6 +389,8 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <EntitySet Name="AuditClinicAnswers" EntityType="Self.AuditClinicAnswers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Issues" EntityType="Self.Issues" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Patients" EntityType="Self.Patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequiresImprovementActionPoints" EntityType="Self.RequiresImprovementActionPoints" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequiresImprovementDetails" EntityType="Self.RequiresImprovementDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UnavailableCaseNotes" EntityType="Self.UnavailableCaseNotes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginRights" EntityType="Self.LoginRights" Schema="List" store:Type="Tables" />
@@ -416,27 +408,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <EntitySet Name="PersonGuid" EntityType="Self.PersonGuid" Schema="Person" store:Type="Tables" />
           <EntitySet Name="PersonRoles" EntityType="Self.PersonRoles" Schema="Person" store:Type="Tables" />
           <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuids" Schema="Person" store:Type="Tables" />
-          <EntitySet Name="RequiresImprovementActionPoints" EntityType="Self.RequiresImprovementActionPoints" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [RequiresImprovementActionPoints].[RequiresImprovementActionPointID] AS [RequiresImprovementActionPointID], 
-    [RequiresImprovementActionPoints].[ClinicCode] AS [ClinicCode], 
-    [RequiresImprovementActionPoints].[ActionPointComment] AS [ActionPointComment], 
-    [RequiresImprovementActionPoints].[ReviewedByUserID] AS [ReviewedByUserID], 
-    [RequiresImprovementActionPoints].[ReviewedDate] AS [ReviewedDate], 
-    [RequiresImprovementActionPoints].[IsActive] AS [IsActive]
-    FROM [dbo].[RequiresImprovementActionPoints] AS [RequiresImprovementActionPoints]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="RequiresImprovementDetails" EntityType="Self.RequiresImprovementDetails" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [RequiresImprovementDetails].[RequiresImprovementDetailsID] AS [RequiresImprovementDetailsID], 
-    [RequiresImprovementDetails].[ClinicCode] AS [ClinicCode], 
-    [RequiresImprovementDetails].[ImprovementReasonID] AS [ImprovementReasonID], 
-    [RequiresImprovementDetails].[Comment] AS [Comment], 
-    [RequiresImprovementDetails].[ReviewedByUserID] AS [ReviewedByUserID], 
-    [RequiresImprovementDetails].[ReviewedDate] AS [ReviewedDate], 
-    [RequiresImprovementDetails].[IsActive] AS [IsActive]
-    FROM [dbo].[RequiresImprovementDetails] AS [RequiresImprovementDetails]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="userrole" EntityType="Self.userrole" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [userrole].[userroleID] AS [userroleID], 
@@ -546,6 +517,29 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="NHSNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Forename" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Surname" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequiresImprovementActionPoint">
+          <Key>
+            <PropertyRef Name="RequiresImprovementActionPointID" />
+          </Key>
+          <Property Name="RequiresImprovementActionPointID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ActionPointComment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ReviewedByUserID" Type="Int32" Nullable="false" />
+          <Property Name="ReviewedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequiresImprovementDetail">
+          <Key>
+            <PropertyRef Name="RequiresImprovementDetailsID" />
+          </Key>
+          <Property Name="RequiresImprovementDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClinicCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ImprovementReasonID" Type="Int32" />
+          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="ReviewedByUserID" Type="Int32" Nullable="false" />
+          <Property Name="ReviewedDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="sysdiagram">
@@ -715,35 +709,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="People" Relationship="Self.PersonGuid" FromRole="PersonUniqueGuids" ToRole="People" />
         </EntityType>
-        <EntityType Name="RequiresImprovementActionPoint">
-          <Key>
-            <PropertyRef Name="RequiresImprovementActionPointID" />
-            <PropertyRef Name="ClinicCode" />
-            <PropertyRef Name="ReviewedByUserID" />
-            <PropertyRef Name="IsActive" />
-          </Key>
-          <Property Name="RequiresImprovementActionPointID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClinicCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ActionPointComment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="ReviewedByUserID" Type="Int32" Nullable="false" />
-          <Property Name="ReviewedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
-        <EntityType Name="RequiresImprovementDetail">
-          <Key>
-            <PropertyRef Name="RequiresImprovementDetailsID" />
-            <PropertyRef Name="ClinicCode" />
-            <PropertyRef Name="ReviewedByUserID" />
-            <PropertyRef Name="IsActive" />
-          </Key>
-          <Property Name="RequiresImprovementDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClinicCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ImprovementReasonID" Type="Int32" />
-          <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="ReviewedByUserID" Type="Int32" Nullable="false" />
-          <Property Name="ReviewedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-        </EntityType>
         <EntityType Name="userrole">
           <Key>
             <PropertyRef Name="userroleID" />
@@ -878,6 +843,8 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <EntitySet Name="AuditClinicAnswers" EntityType="Self.AuditClinicAnswer" />
           <EntitySet Name="Issues" EntityType="Self.Issue" />
           <EntitySet Name="Patients" EntityType="Self.Patient" />
+          <EntitySet Name="RequiresImprovementActionPoints" EntityType="Self.RequiresImprovementActionPoint" />
+          <EntitySet Name="RequiresImprovementDetails" EntityType="Self.RequiresImprovementDetail" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="UnavailableCaseNotes" EntityType="Self.UnavailableCaseNote" />
           <EntitySet Name="LoginRights" EntityType="Self.LoginRight" />
@@ -894,8 +861,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <EntitySet Name="People" EntityType="Self.Person" />
           <EntitySet Name="PersonRoles" EntityType="Self.PersonRole" />
           <EntitySet Name="PersonUniqueGuids" EntityType="Self.PersonUniqueGuid" />
-          <EntitySet Name="RequiresImprovementActionPoints" EntityType="Self.RequiresImprovementActionPoint" />
-          <EntitySet Name="RequiresImprovementDetails" EntityType="Self.RequiresImprovementDetail" />
           <EntitySet Name="userroles" EntityType="Self.userrole" />
           <EntitySet Name="ReasonUnavailables" EntityType="Self.ReasonUnavailable" />
           <AssociationSet Name="FK_Audit_Status" Association="Self.FK_Audit_Status">
@@ -992,6 +957,31 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
                 <ScalarProperty Name="NHSNumber" ColumnName="NHSNumber" />
                 <ScalarProperty Name="Forename" ColumnName="Forename" />
                 <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequiresImprovementActionPoints">
+            <EntityTypeMapping TypeName="Model.RequiresImprovementActionPoint">
+              <MappingFragment StoreEntitySet="RequiresImprovementActionPoints">
+                <ScalarProperty Name="RequiresImprovementActionPointID" ColumnName="RequiresImprovementActionPointID" />
+                <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
+                <ScalarProperty Name="ActionPointComment" ColumnName="ActionPointComment" />
+                <ScalarProperty Name="ReviewedByUserID" ColumnName="ReviewedByUserID" />
+                <ScalarProperty Name="ReviewedDate" ColumnName="ReviewedDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequiresImprovementDetails">
+            <EntityTypeMapping TypeName="Model.RequiresImprovementDetail">
+              <MappingFragment StoreEntitySet="RequiresImprovementDetails">
+                <ScalarProperty Name="RequiresImprovementDetailsID" ColumnName="RequiresImprovementDetailsID" />
+                <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
+                <ScalarProperty Name="ImprovementReasonID" ColumnName="ImprovementReasonID" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="ReviewedByUserID" ColumnName="ReviewedByUserID" />
+                <ScalarProperty Name="ReviewedDate" ColumnName="ReviewedDate" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1156,31 +1146,6 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
               <MappingFragment StoreEntitySet="PersonUniqueGuids">
                 <ScalarProperty Name="GuidID" ColumnName="GuidID" />
                 <ScalarProperty Name="Guid" ColumnName="Guid" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RequiresImprovementActionPoints">
-            <EntityTypeMapping TypeName="Model.RequiresImprovementActionPoint">
-              <MappingFragment StoreEntitySet="RequiresImprovementActionPoints">
-                <ScalarProperty Name="RequiresImprovementActionPointID" ColumnName="RequiresImprovementActionPointID" />
-                <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
-                <ScalarProperty Name="ActionPointComment" ColumnName="ActionPointComment" />
-                <ScalarProperty Name="ReviewedByUserID" ColumnName="ReviewedByUserID" />
-                <ScalarProperty Name="ReviewedDate" ColumnName="ReviewedDate" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="RequiresImprovementDetails">
-            <EntityTypeMapping TypeName="Model.RequiresImprovementDetail">
-              <MappingFragment StoreEntitySet="RequiresImprovementDetails">
-                <ScalarProperty Name="RequiresImprovementDetailsID" ColumnName="RequiresImprovementDetailsID" />
-                <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
-                <ScalarProperty Name="ImprovementReasonID" ColumnName="ImprovementReasonID" />
-                <ScalarProperty Name="Comment" ColumnName="Comment" />
-                <ScalarProperty Name="ReviewedByUserID" ColumnName="ReviewedByUserID" />
-                <ScalarProperty Name="ReviewedDate" ColumnName="ReviewedDate" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
               </MappingFragment>
             </EntityTypeMapping>

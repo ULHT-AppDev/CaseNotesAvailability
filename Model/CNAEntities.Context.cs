@@ -29,6 +29,8 @@ namespace Model
         public virtual DbSet<AuditClinicAnswer> AuditClinicAnswers { get; set; }
         public virtual DbSet<Issue> Issues { get; set; }
         public virtual DbSet<Patient> Patients { get; set; }
+        public virtual DbSet<RequiresImprovementActionPoint> RequiresImprovementActionPoints { get; set; }
+        public virtual DbSet<RequiresImprovementDetail> RequiresImprovementDetails { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UnavailableCaseNote> UnavailableCaseNotes { get; set; }
         public virtual DbSet<LoginRight> LoginRights { get; set; }
@@ -45,8 +47,6 @@ namespace Model
         public virtual DbSet<Person> People { get; set; }
         public virtual DbSet<PersonRole> PersonRoles { get; set; }
         public virtual DbSet<PersonUniqueGuid> PersonUniqueGuids { get; set; }
-        public virtual DbSet<RequiresImprovementActionPoint> RequiresImprovementActionPoints { get; set; }
-        public virtual DbSet<RequiresImprovementDetail> RequiresImprovementDetails { get; set; }
         public virtual DbSet<userrole> userroles { get; set; }
         public virtual DbSet<ReasonUnavailable> ReasonUnavailables { get; set; }
     }

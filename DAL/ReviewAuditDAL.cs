@@ -222,7 +222,6 @@ namespace DAL
                                     IsActive = true
                                 };
                                 ctxIns.RequiresImprovementDetails.Add(dt);
-                                ctxIns.RequiresImprovementDetails.AddRange()
                                 ctxIns.SaveChanges();
                             }
                             foreach (ActionDetailsCallbackBO ActionDetailsCallback in updateImprovementAction.ActionPointsDS)

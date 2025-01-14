@@ -307,7 +307,7 @@ namespace CaseNotesAvailability
 
             object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
-            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]), values[1].ToString());
+            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]));
 
             ClientScript.RegisterStartupScript
             (GetType(), Guid.NewGuid().ToString(), "DeleteRow_Click();", true);
@@ -646,5 +646,6 @@ namespace CaseNotesAvailability
             }
         }
 
+   
     }
 }

@@ -188,7 +188,16 @@
                                     runat="server"
                                     Font-Size="20px"
                                     OnInit="LabelRead_Init"
-                                    ClientVisible ="false"
+                                    ClientVisible="false"
+                                    EncodeHtml="false"
+                                    ForeColor="GrayText">
+                                </dx:ASPxLabel>
+                                <dx:ASPxLabel ID="ASPxLabel2"
+                                    ClientInstanceName="LabelRead"
+                                    runat="server"
+                                    Font-Size="20px"
+                                    OnInit="LabelRead_Init"
+                                    ClientVisible="false"
                                     EncodeHtml="false"
                                     ForeColor="GrayText">
                                 </dx:ASPxLabel>
@@ -415,7 +424,7 @@
 
                             <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Action Points Review" Name="ActionPointsReview" ClientVisible="false">
                                 <Items>
-                                   <%-- <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
+                                    <%-- <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
                                         <LayoutItemNestedControlCollection>
                                             <dx:LayoutItemNestedControlContainer runat="server">
 
@@ -438,7 +447,7 @@
                                         <LayoutItemNestedControlCollection>
                                             <dx:LayoutItemNestedControlContainer runat="server">
 
-                                                <dx:ASPxMemo ID="ActReviewCommentMemo"  ClientInstanceName="ActReviewCommentMemo" runat="server" Height="100px" Width="100%" MaxLength="1000">
+                                                <dx:ASPxMemo ID="ActReviewCommentMemo" ClientInstanceName="ActReviewCommentMemo" runat="server" Height="100px" Width="100%" MaxLength="1000">
                                                     <ValidationSettings ErrorDisplayMode="ImageWithTooltip" Display="Dynamic" ValidationGroup="SubmitReview">
                                                         <RequiredField IsRequired="true" ErrorText="This field is required" />
                                                     </ValidationSettings>

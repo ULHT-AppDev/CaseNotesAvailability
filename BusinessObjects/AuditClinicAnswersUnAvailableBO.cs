@@ -11,6 +11,7 @@ namespace BusinessObjects
         public int AuditClinicAnswersID { get; set; }
         public int AuditID { get; set; }
         public string ClinicCode { get; set; }
+        public Nullable<int> Totalappointments { get; set; }
         public Nullable<int> NumberOfAppointmentsAllocated { get; set; }
         public Nullable<int> CaseNotesAvailableStartCount { get; set; }
         public Nullable<int> TemporaryNotesCount { get; set; }

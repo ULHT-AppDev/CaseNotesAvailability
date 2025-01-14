@@ -15,11 +15,13 @@ namespace Model
     public partial class RequiresImprovementDetail
     {
         public int RequiresImprovementDetailsID { get; set; }
-        public string ClinicCode { get; set; }
+        public int AuditClinicAnswersID { get; set; }
         public Nullable<int> ImprovementReasonID { get; set; }
         public string Comment { get; set; }
         public int ReviewedByUserID { get; set; }
         public Nullable<System.DateTime> ReviewedDate { get; set; }
         public bool IsActive { get; set; }
+    
+        public virtual AuditClinicAnswer AuditClinicAnswer { get; set; }
     }
 }

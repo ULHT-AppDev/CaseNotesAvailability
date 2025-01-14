@@ -23,6 +23,45 @@ CaseNoteAvailabilityUnAvailabilityPopup.Show();
 
         }
 
+function TempCount_Validation(s, e) {
+
+    if (s.GetText() !== null && s.GetText() !== "") {
+        let Count = txtTempNotesCount.GetValue();
+        let StartCount = txtStartCount.GetValue();
+
+        if (Count !== null) {
+
+            if (Count > StartCount) {
+                e.isValid = false;
+                e.errorText = "Temp Count can't be greater than Start Count.";
+            }
+            else if (price <= 0) {
+                e.isValid = false;
+                e.errorText = "Temp Count must be more than 0.";
+            } else {
+                e.isValid = true;
+            }
+        } else {
+            e.isValid = false;
+            e.errorText = "Temp Count must have a value.";
+        }
+    }
+    else {
+        e.isValid = false;
+        e.errorText = "Temp Count Must have a value";
+    }
+
+}
+
+
+
+
+
+function txtTempNotesCount_ValueChanged(s,e)
+{
+
+
+}
 
 function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId,AuditID)
 {
@@ -114,22 +153,47 @@ function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e)
 function UnavailableCaseNoteCount_SelectedIndexChanged(s, e)
 {
 
-    var Count = UnavailableCaseNoteCount.GetValue();
-    if (Count > 0)
-    {
-        // int i= 0;
-        //While (i<=count)
-        //{
-        //i+=1;
-        CreateFormDynamically_CallbackPanel.PerformCallback(Count);
-        CreateFormDynamically_CallbackPanel.SetVisible(true);
-        //PatientLayoutCallLayout.SetVisible(true);
-        //}
+     if (s.GetText() !== null && s.GetText() !== "") {
+        let Count = txtTempNotesCount.GetValue();
+        let StartCount = txtStartCount.GetValue();
+
+        if (Count !== null) {
+
+            if (Count > StartCount) {
+                e.isValid = false;
+                e.errorText = "Temp Count can't be greater than Start Count.";
+            }
+            else if (Count < 0 ) {
+                e.isValid = false;
+                e.errorText = "Temp Count must be more than or equal to 0.";
+            } else {
+                //e.isValid = true;
+                 Count = UnavailableCaseNoteCount.GetValue();
+                if (Count > 0)
+                    {
+          
+                        CreateFormDynamically_CallbackPanel.PerformCallback(Count);
+                        CreateFormDynamically_CallbackPanel.SetVisible(true);
+      
+                    }
+                else
+                    {
+                        CreateFormDynamically_CallbackPanel.SetVisible(false);
+                    }
+            }
+        } else {
+            e.isValid = false;
+            e.errorText = "Temp Count must have a value.";
+        }
     }
-    else
-    {
-        CreateFormDynamically_CallbackPanel.SetVisible(false);
+    else {
+        e.isValid = false;
+        e.errorText = "Temp Count Must have a value";
     }
+   
+
+
+   
 }
 
 //BodyMassIndexCalculatedLabel.SetText(valueToSet);

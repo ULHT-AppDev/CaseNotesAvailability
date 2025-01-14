@@ -32,6 +32,7 @@
           <Property Name="UnavailableCount" Type="int" />
           <Property Name="StatusID" Type="tinyint" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="Totalappointments" Type="int" />
         </EntityType>
         <EntityType Name="Issues">
           <Key>
@@ -57,7 +58,7 @@
             <PropertyRef Name="RequiresImprovementActionPointID" />
           </Key>
           <Property Name="RequiresImprovementActionPointID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClinicCode" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AuditClinicAnswersID" Type="int" Nullable="false" />
           <Property Name="ActionPointComment" Type="nvarchar" MaxLength="100" />
           <Property Name="ReviewedByUserID" Type="int" Nullable="false" />
           <Property Name="ReviewedDate" Type="datetime" />
@@ -68,7 +69,7 @@
             <PropertyRef Name="RequiresImprovementDetailsID" />
           </Key>
           <Property Name="RequiresImprovementDetailsID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="ClinicCode" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="AuditClinicAnswersID" Type="int" Nullable="false" />
           <Property Name="ImprovementReasonID" Type="int" />
           <Property Name="Comment" Type="varchar" MaxLength="250" />
           <Property Name="ReviewedByUserID" Type="int" Nullable="false" />
@@ -384,6 +385,30 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RequiresImprovementActionPoints_AuditClinicAnswers">
+          <End Role="AuditClinicAnswers" Type="Self.AuditClinicAnswers" Multiplicity="1" />
+          <End Role="RequiresImprovementActionPoints" Type="Self.RequiresImprovementActionPoints" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditClinicAnswers">
+              <PropertyRef Name="AuditClinicAnswersID" />
+            </Principal>
+            <Dependent Role="RequiresImprovementActionPoints">
+              <PropertyRef Name="AuditClinicAnswersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequiresImprovementDetails_AuditClinicAnswers">
+          <End Role="AuditClinicAnswers" Type="Self.AuditClinicAnswers" Multiplicity="1" />
+          <End Role="RequiresImprovementDetails" Type="Self.RequiresImprovementDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditClinicAnswers">
+              <PropertyRef Name="AuditClinicAnswersID" />
+            </Principal>
+            <Dependent Role="RequiresImprovementDetails">
+              <PropertyRef Name="AuditClinicAnswersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Audit" EntityType="Self.Audit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AuditClinicAnswers" EntityType="Self.AuditClinicAnswers" Schema="dbo" store:Type="Tables" />
@@ -465,6 +490,14 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             <End Role="People" EntitySet="People" />
             <End Role="PersonRoles" EntitySet="PersonRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_RequiresImprovementActionPoints_AuditClinicAnswers" Association="Self.FK_RequiresImprovementActionPoints_AuditClinicAnswers">
+            <End Role="AuditClinicAnswers" EntitySet="AuditClinicAnswers" />
+            <End Role="RequiresImprovementActionPoints" EntitySet="RequiresImprovementActionPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequiresImprovementDetails_AuditClinicAnswers" Association="Self.FK_RequiresImprovementDetails_AuditClinicAnswers">
+            <End Role="AuditClinicAnswers" EntitySet="AuditClinicAnswers" />
+            <End Role="RequiresImprovementDetails" EntitySet="RequiresImprovementDetails" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -499,6 +532,9 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="UnavailableCount" Type="Int32" />
           <Property Name="StatusID" Type="Byte" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Totalappointments" Type="Int32" />
+          <NavigationProperty Name="RequiresImprovementActionPoints" Relationship="Self.FK_RequiresImprovementActionPoints_AuditClinicAnswers" FromRole="AuditClinicAnswers" ToRole="RequiresImprovementActionPoints" />
+          <NavigationProperty Name="RequiresImprovementDetails" Relationship="Self.FK_RequiresImprovementDetails_AuditClinicAnswers" FromRole="AuditClinicAnswers" ToRole="RequiresImprovementDetails" />
         </EntityType>
         <EntityType Name="Issue">
           <Key>
@@ -524,23 +560,25 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             <PropertyRef Name="RequiresImprovementActionPointID" />
           </Key>
           <Property Name="RequiresImprovementActionPointID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClinicCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuditClinicAnswersID" Type="Int32" Nullable="false" />
           <Property Name="ActionPointComment" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="ReviewedByUserID" Type="Int32" Nullable="false" />
           <Property Name="ReviewedDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AuditClinicAnswer" Relationship="Self.FK_RequiresImprovementActionPoints_AuditClinicAnswers" FromRole="RequiresImprovementActionPoints" ToRole="AuditClinicAnswers" />
         </EntityType>
         <EntityType Name="RequiresImprovementDetail">
           <Key>
             <PropertyRef Name="RequiresImprovementDetailsID" />
           </Key>
           <Property Name="RequiresImprovementDetailsID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ClinicCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AuditClinicAnswersID" Type="Int32" Nullable="false" />
           <Property Name="ImprovementReasonID" Type="Int32" />
           <Property Name="Comment" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="ReviewedByUserID" Type="Int32" Nullable="false" />
           <Property Name="ReviewedDate" Type="DateTime" Precision="3" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="AuditClinicAnswer" Relationship="Self.FK_RequiresImprovementDetails_AuditClinicAnswers" FromRole="RequiresImprovementDetails" ToRole="AuditClinicAnswers" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -738,6 +776,30 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_RequiresImprovementActionPoints_AuditClinicAnswers">
+          <End Role="AuditClinicAnswers" Type="Self.AuditClinicAnswer" Multiplicity="1" />
+          <End Role="RequiresImprovementActionPoints" Type="Self.RequiresImprovementActionPoint" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditClinicAnswers">
+              <PropertyRef Name="AuditClinicAnswersID" />
+            </Principal>
+            <Dependent Role="RequiresImprovementActionPoints">
+              <PropertyRef Name="AuditClinicAnswersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequiresImprovementDetails_AuditClinicAnswers">
+          <End Role="AuditClinicAnswers" Type="Self.AuditClinicAnswer" Multiplicity="1" />
+          <End Role="RequiresImprovementDetails" Type="Self.RequiresImprovementDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AuditClinicAnswers">
+              <PropertyRef Name="AuditClinicAnswersID" />
+            </Principal>
+            <Dependent Role="RequiresImprovementDetails">
+              <PropertyRef Name="AuditClinicAnswersID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_LoginRoleRights_LoginRights">
           <End Role="LoginRights" Type="Self.LoginRight" Multiplicity="1" />
           <End Role="LoginRoleRights" Type="Self.LoginRoleRight" Multiplicity="*" />
@@ -867,6 +929,14 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             <End Role="Status" EntitySet="Status" />
             <End Role="Audit" EntitySet="Audits" />
           </AssociationSet>
+          <AssociationSet Name="FK_RequiresImprovementActionPoints_AuditClinicAnswers" Association="Self.FK_RequiresImprovementActionPoints_AuditClinicAnswers">
+            <End Role="AuditClinicAnswers" EntitySet="AuditClinicAnswers" />
+            <End Role="RequiresImprovementActionPoints" EntitySet="RequiresImprovementActionPoints" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequiresImprovementDetails_AuditClinicAnswers" Association="Self.FK_RequiresImprovementDetails_AuditClinicAnswers">
+            <End Role="AuditClinicAnswers" EntitySet="AuditClinicAnswers" />
+            <End Role="RequiresImprovementDetails" EntitySet="RequiresImprovementDetails" />
+          </AssociationSet>
           <AssociationSet Name="FK_LoginRoleRights_LoginRights" Association="Self.FK_LoginRoleRights_LoginRights">
             <End Role="LoginRights" EntitySet="LoginRights" />
             <End Role="LoginRoleRights" EntitySet="LoginRoleRights" />
@@ -937,6 +1007,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
                 <ScalarProperty Name="UnavailableCount" ColumnName="UnavailableCount" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Totalappointments" ColumnName="Totalappointments" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -965,7 +1036,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             <EntityTypeMapping TypeName="Model.RequiresImprovementActionPoint">
               <MappingFragment StoreEntitySet="RequiresImprovementActionPoints">
                 <ScalarProperty Name="RequiresImprovementActionPointID" ColumnName="RequiresImprovementActionPointID" />
-                <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
+                <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
                 <ScalarProperty Name="ActionPointComment" ColumnName="ActionPointComment" />
                 <ScalarProperty Name="ReviewedByUserID" ColumnName="ReviewedByUserID" />
                 <ScalarProperty Name="ReviewedDate" ColumnName="ReviewedDate" />
@@ -977,7 +1048,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
             <EntityTypeMapping TypeName="Model.RequiresImprovementDetail">
               <MappingFragment StoreEntitySet="RequiresImprovementDetails">
                 <ScalarProperty Name="RequiresImprovementDetailsID" ColumnName="RequiresImprovementDetailsID" />
-                <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
+                <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
                 <ScalarProperty Name="ImprovementReasonID" ColumnName="ImprovementReasonID" />
                 <ScalarProperty Name="Comment" ColumnName="Comment" />
                 <ScalarProperty Name="ReviewedByUserID" ColumnName="ReviewedByUserID" />

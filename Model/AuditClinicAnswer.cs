@@ -14,6 +14,13 @@ namespace Model
     
     public partial class AuditClinicAnswer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public AuditClinicAnswer()
+        {
+            this.RequiresImprovementActionPoints = new HashSet<RequiresImprovementActionPoint>();
+            this.RequiresImprovementDetails = new HashSet<RequiresImprovementDetail>();
+        }
+    
         public int AuditClinicAnswersID { get; set; }
         public int AuditID { get; set; }
         public string ClinicCode { get; set; }
@@ -23,5 +30,11 @@ namespace Model
         public Nullable<int> UnavailableCount { get; set; }
         public byte StatusID { get; set; }
         public bool IsActive { get; set; }
+        public Nullable<int> Totalappointments { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequiresImprovementActionPoint> RequiresImprovementActionPoints { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<RequiresImprovementDetail> RequiresImprovementDetails { get; set; }
     }
 }

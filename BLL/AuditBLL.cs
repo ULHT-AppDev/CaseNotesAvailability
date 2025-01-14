@@ -152,9 +152,9 @@ namespace BLL
             }
         }
 
-        public static void DeleteAudit(int AuditID, string StatusID)
+        public static void DeleteAudit(int AuditID)
         {
-            new DAL.AuditDAL().DeleteAudit(AuditID, StatusID);
+            new DAL.AuditDAL().DeleteAudit(AuditID);
         }
 
 

@@ -52,6 +52,7 @@ namespace DAL
                             AuditClinicAnswersID = u.AuditClinicAnswersID,
                             AuditID = u.AuditID,
                             ClinicCode = u.ClinicCode,
+                            Totalappointments = u.Totalappointments,
                             NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
                             CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
                             TemporaryNotesCount = u.TemporaryNotesCount,
@@ -119,6 +120,7 @@ namespace DAL
                         //List<AuditBO> audit = new List<AuditBO>();
                         var audit1 = ctxUpdate.AuditClinicAnswers.Where(x => x.AuditClinicAnswersID == auditClinicAnswers.AuditClinicAnswersID).Single();
                         audit1.TemporaryNotesCount = auditClinicAnswers.TemporaryNotesCount;
+                        audit1.Totalappointments = auditClinicAnswers.Totalappointments;
                         audit1.CaseNotesAvailableStartCount = auditClinicAnswers.CaseNotesAvailableStartCount;
                         audit1.NumberOfAppointmentsAllocated = auditClinicAnswers.NumberOfAppointmentsAllocated;
                         audit1.StatusID = 4;

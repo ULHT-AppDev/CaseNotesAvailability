@@ -9,7 +9,7 @@ namespace BusinessObjects
     public class UpdateImprovementActionCallbackBO
     {
         public int ActionID { get; set; }
-        public string ClinicCode { get; set; }
+        public int AuditClinicAnswersID { get; set; }
         public List<ImprovementDetailsCallbackBO> ImprovementDetailsDS { get; set; }
         public List<ActionDetailsCallbackBO> ActionPointsDS { get; set; }
 

@@ -21,4 +21,11 @@ namespace BusinessObjects
         public int StatusID { get; set; }
 
     }
+
+    public class AuditDeleteBO
+    {
+        public int ActionID { get; set; }
+        public int AuditID { get; set; }
+    }
+
 }

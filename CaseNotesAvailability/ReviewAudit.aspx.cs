@@ -335,7 +335,7 @@ namespace ReviewAudit
 
             object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
-            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]), values[1].ToString());
+            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]));
 
             ClientScript.RegisterStartupScript
             (GetType(), Guid.NewGuid().ToString(), "DeleteRow_Click();", true);
@@ -670,7 +670,7 @@ namespace ReviewAudit
                 {
                     UpdateImprovementActionCallbackBO UpdateImprovementAction = Newtonsoft.Json.JsonConvert.DeserializeObject<UpdateImprovementActionCallbackBO>(e.Parameters);
 
-                    string ClinicCode = UpdateImprovementAction.ClinicCode;
+                    int AnswerID = UpdateImprovementAction.AuditClinicAnswersID;
                     if (UpdateImprovementAction.ActionPointsDS != null || UpdateImprovementAction.ImprovementDetailsDS != null)
                     {
                         short userID = Login.CookieHelper.GetCookieUserID();

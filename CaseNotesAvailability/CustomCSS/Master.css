@@ -1,19 +1,219 @@
-﻿
-
-
-.FeedbackLoadingPanelClass {
-    position: relative !important;
-    left: 0 !important;
-    top: 0 !important;
-    background: transparent !important;
-    box-shadow: none !important;
+﻿#Header {
+    position: fixed;
+    height: 60px;
+    top: 0px;
+    left: 0px;
+    /*background: #4c546d;*/
+    background: #4a4a4a;
+    /*border-bottom: 1px solid #fafafa;*/
+    z-index: 8;
+    box-shadow: 0px 0px 20px rgba(0,0,0,0.30);
+    -webkit-box-shadow: 0px -2px 8px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0px -2px 8px rgba(0,0,0,0.6);
 }
 
-.ReviewingCaption {
-    display: inline-block;
-    width: 90px;
+.weight500 {
+    font-weight: 500;
 }
 
-.ReviewingItemDetails {
+.weightBold {
     font-weight: bold;
+}
+
+#AppHeaderContainer {
+    text-decoration: none;
+}
+
+
+.AdminMenu {
+    border: none !important;
+    background-color: rgba(0,0,0,0) !important;
+    /*color: #4099FF;*/
+}
+
+.AdminMenuItem {
+    height: 60px;
+}
+
+.MenuSubMenuItem {
+    padding: 10px;
+    /*background: #4c546d;*/
+    background: #4a4a4a;
+}
+
+.MenuSubMenu {
+    border: none !important;
+}
+
+.ContentContainer {
+    margin-top: 60px;
+}
+
+.defaultBorderBottom {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.CustomLoadinPanelClass {
+    position: relative !important;
+    top: 0 !important;
+    left: 0 !important;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+    -moz-box-shadow: none !important;
+}
+
+    .CustomLoadinPanelClass > table {
+        margin: 0 !important;
+        -webkit-box-shadow: none !important;
+        box-shadow: none !important;
+        -moz-box-shadow: none !important;
+    }
+
+.OtherActionsButtonClass {
+    /*324da0*/
+    background: #9bb7ff !important;
+    color: #f87c1d;
+    width: 20px !important;
+    height: 20px !important;
+    line-height: 20px !important;
+    border-radius: 50%;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px !important;
+    cursor: pointer;
+    /*border: 1px solid #ffd4b3 !important;*/
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 16%), 0 2px 10px 0 rgb(0 0 0 / 12%) !important;
+}
+
+    .OtherActionsButtonClass:hover {
+        background: #9bb7ff !important;
+        color: #02206d !important;
+    }
+
+.OtherActionsPopupMenuClass {
+    border-radius: 5px;
+}
+
+.PopupMenuItemClass {
+    padding: 16px 16px 16px 16px;
+}
+
+    .PopupMenuItemClass > div {
+        padding: 0 !important;
+    }
+
+
+
+.PageHeaderLabel {
+    font-size: 28px;
+    color: black;
+    
+}
+
+
+.SelectedDeviceGroupStyle {
+    background: #fafafa;
+}
+
+.StatusDetailsDownArrowContainer {
+    padding: 10px;
+}
+
+.HistoryStatusDetailContainer {
+    padding: 10px;
+}
+
+.ActiveStatusHistoryContainer {
+    background: #e9f1ff;
+    border-radius: 4px;
+}
+
+.StatusHistoryDetailsContainer {
+    max-height: 290px;
+    overflow: auto;
+}
+
+
+
+.disabledComboButton {
+    display: none;
+}
+
+.CustomGridLoadingPanel {
+    z-index: 2000 !important; /*lower z-index so doesnt show on popups*/
+}
+
+
+.ellipsisSpan {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%; /* size of the column width */
+}
+
+
+
+.ErrorContainer {
+    background: #ffd7d7;
+    border-radius: 5px;
+}
+
+.ErrorLabel {
+    color: Red;
+}
+
+.WarningContainer {
+    background: #ffeac5;
+    border-radius: 5px;
+}
+
+.WarningLabel {
+    color: #f77200;
+}
+
+.InformationLabel {
+    color: #547ce0;
+}
+
+.InformationContainer {
+    background: #dee7ff;
+    border-radius: 5px;
+}
+
+.LabelIcon {
+    font-size: 20px;
+}
+
+
+.SelectedCustomItem span {
+    color: #ffffff !important;
+}
+
+.UserNotificationPopup {
+    border: none;
+    border-radius: 12px;
+}
+
+.SuccessPopupMessageLabelClass > a {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+
+@media only screen and (min-width:925px) { /*this is the same as the master page menu adaptive setting*/
+    .AdminNavMenuIcon {
+        display: none !important;
+    }
+}
+
+@media only screen and (max-width:1105px) {
+    #AppHeaderContainer {
+        display: none;
+    }
+}
+
+@media only screen and (max-width:580px) {
+    #LoggedInUserContainer {
+        display: none;
+    }
 }

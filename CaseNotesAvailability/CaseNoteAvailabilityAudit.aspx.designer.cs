@@ -51,49 +51,49 @@ namespace CaseNotesAvailability
         protected global::System.Web.UI.WebControls.ObjectDataSource Status;
 
         /// <summary>
-        /// DefaultPageTitleLabel control.
+        /// ASPxLabel1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel DefaultPageTitleLabel;
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
 
         /// <summary>
-        /// Panel1 control.
+        /// Panel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel Panel1;
+        protected global::System.Web.UI.WebControls.Panel Panel2;
 
         /// <summary>
-        /// CasenoteLabel control.
+        /// ASPxLabel2 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel CasenoteLabel;
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel2;
 
         /// <summary>
-        /// lblSpeciality control.
+        /// ASPxLabel3 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblSpeciality;
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel3;
 
         /// <summary>
-        /// lblSite control.
+        /// ASPxLabel4 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxLabel lblSite;
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel4;
 
         /// <summary>
         /// AuditDetails control.
@@ -195,13 +195,22 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxTextBox txtClinicCode;
 
         /// <summary>
+        /// txtTotalAppointments control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxSpinEdit txtTotalAppointments;
+
+        /// <summary>
         /// txtNumAppointments control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtNumAppointments;
+        protected global::DevExpress.Web.ASPxSpinEdit txtNumAppointments;
 
         /// <summary>
         /// txtStartCount control.
@@ -210,7 +219,7 @@ namespace CaseNotesAvailability
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtStartCount;
+        protected global::DevExpress.Web.ASPxSpinEdit txtStartCount;
 
         /// <summary>
         /// txtTempNotesCount control.
@@ -219,7 +228,7 @@ namespace CaseNotesAvailability
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxTextBox txtTempNotesCount;
+        protected global::DevExpress.Web.ASPxSpinEdit txtTempNotesCount;
 
         /// <summary>
         /// UnavailableCaseNoteCount control.

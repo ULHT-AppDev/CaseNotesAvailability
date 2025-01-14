@@ -178,7 +178,7 @@ function CompleteClient_Click(s, e)
     let CallbackObj = 
     {
         ActionID : 1,
-        ClinicCode:LabelRead.GetText(),
+        AuditClinicAnswersID:LabelRead.GetText(),
         ImprovementDetailsDS:InMemoryImprovementDetailsDS,
         ActionPointsDS:InMemoryActionDetailsDS
     };

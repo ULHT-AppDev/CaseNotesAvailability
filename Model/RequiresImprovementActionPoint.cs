@@ -15,10 +15,12 @@ namespace Model
     public partial class RequiresImprovementActionPoint
     {
         public int RequiresImprovementActionPointID { get; set; }
-        public string ClinicCode { get; set; }
+        public int AuditClinicAnswersID { get; set; }
         public string ActionPointComment { get; set; }
         public int ReviewedByUserID { get; set; }
         public Nullable<System.DateTime> ReviewedDate { get; set; }
         public bool IsActive { get; set; }
+    
+        public virtual AuditClinicAnswer AuditClinicAnswer { get; set; }
     }
 }

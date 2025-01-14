@@ -21,7 +21,7 @@ namespace DAL
                         select new BusinessObjects.RequiresImprovementDetailsBO
                         {
                             RequiresImprovementDetailsID = p.RequiresImprovementDetailsID,
-                            ClinicCode = p.ClinicCode,
+                           // ClinicCode = p.ClinicCode,
                             ImprovementReasonID = p.ImprovementReasonID,
                             Comment = p.Comment,
                             ReviewedByUserID = p.ReviewedByUserID,
@@ -136,7 +136,7 @@ namespace DAL
                             {
                                 Model.RequiresImprovementDetail dt = new Model.RequiresImprovementDetail()
                                 {
-                                    ClinicCode = clinicCode,
+                                   // AuditClinicAnswersID = clinicCode,
                                     ImprovementReasonID = SingleImprovementDetailsCallback.ImprovementDetailID,
                                     Comment = SingleImprovementDetailsCallback.Comment,
                                     ReviewedByUserID= userID,
@@ -214,7 +214,7 @@ namespace DAL
                             {
                                 Model.RequiresImprovementDetail dt = new Model.RequiresImprovementDetail()
                                 {
-                                    ClinicCode = updateImprovementAction.ClinicCode,
+                                    AuditClinicAnswersID = updateImprovementAction.AuditClinicAnswersID,
                                     ImprovementReasonID = SingleImprovementDetailsCallback.ImprovementDetailID,
                                     Comment = SingleImprovementDetailsCallback.Comment,
                                     ReviewedByUserID = userID,
@@ -228,7 +228,7 @@ namespace DAL
                             {
                                 Model.RequiresImprovementActionPoint dt = new Model.RequiresImprovementActionPoint()
                                 {
-                                    ClinicCode = updateImprovementAction.ClinicCode,
+                                    AuditClinicAnswersID = updateImprovementAction.AuditClinicAnswersID,
                                     ActionPointComment = ActionDetailsCallback.Comment,
                                     ReviewedByUserID = userID,
                                     ReviewedDate = DateTime.Now,

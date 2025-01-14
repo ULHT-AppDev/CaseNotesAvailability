@@ -228,7 +228,7 @@ namespace DAL
             }
         }
 
-        public void DeleteAudit(int AuditID, string StatusID)
+        public void DeleteAudit(int AuditID)
         {
             using (var ctxUpdate = new Model.CNAEntities())
             {

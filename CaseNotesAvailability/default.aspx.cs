@@ -1,6 +1,9 @@
-﻿using BusinessObjects;
+﻿using BLL;
+using BusinessObjects;
 using DevExpress.Web;
+using DevExpress.Web.Internal.XmlProcessor;
 using DevExpress.XtraRichEdit.Commands;
+using Login;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -18,12 +21,32 @@ namespace CaseNotesAvailability
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
         }
         //protected void Btn_Click(object sender, EventArgs e)
         //{
         //    window.history.replaceState("SearchResult", "Search result", window.location.href + "?" + queryStringArray.join('&'));
         //}
+
+        protected void HealthRecordsGridView_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
+        {
+            //e.Parameters = new Dictionary<string, object>();
+            if (e.Parameters != null) // select patient referrals & details sent from patient search grid
+            {
+                string eventArgument = e.Parameters;
+                if (!string.IsNullOrEmpty(eventArgument))
+                {
+                    AuditDeleteBO DeleteCaseNote = Newtonsoft.Json.JsonConvert.DeserializeObject<AuditDeleteBO>(e.Parameters);
+
+                    int casenote = DeleteCaseNote.AuditID;
+                    BLL.AuditBLL.DeleteAudit(casenote);
+              
+                    HealthRecordsGridView.JSProperties["cpDeleted"] = true;
+
+                }
+            }
+        }
+
+
         protected void AuditorView_Init(object sender, EventArgs e)
         {
             ASPxButton btn = sender as ASPxButton;
@@ -63,7 +86,7 @@ namespace CaseNotesAvailability
                         break;
                     case (byte)Enums.AuditStatus.PendingHRreview:
                         //btn.Text = "Pending HR review";
-                        btn.Text = "Send for review";
+                        btn.Text = "Action Review";
                         btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
                         break;
                     case (byte)Enums.AuditStatus.Completed:
@@ -86,6 +109,15 @@ namespace CaseNotesAvailability
             //    btn.Visible = false;
             //}
         }
+        protected void PageHeaderLabel_Init(object sender, EventArgs e)
+        {
+            if (!IsPostBack && !IsCallback)
+            {
+                ASPxLabel lbl = sender as ASPxLabel;
+                lbl.Text = $"Audit";
+            }
+        }
+
         protected void EditUserButton_Init(object sender, EventArgs e)
         {
             ASPxButton btn = sender as ASPxButton;
@@ -157,6 +189,19 @@ namespace CaseNotesAvailability
             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
 
         }
+        protected void RoleControlGridView_CustomButtonInitialize(object sender, ASPxGridViewCustomButtonEventArgs e)
+        {
+            if (e.ButtonID == "DeleteUserButton")
+            {
+                int userID = Convert.ToInt32(HealthRecordsGridView.GetRowValues(e.VisibleIndex, "UserID"));
+
+                if (userID == CookieHelper.GetCookieUserID())
+                {
+                    e.Enabled = false;
+                }
+            }
+        }
+
 
         protected void DeleteUserButton_Init(object sender, EventArgs e)
         {
@@ -184,7 +229,7 @@ namespace CaseNotesAvailability
                 {
                     case (byte)Enums.AuditStatus.NotStarted:
                         btn.Text = "Delete";
-                        //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ DeleteRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
+                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ DeleteButton_Click(s, e, '{0}' ); }}", container.VisibleIndex);
                         break;
                     default:
                         btn.Visible = false;
@@ -192,14 +237,9 @@ namespace CaseNotesAvailability
 
                 }
             }
-            btn.Click += Btn_Click;
+            //btn.Click += Btn_Click;
 
-            //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton1_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-            //  }
-            //else
-            // {
-            //   btn.Visible = false;
-            //}
+
         }
 
         private void Btn_Click(object sender, EventArgs e)
@@ -209,7 +249,7 @@ namespace CaseNotesAvailability
 
             object[] values = HealthRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
-            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]), values[1].ToString());
+            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]));
 
             ClientScript.RegisterStartupScript
             (GetType(), Guid.NewGuid().ToString(), "DeleteRow_Click();", true);

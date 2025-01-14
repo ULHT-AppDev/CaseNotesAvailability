@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ca6d0c8dd28b42058135c54dac28ad31" Name="Diagram1">
-        <EntityTypeShape EntityType="Model.Audit" Width="1.5" PointX="13" PointY="7.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AuditClinicAnswer" Width="1.5" PointX="7.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Issue" Width="1.5" PointX="10.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Patient" Width="1.5" PointX="9.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.RequiresImprovementActionPoint" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.RequiresImprovementDetail" Width="1.5" PointX="2.75" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="11.75" PointY="11.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.UnavailableCaseNote" Width="1.5" PointX="12.75" PointY="1.125" IsExpanded="true" />
+      <Diagram DiagramId="52a11395ef9945d2b2c2dce31b2894fb" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.Audit" Width="1.5" PointX="15" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AuditClinicAnswer" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Issue" Width="1.5" PointX="7.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Patient" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RequiresImprovementActionPoint" Width="1.5" PointX="13" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.RequiresImprovementDetail" Width="1.5" PointX="13" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.sysdiagram" Width="1.5" PointX="2.75" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.UnavailableCaseNote" Width="1.5" PointX="4.75" PointY="13.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LoginRight" Width="1.5" PointX="5.75" PointY="7.5" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LoginRoleRight" Width="1.5" PointX="8" PointY="7.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LoginRole" Width="1.5" PointX="5.75" PointY="10.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Site" Width="1.5" PointX="12.75" PointY="4.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Speciality" Width="1.5" PointX="4.75" PointY="13.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.Status" Width="1.5" PointX="10.75" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Site" Width="1.5" PointX="9.75" PointY="13.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Speciality" Width="1.5" PointX="12.75" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.Status" Width="1.5" PointX="12.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LogAction" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LogDetail" Width="1.5" PointX="10.5" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.LogError" Width="1.5" PointX="5.25" PointY="3.375" IsExpanded="true" />
@@ -28,8 +28,10 @@
         <EntityTypeShape EntityType="Model.PersonRole" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.PersonUniqueGuid" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.userrole" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.ReasonUnavailable" Width="1.5" PointX="9.75" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.ReasonUnavailable" Width="1.5" PointX="6.75" PointY="14.125" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_Audit_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_RequiresImprovementActionPoints_AuditClinicAnswers" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.FK_RequiresImprovementDetails_AuditClinicAnswers" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_LoginRoleRights_LoginRights" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_LoginRoleRights_LoginRoles" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK_Logs_LogActions" ManuallyRouted="false" />

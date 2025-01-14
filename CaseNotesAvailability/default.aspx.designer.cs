@@ -51,13 +51,13 @@ namespace CaseNotesAvailability
         protected global::System.Web.UI.WebControls.ObjectDataSource Status;
 
         /// <summary>
-        /// LoginPageTitle control.
+        /// PageHeaderLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Literal LoginPageTitle;
+        protected global::DevExpress.Web.ASPxLabel PageHeaderLabel;
 
         /// <summary>
         /// NewRef control.
@@ -76,6 +76,33 @@ namespace CaseNotesAvailability
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxGridView HealthRecordsGridView;
+
+        /// <summary>
+        /// DeleteCaseNotePopup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPopupControl DeleteCaseNotePopup;
+
+        /// <summary>
+        /// DeleteCaseNotePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxPanel DeleteCaseNotePanel;
+
+        /// <summary>
+        /// DeleteCaseNoteConfirmationLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel DeleteCaseNoteConfirmationLabel;
 
         /// <summary>
         /// UserAlertPopupControl control.

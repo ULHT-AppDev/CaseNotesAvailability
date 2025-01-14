@@ -10,7 +10,12 @@
         SetAndShowAlert(1,'Record Inserted Successfully','');
         delete s.cpInserted;
       }
-      
+    if (s.cpDeleted == true)
+    {
+        SetAndShowAlert(1,'Record Deleted Successfully','');
+        HealthRecordsGridView.Refresh();
+        delete s.cpDeleted;
+      }  
     
 }
 
@@ -81,6 +86,55 @@ function ChooseUserButton1_Click(s, e, AuditID, StatusID) {
     ResetCreatePopup();
     GradedUserPopup.Hide();
     */
+   }
+   //delete 
+   
+   function ShowDeletePopup(values) {
 
+    var text = "Are you sure you want to delete Audit ID: <strong>" + values + "</strong>?";
 
+    DeleteAuditID = values;
+    DeleteCaseNoteConfirmationLabel.SetText(text);;
+
+    DeleteCaseNotePopup.Show();
 }
+
+function CancelDeleteButton_Click(s, e) {
+    DeleteCaseNotePopup.Hide();
+}
+
+function DeleteButton_Click(s,e,GridIndex)
+{
+       HealthRecordsGridView.GetRowValues(GridIndex, 'AuditID', ShowDeletePopup);
+
+        DeleteCaseNotePopup.Show();
+}
+
+
+
+function DeleteThisCaseNoteButton_Click(s, e) {
+    if (!HealthRecordsGridView.InCallback()) {
+
+     
+        let obj = {
+            ActionID: 1,
+            AuditID: DeleteAuditID
+        };
+        DeleteCaseNotePopup.Hide();
+        HealthRecordsGridView.PerformCallback(JSON.stringify(obj));
+    }
+}
+
+function HealthRecordsGridView_CustomButtonClick(s, e) {
+
+    if (e.buttonID === "DeleteCaseNoteButton") {
+
+        s.GetRowValues(e.visibleIndex, 'UserID;Forename;Surname', ShowDeletePopup);
+
+        DeleteCaseNotePopup.Show();
+    }
+}
+
+
+
+

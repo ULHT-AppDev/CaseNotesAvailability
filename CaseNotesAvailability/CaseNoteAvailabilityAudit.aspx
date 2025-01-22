@@ -228,6 +228,7 @@
             AllowDragging="true"
             Modal="true"
             ModalBackgroundStyle-Opacity="025"
+            
             ShowHeader="true"
             ShowFooter="false" HeaderStyle-Border-BorderWidth="0" HeaderStyle-Paddings-PaddingBottom="0" ContentStyle-Paddings-PaddingTop="0">
 
@@ -239,7 +240,6 @@
 
             <HeaderStyle>
                 <Paddings PaddingBottom="0px"></Paddings>
-
                 <Border BorderWidth="0px"></Border>
             </HeaderStyle>
 
@@ -283,7 +283,7 @@
                                             AlignItemCaptionsInAllGroups="True"
                                             AlignItemCaptions="true"
                                             Width="100%">
-                                            <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="700"></SettingsAdaptivity>
+                                            <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="800"></SettingsAdaptivity>
                                             <Items>
                                                 <dx:LayoutItem Caption="Audit Clinic AnswerId :" ClientVisible="false" Name="ClinicCode" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
@@ -305,11 +305,11 @@
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
 
-                                                <dx:LayoutItem Caption="Clinic Code :" Name="ClinicCode" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <dx:LayoutItem Caption="Clinic Code :" Name="ClinicCode" Visible="true"  ColumnSpan="1" Width="120%"  CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <%--<dx:ASPxLabel ID="lblClinicCode1" runat="server" ClientInstanceName="lblClinicCode1"></dx:ASPxLabel>--%>
-                                                            <dx:ASPxTextBox ID="txtClinicCode" ClientEnabled="false" ClientInstanceName="txtClinicCode" runat="server" Width="170px"></dx:ASPxTextBox>
+                                                            <dx:ASPxTextBox ID="txtClinicCode" ClientEnabled="false" ClientInstanceName="txtClinicCode" runat="server"  Width="170px"></dx:ASPxTextBox>
                                                         </dx:LayoutItemNestedControlContainer>
                                                     </LayoutItemNestedControlCollection>
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
@@ -365,8 +365,8 @@
                                                 <dx:LayoutItem Caption="Of the notes provided how many were Temporary Notes? :" Name="TempNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" DecimalPlaces="2"
-                                                                NumberType="Float" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
+                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" 
+                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false"  MinValue="1" MaxValue="10" SpinButtons-ShowIncrementButtons="false" >
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents ValueChanged="TempCount_Validation" />
                                                                 <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"

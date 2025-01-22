@@ -48,7 +48,6 @@ namespace CaseNotesAvailability
             this.CASAuditId = auditID;
             SingleAuditBO SelectedAudit = new SingleAuditBO();
             SelectedAudit = new BLL.UnavailableCaseNotesBLL().SelectedAudit(auditID);
-            Speciality = SelectedAudit.Specialty;
             AuditDate = SelectedAudit.Date ?? DateTime.MinValue;
             Specialty = SelectedAudit.Specialty;
             AuditSite = SelectedAudit.Site;
@@ -60,27 +59,38 @@ namespace CaseNotesAvailability
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID", "AuditID" }) as object[];
+            object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID", "AuditID", "StatusID" }) as object[];
 
             if (values != null)
             {
                 string ClinicCode = values[0]?.ToString() ?? "";
                 string AuditClinicAnswersID = values[1]?.ToString() ?? "";
                 string AuditID = values[2]?.ToString() ?? "";
-
+                string StatusID = values[3]?.ToString() ?? "";
 
                 //if (!String.IsNullOrEmpty(AuditID))
                 //{
                 //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
                 //}
+                if (!String.IsNullOrEmpty(StatusID))
+                {
+                    StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
 
-                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}'); }}", ClinicCode, AuditClinicAnswersID, AuditID);
-                //btn.Click += new System.EventHandler(this.Button_Click);
+                    switch (Convert.ToByte(StatusID))
+                    {
+                        case (byte)Enums.AuditStatus.Completed:
+                            //btn.Text = "Not Started";
+                            btn.Visible = false;
+                            break;
+                        default:
+                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}'); }}", ClinicCode, AuditClinicAnswersID, AuditID);
+                            break;
+                    }
 
-            }
-            else
-            {
-                btn.Visible = false;
+
+                    //btn.Click += new System.EventHandler(this.Button_Click);
+
+                }
             }
         }
 
@@ -622,9 +632,17 @@ namespace CaseNotesAvailability
                     AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
                     AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
                     AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
+                    AuditClinicAnswers.Totalappointments = Convert.ToInt32(txtTotalAppointments.Text);
                     AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
                     AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
                     AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
+                    txtAuditClinicAnswerId.Text = "";
+                    txtAuditId.Text = "";
+                    txtClinicCode.Text = "";
+                    txtTotalAppointments.Text = "";
+                    txtNumAppointments.Text = "";
+                    txtStartCount.Text = "";
+                    txtTempNotesCount.Text = "";
 
                     bool update = new BLL.AuditClinicAnswersBLL().SaveCaseNoteAvailability(AuditClinicAnswers);
                     if (update)

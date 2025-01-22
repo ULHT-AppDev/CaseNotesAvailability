@@ -56,7 +56,8 @@ namespace DAL
                             NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
                             CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
                             TemporaryNotesCount = u.TemporaryNotesCount,
-                            IsActive = u.IsActive
+                            IsActive = u.IsActive,
+                            StatusID = u.StatusID
                         }).ToList();
             }
         }
@@ -126,7 +127,6 @@ namespace DAL
                         audit1.StatusID = 4;
                         ctxUpdate.SaveChanges();
                         dbContextTransactionIns.Commit();
-                        // - 
                         UpdateAuditStatus(auditClinicAnswers.AuditID);
                     }
                     catch (Exception ex)

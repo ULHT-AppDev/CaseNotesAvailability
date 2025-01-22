@@ -1,27 +1,25 @@
-﻿function onDismissalDateChanged(s, e)
-{
+﻿function onDismissalDateChanged(s, e) {
     var contactLayoutGroup = CaseNoteAvailabilityAuditRecordsGridView.GetEditFormLayoutItemOrGroup("groupContactInfo");
     var isContactLayoutGroupVisible = contactLayoutGroup.GetVisible();
     //s.SetText(isContactLayoutGroupVisible ? "Show Details..." : "Hide Details");
     contactLayoutGroup.SetVisible(!isContactLayoutGroupVisible);
 }
-function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId,AuditID)
-{
+function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
     //ASPxPopupControl
-    if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback())
-    {
+
+    if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback()) {
 
         let callbackString = {
-        ClinicCode: ClinicCode,
-        AuditClinicAnswerId: AuditClinicAnswerId,
-        AuditID:AuditID
-    };
+            ClinicCode: ClinicCode,
+            AuditClinicAnswerId: AuditClinicAnswerId,
+            AuditID: AuditID
+        };
 
-CaseNoteAvailabilityUnAvailabilityCallbackPanel.PerformCallback(JSON.stringify(callbackString));
-CaseNoteAvailabilityUnAvailabilityPopup.Show();
+        CaseNoteAvailabilityUnAvailabilityCallbackPanel.PerformCallback(JSON.stringify(callbackString));
+        CaseNoteAvailabilityUnAvailabilityPopup.Show();
     }
 
-        }
+}
 
 function TempCount_Validation(s, e) {
 
@@ -35,7 +33,7 @@ function TempCount_Validation(s, e) {
                 e.isValid = false;
                 e.errorText = "Temp Count can't be greater than Start Count.";
             }
-            else if (price <= 0) {
+            else if (Count <= 0) {
                 e.isValid = false;
                 e.errorText = "Temp Count must be more than 0.";
             } else {
@@ -57,39 +55,36 @@ function TempCount_Validation(s, e) {
 
 
 
-function txtTempNotesCount_ValueChanged(s,e)
-{
+function txtTempNotesCount_ValueChanged(s, e) {
 
 
 }
 
-function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId,AuditID)
-{
-      const relativeURL = 'default.aspx?';
-         const absoluteURL = new URL(relativeURL, window.location.href);
-        window.location.href = absoluteURL.href;
- }
+function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
+    const relativeURL = 'default.aspx?';
+    const absoluteURL = new URL(relativeURL, window.location.href);
+    window.location.href = absoluteURL.href;
+}
 
-function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s,e)
-{
-    if (s.cpUpdated == true)
-    {
-        SetAndShowAlert(1,'Record Updated Successfully','');
+function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s, e) {
+    if (s.cpUpdated == true) {
+        SetAndShowAlert(1, 'Record Updated Successfully', '');
         delete s.cpUpdated;
     }
-    if (s.cpInserted == true)
-    {
-        SetAndShowAlert(1,'Record Inserted Successfully','');
+    if (s.cpInserted == true) {
+        SetAndShowAlert(1, 'Record Inserted Successfully', '');
         delete s.cpInserted;
-      }
-       if (s.cpPopupUpdated == true)
-        {
-CaseNoteAvailabilityUnAvailabilityPopup.Hide();
-CaseNoteAvailabilityAuditRecordsGridView.Refresh();
-        SetAndShowAlert(1,'Record Inserted Successfully','');
-        delete s.cpPopupUpdated;        
-      }
-    
+    }
+    if (s.cpPopupUpdated == true) {
+        CaseNoteAvailabilityUnAvailabilityPopup.Hide();
+        CaseNoteAvailabilityAuditRecordsGridView.Refresh();
+        SetAndShowAlert(1, 'Record Inserted Successfully', '');
+        delete s.cpPopupUpdated;
+    }
+
+
+
+
 }
 /*
 function Complete_Click(s, e)
@@ -112,14 +107,12 @@ function Complete_Click(s, e)
 
   */
 
-function Complete_Click(s, e)
-{
-   let arr = [];
+function Complete_Click(s, e) {
+    let arr = [];
     var UnavailableCaseNoteCount1 = UnavailableCaseNoteCount.GetValue();
-    for (var i = 1; i <= UnavailableCaseNoteCount1; i++)
-    {
-      
-      //  arr[i - 1] = [];
+    for (var i = 1; i <= UnavailableCaseNoteCount1; i++) {
+
+        //  arr[i - 1] = [];
         var Namee = "PatientNameTextBox_" + i;
         var PatientNameTextBox = ASPxClientTextBox.Cast(Namee);
         var PatientNametVal = PatientNameTextBox.GetText();
@@ -128,14 +121,14 @@ function Complete_Click(s, e)
         var ReasonVal = ReasonTextBox.GetValue();
 
         let PatientDetails = {
-        PatientDetails: PatientNametVal,
-        ReasonID: ReasonVal
-            };
+            PatientDetails: PatientNametVal,
+            ReasonID: ReasonVal
+        };
         arr.push(PatientDetails);
-            
+
         //arr[i - 1][0] = PatientNameTextBox.GetText();
         //arr[i - 1][1] = ReasonTextBox.GetValue();
-        
+
     }
 
     var jsonArray = JSON.stringify(arr);
@@ -144,16 +137,14 @@ function Complete_Click(s, e)
     CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
 }
 
-function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e)
-{
+function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e) {
 
 }
 
 
-function UnavailableCaseNoteCount_SelectedIndexChanged(s, e)
-{
+function UnavailableCaseNoteCount_SelectedIndexChanged(s, e) {
 
-     if (s.GetText() !== null && s.GetText() !== "") {
+    if (s.GetText() !== null && s.GetText() !== "") {
         let Count = txtTempNotesCount.GetValue();
         let StartCount = txtStartCount.GetValue();
 
@@ -163,23 +154,21 @@ function UnavailableCaseNoteCount_SelectedIndexChanged(s, e)
                 e.isValid = false;
                 e.errorText = "Temp Count can't be greater than Start Count.";
             }
-            else if (Count < 0 ) {
+            else if (Count < 0) {
                 e.isValid = false;
                 e.errorText = "Temp Count must be more than or equal to 0.";
             } else {
                 //e.isValid = true;
-                 Count = UnavailableCaseNoteCount.GetValue();
-                if (Count > 0)
-                    {
-          
-                        CreateFormDynamically_CallbackPanel.PerformCallback(Count);
-                        CreateFormDynamically_CallbackPanel.SetVisible(true);
-      
-                    }
-                else
-                    {
-                        CreateFormDynamically_CallbackPanel.SetVisible(false);
-                    }
+                Count = UnavailableCaseNoteCount.GetValue();
+                if (Count > 0) {
+
+                    CreateFormDynamically_CallbackPanel.PerformCallback(Count);
+                    CreateFormDynamically_CallbackPanel.SetVisible(true);
+
+                }
+                else {
+                    CreateFormDynamically_CallbackPanel.SetVisible(false);
+                }
             }
         } else {
             e.isValid = false;
@@ -190,10 +179,10 @@ function UnavailableCaseNoteCount_SelectedIndexChanged(s, e)
         e.isValid = false;
         e.errorText = "Temp Count Must have a value";
     }
-   
 
 
-   
+
+
 }
 
 //BodyMassIndexCalculatedLabel.SetText(valueToSet);

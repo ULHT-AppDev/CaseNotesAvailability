@@ -27,11 +27,11 @@ function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId, AuditID,
 let currentClinicCode = null;
 let reviewSender = null;
 
-function AddImpDetails_ClientClick(s, e, ClinicCode,reviewSender1) {
+function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
 
     currentClinicCode = ClinicCode;
-   // reviewSender = 1; // this would need adding - send from
-   reviewSender = reviewSender1;
+    // reviewSender = 1; // this would need adding - send from
+    reviewSender = reviewSender1;
 
     if (reviewSender === 1) {
 
@@ -47,14 +47,14 @@ function AddImpDetails_ClientClick(s, e, ClinicCode,reviewSender1) {
 
 
     AddReviewPopup.Show();
-    
+
     //ReviewAuditClinicsGridView.AddNewRow();
 
 }
 
 let InMemoryImprovementDetailsDS = []; // define in memory array
 let InMemoryImprovementDetailsCounter = 0;
-let InMemoryActionDetailsDS = []; 
+let InMemoryActionDetailsDS = [];
 let InMemoryActionDetailsCounter = 0;
 
 function SubmitReviewButton_Click(s, e) {
@@ -63,12 +63,12 @@ function SubmitReviewButton_Click(s, e) {
 
         if (ASPxClientEdit.AreEditorsValid("AddReviewContainer", "SubmitReview", false) && !ImprovementDetailsGridView.InCallback()) {
 
-           // var comboBox = ASPxClientControl.GetControlCollection().GetByName("UnavailableReasonComboBox");
+            // var comboBox = ASPxClientControl.GetControlCollection().GetByName("UnavailableReasonComboBox");
 
             let newItem = {
                 RequiresImprovementDetailsID: InMemoryImprovementDetailsCounter++,
                 ImprovementDetailID: ImpReasonComboBox.GetValue(),
-                Comment: ReviewCommentMemo.GetText()                
+                Comment: ReviewCommentMemo.GetText()
             };
 
             InMemoryImprovementDetailsDS.push(newItem);
@@ -81,24 +81,23 @@ function SubmitReviewButton_Click(s, e) {
         // send to other grid
         if (ASPxClientEdit.AreEditorsValid("AddReviewContainer", "SubmitReview", false) && !ActionPointDetailsGridView.InCallback()) {
 
-           // var comboBox = ASPxClientControl.GetControlCollection().GetByName("UnavailableReasonComboBox");
+            // var comboBox = ASPxClientControl.GetControlCollection().GetByName("UnavailableReasonComboBox");
 
             let newItem = {
                 ReasonUnavailableID: InMemoryActionDetailsCounter++,
-               // ImprovementDetailID: ImpReasonComboBox.GetValue(),
-                Comment: ActReviewCommentMemo.GetText()                
+                // ImprovementDetailID: ImpReasonComboBox.GetValue(),
+                Comment: ActReviewCommentMemo.GetText()
             };
 
             InMemoryActionDetailsDS.push(newItem);
 
             ActionPointDetailsGridView.PerformCallback(JSON.stringify(InMemoryActionDetailsDS));
+        }
     }
 }
-}
-function CloseReviewButton_click(s, e) 
-{
+function CloseReviewButton_click(s, e) {
     AddReviewPopup.Hide();
-      
+
 }
 
 
@@ -112,7 +111,7 @@ function DeleteImprovementReview_Click(s, e, id) {
         ImprovementDetailsGridView.PerformCallback(JSON.stringify(InMemoryImprovementDetailsDS));
     }
 }
-    function DeleteActionReview_Click(s, e, id) {
+function DeleteActionReview_Click(s, e, id) {
 
     if (!ActionPointDetailsGridView.InCallback()) {
 
@@ -171,29 +170,25 @@ function ReviewAuditRecordsGridView_EndCallBack(s, e) {
         delete s.cpPopupUpdated;
     }
 
+
 }
 
-function CompleteClient_Click(s, e) 
-{
-    let CallbackObj = 
+function CompleteAuditReview_Click(s, e, code) {
+    let CallbackObj =
     {
-        ActionID : 1,
-        AuditClinicAnswersID:LabelRead.GetText(),
-        ImprovementDetailsDS:InMemoryImprovementDetailsDS,
-        ActionPointsDS:InMemoryActionDetailsDS
+        ActionID: 1,
+        AuditClinicAnswersID: code,
+        ImprovementDetailsDS: InMemoryImprovementDetailsDS,
+        ActionPointsDS: InMemoryActionDetailsDS
     };
-      
-     var jsonArray = JSON.stringify(CallbackObj);
+
+    var jsonArray = JSON.stringify(CallbackObj);
 
     //CompleteCallback.PerformCallback(jsonArray);
     ReviewAuditRecordsGridView.PerformCallback(jsonArray);
 
 }
-
-
-
-
-function ActionPointDetailsGridView_EndCallback (s, e) {
+function ActionPointDetailsGridView_EndCallback(s, e) {
     if (s.cpDataBound) {
         delete s.cpDataBound;
         ASPxClientEdit.ClearGroup("SubmitReview", true);
@@ -210,10 +205,32 @@ function ActionPointDetailsGridView_EndCallback (s, e) {
         delete s.cpHideGrid;
         ActionPointDetailsGridView.SetVisible(false);
         NoActionPointDetailReviewLabel.SetVisible(true);
-        InMemoryActionDetailsDS = []; 
+        InMemoryActionDetailsDS = [];
         InMemoryActionDetailsCounter = 0;
     }
+}
+
+function ReviewAuditRecordsGridView_EndCallback(s, e) {
+    if (s.cpDataBound) {
+        delete s.cpDataBound;
+        ASPxClientEdit.ClearGroup("SubmitReview", true);
+        AddReviewFormLayout.GetItemByName("ImprovementDetails").SetVisible(false);
+        AddReviewFormLayout.GetItemByName("ActionPointsReview").SetVisible(false);
+        AddReviewPopup.Hide();
     }
+
+    if (s.cpShowGrid) {
+        delete s.cpShowGrid;
+        NoActionPointDetailReviewLabel.SetVisible(false);
+        ActionPointDetailsGridView.SetVisible(true);
+    } else if (s.cpHideGrid) {
+        delete s.cpHideGrid;
+        ActionPointDetailsGridView.SetVisible(false);
+        NoActionPointDetailReviewLabel.SetVisible(true);
+        InMemoryActionDetailsDS = [];
+        InMemoryActionDetailsCounter = 0;
+    }
+}
 
 /*
 function Complete_Click(s, e)

@@ -183,7 +183,7 @@
                                     EncodeHtml="false"
                                     ForeColor="GrayText">
                                 </dx:ASPxLabel>
-                                <dx:ASPxLabel ID="LabelRead"
+                            <%--    <dx:ASPxLabel ID="LabelRead"
                                     ClientInstanceName="LabelRead"
                                     runat="server"
                                     Font-Size="20px"
@@ -192,15 +192,15 @@
                                     EncodeHtml="false"
                                     ForeColor="GrayText">
                                 </dx:ASPxLabel>
-                                <dx:ASPxLabel ID="ASPxLabel2"
-                                    ClientInstanceName="LabelRead"
+                                <dx:ASPxLabel ID="LblAuditClinicAnswersID"
+                                    ClientInstanceName="LblAuditClinicAnswersID"
                                     runat="server"
                                     Font-Size="20px"
-                                    OnInit="LabelRead_Init"
+                                    OnInit="LblAuditClinicAnswersID_Init"
                                     ClientVisible="false"
                                     EncodeHtml="false"
                                     ForeColor="GrayText">
-                                </dx:ASPxLabel>
+                                </dx:ASPxLabel>--%>
                             </div>
 
                             <div class="mt-2">
@@ -328,14 +328,15 @@
 
                         </div>
                             <div class="mt-2">
-                                <dx:ASPxButton ID="btnComplete"
+                                <dx:ASPxButton ID="btnCompleteReview"
                                     runat="server"
                                     Text="Complete"
                                     RenderMode="Button"
                                     AutoPostBack="false"
                                     UseSubmitBehavior="false"
-                                    CausesValidation="false">
-                                    <ClientSideEvents Click="CompleteClient_Click" />
+                                    CausesValidation="false"
+                                     OnInit="CompleteAuditReview_Init">
+                                    <%--<ClientSideEvents Click="CompleteClient_Click" />--%>
                                 </dx:ASPxButton>
                     </EditForm>
                 </Templates>

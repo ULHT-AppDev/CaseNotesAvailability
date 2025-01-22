@@ -33,6 +33,7 @@ namespace ReviewAudit
         private string AuditSite;
         //public int StatusID { get; set; }
         private string ClinicCode;
+        private string AuditClinicAnswersID;
 
 
         protected void Page_PreInit(object sender, EventArgs e)
@@ -469,23 +470,53 @@ namespace ReviewAudit
 
 
         }
-        protected void LabelRead_Init(object sender, EventArgs e)
+        protected void CompleteAuditReview_Init(object sender, EventArgs e)
         {
-            ASPxLabel lbl = sender as ASPxLabel;
+            ASPxButton btn = sender as ASPxButton;
 
-            GridViewEditFormTemplateContainer container = lbl.NamingContainer as GridViewEditFormTemplateContainer;
+            GridViewEditFormTemplateContainer container = btn.NamingContainer as GridViewEditFormTemplateContainer;
 
+            var code = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "AuditClinicAnswersID");
 
-            var code = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "ClinicCode");
-
-            if (code != null)
-            {
-                ClinicCode = code?.ToString() ?? "Error getting clinic code";
-                lbl.Text = ClinicCode;
-            }
-
+            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ CompleteAuditReview_Click(s, e, '{0}'); }}", code);
 
         }
+        
+
+        //protected void LabelRead_Init(object sender, EventArgs e)
+        //{
+        //    ASPxLabel lbl = sender as ASPxLabel;
+
+        //    GridViewEditFormTemplateContainer container = lbl.NamingContainer as GridViewEditFormTemplateContainer;
+
+
+        //    var code = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "ClinicCode");
+
+        //    if (code != null)
+        //    {
+        //        ClinicCode = code?.ToString() ?? "Error getting clinic code";
+        //        lbl.Text = ClinicCode;
+        //    }
+
+
+        //}
+        //protected void LblAuditClinicAnswersID_Init(object sender, EventArgs e)
+        //{
+        //    ASPxLabel lbl = sender as ASPxLabel;
+
+        //    GridViewEditFormTemplateContainer container = lbl.NamingContainer as GridViewEditFormTemplateContainer;
+
+
+        //    var code = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "AuditClinicAnswersID");
+
+        //    if (code != null)
+        //    {
+        //        AuditClinicAnswersID = code?.ToString() ?? "Error getting clinic code";
+        //        lbl.Text = AuditClinicAnswersID;
+        //    }
+
+
+        //}
 
 
         protected void CasenoteLabel_Init(object sender, EventArgs e)
@@ -662,6 +693,7 @@ namespace ReviewAudit
 
         protected void ReviewAuditRecordsGridView_CustomCallback(object sender, ASPxGridViewCustomCallbackEventArgs e)
         {
+            ASPxGridView grid = sender as ASPxGridView;
             //e.Parameters = new Dictionary<string, object>();
             if (e.Parameters != null) // select patient referrals & details sent from patient search grid
             {
@@ -675,6 +707,7 @@ namespace ReviewAudit
                     {
                         short userID = Login.CookieHelper.GetCookieUserID();
                         bool update = new ReviewAuditBLL().UpdateImprovementActionDetails(userID,UpdateImprovementAction);
+                        grid.JSProperties["cpPopupUpdated"] = true;
                     }
                     else
                     {

@@ -51,11 +51,15 @@ function TempCount_Validation(s, e) {
 
 }
 
+function popup_Closing(s, e) 
+{
+    ASPxClientEdit.ClearGroup('CaseNoteVal',true);
+}
 
 
 
-
-function txtTempNotesCount_ValueChanged(s, e) {
+function txtTempNotesCount_ValueChanged(s, e) 
+{
 
 
 }

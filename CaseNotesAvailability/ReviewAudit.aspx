@@ -372,7 +372,7 @@
                 <dx:ASPxLabel ID="AddReviewPopupHeaderLabel"
                     ClientInstanceName="AddReviewPopupHeaderLabel"
                     EncodeHtml="false"
-                    runat="server" Text="Header text"
+                    runat="server" Text="Require details"
                     Font-Size="16px"
                     Font-Bold="true">
                 </dx:ASPxLabel>
@@ -384,9 +384,9 @@
                 <div id="AddReviewContainer" runat="server" class="p-3">
                     <dx:ASPxFormLayout ID="AddReviewFormLayout" ClientInstanceName="AddReviewFormLayout" runat="server" AlignItemCaptions="true" AlignItemCaptionsInAllGroups="true" Width="100%">
                         <Items>
-                            <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Improvement Details Review" Name="ImprovementDetails" ClientVisible="false">
+                            <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Details" Name="ImprovementDetails" ClientVisible="false">
                                 <Items>
-                                    <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
+                                    <dx:LayoutItem ColSpan="1" Caption="Require improvement reason">
                                         <LayoutItemNestedControlCollection>
                                             <dx:LayoutItemNestedControlContainer runat="server">
 
@@ -395,13 +395,10 @@
                                                     runat="server"
                                                     Width="200px"
                                                     DataSourceID="GetUnavailableReason" TextField="ReasonText" ValueField="ReasonUnavailableID">
-
-
                                                     <ValidationSettings ErrorDisplayMode="ImageWithTooltip" Display="Dynamic" ValidationGroup="SubmitReview">
                                                         <RequiredField IsRequired="true" ErrorText="This field is required" />
                                                     </ValidationSettings>
                                                 </dx:ASPxComboBox>
-
 
                                             </dx:LayoutItemNestedControlContainer>
                                         </LayoutItemNestedControlCollection>
@@ -423,7 +420,7 @@
                             </dx:LayoutGroup>
 
 
-                            <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Action Points Review" Name="ActionPointsReview" ClientVisible="false">
+                            <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Action point details" Name="ActionPointsReview" ClientVisible="false">
                                 <Items>
                                     <%-- <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
                                         <LayoutItemNestedControlCollection>
@@ -444,7 +441,7 @@
                                             </dx:LayoutItemNestedControlContainer>
                                         </LayoutItemNestedControlCollection>
                                     </dx:LayoutItem>--%>
-                                    <dx:LayoutItem ColSpan="1" Caption="Review comment">
+                                    <dx:LayoutItem ColSpan="1" Caption="details">
                                         <LayoutItemNestedControlCollection>
                                             <dx:LayoutItemNestedControlContainer runat="server">
 

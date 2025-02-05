@@ -56,6 +56,7 @@ namespace DAL
                             NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
                             CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
                             TemporaryNotesCount = u.TemporaryNotesCount,
+                            UnavailableCount = u.UnavailableCount,
                             IsActive = u.IsActive,
                             StatusID = u.StatusID
                         }).ToList();
@@ -124,6 +125,7 @@ namespace DAL
                         audit1.Totalappointments = auditClinicAnswers.Totalappointments;
                         audit1.CaseNotesAvailableStartCount = auditClinicAnswers.CaseNotesAvailableStartCount;
                         audit1.NumberOfAppointmentsAllocated = auditClinicAnswers.NumberOfAppointmentsAllocated;
+                        audit1.UnavailableCount = auditClinicAnswers.UnavailableCount;
                         audit1.StatusID = 4;
                         ctxUpdate.SaveChanges();
                         dbContextTransactionIns.Commit();
@@ -207,9 +209,9 @@ namespace DAL
                 {
                     try
                     {
-                        if (unAvailabelCaseNotes.Unavailable.Count() != 0)
+                        if (unAvailabelCaseNotes.UnavailableList.Count() != 0)
                         {
-                            foreach (CompleteCallbackBO UnAvailableCaseN in unAvailabelCaseNotes.Unavailable)
+                            foreach (CompleteCallbackBO UnAvailableCaseN in unAvailabelCaseNotes.UnavailableList)
                             {
                                 Model.UnavailableCaseNote dt = new Model.UnavailableCaseNote()
                                 {

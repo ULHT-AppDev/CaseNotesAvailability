@@ -188,6 +188,7 @@ function CompleteAuditReview_Click(s, e, code) {
     ReviewAuditRecordsGridView.PerformCallback(jsonArray);
 
 }
+
 function ActionPointDetailsGridView_EndCallback(s, e) {
     if (s.cpDataBound) {
         delete s.cpDataBound;

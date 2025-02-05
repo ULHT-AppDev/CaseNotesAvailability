@@ -28,4 +28,10 @@ namespace BusinessObjects
         public int AuditID { get; set; }
     }
 
+    public class DynamicFormBO
+    {
+        public int ActionID { get; set; }
+        public int NumberofRows { get; set; }
+    }
+
 }

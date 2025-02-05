@@ -16,6 +16,7 @@ namespace BusinessObjects
         public Nullable<int> CaseNotesAvailableStartCount { get; set; }
         public Nullable<int> TemporaryNotesCount { get; set; }
         public bool IsActive { get; set; }
-        public List<CompleteCallbackBO> Unavailable {  get; set; }  
+        public Nullable<int> UnavailableCount { get; set; }
+        public List<CompleteCallbackBO> UnavailableList {  get; set; }  
     }
 }

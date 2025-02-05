@@ -25,17 +25,17 @@ function TempCount_Validation(s, e) {
 
     if (s.GetText() !== null && s.GetText() !== "") {
         let Count = txtTempNotesCount.GetValue();
-        let StartCount = txtStartCount.GetValue();
+         let ActualAppointment = txtActualAppointments.GetValue();
 
         if (Count !== null) {
 
-            if (Count > StartCount) {
+            if (Count > ActualAppointment) {
                 e.isValid = false;
-                e.errorText = "Temp Count can't be greater than Start Count.";
+                e.errorText = "Temp Count can't be greater than Actual Appointment.";
             }
             else if (Count <= 0) {
                 e.isValid = false;
-                e.errorText = "Temp Count must be more than 0.";
+                e.errorText = "Temp Count must be greater than  0.";
             } else {
                 e.isValid = true;
             }
@@ -44,18 +44,20 @@ function TempCount_Validation(s, e) {
             e.errorText = "Temp Count must have a value.";
         }
     }
-    else {
-        e.isValid = false;
-        e.errorText = "Temp Count Must have a value";
-    }
 
 }
 
 function popup_Closing(s, e) 
 {
     ASPxClientEdit.ClearGroup('CaseNoteVal',true);
-}
+    let obj = {
+            ActionID:0,
+            NumberofRows: 0
+        };
+        //Action nothing to do 
 
+    CreateFormDynamically_CallbackPanel.PerformCallback(JSON.stringify(obj));
+}
 
 
 function txtTempNotesCount_ValueChanged(s, e) 
@@ -113,7 +115,7 @@ function Complete_Click(s, e)
 
 function Complete_Click(s, e) {
     let arr = [];
-    var UnavailableCaseNoteCount1 = UnavailableCaseNoteCount.GetValue();
+    var UnavailableCaseNoteCount1 = txtUnavailableCaseNoteCount.GetValue();
     for (var i = 1; i <= UnavailableCaseNoteCount1; i++) {
 
         //  arr[i - 1] = [];
@@ -144,29 +146,53 @@ function Complete_Click(s, e) {
 function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e) {
 
 }
+function StartCount_Validation(s, e) 
+{
+    if (s.GetText() !== null && s.GetText() !== "") 
+    {
+        let Count = txtStartCount.GetValue();
+        let ActualAppointment = txtActualAppointments.GetValue();
 
+        if (Count !== null) 
+        {
+             if (Count > ActualAppointment) 
+             {
+                e.isValid = false;
+                e.errorText = "Start Count can't be greater than Actual Appointments.";
+            }
+            
+        }
+    }
+    }
 
 function UnavailableCaseNoteCount_SelectedIndexChanged(s, e) {
 
     if (s.GetText() !== null && s.GetText() !== "") {
-        let Count = txtTempNotesCount.GetValue();
-        let StartCount = txtStartCount.GetValue();
+        let Count = txtUnavailableCaseNoteCount.GetValue();
+        let ActualAppointment = txtActualAppointments.GetValue();
+       // let StartCount = txtStartCount.GetValue();
 
         if (Count !== null) {
 
-            if (Count > StartCount) {
+            if (Count > ActualAppointment) {
                 e.isValid = false;
-                e.errorText = "Temp Count can't be greater than Start Count.";
+                e.errorText = "Temp Count can't be greater than Actual Appointments.";
             }
             else if (Count < 0) {
                 e.isValid = false;
                 e.errorText = "Temp Count must be more than or equal to 0.";
             } else {
                 //e.isValid = true;
-                Count = UnavailableCaseNoteCount.GetValue();
+                Count = txtUnavailableCaseNoteCount.GetValue();
                 if (Count > 0) {
+                      let obj = {
+                                ActionID:1,
+                                NumberofRows: Count
+                                };
+                                //Action nothing to do 
 
-                    CreateFormDynamically_CallbackPanel.PerformCallback(Count);
+                        CreateFormDynamically_CallbackPanel.PerformCallback(JSON.stringify(obj));
+                    //CreateFormDynamically_CallbackPanel.PerformCallback(Count);
                     CreateFormDynamically_CallbackPanel.SetVisible(true);
 
                 }

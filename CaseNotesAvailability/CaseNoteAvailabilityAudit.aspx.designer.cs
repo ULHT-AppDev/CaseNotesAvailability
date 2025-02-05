@@ -231,13 +231,13 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxSpinEdit txtTempNotesCount;
 
         /// <summary>
-        /// UnavailableCaseNoteCount control.
+        /// txtUnavailableCaseNoteCount control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxSpinEdit UnavailableCaseNoteCount;
+        protected global::DevExpress.Web.ASPxSpinEdit txtUnavailableCaseNoteCount;
 
         /// <summary>
         /// CreateFormDynamically_CallbackPanel control.

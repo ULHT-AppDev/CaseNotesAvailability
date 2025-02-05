@@ -125,9 +125,11 @@
                             <Items>
                                 <dx:GridViewColumnLayoutItem ClientVisible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Total Appointments" ColumnName="Totalappointments" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Number Of Appointments Allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="CaseNotes Available StartCount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="TemporaryNotes Count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Number of case notes Unavailable" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                             </Items>
                         </dx:GridViewLayoutGroup>
@@ -161,9 +163,11 @@
                             <dx:ASPxLabel ID="ClinicCodeReadonlyLabel" runat="server" Text='<%# Eval("ClinicCode") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
                     </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Total Appointments" FieldName="Totalappointments" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Number Of Appointments Allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="CaseNotes Available Start Count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Temporary Notes Count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Number of case notes Unavailable" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                 </Columns>
 
                 <Settings ShowFilterRow="true" />
@@ -183,7 +187,7 @@
                                     EncodeHtml="false"
                                     ForeColor="GrayText">
                                 </dx:ASPxLabel>
-                            <%--    <dx:ASPxLabel ID="LabelRead"
+                                <%--    <dx:ASPxLabel ID="LabelRead"
                                     ClientInstanceName="LabelRead"
                                     runat="server"
                                     Font-Size="20px"
@@ -313,17 +317,17 @@
                                     <SettingsBehavior AllowEllipsisInText="true" AllowDragDrop="false" AllowSort="false" />
                                     <SettingsResizing ColumnResizeMode="NextColumn" />
                                 </dx:ASPxGridView>
-                                <dx:ASPxLabel ID="ASPxLabel1" ClientInstanceName="NoActionPointDetailReviewLabel" runat="server" Text="There are no improvement detail reviews"></dx:ASPxLabel>
+                                <dx:ASPxLabel ID="ASPxLabel1" ClientInstanceName="NoActionPointDetailReviewLabel" runat="server" Text="There are no action points to add"></dx:ASPxLabel>
                             </div>
 
-                            <div>
+                            <%--                            <div>
                                 Complete audit review button - popup to confirm then take the two in memory ds and save back to ReviewAuditRecordsGridView. 
                                 Button should probably also check for atleast one improvement and one action before allowing to submit
-                            </div>
+                            </div>--%>
 
-                            <div>
+                            <%--                            <div>
                                 cancel button but with a warning that it will remove all existing comments on this clinic review
-                            </div>
+                            </div>--%>
                         </div>
 
                         </div>
@@ -335,7 +339,7 @@
                                     AutoPostBack="false"
                                     UseSubmitBehavior="false"
                                     CausesValidation="false"
-                                     OnInit="CompleteAuditReview_Init">
+                                    OnInit="CompleteAuditReview_Init">
                                     <%--<ClientSideEvents Click="CompleteClient_Click" />--%>
                                 </dx:ASPxButton>
                     </EditForm>

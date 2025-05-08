@@ -10,15 +10,17 @@ namespace BusinessObjects
     {
         public enum UserRoles
         {
-            NotSet = -1,
-            Admin = 0,
+            NursingteamUser = 1,
+            HRManagers = 0,
+            NotSet = -1
         }
         public enum AuditStatus
         {
             NotStarted = 1,
             InProgress = 2,
             PendingHRreview = 3,
-            Completed = 4
+            Completed = 4,
+            Reviewed =5
         }
     }
 }

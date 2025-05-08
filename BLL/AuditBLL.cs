@@ -11,7 +11,7 @@ namespace BLL
 {
     public class AuditBLL
     {
-        public List<AuditBO> GetAudit()
+        public List<AuditBO> GetAudit(int SessionID)
         {
             try
             {
@@ -44,13 +44,14 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
             }
         }
 
-        public List<SpecilatyBO> GetSpeciality()
+        public List<SpecilatyBO> GetSpeciality(int SessionID)
         {
             try
             {
@@ -61,12 +62,13 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
             }
         }
-        public List<SitesBO> GetSites()
+        public List<SitesBO> GetSites(int SessionID)
         {
             try
             {
@@ -77,13 +79,14 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
             }
         }
 
-        public List<StatusBO> GetStatus()
+        public List<StatusBO> GetStatus(int SessionID)
         {
             try
             {
@@ -94,6 +97,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
@@ -110,13 +114,14 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, Audit.SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
             }
         }
 
-        public bool UpdateAuditRecords(AuditBO Audit)
+        public bool UpdateAuditRecords(AuditBO Audit, int SessionID)
         {
             try
             {
@@ -146,15 +151,25 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
             }
         }
 
-        public static void DeleteAudit(int AuditID)
+        public static void DeleteAudit(int AuditID,int SessionID)
         {
-            new DAL.AuditDAL().DeleteAudit(AuditID);
+            try
+            {
+                new DAL.AuditDAL().DeleteAudit(AuditID);
+            }
+            catch (Exception ex)
+            {
+                new LogsBLL().LogAnError(ex, SessionID);
+                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
+                //new LogsBLL().LogAnError(error);
+            }
         }
 
 

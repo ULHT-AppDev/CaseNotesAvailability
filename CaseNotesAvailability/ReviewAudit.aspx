@@ -175,7 +175,6 @@
                 <SettingsResizing ColumnResizeMode="NextColumn" />
                 <Templates>
                     <EditForm>
-
                         <div class="p-4">
 
                             <div>

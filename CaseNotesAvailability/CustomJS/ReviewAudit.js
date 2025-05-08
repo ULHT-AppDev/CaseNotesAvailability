@@ -3,24 +3,12 @@
 function onDismissalDateChanged(s, e) {
     var contactLayoutGroup = ReviewAuditRecordsGridView.GetEditFormLayoutItemOrGroup("groupContactInfo");
     var isContactLayoutGroupVisible = contactLayoutGroup.GetVisible();
-    //s.SetText(isContactLayoutGroupVisible ? "Show Details..." : "Hide Details");
     contactLayoutGroup.SetVisible(!isContactLayoutGroupVisible);
 }
 
 function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId, AuditID, nIndex) {
     //ASPxPopupControl
-    /* if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback())
-     {
- 
-         let callbackString = {
-         ClinicCode: ClinicCode,
-         AuditClinicAnswerId: AuditClinicAnswerId,
-         AuditID:AuditID
-     };*/
     ReviewAuditRecordsGridView.StartEditRow(nIndex);
-    //CaseNoteAvailabilityUnAvailabilityCallbackPanel.PerformCallback(JSON.stringify(callbackString));
-    //CaseNoteAvailabilityUnAvailabilityPopup.Show();
-    // }
 
 }
 
@@ -44,12 +32,7 @@ function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
 
     }
 
-
-
     AddReviewPopup.Show();
-
-    //ReviewAuditClinicsGridView.AddNewRow();
-
 }
 
 let InMemoryImprovementDetailsDS = []; // define in memory array
@@ -62,9 +45,6 @@ function SubmitReviewButton_Click(s, e) {
     if (reviewSender == 1) {
 
         if (ASPxClientEdit.AreEditorsValid("AddReviewContainer", "SubmitReview", false) && !ImprovementDetailsGridView.InCallback()) {
-
-            // var comboBox = ASPxClientControl.GetControlCollection().GetByName("UnavailableReasonComboBox");
-
             let newItem = {
                 RequiresImprovementDetailsID: InMemoryImprovementDetailsCounter++,
                 ImprovementDetailID: ImpReasonComboBox.GetValue(),
@@ -104,7 +84,6 @@ function CloseReviewButton_click(s, e) {
 function DeleteImprovementReview_Click(s, e, id) {
 
     if (!ImprovementDetailsGridView.InCallback()) {
-
         // would add in a popup here to confirm removal etc 
         InMemoryImprovementDetailsDS = InMemoryImprovementDetailsDS.filter(item => item.RequiresImprovementDetailsID != id); // no type match on check - could change this
 
@@ -164,13 +143,13 @@ function ReviewAuditRecordsGridView_EndCallBack(s, e) {
         delete s.cpInserted;
     }
     if (s.cpPopupUpdated == true) {
-        CaseNoteAvailabilityUnAvailabilityPopup.Hide();
+        
+        //ReviewAuditRecordsGridView.UpdateEdit();
+        //ReviewAuditRecordsGridView.CancelEdit()
         ReviewAuditRecordsGridView.Refresh();
         SetAndShowAlert(1, 'Record Inserted Successfully', '');
         delete s.cpPopupUpdated;
     }
-
-
 }
 
 function CompleteAuditReview_Click(s, e, code) {

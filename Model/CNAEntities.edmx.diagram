@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="52a11395ef9945d2b2c2dce31b2894fb" Name="Diagram1">
+      <Diagram DiagramId="ff3a85822aa340788adb28082be2dd27" Name="Diagram1">
         <EntityTypeShape EntityType="Model.Audit" Width="1.5" PointX="15" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="Model.AuditClinicAnswer" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.AuditClinicAnswer" Width="1.5" PointX="10.75" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Issue" Width="1.5" PointX="7.75" PointY="11.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Patient" Width="1.5" PointX="0.75" PointY="12.125" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.RequiresImprovementActionPoint" Width="1.5" PointX="13" PointY="7.5" IsExpanded="true" />

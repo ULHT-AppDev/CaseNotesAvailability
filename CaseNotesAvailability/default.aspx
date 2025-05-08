@@ -10,11 +10,11 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ObjectDataSource ID="HealthRecordsView" runat="server" SelectMethod="GetAudit" UpdateMethod="UpdateAuditRecords" DeleteMethod=""
+    <asp:ObjectDataSource ID="HealthRecordsView" runat="server" SelectMethod="GetAudit"  OnSelecting="HealthRecordsView_Selecting" UpdateMethod="UpdateAuditRecords" DeleteMethod="" 
         OnUpdating="Audit_Updating" OnInserting="Audit_Inserting" TypeName="BLL.AuditBLL" DataObjectTypeName="BusinessObjects.AuditBO" InsertMethod="InsertAudit"></asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="GetSpeciality" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="GetSites" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="Status" runat="server" SelectMethod="GetStatus" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="GetSpeciality" OnSelecting="GetSpeciality_Selecting" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="GetSites" OnSelecting="GetSites_Selecting" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="Status" OnSelecting="Status_Selecting" runat="server" SelectMethod="GetStatus" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <div class="py-3 mx-3 defaultBorderBottom d-flex align-items-center">
         <div>
             <div>

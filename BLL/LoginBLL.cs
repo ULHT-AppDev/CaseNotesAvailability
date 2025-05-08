@@ -8,8 +8,7 @@ namespace BLL
 {
     public class LoginBLL
     {
-
-        LoginDAL DAL;
+        private LoginDAL DAL;
 
         public LoginBLL()
         {
@@ -24,6 +23,11 @@ namespace BLL
         public int? CheckIfUserExistsByGuid(Guid userGuid)
         {
             return DAL.CheckIfUserExistsByGuid(userGuid);
+        }
+
+        public List<KeyValuePair<byte, string>> SelectUserRoleIDs(int userID)
+        {
+            return DAL.SelectUserRoleIDs(userID);
         }
 
         public int? InsertNewUserWithRole(Guid guid, string username, string forename, string surname, string jobRole, string email, string contactNumber, UserRoles userRole)
@@ -53,7 +57,10 @@ namespace BLL
                 throw ex;
             }
         }
-
+        public List<short> SelectUserRights(byte roleID)
+        {
+            return DAL.SelectUserRights(roleID);
+        }
         public void UpdateUserAcountDetails(int userID, string username, string forename, string surname)
         {
             UsersOldAccountDetails old = SelectOldAccountDetails(userID);

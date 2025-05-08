@@ -23,6 +23,7 @@ namespace Model
     
         public int AuditClinicAnswersID { get; set; }
         public int AuditID { get; set; }
+        public Nullable<int> Totalappointments { get; set; }
         public string ClinicCode { get; set; }
         public Nullable<int> NumberOfAppointmentsAllocated { get; set; }
         public Nullable<int> CaseNotesAvailableStartCount { get; set; }
@@ -30,7 +31,7 @@ namespace Model
         public Nullable<int> UnavailableCount { get; set; }
         public byte StatusID { get; set; }
         public bool IsActive { get; set; }
-        public Nullable<int> Totalappointments { get; set; }
+        public bool IsReviewed { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RequiresImprovementActionPoint> RequiresImprovementActionPoints { get; set; }

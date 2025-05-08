@@ -13,6 +13,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using static BusinessObjects.Enums;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace CaseNotesAvailability
@@ -38,8 +39,8 @@ namespace CaseNotesAvailability
                     AuditDeleteBO DeleteCaseNote = Newtonsoft.Json.JsonConvert.DeserializeObject<AuditDeleteBO>(e.Parameters);
 
                     int casenote = DeleteCaseNote.AuditID;
-                    BLL.AuditBLL.DeleteAudit(casenote);
-              
+                    BLL.AuditBLL.DeleteAudit(casenote, CookieHelper.GetCookieSessionID());
+
                     HealthRecordsGridView.JSProperties["cpDeleted"] = true;
 
                 }
@@ -85,21 +86,32 @@ namespace CaseNotesAvailability
                         btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}'); }}", values[0]);
                         break;
                     case (byte)Enums.AuditStatus.PendingHRreview:
-                        //btn.Text = "Pending HR review";
                         btn.Text = "Action Review";
-                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
+                        if (CookieHelper.GetCookieRoleID() == (byte) UserRoles.HRManagers)
+                        {
+                            //btn.Text = "Pending HR review";
+                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
+                        }
+                        else
+                        {
+                            btn.Visible = false;
+                        }
                         break;
                     case (byte)Enums.AuditStatus.Completed:
                         btn.Text = "Completed";
                         btn.Visible = false;
-                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
+                        //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
                         break;
+                    case (byte)Enums.AuditStatus.Reviewed:
+                        btn.Text = "Reviewed";
+                        btn.Visible = false;
+                       break;
 
                 }
             }
 
 
-
+            //
 
             // btn.Click += new System.EventHandler(this.Button_Click);
 
@@ -249,7 +261,7 @@ namespace CaseNotesAvailability
 
             object[] values = HealthRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
-            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]));
+            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]), CookieHelper.GetCookieSessionID());
 
             ClientScript.RegisterStartupScript
             (GetType(), Guid.NewGuid().ToString(), "DeleteRow_Click();", true);
@@ -278,10 +290,27 @@ namespace CaseNotesAvailability
             }
 
         }
+        protected void HealthRecordsView_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
+        }
 
+        protected void GetSpeciality_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
+        }
+        protected void GetSites_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
+        }
+        protected void Status_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
+        }
         protected void Audit_Updating(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var obj = e.InputParameters["Audit"] as AuditBO;
+            e.InputParameters.Add("SessionID", CookieHelper.GetCookieSessionID());
             short userID = Login.CookieHelper.GetCookieUserID();
             obj.CreatedByUserID = userID;
         }
@@ -289,10 +318,13 @@ namespace CaseNotesAvailability
         protected void Audit_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var obj = e.InputParameters["Audit"] as AuditBO;
+            //e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
             short userID = Login.CookieHelper.GetCookieUserID();
             obj.CreatedByUserID = userID;
             //obj.Date = DateTime.Now;
             obj.StatusID = 1;
+            obj.SessionID = CookieHelper.GetCookieSessionID();
+            //e.InputParameters.Add("SessionID", CookieHelper.GetCookieSessionID());
         }
 
         protected void HealthRecordsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)

@@ -5,19 +5,23 @@ using DevExpress.Web;
 using DevExpress.Web.Internal.Dialogs;
 using DevExpress.XtraPrinting.Native;
 using DevExpress.XtraRichEdit.Commands;
+using Login;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Remoting.Lifetime;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
+using static BusinessObjects.Enums;
 using static System.Data.Entity.Infrastructure.Design.Executor;
 using static System.Net.Mime.MediaTypeNames;
 
@@ -38,6 +42,11 @@ namespace ReviewAudit
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            if (!(CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)) //If the user does not have the right to view this page, we redirect
+            {
+                Response.Redirect(FormsAuthentication.DefaultUrl);
+                Response.End();
+            }
             int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
 
             SetAuditID(lAuditId);
@@ -95,17 +104,23 @@ namespace ReviewAudit
             ASPxButton btn = sender as ASPxButton;
             GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
 
-            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID", "AuditID" }) as object[];
+            object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "ClinicCode", "AuditClinicAnswersID", "AuditID", "IsReviewed" }) as object[];
 
             if (values != null)
             {
                 string ClinicCode = values[0]?.ToString() ?? "";
                 string AuditClinicAnswersID = values[1]?.ToString() ?? "";
                 string AuditID = values[2]?.ToString() ?? "";
-
-                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}','{3}'); }}", ClinicCode, AuditClinicAnswersID, AuditID, container.VisibleIndex);
-                //btn.Click += new System.EventHandler(this.Button_Click);
-
+                bool isReviewed = Convert.ToBoolean(values[3]?.ToString() ?? "");
+                switch (isReviewed)
+                {
+                    case true:
+                        btn.Visible = false;
+                        break;
+                    default:
+                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_ClientClick(s, e, '{0}', '{1}','{2}','{3}'); }}", ClinicCode, AuditClinicAnswersID, AuditID, container.VisibleIndex);
+                        break;
+                }
             }
             else
             {
@@ -200,20 +215,20 @@ namespace ReviewAudit
 
         //}
 
-
-        private void getAuditClinicAnswer(int rowID)
-        {
-            AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();
-            FullAuditClincAnswer = new BLL.AuditClinicAnswersBLL().GetAuditClinicAnswer(rowID);
-            //TextBox1.Text = FullAuditClincAnswer[0].ClinicCode;
-            //txtClinicCode.Text = FullAuditClincAnswer.ClinicCode;
-            //            txtAuditClinicAnswerId.Value = FullAuditClincAnswer.AuditClinicAnswersID;
-            //txtNumAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
-            //txtStartCount.Text = FullAuditClincAnswer.CaseNotesAvailableStartCount.ToString();
-            //txtTempNotesCount.Text = FullAuditClincAnswer.TemporaryNotesCount.ToString();
-            //txtCaseNoteCount.Text = FullAuditClincAnswer[0]..ToString();
-        }
-
+        // - comment
+        //private void getAuditClinicAnswer(int rowID)
+        //{
+        //    AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();
+        //    FullAuditClincAnswer = new BLL.AuditClinicAnswersBLL().GetAuditClinicAnswer(rowID);
+        //    //TextBox1.Text = FullAuditClincAnswer[0].ClinicCode;
+        //    //txtClinicCode.Text = FullAuditClincAnswer.ClinicCode;
+        //    //            txtAuditClinicAnswerId.Value = FullAuditClincAnswer.AuditClinicAnswersID;
+        //    //txtNumAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
+        //    //txtStartCount.Text = FullAuditClincAnswer.CaseNotesAvailableStartCount.ToString();
+        //    //txtTempNotesCount.Text = FullAuditClincAnswer.TemporaryNotesCount.ToString();
+        //    //txtCaseNoteCount.Text = FullAuditClincAnswer[0]..ToString();
+        //}
+        // - comment
         //protected void EditUserButton_Init(object sender, EventArgs e)
         //{
         //    ASPxButton btn = sender as ASPxButton;
@@ -336,7 +351,7 @@ namespace ReviewAudit
 
             object[] values = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
-            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]));
+            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]), CookieHelper.GetCookieSessionID());
 
             ClientScript.RegisterStartupScript
             (GetType(), Guid.NewGuid().ToString(), "DeleteRow_Click();", true);
@@ -358,6 +373,8 @@ namespace ReviewAudit
                 grid.JSProperties["cpNoUpdateMade"] = true;
                 e.Cancel = true;
                 grid.CancelEdit();
+
+                // test 
             }
             else
             {
@@ -432,6 +449,7 @@ namespace ReviewAudit
         {
             int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
             e.InputParameters["CSAAuditId"] = lAuditId;
+            e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
         }
 
         protected void UnavailableCasenotes_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
@@ -481,7 +499,7 @@ namespace ReviewAudit
             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ CompleteAuditReview_Click(s, e, '{0}'); }}", code);
 
         }
-        
+
 
         //protected void LabelRead_Init(object sender, EventArgs e)
         //{
@@ -706,8 +724,10 @@ namespace ReviewAudit
                     if (UpdateImprovementAction.ActionPointsDS != null || UpdateImprovementAction.ImprovementDetailsDS != null)
                     {
                         short userID = Login.CookieHelper.GetCookieUserID();
-                        bool update = new ReviewAuditBLL().UpdateImprovementActionDetails(userID,UpdateImprovementAction);
+                        bool update = new ReviewAuditBLL().UpdateImprovementActionDetails(userID, UpdateImprovementAction);
                         grid.JSProperties["cpPopupUpdated"] = true;
+                        //grid.DataSource = new ReviewAuditBLL().GetAuditClinicAnswers();
+                        grid.CancelEdit();
                     }
                     else
                     {

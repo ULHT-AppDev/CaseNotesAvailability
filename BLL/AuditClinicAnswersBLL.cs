@@ -11,8 +11,9 @@ namespace BLL
 {
     public class AuditClinicAnswersBLL
     {
-       
-        public List<AuditClinicAnswersBO> GetAuditClinicAnswers(int CSAAuditId)
+        //LogsBLL logsBLL = new LogsBLL();
+        
+        public List<AuditClinicAnswersBO> GetAuditClinicAnswers(int CSAAuditId, int SessionID)
         {
             try
             {
@@ -23,14 +24,16 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                //ErrorLog error = new ErrorLog(ex, sessionID, null);
-                //new LogsBLL().LogAnError(error);
+                
+                new LogsBLL().LogAnError(ex, SessionID);
+                //logsBLL.LogAnError(ex,, "Inserting delivery address");
+
                 return null;
             }
         }
         
         
-        public List<SpecilatyBO> GetSpeciality()
+        public List<SpecilatyBO> GetSpeciality(int SessionID)
         {
             try
             {
@@ -41,12 +44,11 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                //ErrorLog error = new ErrorLog(ex, sessionID, null);
-                //new LogsBLL().LogAnError(error);
+                new LogsBLL().LogAnError(ex, SessionID);
                 return null;
             }
         }
-        public List<SitesBO> GetSites()
+        public List<SitesBO> GetSites(int SessionID)
         {
             try
             {
@@ -57,13 +59,12 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                //ErrorLog error = new ErrorLog(ex, sessionID, null);
-                //new LogsBLL().LogAnError(error);
+                new LogsBLL().LogAnError(ex, SessionID);
                 return null;
             }
         }
 
-        public List<StatusBO> GetStatus()
+        public List<StatusBO> GetStatus(int SessionID)
         {
             try
             {
@@ -74,14 +75,13 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                //ErrorLog error = new ErrorLog(ex, sessionID, null);
-                //new LogsBLL().LogAnError(error);
+                new LogsBLL().LogAnError(ex, SessionID);
                 return null;
             }
         }
         
 
-        public bool InsertAudit(AuditBO Audit)
+        public bool InsertAudit(AuditBO Audit,int SessionID)
         {
             try
             {
@@ -90,13 +90,12 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
-                //new LogsBLL().LogAnError(error);
+                new LogsBLL().LogAnError(ex, SessionID);
                 return false;
             }
         }
 
-        public bool UpdateAuditRecords(AuditBO Audit)
+        public bool UpdateAuditRecords(AuditBO Audit, int SessionID)
         {
             try
             {
@@ -126,18 +125,29 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
             }
         }
 
-        public static void DeleteAudit(int AuditID)
-        {
-            new DAL.AuditDAL().DeleteAudit(AuditID);
-        }
+        //public static void DeleteAudit(int AuditID)
+        //{
+        //    try
+        //    { 
+        //    new DAL.AuditDAL().DeleteAudit(AuditID);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        new LogsBLL().LogAnError(ex, SessionID);
+        //        //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
+        //        //new LogsBLL().LogAnError(error);
+        //        return false;
+        //    }
+        //}
 
-        public AuditClinicAnswersBO GetAuditClinicAnswer(int rowID)
+        public AuditClinicAnswersBO GetAuditClinicAnswer(int rowID, int SessionID)
         {
             try
             {
@@ -148,6 +158,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
@@ -159,23 +170,26 @@ namespace BLL
         //    return new DAL.AuditClinicAnswersDAL().GetAwaitingActionCount(AuditClinicAnswer,auditid);
         //}
 
-        public bool SaveCaseNoteAvailability(AuditClinicAnswersUnAvailableBO auditClinicAnswers)
+        public int SaveCaseNoteAvailability(AuditClinicAnswersUnAvailableBO auditClinicAnswers, int SessionID)
         {
             try
             {
 
                 new DAL.AuditClinicAnswersDAL().SaveCaseNoteAvailability(auditClinicAnswers);
-                return true;
+                int remaining = new DAL.AuditClinicAnswersDAL().InsertUnAvailableCaseNoteAvailability(auditClinicAnswers);
+                return remaining;
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
-                return false;
+                //return false;
+                return -1;
             }
         }
 
-        public bool InsertUnAvailableCaseNoteAvailability(AuditClinicAnswersUnAvailableBO unAvailabelCaseNotes)
+        public bool InsertUnAvailableCaseNoteAvailability(AuditClinicAnswersUnAvailableBO unAvailabelCaseNotes, int SessionID)
         {
             try
             {
@@ -185,6 +199,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;

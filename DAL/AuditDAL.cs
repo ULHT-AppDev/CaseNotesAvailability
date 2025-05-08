@@ -48,8 +48,8 @@ namespace DAL
                             ClinicCode = u.ClinicCode,
                             NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
                             CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
-                            TemporaryNotesCount = u.TemporaryNotesCount
-                            ,
+                            TemporaryNotesCount = u.TemporaryNotesCount,
+                            IsReviewed = u.IsReviewed,
                             IsActive = u.IsActive
                         }).ToList();
             }
@@ -158,6 +158,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
             }
@@ -223,6 +224,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
             }
@@ -247,6 +249,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionDel.Rollback();
+                        throw ex;
                     }
                 }
             }

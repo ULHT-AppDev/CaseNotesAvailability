@@ -29,6 +29,20 @@ namespace DAL
             }
         }
 
+        public List<KeyValuePair<byte, string>> SelectUserRoleIDs(int userID)
+        {
+            using (var ctx = new Model.CNAEntities())
+            {
+                return (from u in ctx.People
+                        join ur in ctx.PersonRoles on u.PersonID equals ur.PersonID
+                        join r in ctx.LoginRoles on ur.RoleID equals r.RoleID
+                        where u.IsActive && ur.IsActive && r.IsActive && u.PersonID == userID
+                        select new { r.Role, r.RoleID })
+                        .AsEnumerable()
+                        .Select(x => new KeyValuePair<byte, string>(x.RoleID, x.Role))
+                        .ToList();
+            }
+        }
         public int? CheckIfUserExists(Guid guid, string username, string forename, string surname)
         {
             using (var ctx = new Model.CNAEntities())
@@ -125,6 +139,17 @@ namespace DAL
                 ctx.SaveChanges();
 
                 return newUser.PersonID;
+            }
+        }
+
+        public List<short> SelectUserRights(byte roleID)
+        {
+            using (var ctx = new Model.CNAEntities())
+            {
+                return (from ri in ctx.LoginRights 
+                        join rr in ctx.LoginRoleRights on ri.RightID equals rr.RightID
+                        where rr.RoleID == roleID && rr.IsActive
+                        select ri.RightID).ToList();
             }
         }
 

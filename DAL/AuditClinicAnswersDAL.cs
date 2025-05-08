@@ -13,6 +13,7 @@ using System.Xml.Linq;
 using System.Security.Cryptography;
 using static BusinessObjects.Enums;
 using System.Runtime.Remoting.Contexts;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace DAL
 {
@@ -58,7 +59,8 @@ namespace DAL
                             TemporaryNotesCount = u.TemporaryNotesCount,
                             UnavailableCount = u.UnavailableCount,
                             IsActive = u.IsActive,
-                            StatusID = u.StatusID
+                            StatusID = u.StatusID,
+                            IsReviewed = u.IsReviewed
                         }).ToList();
             }
         }
@@ -134,6 +136,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
             }
@@ -153,8 +156,13 @@ namespace DAL
 
                     bool hasOnlyNotStartedStatus = ctxSelect.AuditClinicAnswers
                                        .Where(e => e.AuditID == Auditid)    // Filter by the specific Id
-                                           .All(e => e.StatusID == (byte)Enums.AuditStatus.NotStarted); // Ensure all statuses are "Completed"
+                                           .All(e => e.StatusID == (byte)Enums.AuditStatus.NotStarted); // Ensure all statuses are "not started"
 
+                    //bool hasReviewed = ctxSelect.AuditClinicAnswers
+                    //                   .Where(e => e.AuditID == Auditid)    // Filter by the specific Id
+                    //                       .All(e => e.StatusID == (byte)Enums.AuditStatus.Reviewed); // Ensure all statuses are "Audited"
+
+                    //byte status = hasReviewed ? (byte)Enums.AuditStatus.Reviewed : !hasOnlyCompletedStatus && !hasOnlyNotStartedStatus ? (byte)Enums.AuditStatus.InProgress : hasOnlyCompletedStatus ? (byte)Enums.AuditStatus.PendingHRreview : (byte)Enums.AuditStatus.NotStarted;
                     byte status = !hasOnlyCompletedStatus && !hasOnlyNotStartedStatus ? (byte)Enums.AuditStatus.InProgress : hasOnlyCompletedStatus ? (byte)Enums.AuditStatus.PendingHRreview : (byte)Enums.AuditStatus.NotStarted;
                     if (status != (byte)Enums.AuditStatus.NotStarted)
                     {
@@ -183,7 +191,7 @@ namespace DAL
                 }
                 catch (Exception ex)
                 {
-
+                    throw ex;
                 }
             }
         }
@@ -201,10 +209,12 @@ namespace DAL
 
         //    }
         //}
-        public void InsertUnAvailableCaseNoteAvailability(AuditClinicAnswersUnAvailableBO unAvailabelCaseNotes)
+        public int  InsertUnAvailableCaseNoteAvailability(AuditClinicAnswersUnAvailableBO unAvailabelCaseNotes)
         {
+            int auditid = unAvailabelCaseNotes.AuditID;
             using (var ctxIns = new Model.CNAEntities())
             {
+                
                 using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
                 {
                     try
@@ -220,8 +230,7 @@ namespace DAL
                                     ReasonUnavailableID = UnAvailableCaseN.ReasonID,
                                     IsActive = true
                                 };
-
-                                ctxIns.UnavailableCaseNotes.Add(dt);
+                                   ctxIns.UnavailableCaseNotes.Add(dt);
                                 ctxIns.SaveChanges();
                             }
                         }
@@ -231,13 +240,30 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
+                    unAvailabelCaseNotes.AuditID = 0;   
                 }
             }
+            
+            int count = findremainigAudit(auditid);
+            return count;
+        }
+
+        public int findremainigAudit( int auditID)
+        {
+            int AuditNumber;
+            using (var ctxSelect = new Model.CNAEntities())
+            {
+                 AuditNumber = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive && x.StatusID != 4).Select(x => x.ClinicCode).Count();
+            }
+
+            return AuditNumber;
         }
 
         public void InsertAudit(AuditBO audit)
         {
+            
             using (var ctxIns = new Model.CNAEntities())
             {
                 using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
@@ -290,6 +316,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
             }
@@ -355,6 +382,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
             }
@@ -379,6 +407,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionDel.Rollback();
+                        throw ex;
                     }
                 }
             }

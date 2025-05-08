@@ -1,6 +1,7 @@
 ﻿using BusinessObjects;
 using DevExpress.Web;
 using DevExpress.XtraRichEdit.Commands;
+using Login;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -142,7 +143,7 @@ namespace CaseNotesAvailability
 
             object[] values = HealthRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
 
-            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]));
+            BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]), CookieHelper.GetCookieSessionID());
 
             ClientScript.RegisterStartupScript
             (GetType(), Guid.NewGuid().ToString(), "DeleteRow_Click();", true);

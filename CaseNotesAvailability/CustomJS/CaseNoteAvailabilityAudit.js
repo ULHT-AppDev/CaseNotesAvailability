@@ -77,21 +77,24 @@ function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s, e) {
         SetAndShowAlert(1, 'Record Updated Successfully', '');
         delete s.cpUpdated;
     }
-    if (s.cpInserted == true) {
+    else if (s.cpInserted == true) {
         SetAndShowAlert(1, 'Record Inserted Successfully', '');
         delete s.cpInserted;
     }
-    if (s.cpPopupUpdated == true) {
+    else if (s.cpPopupUpdatedPending == true) {
+        CaseNoteAvailabilityUnAvailabilityPopup.Hide();
+        CaseNoteAvailabilityAuditRecordsGridView.Refresh();
+        SetAndShowAlert(1, 'All Records Inserted Successfully.. Please click on Go back to Audit page', '');
+        delete s.cpPopupUpdatedPending;
+    }
+    else if (s.cpPopupUpdated == true) {
         CaseNoteAvailabilityUnAvailabilityPopup.Hide();
         CaseNoteAvailabilityAuditRecordsGridView.Refresh();
         SetAndShowAlert(1, 'Record Inserted Successfully', '');
         delete s.cpPopupUpdated;
     }
-
-
-
-
 }
+
 /*
 function Complete_Click(s, e)
 {

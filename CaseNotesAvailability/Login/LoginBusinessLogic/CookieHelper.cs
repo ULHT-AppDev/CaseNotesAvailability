@@ -1,8 +1,10 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Security;
+using static BusinessObjects.Enums;
 
 namespace Login
 {
@@ -184,7 +186,19 @@ namespace Login
             CookieUserData data = GetUserCookieData();
             return String.Format("{0} {1} ({2})", data.Forename, data.Surname, data.Username);
         }
+        public static bool DoesRightsContain(UserRoles right)
+        {
+            List<short> rights = GetCookieRights();
 
+            if (rights != null)
+            {
+                return rights.Where(x => x == (short)right).Any();
+            }
+            else
+            {
+                return false;
+            }
+        }
         public static Guid GetCookieUserGuid() => GetUserCookieData().UserGuid;
 
         public static string GetCookieEmailAddress() => GetUserCookieData().EmailAddress;

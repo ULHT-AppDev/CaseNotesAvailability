@@ -57,12 +57,14 @@ namespace DAL
                             catch (Exception ex)
                             {
                                 dbContextTransactionIns.Rollback();
+                                throw ex;
                             }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
+                    throw ex;
 
                 }
 
@@ -99,6 +101,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
 
@@ -154,6 +157,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
 
@@ -192,6 +196,7 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
 
@@ -238,6 +243,11 @@ namespace DAL
                             }
 
                             ctxIns.SaveChanges();
+
+                            var audit1 = ctxIns.AuditClinicAnswers.Where(x => x.AuditClinicAnswersID == updateImprovementAction.AuditClinicAnswersID).Single();
+                            audit1.IsReviewed = true;
+                            ctxIns.SaveChanges();
+
                         }
 
                         dbContextTransactionIns.Commit();
@@ -245,10 +255,14 @@ namespace DAL
                     catch (Exception ex)
                     {
                         dbContextTransactionIns.Rollback();
+                        throw ex;
                     }
                 }
 
             }
         }
+
+
+
     }
 }

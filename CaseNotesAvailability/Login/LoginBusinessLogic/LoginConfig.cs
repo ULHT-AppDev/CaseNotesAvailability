@@ -16,9 +16,9 @@ namespace Login
         // 1. Set config properties 
         public static readonly bool Database_RequireDBForLogin = true;                                           // is the database required for a successful login (user/role/session/logging)?
         public static readonly bool Database_UpdateUsernameAndSurname = true;                                    // updates user details if changed in ad - should probably always be left on
-        public static readonly bool Database_InsertUserIfNotInDB = true;                                        // (false wont insert user, will be done through system management user control) true will insert user when they login (if use Database_UseRolePermissions true then you have to set the role (Database_InsertUserIfNotInDBRole) they get when being inserted)
+        public static readonly bool Database_InsertUserIfNotInDB = false;                                        // (false wont insert user, will be done through system management user control) true will insert user when they login (if use Database_UseRolePermissions true then you have to set the role (Database_InsertUserIfNotInDBRole) they get when being inserted)
         public static readonly Enums.UserRoles Database_InsertUserIfNotInDB_RoleToUse = Enums.UserRoles.NotSet;  // the role which will be inserted with the user if Database_InsertUserIfNotInDB is used
-        public static readonly bool Database_UseRolePermissions = false;                                         // does the database contain roles or rights for the user?
+        public static readonly bool Database_UseRolePermissions = true;                                         // does the database contain roles or rights for the user?
 
         public static readonly bool Logging_LogExceptionsErrors = true;                                 // do you want to log major login errors?
         public static readonly bool Logging_LogNonExceptionErrors = false;                              // do you want to log minor login errors (user incorrect password)?
@@ -102,12 +102,14 @@ namespace Login
         // user roles
         public static List<KeyValuePair<byte, string>> GetUserRoles(int userID) // code to get user roles for the cookie data 
         {
-            return null;
+            LoginBLL userBLL = new LoginBLL();
+            return userBLL.SelectUserRoleIDs(userID);
         }
 
         public static List<short> GetUserRights(byte roleID) // code to get user rights if role access 
         {
-            return null;
+            LoginBLL loginBLL = new LoginBLL();
+            return loginBLL.SelectUserRights(roleID);
         }
 
 

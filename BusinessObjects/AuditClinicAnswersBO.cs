@@ -18,5 +18,6 @@ namespace BusinessObjects
         public Nullable<int> UnavailableCount { get; set; }
         public bool IsActive { get; set; }
         public byte StatusID { get; set; }
+        public bool IsReviewed { get; set; }
     }
 }

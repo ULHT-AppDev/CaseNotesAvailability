@@ -25,6 +25,7 @@
           </Key>
           <Property Name="AuditClinicAnswersID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AuditID" Type="int" Nullable="false" />
+          <Property Name="Totalappointments" Type="int" />
           <Property Name="ClinicCode" Type="varchar" MaxLength="100" />
           <Property Name="NumberOfAppointmentsAllocated" Type="int" />
           <Property Name="CaseNotesAvailableStartCount" Type="int" />
@@ -32,7 +33,7 @@
           <Property Name="UnavailableCount" Type="int" />
           <Property Name="StatusID" Type="tinyint" Nullable="false" />
           <Property Name="IsActive" Type="bit" Nullable="false" />
-          <Property Name="Totalappointments" Type="int" />
+          <Property Name="IsReviewed" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Issues">
           <Key>
@@ -525,6 +526,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           </Key>
           <Property Name="AuditClinicAnswersID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AuditID" Type="Int32" Nullable="false" />
+          <Property Name="Totalappointments" Type="Int32" />
           <Property Name="ClinicCode" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="NumberOfAppointmentsAllocated" Type="Int32" />
           <Property Name="CaseNotesAvailableStartCount" Type="Int32" />
@@ -532,7 +534,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
           <Property Name="UnavailableCount" Type="Int32" />
           <Property Name="StatusID" Type="Byte" Nullable="false" />
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="Totalappointments" Type="Int32" />
+          <Property Name="IsReviewed" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="RequiresImprovementActionPoints" Relationship="Self.FK_RequiresImprovementActionPoints_AuditClinicAnswers" FromRole="AuditClinicAnswers" ToRole="RequiresImprovementActionPoints" />
           <NavigationProperty Name="RequiresImprovementDetails" Relationship="Self.FK_RequiresImprovementDetails_AuditClinicAnswers" FromRole="AuditClinicAnswers" ToRole="RequiresImprovementDetails" />
         </EntityType>
@@ -1000,6 +1002,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
               <MappingFragment StoreEntitySet="AuditClinicAnswers">
                 <ScalarProperty Name="AuditClinicAnswersID" ColumnName="AuditClinicAnswersID" />
                 <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+                <ScalarProperty Name="Totalappointments" ColumnName="Totalappointments" />
                 <ScalarProperty Name="ClinicCode" ColumnName="ClinicCode" />
                 <ScalarProperty Name="NumberOfAppointmentsAllocated" ColumnName="NumberOfAppointmentsAllocated" />
                 <ScalarProperty Name="CaseNotesAvailableStartCount" ColumnName="CaseNotesAvailableStartCount" />
@@ -1007,7 +1010,7 @@ warning 6002: The table/view 'CaseNotesAvailability-Dev.List.ReasonUnavailable' 
                 <ScalarProperty Name="UnavailableCount" ColumnName="UnavailableCount" />
                 <ScalarProperty Name="StatusID" ColumnName="StatusID" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Totalappointments" ColumnName="Totalappointments" />
+                <ScalarProperty Name="IsReviewed" ColumnName="IsReviewed" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

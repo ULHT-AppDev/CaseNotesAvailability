@@ -4,6 +4,7 @@ using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Web;
 using DevExpress.Web.Internal.Dialogs;
 using DevExpress.XtraRichEdit.Commands;
+using Login;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
@@ -13,14 +14,17 @@ using System.Diagnostics.Eventing.Reader;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Web;
+using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Xml.Linq;
+using static BusinessObjects.Enums;
 using static System.Data.Entity.Infrastructure.Design.Executor;
 using static System.Net.Mime.MediaTypeNames;
 
 namespace CaseNotesAvailability
 {
+
     public partial class _CaseNoteAvailabilityAudit : System.Web.UI.Page
     {
         // in memory 
@@ -34,6 +38,11 @@ namespace CaseNotesAvailability
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
+            if (!(CookieHelper.GetCookieRoleID() == (byte)UserRoles.NursingteamUser))      //If the user does not have the right to view this page, we redirect
+            {
+                Response.Redirect(FormsAuthentication.DefaultUrl);
+                Response.End();
+            }
             int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
 
             SetAuditID(lAuditId);
@@ -105,14 +114,14 @@ namespace CaseNotesAvailability
                 int AuditClinicAnswerId = obj.AuditClinicAnswerId;
                 int AuditID = obj.AuditID;
                 txtAuditId.Value = AuditID;
-                getAuditClinicAnswer(AuditClinicAnswerId);
+                getAuditClinicAnswer(AuditClinicAnswerId, CookieHelper.GetCookieSessionID());
             }
 
         }
 
         protected void CreateFormDynamically_CallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
-            if (e.Parameter != null ) //&& int.TryParse(e.Parameter, out int iterations))
+            if (e.Parameter != null) //&& int.TryParse(e.Parameter, out int iterations))
             {
                 DynamicFormBO obj = Newtonsoft.Json.JsonConvert.DeserializeObject<DynamicFormBO>(e.Parameter);
 
@@ -199,10 +208,10 @@ namespace CaseNotesAvailability
         }
 
 
-        private void getAuditClinicAnswer(int rowID)
+        private void getAuditClinicAnswer(int rowID, int SessionID)
         {
             AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();
-            FullAuditClincAnswer = new BLL.AuditClinicAnswersBLL().GetAuditClinicAnswer(rowID);
+            FullAuditClincAnswer = new BLL.AuditClinicAnswersBLL().GetAuditClinicAnswer(rowID, SessionID);
             //TextBox1.Text = FullAuditClincAnswer[0].ClinicCode;
             txtClinicCode.Text = FullAuditClincAnswer.ClinicCode;
             txtAuditClinicAnswerId.Value = FullAuditClincAnswer.AuditClinicAnswersID;
@@ -425,6 +434,7 @@ namespace CaseNotesAvailability
         protected void CaseNoteAvailabilityAuditRecordsView_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             e.InputParameters["CSAAuditId"] = CASAuditId;
+            e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
         }
         protected void UnavailableCasenotes_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
@@ -656,20 +666,26 @@ namespace CaseNotesAvailability
                     txtTempNotesCount.Text = "";
                     txtUnavailableCaseNoteCount.Text = "";
 
-                    bool update = new BLL.AuditClinicAnswersBLL().SaveCaseNoteAvailability(AuditClinicAnswers);
-                    if (update)
+                    int nreturn = new BLL.AuditClinicAnswersBLL().SaveCaseNoteAvailability(AuditClinicAnswers, CookieHelper.GetCookieSessionID());
+                    if (nreturn == 0)
                     {
-                        bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(AuditClinicAnswers);
-                        if (update1)
-                        {
-                            CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
-                            //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
-                        }
-                        else
-                        {
-                            CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
-                        }
+                        CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdatedPending"] = true;
                     }
+                    else
+                    {
+                        CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
+                    }
+
+                    //bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(AuditClinicAnswers);
+                    //if (update1)
+                    //{
+                    //    CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
+                    //    //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
+                    //}
+                    //else
+                    //{
+                    //    CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
+                    //}
                 }
             }
         }

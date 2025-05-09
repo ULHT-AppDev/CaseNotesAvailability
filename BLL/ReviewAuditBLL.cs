@@ -260,5 +260,11 @@ namespace BLL
             new DAL.ReviewAuditDAL().UpdateImprovementActionDetails(userID,updateImprovementAction);
             return true;
         }
+
+        //public bool CheckandUpdateAuditStatus(int AuditClinicAnswersID)
+        //{
+        //    return new  DAL.ReviewAuditDAL().CheckandUpdateAuditStatus(AuditClinicAnswersID);
+            
+        //}
     }
 }

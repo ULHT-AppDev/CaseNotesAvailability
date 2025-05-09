@@ -725,6 +725,15 @@ namespace ReviewAudit
                     {
                         short userID = Login.CookieHelper.GetCookieUserID();
                         bool update = new ReviewAuditBLL().UpdateImprovementActionDetails(userID, UpdateImprovementAction);
+                        //bool AllReviewed = new ReviewAuditBLL().CheckandUpdateAuditStatus(UpdateImprovementAction.AuditClinicAnswersID);
+                        //if (AllReviewed)
+                        //{
+
+                        //}
+                        //else
+                        //{
+                        //    grid.JSProperties["cpPopupUpdated"] = true;
+                        //}
                         grid.JSProperties["cpPopupUpdated"] = true;
                         //grid.DataSource = new ReviewAuditBLL().GetAuditClinicAnswers();
                         grid.CancelEdit();

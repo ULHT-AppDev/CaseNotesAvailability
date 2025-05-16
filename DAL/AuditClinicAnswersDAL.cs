@@ -48,6 +48,7 @@ namespace DAL
                 return (from u in ctx.AuditClinicAnswers
                         where u.IsActive
                         && u.AuditID == AuditID
+                        orderby u.IsReviewed 
                         select new BusinessObjects.AuditClinicAnswersBO
                         {
                             AuditClinicAnswersID = u.AuditClinicAnswersID,

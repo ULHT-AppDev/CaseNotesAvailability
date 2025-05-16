@@ -167,5 +167,10 @@ namespace BLL
             return Audit;
 
         }
+
+        public bool CheckWhetherAuditExist(object auditID)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

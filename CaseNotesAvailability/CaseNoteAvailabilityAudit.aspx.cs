@@ -1,6 +1,7 @@
 ﻿using BLL;
 using BusinessObjects;
 using DevExpress.ClipboardSource.SpreadsheetML;
+using DevExpress.Utils.Text;
 using DevExpress.Web;
 using DevExpress.Web.Internal.Dialogs;
 using DevExpress.XtraRichEdit.Commands;
@@ -38,17 +39,35 @@ namespace CaseNotesAvailability
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if (!(CookieHelper.GetCookieRoleID() == (byte)UserRoles.NursingteamUser))      //If the user does not have the right to view this page, we redirect
+            try
             {
-                Response.Redirect(FormsAuthentication.DefaultUrl);
-                Response.End();
-            }
-            int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
+                int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
 
-            SetAuditID(lAuditId);
+                if (!(CookieHelper.GetCookieRoleID() == (byte)UserRoles.NursingteamUser))      //If the user does not have the right to view this page, we redirect
+                {
+                    Response.Redirect(FormsAuthentication.DefaultUrl);
+                    Response.End();
+                }
+                SetAuditID(lAuditId);
+            }
+            catch (Exception ex)
+            {
+                HttpException httpException = Server.GetLastError() as HttpException;
+                if (httpException.GetHttpCode() == 404)
+                    Response.Redirect("/default.aspx");
+
+            }
             //Speciality = Request.QueryString["Speciality"];
 
         }
+        protected void Application_Error(object sender, EventArgs e)
+        {
+            HttpException httpException = Server.GetLastError() as HttpException;
+            if (httpException.GetHttpCode() == 404)
+                Response.Redirect("/default.aspx");
+        }
+
+
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -155,12 +174,13 @@ namespace CaseNotesAvailability
                         LayoutItem nameItem = new LayoutItem()
                         {
                             Caption = $"Patient Name",
-                        };
 
+                        };
+                        nameItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
                         ASPxTextBox patientNameTextBox = new ASPxTextBox();
                         patientNameTextBox.ID = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
                         patientNameTextBox.ClientInstanceName = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-
+                        patientNameTextBox.MaxLength = 200;
                         // add in validation settings and stuff here like below one (look at combo below)
                         patientNameTextBox.ValidationSettings.RequiredField.IsRequired = true;
                         patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal";
@@ -169,9 +189,9 @@ namespace CaseNotesAvailability
 
                         LayoutItem reasonItem = new LayoutItem()
                         {
-                            Caption = $"Reason for unavailable",
+                            Caption = $"Reason for unavailability",
                         };
-
+                        reasonItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
                         ASPxComboBox comboBox = new ASPxComboBox();
                         comboBox.ID = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
                         comboBox.ClientInstanceName = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
@@ -454,19 +474,19 @@ namespace CaseNotesAvailability
         protected void CasenoteLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl1 = sender as ASPxLabel;
-            lbl1.Text = $"Audit Date:{AuditDate.ToShortDateString()}";
+            lbl1.Text = $"Audit Date: {AuditDate.ToShortDateString()}";
 
             //Speciality
         }
         protected void lblSpeciality_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"Speciality:{Speciality}";
+            lbl2.Text = $"Speciality: {Specialty}";
         }
         protected void lblSite_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"Site:{AuditSite}";
+            lbl2.Text = $"Site: {AuditSite}";
         }
 
         //protected void CompleteButton_Click(object sender, EventArgs e)
@@ -629,7 +649,8 @@ namespace CaseNotesAvailability
             if (e.Parameters != null) // select patient referrals & details sent from patient search grid
             {
                 string eventArgument = e.Parameters;
-                if (!string.IsNullOrEmpty(eventArgument))
+                //if (!string.IsNullOrEmpty(eventArgument) && eventArgument.Trim() !="[]")                
+                if (e.Parameters != null)
                 {
                     // Deserialize the JSON string back to an array
                     AuditClinicAnswersUnAvailableBO AuditClinicAnswers = new AuditClinicAnswersUnAvailableBO();
@@ -649,14 +670,31 @@ namespace CaseNotesAvailability
                     //}
 
                     // AuditClinicAnswersBO AuditClinicAnswers = new AuditClinicAnswersBO();
-                    AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
-                    AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
+                    int IntOut;
+                    int.TryParse(txtAuditClinicAnswerId.Value.ToString(), out IntOut);
+                    //AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
+                    AuditClinicAnswers.AuditClinicAnswersID = IntOut;
+                    int.TryParse(txtAuditId.Value.ToString(), out IntOut);
+                    //AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
+                    AuditClinicAnswers.AuditID = IntOut;
                     AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
-                    AuditClinicAnswers.Totalappointments = Convert.ToInt32(txtTotalAppointments.Text);
-                    AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
-                    AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
-                    AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
-                    AuditClinicAnswers.UnavailableCount = Convert.ToInt32(txtUnavailableCaseNoteCount.Value);
+
+                    int.TryParse(txtTotalAppointments.Value.ToString(), out IntOut);
+                    AuditClinicAnswers.Totalappointments = IntOut;
+                    //AuditClinicAnswers.Totalappointments = Convert.ToInt32(txtTotalAppointments.Text);
+                    int.TryParse(txtNumAppointments.Value.ToString(), out IntOut);
+                    AuditClinicAnswers.NumberOfAppointmentsAllocated = IntOut;
+                    //AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
+
+                    int.TryParse(txtStartCount.Value.ToString(), out IntOut);
+                    AuditClinicAnswers.CaseNotesAvailableStartCount = IntOut;
+                    //AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
+                    int.TryParse(txtTempNotesCount.Value.ToString(), out IntOut);
+                    AuditClinicAnswers.TemporaryNotesCount = IntOut;
+                    //AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
+                    int.TryParse(txtUnavailableCaseNoteCount.Value.ToString(), out IntOut);
+                    AuditClinicAnswers.UnavailableCount = IntOut;
+                    //AuditClinicAnswers.UnavailableCount = Convert.ToInt32(txtUnavailableCaseNoteCount.Value);
 
                     txtAuditClinicAnswerId.Text = "";
                     txtAuditId.Text = "";

@@ -261,10 +261,10 @@ namespace BLL
             return true;
         }
 
-        //public bool CheckandUpdateAuditStatus(int AuditClinicAnswersID)
-        //{
-        //    return new  DAL.ReviewAuditDAL().CheckandUpdateAuditStatus(AuditClinicAnswersID);
-            
-        //}
+        public bool CheckandUpdateAuditStatus(int AuditClinicAnswersID)
+        {
+            return new DAL.ReviewAuditDAL().CheckandUpdateAuditStatus(AuditClinicAnswersID);
+
+        }
     }
 }

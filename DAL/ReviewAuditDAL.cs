@@ -262,56 +262,7 @@ namespace DAL
             }
         }
 
-        public void AuditClinicAnswersID(int AuditClinicAnswersID)
-        {
-            using (var ctxSelect = new Model.CNAEntities())
-            {
-                try
-                {
-
-
-                    int AuditID = ctxSelect.AuditClinicAnswers
-                                        .Where(x => x.AuditClinicAnswersID == AuditClinicAnswersID).Select(x => x.AuditClinicAnswersID).SingleOrDefault();
-
-                    bool hasReviewed = ctxSelect.AuditClinicAnswers
-                                       .Where(e => e.AuditID == AuditID)    // Filter by the specific Id
-                                           .All(e => e.StatusID == (byte)Enums.AuditStatus.Reviewed); // Ensure all statuses are "Audited"
-
-                    //byte status = hasReviewed ? (byte)Enums.AuditStatus.Reviewed:;
-                    if (hasReviewed)
-                    {
-                        //update as in progress
-
-                        using (var ctxUpdate = new Model.CNAEntities())
-                        {
-                            using (var dbContextTransactionIns = ctxUpdate.Database.BeginTransaction())
-                            {
-                                try
-                                {
-                                    //List<AuditBO> audit = new List<AuditBO>();
-                                    var audit1 = ctxUpdate.Audits.Where(x => x.AuditID == AuditID).FirstOrDefault();
-                                    audit1.StatusID = (byte)Enums.AuditStatus.Reviewed; //(byte)Enums.AuditStatus.InProgress;
-                                    ctxUpdate.SaveChanges();
-                                    dbContextTransactionIns.Commit();
-
-                                }
-                                catch (Exception ex)
-                                {
-                                    dbContextTransactionIns.Rollback();
-                                }
-                            }
-                        }
-                        
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw ex;
-                }
-            }
-        }
-
-        //public bool CheckandUpdateAuditStatus(int auditClinicAnswersID)
+        //public void AuditClinicAnswersID(int AuditClinicAnswersID)
         //{
         //    using (var ctxSelect = new Model.CNAEntities())
         //    {
@@ -350,7 +301,7 @@ namespace DAL
         //                        }
         //                    }
         //                }
-        //                return true;
+                        
         //            }
         //        }
         //        catch (Exception ex)
@@ -358,7 +309,56 @@ namespace DAL
         //            throw ex;
         //        }
         //    }
-        //    return false;
         //}
+
+        public bool CheckandUpdateAuditStatus(int AuditClinicAnswersID)
+        {
+            using (var ctxSelect = new Model.CNAEntities())
+            {
+                try
+                {
+
+
+                    int AuditID = ctxSelect.AuditClinicAnswers
+                                        .Where(x => x.AuditClinicAnswersID == AuditClinicAnswersID).Select(x => x.AuditID).SingleOrDefault();
+
+                    bool hasReviewed = ctxSelect.AuditClinicAnswers
+                                       .Where(e => e.AuditID == AuditID)    // Filter by the specific Id
+                                           .All(e => e.IsReviewed == true); // Ensure all statuses are "Audited"
+
+                    //byte status = hasReviewed ? (byte)Enums.AuditStatus.Reviewed:;
+                    if (hasReviewed)
+                    {
+                        //update as in progress
+
+                        using (var ctxUpdate = new Model.CNAEntities())
+                        {
+                            using (var dbContextTransactionIns = ctxUpdate.Database.BeginTransaction())
+                            {
+                                try
+                                {
+                                    //List<AuditBO> audit = new List<AuditBO>();
+                                    var audit1 = ctxUpdate.Audits.Where(x => x.AuditID == AuditID).FirstOrDefault();
+                                    audit1.StatusID = (byte)Enums.AuditStatus.Reviewed; //(byte)Enums.AuditStatus.InProgress;
+                                    ctxUpdate.SaveChanges();
+                                    dbContextTransactionIns.Commit();
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    dbContextTransactionIns.Rollback();
+                                }
+                            }
+                        }
+                        return true;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            return false;
+        }
     }
 }

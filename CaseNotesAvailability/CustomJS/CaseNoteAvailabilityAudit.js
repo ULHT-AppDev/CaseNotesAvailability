@@ -67,7 +67,7 @@ function txtTempNotesCount_ValueChanged(s, e)
 }
 
 function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
-    const relativeURL = 'default.aspx?';
+    const relativeURL = 'default.aspx';
     const absoluteURL = new URL(relativeURL, window.location.href);
     window.location.href = absoluteURL.href;
 }
@@ -117,6 +117,7 @@ function Complete_Click(s, e)
   */
 
 function Complete_Click(s, e) {
+ 
     let arr = [];
     var UnavailableCaseNoteCount1 = txtUnavailableCaseNoteCount.GetValue();
     for (var i = 1; i <= UnavailableCaseNoteCount1; i++) {
@@ -161,7 +162,7 @@ function StartCount_Validation(s, e)
              if (Count > ActualAppointment) 
              {
                 e.isValid = false;
-                e.errorText = "Start Count can't be greater than Actual Appointments.";
+                e.errorText = "Casenotes available at the start of clinic can't be greater than Actual Appointments.";
             }
             
         }

@@ -128,7 +128,27 @@ function HealthRecordsGridView_CustomButtonClick(s, e) {
         DeleteCaseNotePopup.Show();
     }
 }
+/*
+function CheckDueByDate(s, e) 
+{
+     s.GetRowValues(e.visibleIndex, 'DueByDate;Date',onCallbackMultiValues);
 
+    }
+    function onCallbackMultiValues(values) {
+    alert(values[0]);
+}
+*/
+function OnTokenBoxValueChanged(s, e) {
+    var values = s.GetValue().split(',');
+    var uniqueValues = [];
+    for (var i = 0; i < values.length; i++) {
+        var trimmed = values[i].trim();
+        if (trimmed !== "" && uniqueValues.indexOf(trimmed) === -1) {
+            uniqueValues.push(trimmed);
+        }
+    }
+    s.SetValue(uniqueValues.join(','));
+}
 
 
 

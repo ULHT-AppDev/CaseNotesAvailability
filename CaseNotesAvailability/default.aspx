@@ -38,7 +38,7 @@
     </div>
     <div class="ml-auto text-black text-right">
     </div>
-    <dx:ASPxGridView ID="HealthRecordsGridView" runat="server" AllowSorting="true"
+    <dx:ASPxGridView ID="HealthRecordsGridView" runat="server" AllowSorting="true" 
         ClientInstanceName="HealthRecordsGridView"
         OnRowUpdating="AuditRow_Updating"
         KeyFieldName="AuditID"
@@ -50,11 +50,13 @@
         OnRowUpdated="HealthRecordsGridView_RowUpdated"
         OnRowInserted="HealthRecordsGridView_RowInserted"
         OnCustomButtonInitialize="RoleControlGridView_CustomButtonInitialize"
-        OnCustomCallback="HealthRecordsGridView_CustomCallback"
+        OnRowValidating ="HealthRecordsGridView_RowValidating"
+        OnAfterPerformCallback="HealthRecordsGridView_AfterPerformCallback"
+        OnHtmlRowPrepared="HealthRecordsGridView_HtmlRowPrepared"
         Width="100%">
         <ClientSideEvents EndCallback="HealthRecordsGridView_EndCallBack" />
-        <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
-
+        <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780"  AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
+       
         <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
 
         <SettingsPopup>
@@ -77,7 +79,7 @@
                         <dx:GridViewColumnLayoutItem ColumnName="AuditID" Name="AuditID" Caption="Audit ID" Width="100%" ColSpan="2"></dx:GridViewColumnLayoutItem>
 
                         <dx:GridViewColumnLayoutItem ColumnName="Date" Caption="Audit Start Date" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
-                        <dx:GridViewColumnLayoutItem Caption="Audit Due By Date" ColumnName="DueByDate" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
+                        <dx:GridViewColumnLayoutItem Caption="Audit Due By Date" ColumnName="DueByDate"  ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                         <dx:GridViewColumnLayoutItem Caption="Site" ColumnName="SiteID" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                         <dx:GridViewColumnLayoutItem Caption="Speciality" ColumnName="SpecialtyID" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
 
@@ -86,7 +88,7 @@
                                 <dx:ASPxLabel ID="ClinicCodesHelpLabel" runat="server" OnInit="ClinicCodesHelpLabel_Init" EncodeHtml="false"></dx:ASPxLabel>
                             </Template>
                         </dx:GridViewColumnLayoutItem>
-                        <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes" Caption="Clinic Codes" ColSpan="2" Width="100%">
+                        <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes"  Caption="Clinic Codes" ColSpan="2" Width="100%">
                         </dx:GridViewColumnLayoutItem>
                         <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                     </Items>
@@ -150,14 +152,15 @@
             </dx:GridViewDataDateColumn>
 
             <dx:GridViewDataDateColumn Caption="Due By Date" FieldName="DueByDate" VisibleIndex="3" MinWidth="200" MaxWidth="200">
-                <PropertiesDateEdit ClientInstanceName="DueByDate" DisplayFormatString="dd-MMM-yyyy">
+                <PropertiesDateEdit  ClientInstanceName="DueByDate" DisplayFormatString="dd-MMM-yyyy">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="A date is required" />
                     </ValidationSettings>
+                    <%--<ClientSideEvents DateChanged="CheckDueByDate" />--%>
                 </PropertiesDateEdit>
             </dx:GridViewDataDateColumn>
 
-            <dx:GridViewDataComboBoxColumn Caption="Specialities" FieldName="SpecialtyID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+            <dx:GridViewDataComboBoxColumn Caption="specialty" FieldName="SpecialtyID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
                 <PropertiesComboBox ClientInstanceName="Specialities" DataSourceID="GetSpeciality" TextField="SpecilatiesName" ValueField="SpecilatiesID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="Specialty is required" />
@@ -165,7 +168,7 @@
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
 
-            <dx:GridViewDataComboBoxColumn Caption="Sites" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
+            <dx:GridViewDataComboBoxColumn Caption="Site" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
                 PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="SiteID" VisibleIndex="5" MinWidth="200" MaxWidth="400">
                 <PropertiesComboBox DataSourceID="GetSites" TextField="SiteName" ValueField="SiteID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
@@ -174,15 +177,17 @@
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
 
-            <dx:GridViewDataTokenBoxColumn FieldName="ClinicCodes" VisibleIndex="6">
-                <PropertiesTokenBox AllowCustomTokens="true" ValueSeparator="," MaxLength="100">
-                    <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
+            <dx:GridViewDataTokenBoxColumn FieldName="ClinicCodes"  VisibleIndex="6">
+                <PropertiesTokenBox AllowCustomTokens="true"  ValueSeparator="," MaxLength="100">
+                    <ValidationSettings Display="Dynamic"  ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="At least one clinic code is required & blank text is not allowed" />
                     </ValidationSettings>
+                <ClientSideEvents ValueChanged="OnTokenBoxValueChanged" />
                 </PropertiesTokenBox>
+                
             </dx:GridViewDataTokenBoxColumn>
 
-            <dx:GridViewDataComboBoxColumn Caption="Staus" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
+            <dx:GridViewDataComboBoxColumn Caption="Status" SortIndex ="0" SortOrder ="Descending" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
                 PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="StatusID" VisibleIndex="7" MinWidth="200" MaxWidth="400">
                 <PropertiesComboBox DataSourceID="Status" TextField="StatusName" ValueField="StatusID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
@@ -191,7 +196,7 @@
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
         </Columns>
-        <Settings ShowFilterRow="true" />
+        <Settings ShowFilterRow="true"  AutoFilterCondition="Contains" />
         <SettingsBehavior AllowEllipsisInText="true" />
         <SettingsResizing ColumnResizeMode="NextColumn" />
     </dx:ASPxGridView>
@@ -208,15 +213,14 @@
         ShowCloseButton="false"
         ModalBackgroundStyle-Opacity="015"
         ShowHeader="true"
-        ShowFooter="true"
-        HeaderStyle-CssClass="defaultBorderBottom">
+        ShowFooter="true">
         <SettingsAdaptivity MaxWidth="700" MaxHeight="400" Mode="Always" HorizontalAlign="WindowCenter" VerticalAlign="WindowCenter" />
         <ClientSideEvents CloseButtonClick="CancelDeleteButton_Click" />
         <HeaderContentTemplate>
             <div class="ml-3">
                 <dx:ASPxLabel ID="ConfirmationDeleteHeaderLabel"
                     runat="server"
-                    Text="Delete Case Note?"
+                    Text="Delete Audit ?"
                     Font-Size="20px"
                     Font-Bold="true"
                     ForeColor="#e74343">

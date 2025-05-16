@@ -8,6 +8,11 @@ function onDismissalDateChanged(s, e) {
 
 function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId, AuditID, nIndex) {
     //ASPxPopupControl
+     InMemoryImprovementDetailsDS = []; // define in memory array
+     InMemoryImprovementDetailsCounter = 0;
+     InMemoryActionDetailsDS = [];
+     InMemoryActionDetailsCounter = 0;
+
     ReviewAuditRecordsGridView.StartEditRow(nIndex);
 
 }
@@ -138,17 +143,19 @@ function ReviewAuditRecordsGridView_EndCallBack(s, e) {
         SetAndShowAlert(1, 'Record Updated Successfully', '');
         delete s.cpUpdated;
     }
-    if (s.cpInserted == true) {
+    else if (s.cpInserted == true) {
         SetAndShowAlert(1, 'Record Inserted Successfully', '');
         delete s.cpInserted;
     }
-    if (s.cpPopupUpdated == true) {
-        
-        //ReviewAuditRecordsGridView.UpdateEdit();
-        //ReviewAuditRecordsGridView.CancelEdit()
+    else if (s.cpPopupUpdated == true) {
         ReviewAuditRecordsGridView.Refresh();
         SetAndShowAlert(1, 'Record Inserted Successfully', '');
         delete s.cpPopupUpdated;
+    }
+    else if (s.cpAllPopupUpdated == true) {
+        ReviewAuditRecordsGridView.Refresh();
+        SetAndShowAlert(1, 'All Records Inserted Successfully.. Please click on Go back to Audit page', '');
+        delete s.cpAllPopupUpdated;
     }
 }
 
@@ -261,7 +268,8 @@ function Complete_Click(s, e) {
     }
 
     var jsonArray = JSON.stringify(arr);
-
+    InMemoryActionDetailsDS = [];
+        InMemoryActionDetailsCounter = 0;
     //CompleteCallback.PerformCallback(jsonArray);
     ReviewAuditRecordsGridView.PerformCallback(jsonArray);
 }

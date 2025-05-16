@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -78,17 +79,31 @@ namespace CaseNotesAvailability
                 {
                     case (byte)Enums.AuditStatus.NotStarted:
                         //btn.Text = "Not Started";
-                        btn.Text = "Start Audit";
-                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}'); }}", values[0]);
+                        if (CookieHelper.GetCookieRoleID() != (byte)UserRoles.HRManagers)
+                        {
+                            btn.Text = "Start Audit";
+                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}'); }}", values[0]);
+                        }
+                        else
+                        {
+                            btn.Visible = false;
+                        }
                         break;
                     case (byte)Enums.AuditStatus.InProgress:
-                        btn.Text = "Continue Audit";
-                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}'); }}", values[0]);
+                        if (CookieHelper.GetCookieRoleID() != (byte)UserRoles.HRManagers)
+                        {
+                            btn.Text = "Continue Audit";
+                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AuditorView_Click(s, e, '{0}'); }}", values[0]);
+                        }
+                        else
+                        {
+                            btn.Visible = false;
+                        }
                         break;
                     case (byte)Enums.AuditStatus.PendingHRreview:
-                        btn.Text = "Action Review";
-                        if (CookieHelper.GetCookieRoleID() == (byte) UserRoles.HRManagers)
+                        if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
                         {
+                            btn.Text = "Action Review";
                             //btn.Text = "Pending HR review";
                             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ Send_for_review(s, e, '{0}'); }}", values[0]);
                         }
@@ -105,7 +120,7 @@ namespace CaseNotesAvailability
                     case (byte)Enums.AuditStatus.Reviewed:
                         btn.Text = "Reviewed";
                         btn.Visible = false;
-                       break;
+                        break;
 
                 }
             }
@@ -157,6 +172,7 @@ namespace CaseNotesAvailability
                     case (byte)Enums.AuditStatus.NotStarted:
                         //btn.Text = "Not Started";
                         btn.Text = "Edit";
+                        btn.ForeColor = Color.LightBlue;
                         btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
                         break;
                     //case (byte)Enums.AuditStatus.InProgress:
@@ -196,10 +212,15 @@ namespace CaseNotesAvailability
 
         protected void NewRef_Init(object sender, EventArgs e)
         {
-
-            ASPxButton btn = sender as ASPxButton;
-            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
-
+                ASPxButton btn = sender as ASPxButton;
+            if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
+            {
+                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
+            }
+            else
+            {
+                btn.Visible = false;
+            }
         }
         protected void RoleControlGridView_CustomButtonInitialize(object sender, ASPxGridViewCustomButtonEventArgs e)
         {
@@ -241,6 +262,7 @@ namespace CaseNotesAvailability
                 {
                     case (byte)Enums.AuditStatus.NotStarted:
                         btn.Text = "Delete";
+                        btn.ForeColor = Color.Red;
                         btn.ClientSideEvents.Click = String.Format("function(s, e) {{ DeleteButton_Click(s, e, '{0}' ); }}", container.VisibleIndex);
                         break;
                     default:
@@ -329,23 +351,23 @@ namespace CaseNotesAvailability
 
         protected void HealthRecordsGridView_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
         {
-            ASPxGridView grid = sender as ASPxGridView;
-            GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
-            group.Caption = "Create new Audit";
-            grid.SettingsCommandButton.UpdateButton.Text = "Create new Audit";
+            //ASPxGridView grid = sender as ASPxGridView;
+            //GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
+            //group.Caption = "Create new Audit";
+            //grid.SettingsCommandButton.UpdateButton.Text = "Create new Audit";
 
-            // hide audit column on new row
-            GridViewColumnLayoutItem auditCol = grid.EditFormLayoutProperties.FindItemOrGroupByName("AuditID") as GridViewColumnLayoutItem;
-            auditCol.Visible = false;
+            //// hide audit column on new row
+            //GridViewColumnLayoutItem auditCol = grid.EditFormLayoutProperties.FindItemOrGroupByName("AuditID") as GridViewColumnLayoutItem;
+            //auditCol.Visible = false;
 
         }
 
         protected void HealthRecordsGridView_StartRowEditing(object sender, DevExpress.Web.Data.ASPxStartRowEditingEventArgs e)
         {
-            ASPxGridView grid = sender as ASPxGridView;
-            GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
-            group.Caption = $"Update Audit (ID: {e.EditingKeyValue})";
-            grid.SettingsCommandButton.UpdateButton.Text = "Update Audit";
+            //ASPxGridView grid = sender as ASPxGridView;
+            //GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
+            //group.Caption = $"Update Audit (ID: {e.EditingKeyValue})";
+            //grid.SettingsCommandButton.UpdateButton.Text = "Update Audit";
         }
 
         protected void ClinicCodesHelpLabel_Init(object sender, EventArgs e)
@@ -372,6 +394,100 @@ namespace CaseNotesAvailability
         protected void HealthRecordsGridView_RowInserted(object sender, DevExpress.Web.Data.ASPxDataInsertedEventArgs e)
         {
             HealthRecordsGridView.JSProperties["cpUpdated"] = true;
+        }
+
+        //protected void HealthRecordsGridView_HtmlDataCellPrepared(object sender, DevExpress.Web.ASPxGridViewTableDataCellEventArgs e)
+        //{
+        //    if (e.DataColumn.FieldName == "DueByDate")
+        //    {
+        //        DateTime dueDate = Convert.ToDateTime( e.CellValue.ToString());
+        //        if (dueDate < DateTime.Now.Date)
+        //        {
+        //            e.Cell.ForeColor = System.Drawing.Color.Red; // Column index 1 = DueDate
+        //        }
+        //    }
+        //}
+
+
+        protected void HealthRecordsGridView_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
+        {
+            if (e.RowType != GridViewRowType.Data) return;
+
+            // Get the value of the due date column (replace "DueDate" with your actual field name)
+            DateTime dueDate = Convert.ToDateTime(e.GetValue("DueByDate"));
+            int status = Convert.ToInt32(e.GetValue("StatusID"));
+            // Example: highlight past due dates in red
+            //if (dueDate < DateTime.Today)
+            //{
+            //    e.Row.Cells[""DueByDate""].BackColor = System.Drawing.Color.LightCoral;
+            //}
+            //else if (dueDate == DateTime.Today)
+            //{
+            //    e.Row.Cells[YourDueDateColumnIndex].BackColor = System.Drawing.Color.Khaki;
+            //}
+            if (dueDate <= DateTime.Today && status != (byte)Enums.AuditStatus.Reviewed)
+            {
+                e.Row.ForeColor = System.Drawing.Color.LightCoral;
+            }
+        }
+
+        protected void HealthRecordsGridView_RowValidating(object sender, DevExpress.Web.Data.ASPxDataValidationEventArgs e)
+        {
+            DateTime? startDate = e.NewValues["Date"] as DateTime?;
+            DateTime? DueDate = e.NewValues["DueByDate"] as DateTime?;
+
+            if (startDate.HasValue && DueDate.HasValue)
+            {
+                if (DueDate < startDate)
+                {
+                    AddError(e.Errors, HealthRecordsGridView.Columns["DueByDate"], "Due Date must be after Start Date.");
+                    //e.Errors["DueDate"] = "Due Date must be after Start Date.";
+                }
+            }
+            //else
+            //{
+            //    if (!startDate.HasValue)
+            //        e.Errors["StartDate"] = "Start Date is required.";
+
+            //    if (!dueDate.HasValue)
+            //        e.Errors["DueDate"] = "Due Date is required.";
+            //}
+
+            //if (e.Errors.Count > 0)
+            //{
+            //    e.RowError = "Please correct all errors.";
+            //}
+        }
+        void AddError(Dictionary<GridViewColumn, string> errors, GridViewColumn column, string errorText)
+        {
+            if (errors.ContainsKey(column)) return;
+            errors[column] = errorText;
+        }
+
+        protected void HealthRecordsGridView_AfterPerformCallback(object sender, ASPxGridViewAfterPerformCallbackEventArgs e)
+        {
+
+            ASPxGridView grid = sender as ASPxGridView;
+            if (grid.IsEditing)
+            {
+                if (grid.IsNewRowEditing)
+                {
+                    GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
+                    group.Caption = "Create new Audit";
+                    grid.SettingsCommandButton.UpdateButton.Text = "Create new Audit";
+
+                    // hide audit column on new row
+                    GridViewColumnLayoutItem auditCol = grid.EditFormLayoutProperties.FindItemOrGroupByName("AuditID") as GridViewColumnLayoutItem;
+                    auditCol.Visible = false;
+                }
+                else
+                {
+                    string val = grid.GetRowValues(grid.EditingRowVisibleIndex, "AuditID").ToString();
+                    GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
+                    group.Caption = $"Update Audit (ID: {val})";
+                    grid.SettingsCommandButton.UpdateButton.Text = "Update Audit";
+                }
+            }
         }
     }
 }

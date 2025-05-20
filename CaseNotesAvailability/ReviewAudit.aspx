@@ -187,24 +187,7 @@
                                     EncodeHtml="false"
                                     ForeColor="GrayText">
                                 </dx:ASPxLabel>
-                                <%--    <dx:ASPxLabel ID="LabelRead"
-                                    ClientInstanceName="LabelRead"
-                                    runat="server"
-                                    Font-Size="20px"
-                                    OnInit="LabelRead_Init"
-                                    ClientVisible="false"
-                                    EncodeHtml="false"
-                                    ForeColor="GrayText">
-                                </dx:ASPxLabel>
-                                <dx:ASPxLabel ID="LblAuditClinicAnswersID"
-                                    ClientInstanceName="LblAuditClinicAnswersID"
-                                    runat="server"
-                                    Font-Size="20px"
-                                    OnInit="LblAuditClinicAnswersID_Init"
-                                    ClientVisible="false"
-                                    EncodeHtml="false"
-                                    ForeColor="GrayText">
-                                </dx:ASPxLabel>--%>
+                               
                             </div>
 
                             <div class="mt-2">
@@ -377,7 +360,7 @@
                 <dx:ASPxLabel ID="AddReviewPopupHeaderLabel"
                     ClientInstanceName="AddReviewPopupHeaderLabel"
                     EncodeHtml="false"
-                    runat="server" Text="Require details"
+                    runat="server" Text="Improvement Details"
                     Font-Size="16px"
                     Font-Bold="true">
                 </dx:ASPxLabel>

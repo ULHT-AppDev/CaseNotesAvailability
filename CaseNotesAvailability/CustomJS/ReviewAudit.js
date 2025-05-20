@@ -44,6 +44,35 @@ function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
 
     AddReviewPopup.Show();
 }
+function AddActionPoint_ClientClick(s, e, ClinicCode, reviewSender1) {
+
+    currentClinicCode = ClinicCode;
+    //document.getElementById('AddReviewPopupHeaderLabel').innerHTML ='Action point';
+    
+    //clearing the popup
+        ImpReasonComboBox.Clear();
+        ReviewCommentMemo.Clear();
+        ActReviewCommentMemo.Clear();
+ //
+    // reviewSender = 1; // this would need adding - send from
+    reviewSender = reviewSender1;
+
+    if (reviewSender === 1) {
+
+        AddReviewFormLayout.GetItemByName("ImprovementDetails").SetVisible(true);
+        AddReviewFormLayout.GetItemByName("ActionPointsReview").SetVisible(false);
+
+    } else if (reviewSender === 2) {
+        AddReviewFormLayout.GetItemByName("ActionPointsReview").SetVisible(true);
+        AddReviewFormLayout.GetItemByName("ImprovementDetails").SetVisible(false);
+
+    }
+
+    AddReviewPopup.Show();
+}
+
+
+
 
 let InMemoryImprovementDetailsDS = []; // define in memory array
 let InMemoryImprovementDetailsCounter = 0;

@@ -114,7 +114,7 @@ namespace ReviewAudit
             if (values != null)
             {
                 ClinicCode = values[0]?.ToString() ?? "";
-                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AddImpDetails_ClientClick(s, e, '{0}',{1}); }}", ClinicCode, 2);
+                btn.ClientSideEvents.Click = String.Format("function(s, e) {{ AddActionPoint_ClientClick(s, e, '{0}',{1}); }}", ClinicCode, 2);
             }
         }
 

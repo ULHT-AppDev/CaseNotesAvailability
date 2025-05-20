@@ -128,6 +128,7 @@ function ClearFields()
  txtStartCount.Clear();
  txtTempNotesCount.Clear();
  txtUnavailableCaseNoteCount.Clear();
+ CreateFormDynamically_CallbackPanel.Hide();
 }
 
 function Complete_Click(s, e) {

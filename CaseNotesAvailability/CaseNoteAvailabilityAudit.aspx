@@ -125,14 +125,14 @@
                     <Items>
                         <dx:GridViewLayoutGroup Name="FieldGroup" Caption="Health Records View" ColCount="2" ColumnCount="2" ColSpan="1" ColumnSpan="1">
                             <Items>
-                                <dx:GridViewColumnLayoutItem ClientVisible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem ClientVisible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic answersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem ColumnName="AuditID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <%--<dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>--%>
-                                <dx:GridViewColumnLayoutItem Caption="Total Appointments" ColumnName="Totalappointments" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                <dx:GridViewColumnLayoutItem Caption="Number Of Appointments Allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                <dx:GridViewColumnLayoutItem Caption="CaseNotes Available StartCount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                <dx:GridViewColumnLayoutItem Caption="TemporaryNotes Count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Total appointments" ColumnName="Totalappointments" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Number of appointments allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="CaseNotes available startCount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Temporarynotes count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                             </Items>
                         </dx:GridViewLayoutGroup>
@@ -161,7 +161,7 @@
                             <dx:ASPxLabel ID="AuditClinicAnswersIDReadonlyLabel" runat="server" Text='<%# Eval("AuditClinicAnswersID") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
                     </dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Clinic Code" ReadOnly="true" FieldName="ClinicCode" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+                    <dx:GridViewDataTextColumn Caption="Clinic code" ReadOnly="true" FieldName="ClinicCode" VisibleIndex="1" MinWidth="50" MaxWidth="100">
                         <EditItemTemplate>
                             <dx:ASPxLabel ID="ClinicCodeReadonlyLabel" runat="server" Text='<%# Eval("ClinicCode") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
@@ -171,10 +171,10 @@
                             <dx:ASPxLabel ID="AuditIDReadonlyLabel" runat="server" Text='<%# Eval("AuditID") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
                     </dx:GridViewDataTextColumn>--%>
-                    <dx:GridViewDataTextColumn Caption="Total Appointments" FieldName="Totalappointments" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Number Of Appointments Allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="CaseNotes Available Start Count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Temporary Notes Count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Total appointments" FieldName="Totalappointments" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Number of appointments allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="CaseNotes available start count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Temporary notes count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <%--<dx:GridViewDataTextColumn Caption="Temporary Notes Count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>--%>
                     <%-- <dx:GridViewDataButtonEditColumn VisibleIndex="1">
                     <DataItemTemplate>
@@ -296,7 +296,7 @@
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
 
-                                                <dx:LayoutItem Caption="Clinic Code :" Name="ClinicCode" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <dx:LayoutItem Caption="Clinic code :" Name="ClinicCode" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <%--<dx:ASPxLabel ID="lblClinicCode1" runat="server" ClientInstanceName="lblClinicCode1"></dx:ASPxLabel>--%>
@@ -305,7 +305,7 @@
                                                     </LayoutItemNestedControlCollection>
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
-                                                <dx:LayoutItem Caption="Total Appointments  :" Name="Totalappointments" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <dx:LayoutItem Caption="Total appointments  :" Name="Totalappointments" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtTotalAppointments" ClientInstanceName="txtTotalAppointments" runat="server" DecimalPlaces="0"
@@ -321,7 +321,7 @@
                                                     </LayoutItemNestedControlCollection>
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
-                                                <dx:LayoutItem Caption="Actual Appointments :" Name="NumberofAppointments" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <dx:LayoutItem Caption="Actual appointments :" Name="NumberofAppointments" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtNumAppointments" ClientInstanceName="txtActualAppointments" runat="server" DecimalPlaces="0"
@@ -353,7 +353,7 @@
                                                     </LayoutItemNestedControlCollection>
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
-                                                <dx:LayoutItem Caption="Of the notes provided how many were Temporary Notes? :" Name="TempNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <dx:LayoutItem Caption="Of the notes provided how many were temporary notes? :" Name="TempNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" DecimalPlaces="0" 
@@ -381,7 +381,7 @@
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>--%>
 
-                                                <dx:LayoutItem Name="UnavailableCaseNoteCount" Caption="Number of Casenotes Unavailable :" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <dx:LayoutItem Name="UnavailableCaseNoteCount" Caption="Number of casenotes unavailable :" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtUnavailableCaseNoteCount" ClientInstanceName="txtUnavailableCaseNoteCount" runat="server" DecimalPlaces="0"

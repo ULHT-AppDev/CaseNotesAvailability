@@ -70,7 +70,7 @@
                             </div>
                         </div>
                     </div>
-                   <br />
+                    <br />
                 </div>
             </div>
             <div class="ml-auto text-black text-right">
@@ -91,7 +91,7 @@
                     </Image>
                 </dx:ASPxButton>
             </div>
-                    <br />
+            <br />
             <dx:ASPxGridView ID="CaseNoteAvailabilityAuditRecordsGridView" runat="server" AllowSorting="true"
                 ClientInstanceName="CaseNoteAvailabilityAuditRecordsGridView"
                 OnRowUpdating="AuditRow_Updating"
@@ -144,14 +144,14 @@
                     <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="100" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
                         <DataItemTemplate>
                             <div>
-                                <dx:ASPxButton ID="AuditorView"
+                                <dx:ASPxButton ID="CompleteAudit"
                                     runat="server"
                                     Text="Complete Audit"
                                     RenderMode="Button"
                                     AutoPostBack="false"
                                     UseSubmitBehavior="false"
                                     CausesValidation="false"
-                                    OnInit="AuditorView_Init">
+                                    OnInit="CompleteAudit_Init">
                                 </dx:ASPxButton>
                             </div>
                         </DataItemTemplate>
@@ -178,7 +178,7 @@
                     <%--<dx:GridViewDataTextColumn Caption="Temporary Notes Count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>--%>
                     <%-- <dx:GridViewDataButtonEditColumn VisibleIndex="1">
                     <DataItemTemplate>
-                        <dx:ASPxButton ID="AuditorView"
+                        <dx:ASPxButton ID="CompleteAudit"
                             runat="server"
                             Text="Choose"
                             RenderMode="Button"
@@ -215,13 +215,14 @@
             PopupVerticalAlign="WindowCenter"
             PopupHorizontalAlign="WindowCenter"
             CloseAction="CloseButton"
+            ShowCloseButton="false"
             AutoUpdatePosition="true"
             AllowDragging="true"
             Modal="true"
             ModalBackgroundStyle-Opacity="025"
             ShowHeader="true"
             ShowFooter="false" HeaderStyle-Border-BorderWidth="0" HeaderStyle-Paddings-PaddingBottom="0" ContentStyle-Paddings-PaddingTop="0">
-            <SettingsAdaptivity MinWidth="45%" MinHeight="50%" Mode="Always" HorizontalAlign="WindowCenter" VerticalAlign="WindowCenter" />
+            <SettingsAdaptivity MinWidth="50%" MinHeight="50%" Mode="Always" HorizontalAlign="WindowCenter" VerticalAlign="WindowCenter" />
             <ClientSideEvents Closing="popup_Closing" />
             <ContentStyle>
                 <Paddings PaddingTop="0px"></Paddings>
@@ -243,9 +244,9 @@
                     <dx:ASPxCallbackPanel ID="CaseNoteAvailabilityUnAvailabilityCallbackPanel"
                         ClientInstanceName="CaseNoteAvailabilityUnAvailabilityCallbackPanel"
                         runat="server"
-                        width ="100%"
+                        Width="100%"
                         HideContentOnCallback="true"
-                        ShowCloseButton ="false"
+                        ShowCloseButton="false"
                         OnCallback="CaseNoteAvailabilityUnAvailabilityCallbackPanel_Callback">
                         <ClientSideEvents EndCallback="CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback" />
                         <PanelCollection>
@@ -304,14 +305,14 @@
                                                     </LayoutItemNestedControlCollection>
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
-                                                <dx:LayoutItem Caption="Total Appointments  :" Name="Totalappointments" Visible="true"  ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <dx:LayoutItem Caption="Total Appointments  :" Name="Totalappointments" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtTotalAppointments" ClientInstanceName="txtTotalAppointments" runat="server" DecimalPlaces="0"
-                                                                NumberType="Float" Width="200px" MaxValue ="50" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
+                                                                NumberType="Integer" Width="200px" MaxValue="50" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <%--<ClientSideEvents ValueChanged="UnavailableCaseNoteCount_SelectedIndexChanged" />--%>
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" CausesValidation="true" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -324,10 +325,10 @@
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtNumAppointments" ClientInstanceName="txtActualAppointments" runat="server" DecimalPlaces="0"
-                                                                NumberType="Float" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
+                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <%--<ClientSideEvents ValueChanged="UnavailableCaseNoteCount_SelectedIndexChanged" />--%>
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" CausesValidation="true" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -339,11 +340,11 @@
                                                 <dx:LayoutItem Caption="How many case notes were available at the start of clinic? :" Name="CaseNoteAvailabileStartCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <dx:ASPxSpinEdit ID="txtStartCount" ClientInstanceName="txtStartCount" runat="server"  DecimalPlaces="0"
-                                                                NumberType="Float" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
+                                                            <dx:ASPxSpinEdit ID="txtStartCount" ClientInstanceName="txtStartCount" runat="server" DecimalPlaces="0"
+                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="StartCount_Validation" />
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" CausesValidation="true" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -355,11 +356,11 @@
                                                 <dx:LayoutItem Caption="Of the notes provided how many were Temporary Notes? :" Name="TempNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" DecimalPlaces="0"
+                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" DecimalPlaces="0" 
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="TempCount_Validation" />
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" CausesValidation="true" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -387,7 +388,7 @@
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" MinValue="0" MaxValue="10" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="UnavailableCaseNoteCount_SelectedIndexChanged" />
-                                                                <ValidationSettings CausesValidation="true" ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -428,6 +429,16 @@
                                     ValidationGroup="CaseNoteVal"
                                     CausesValidation="true"
                                     OnInit="CompleteButton_Init">
+                                </dx:ASPxButton>
+                                <dx:ASPxButton ID="CloseButton"
+                                    ClientInstanceName="CloseButton"
+                                    runat="server"
+                                    Text="Close Popup"
+                                    AutoPostBack="false"
+                                    UseSubmitBehavior="false"
+                                    ValidationGroup="CaseNoteVal"
+                                    CausesValidation="true">
+                                    <ClientSideEvents Click="CloseButton_Init" />
                                 </dx:ASPxButton>
                             </div>
                             <%-- <div id="NoReferralsContainer" runat="server" class="mt-3" visible="false">

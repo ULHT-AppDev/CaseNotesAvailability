@@ -168,9 +168,9 @@ namespace BLL
 
         }
 
-        public bool CheckWhetherAuditExist(object auditID)
+        public bool CheckWhetherAuditExist(int auditID)
         {
-            throw new NotImplementedException();
+            return new DAL.AuditClinicAnswersDAL().CheckWhetherAuditExist(auditID);
         }
     }
 }

@@ -23,6 +23,11 @@ let reviewSender = null;
 function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
 
     currentClinicCode = ClinicCode;
+    //clearing the popup
+        ImpReasonComboBox.Clear();
+        ReviewCommentMemo.Clear();
+        ActReviewCommentMemo.Clear();
+ //
     // reviewSender = 1; // this would need adding - send from
     reviewSender = reviewSender1;
 
@@ -49,7 +54,7 @@ function SubmitReviewButton_Click(s, e) {
 
     if (reviewSender == 1) {
 
-        if (ASPxClientEdit.AreEditorsValid("AddReviewContainer", "SubmitReview", false) && !ImprovementDetailsGridView.InCallback()) {
+        if (ASPxClientEdit.AreEditorsValid("AddReviewPopup", "SubmitReview", false) && !ImprovementDetailsGridView.InCallback()) {
             let newItem = {
                 RequiresImprovementDetailsID: InMemoryImprovementDetailsCounter++,
                 ImprovementDetailID: ImpReasonComboBox.GetValue(),
@@ -64,7 +69,7 @@ function SubmitReviewButton_Click(s, e) {
 
     } else if (reviewSender == 2) {
         // send to other grid
-        if (ASPxClientEdit.AreEditorsValid("AddReviewContainer", "SubmitReview", false) && !ActionPointDetailsGridView.InCallback()) {
+          if (ASPxClientEdit.AreEditorsValid("AddReviewPopup", "SubmitReview", false) && !ImprovementDetailsGridView.InCallback()) {
 
             // var comboBox = ASPxClientControl.GetControlCollection().GetByName("UnavailableReasonComboBox");
 
@@ -160,6 +165,8 @@ function ReviewAuditRecordsGridView_EndCallBack(s, e) {
 }
 
 function CompleteAuditReview_Click(s, e, code) {
+ if (InMemoryImprovementDetailsDS.length >0 && InMemoryActionDetailsDS.length > 0 ) {
+
     let CallbackObj =
     {
         ActionID: 1,
@@ -174,6 +181,9 @@ function CompleteAuditReview_Click(s, e, code) {
     ReviewAuditRecordsGridView.PerformCallback(jsonArray);
 
 }
+}
+
+
 
 function ActionPointDetailsGridView_EndCallback(s, e) {
     if (s.cpDataBound) {

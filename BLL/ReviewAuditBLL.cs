@@ -134,6 +134,23 @@ namespace BLL
             }
         }
 
+        public List<Issues> GetImprovementReason()
+        {
+            try
+            {
+                List<Issues> Status = new List<Issues>();
+                Status = new DAL.ReviewAuditDAL().GetImprovementReason();
+
+                return Status;
+            }
+            catch (Exception ex)
+            {
+                //ErrorLog error = new ErrorLog(ex, sessionID, null);
+                //new LogsBLL().LogAnError(error);
+                return null;
+            }
+        }
+
         public bool UpdateImprovementDetails(RequiresImprovementDetailsBO Details)
         {
             try
@@ -265,6 +282,10 @@ namespace BLL
         {
             return new DAL.ReviewAuditDAL().CheckandUpdateAuditStatus(AuditClinicAnswersID);
 
+        }
+        public bool CheckWhetherAuditExist(int auditID)
+        {
+            return new DAL.ReviewAuditDAL().CheckWhetherAuditExist(auditID);
         }
     }
 }

@@ -21,7 +21,7 @@ namespace DAL
                         select new BusinessObjects.RequiresImprovementDetailsBO
                         {
                             RequiresImprovementDetailsID = p.RequiresImprovementDetailsID,
-                           // ClinicCode = p.ClinicCode,
+                            // ClinicCode = p.ClinicCode,
                             ImprovementReasonID = p.ImprovementReasonID,
                             Comment = p.Comment,
                             ReviewedByUserID = p.ReviewedByUserID,
@@ -139,11 +139,11 @@ namespace DAL
                             {
                                 Model.RequiresImprovementDetail dt = new Model.RequiresImprovementDetail()
                                 {
-                                   // AuditClinicAnswersID = clinicCode,
+                                    // AuditClinicAnswersID = clinicCode,
                                     ImprovementReasonID = SingleImprovementDetailsCallback.ImprovementDetailID,
                                     Comment = SingleImprovementDetailsCallback.Comment,
-                                    ReviewedByUserID= userID,
-                                    ReviewedDate=DateTime.Now,
+                                    ReviewedByUserID = userID,
+                                    ReviewedDate = DateTime.Now,
                                     IsActive = true
 
                                 };
@@ -203,7 +203,7 @@ namespace DAL
             }
         }
 
-        public void UpdateImprovementActionDetails(short userID,UpdateImprovementActionCallbackBO updateImprovementAction)
+        public void UpdateImprovementActionDetails(short userID, UpdateImprovementActionCallbackBO updateImprovementAction)
         {
 
             using (var ctxIns = new Model.CNAEntities())
@@ -301,7 +301,7 @@ namespace DAL
         //                        }
         //                    }
         //                }
-                        
+
         //            }
         //        }
         //        catch (Exception ex)
@@ -360,5 +360,38 @@ namespace DAL
             }
             return false;
         }
+        public bool CheckWhetherAuditExist(int auditID)
+        {
+            using (var ctxSelect = new Model.CNAEntities())
+            {
+
+                return ctxSelect.Audits
+          .Where(e => e.AuditID == auditID)    // Filter by the specific Id
+          .Any();
+
+            }
+        }
+
+  
+        public List<Issues> GetImprovementReason()
+        {
+
+            using (var ctx = new Model.CNAEntities())
+            {
+                return (from u in ctx.Issues
+                        where u.IsActive
+                        select new BusinessObjects.Issues
+                        {
+                            ImprovementReasonID = u.ImprovementReasonID,
+                            Issue = u.Issue1
+                        }).ToList();
+            }
+
+
+        }
+
+
+
+
     }
 }

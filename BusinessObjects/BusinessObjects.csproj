@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ActionDetailsCallbackBO.cs" />
+    <Compile Include="Issues.cs" />
     <Compile Include="UpdateImprovementActionCallbackBO.cs" />
     <Compile Include="ImprovementDetailsCallbackBO.cs" />
     <Compile Include="RequiresImprovementActionPointsBO.cs" />

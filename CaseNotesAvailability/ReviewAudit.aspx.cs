@@ -47,10 +47,29 @@ namespace ReviewAudit
                 Response.Redirect(FormsAuthentication.DefaultUrl);
                 Response.End();
             }
-            int lAuditId = Convert.ToInt32(Request.QueryString["AuditID"]);
 
-            SetAuditID(lAuditId);
-            //Speciality = Request.QueryString["Speciality"];
+          
+            bool canParse = int.TryParse(Request.QueryString["AuditID"], out int ID);
+
+            if (!canParse)
+            {
+                Response.Redirect(FormsAuthentication.DefaultUrl);
+
+                // throw to home page with error 
+            }
+            else
+            {
+                bool bAuditExist = new BLL.ReviewAuditBLL().CheckWhetherAuditExist(ID);
+                if (bAuditExist)
+                {
+                    SetAuditID(ID);
+                }
+                else
+                {
+                    Response.Redirect(FormsAuthentication.DefaultUrl);
+                    Response.End();
+                }
+            }
         }
 
 
@@ -519,6 +538,7 @@ namespace ReviewAudit
 
         //}
         //protected void LblAuditClinicAnswersID_Init(object sender, EventArgs e)
+
         //{
         //    ASPxLabel lbl = sender as ASPxLabel;
 

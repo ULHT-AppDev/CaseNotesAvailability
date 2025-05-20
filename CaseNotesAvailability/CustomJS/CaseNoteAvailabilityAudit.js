@@ -4,9 +4,9 @@
     //s.SetText(isContactLayoutGroupVisible ? "Show Details..." : "Hide Details");
     contactLayoutGroup.SetVisible(!isContactLayoutGroupVisible);
 }
-function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
+function CompleteAudit_ClientClick(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
     //ASPxPopupControl
-
+    ClearFields();
     if (!CaseNoteAvailabilityUnAvailabilityCallbackPanel.InCallback()) {
 
         let callbackString = {
@@ -20,6 +20,11 @@ function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId, AuditID)
     }
 
 }
+
+function CloseButton_Init(s, e) 
+{
+    CaseNoteAvailabilityUnAvailabilityPopup.Hide();
+    }
 
 function TempCount_Validation(s, e) {
 
@@ -116,8 +121,26 @@ function Complete_Click(s, e)
 
   */
 
+function ClearFields()
+{
+    txtTotalAppointments.Clear();
+ txtActualAppointments.Clear();
+ txtStartCount.Clear();
+ txtTempNotesCount.Clear();
+ txtUnavailableCaseNoteCount.Clear();
+}
+
 function Complete_Click(s, e) {
+ txtTotalAppointments.Validate();
+ txtActualAppointments.Validate();
+ txtStartCount.Validate();
+ txtTempNotesCount.Validate();
+ txtUnavailableCaseNoteCount.Validate();
+
+ var test = txtTotalAppointments.GetIsValid() && txtActualAppointments.GetIsValid() && txtStartCount.GetIsValid() &&txtTempNotesCount.GetIsValid() && txtUnavailableCaseNoteCount.GetIsValid()  ;
  
+ if(test==true)
+ {
     let arr = [];
     var UnavailableCaseNoteCount1 = txtUnavailableCaseNoteCount.GetValue();
     for (var i = 1; i <= UnavailableCaseNoteCount1; i++) {
@@ -136,19 +159,17 @@ function Complete_Click(s, e) {
         };
         arr.push(PatientDetails);
 
-        //arr[i - 1][0] = PatientNameTextBox.GetText();
-        //arr[i - 1][1] = ReasonTextBox.GetValue();
-
+   
     }
 
     var jsonArray = JSON.stringify(arr);
-
-    //CompleteCallback.PerformCallback(jsonArray);
-    CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
+        CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
+ 
+}
 }
 
 function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e) {
-
+    
 }
 function StartCount_Validation(s, e) 
 {

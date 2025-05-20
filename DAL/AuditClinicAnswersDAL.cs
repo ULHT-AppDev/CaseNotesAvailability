@@ -65,7 +65,22 @@ namespace DAL
                         }).ToList();
             }
         }
+        public bool CheckWhetherAuditExist(int auditID)
+        {
+            using (var ctxSelect = new Model.CNAEntities())
+            {
 
+                //    var query = from c in db.Emp
+                //                from d in db.EmpDetails
+                //                where c.ID == d.ID && c.FirstName == "A" && c.LastName == "D"
+                //this.result = query.Any().ToString()
+
+                return ctxSelect.Audits
+                       .Where(e => e.AuditID == auditID)    // Filter by the specific Id
+                       .Any();
+                                            //.All(e => e.StatusID == (byte)Enums.AuditStatus.Completed);
+            }
+        }
         public List<SitesBO> GetSites()
         {
             using (var ctx = new Model.CNAEntities())

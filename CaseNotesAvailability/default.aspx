@@ -78,8 +78,8 @@
                     <Items>
                         <dx:GridViewColumnLayoutItem ColumnName="AuditID" Name="AuditID" Caption="Audit ID" Width="100%" ColSpan="2"></dx:GridViewColumnLayoutItem>
 
-                        <dx:GridViewColumnLayoutItem ColumnName="Date" Caption="Audit Start Date" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
-                        <dx:GridViewColumnLayoutItem Caption="Audit Due By Date" ColumnName="DueByDate"  ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
+                        <dx:GridViewColumnLayoutItem ColumnName="Date" Caption="Audit start date" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
+                        <dx:GridViewColumnLayoutItem Caption="Audit due by date" ColumnName="DueByDate"  ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                         <dx:GridViewColumnLayoutItem Caption="Site" ColumnName="SiteID" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                         <dx:GridViewColumnLayoutItem Caption="Speciality" ColumnName="SpecialtyID" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
 
@@ -88,7 +88,7 @@
                                 <dx:ASPxLabel ID="ClinicCodesHelpLabel" runat="server" OnInit="ClinicCodesHelpLabel_Init" EncodeHtml="false"></dx:ASPxLabel>
                             </Template>
                         </dx:GridViewColumnLayoutItem>
-                        <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes"  Caption="Clinic Codes" ColSpan="2" Width="100%">
+                        <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes"  Caption="Clinic codes" ColSpan="2" Width="100%">
                         </dx:GridViewColumnLayoutItem>
                         <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                     </Items>
@@ -143,7 +143,7 @@
                 </EditItemTemplate>
             </dx:GridViewDataTextColumn>
 
-            <dx:GridViewDataDateColumn Caption="Audit Start Date" FieldName="Date" VisibleIndex="2" MinWidth="200" MaxWidth="200">
+            <dx:GridViewDataDateColumn Caption="Audit start date" FieldName="Date" VisibleIndex="2" MinWidth="200" MaxWidth="200">
                 <PropertiesDateEdit ClientInstanceName="AuditStartDate" DisplayFormatString="dd-MMM-yyyy">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="A date is required" />
@@ -151,7 +151,7 @@
                 </PropertiesDateEdit>
             </dx:GridViewDataDateColumn>
 
-            <dx:GridViewDataDateColumn Caption="Due By Date" FieldName="DueByDate" VisibleIndex="3" MinWidth="200" MaxWidth="200">
+            <dx:GridViewDataDateColumn Caption="Due by date" FieldName="DueByDate" VisibleIndex="3" MinWidth="200" MaxWidth="200">
                 <PropertiesDateEdit  ClientInstanceName="DueByDate" DisplayFormatString="dd-MMM-yyyy">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="A date is required" />
@@ -160,7 +160,7 @@
                 </PropertiesDateEdit>
             </dx:GridViewDataDateColumn>
 
-            <dx:GridViewDataComboBoxColumn Caption="specialty" FieldName="SpecialtyID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+            <dx:GridViewDataComboBoxColumn Caption="Specialty" FieldName="SpecialtyID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
                 <PropertiesComboBox ClientInstanceName="Specialities" DataSourceID="GetSpeciality" TextField="SpecilatiesName" ValueField="SpecilatiesID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="Specialty is required" />

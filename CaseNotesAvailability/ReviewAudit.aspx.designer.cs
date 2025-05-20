@@ -78,6 +78,15 @@ namespace ReviewAudit
         protected global::System.Web.UI.WebControls.ObjectDataSource ActPointReviewAudit;
 
         /// <summary>
+        /// ImpReason control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ObjectDataSource ImpReason;
+
+        /// <summary>
         /// AuditDetails control.
         /// </summary>
         /// <remarks>

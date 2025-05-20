@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static System.Net.Mime.MediaTypeNames;
 using DAL;
+using static BusinessObjects.Enums;
 
 namespace BLL
 {
@@ -23,9 +24,14 @@ namespace BLL
                     AuditID = x.Key,
                     ClinicCode = string.Join(",", x.ToList().Select(y => y.ClinicCode.ToString()).Distinct().ToArray()) // get clinic codes into string for clinic id seperated by comma
                 }).ToList();
-
-                List<AuditBO> Audit = new DAL.AuditDAL().GetAudit().OrderByDescending(x => x.AuditID).ToList();
-
+               // if (CookieHelper.GetCookieRoleID() != (byte)UserRoles.HRManagers)
+                //{ 
+                    List<AuditBO> Audit = new DAL.AuditDAL().GetAudit().OrderByDescending(x => x.StatusID).ToList();
+                //}
+                //else
+                //{
+                //    List<AuditBO> Audit = new DAL.AuditDAL().GetAudit().OrderByDescending(x => x.StatusID).ToList();
+                //}
                 foreach (var AuditBO in Audit)
                 {
                     var ClinicCode = FullAuditClincAnswer.Where(x => x.AuditID == AuditBO.AuditID).Select(x => x.ClinicCode).Distinct().ToList();

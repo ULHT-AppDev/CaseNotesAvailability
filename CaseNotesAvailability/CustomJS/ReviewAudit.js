@@ -23,6 +23,7 @@ let reviewSender = null;
 function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
 
     currentClinicCode = ClinicCode;
+    AddReviewPopupHeaderLabel.SetText('Improvement Details');
     //clearing the popup
         ImpReasonComboBox.Clear();
         ReviewCommentMemo.Clear();
@@ -48,6 +49,7 @@ function AddActionPoint_ClientClick(s, e, ClinicCode, reviewSender1) {
 
     currentClinicCode = ClinicCode;
     //document.getElementById('AddReviewPopupHeaderLabel').innerHTML ='Action point';
+    AddReviewPopupHeaderLabel.SetText('Action point');
     
     //clearing the popup
         ImpReasonComboBox.Clear();

@@ -187,7 +187,7 @@
                 
             </dx:GridViewDataTokenBoxColumn>
 
-            <dx:GridViewDataComboBoxColumn Caption="Status" SortIndex ="0" SortOrder ="Descending" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
+            <dx:GridViewDataComboBoxColumn Caption="Status" PropertiesComboBox-ClientInstanceName="Status" SortIndex ="0" SortOrder ="Descending" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
                 PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="StatusID" VisibleIndex="7" MinWidth="200" MaxWidth="400">
                 <PropertiesComboBox DataSourceID="Status" TextField="StatusName" ValueField="StatusID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">

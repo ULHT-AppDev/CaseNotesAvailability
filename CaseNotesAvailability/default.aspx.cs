@@ -9,6 +9,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Web;
@@ -23,6 +24,29 @@ namespace CaseNotesAvailability
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                if (CookieHelper.GetCookieRoleID() != (byte)UserRoles.HRManagers)
+                {
+                    SortGrid("Status", DevExpress.Data.ColumnSortOrder.Ascending);
+                    //HealthRecordsGridView.Columns[""].SortOrder = SortOrder.Descending;
+                }
+                else
+                {
+                    SortGrid("Status", DevExpress.Data.ColumnSortOrder.Descending);
+                }
+                // Initial sort on Page Load
+                
+            }
+        }
+        private void SortGrid(string columnName, DevExpress.Data.ColumnSortOrder order)
+        {
+            GridViewColumn column = HealthRecordsGridView.Columns[columnName];
+            if (column != null)
+            {
+                HealthRecordsGridView.ClearSort();
+                HealthRecordsGridView.SortBy(column, order);
+            }
         }
         //protected void Btn_Click(object sender, EventArgs e)
         //{
@@ -74,8 +98,9 @@ namespace CaseNotesAvailability
                 //if (!String.IsNullOrEmpty(StatusID))
                 //{
                 //  StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
+              
 
-                switch (status)
+                    switch (status)
                 {
                     case (byte)Enums.AuditStatus.NotStarted:
                         //btn.Text = "Not Started";
@@ -213,7 +238,7 @@ namespace CaseNotesAvailability
         protected void NewRef_Init(object sender, EventArgs e)
         {
                 ASPxButton btn = sender as ASPxButton;
-            if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
+            if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.NursingteamUser)
             {
                 btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
             }

@@ -36,6 +36,11 @@ namespace CaseNotesAvailability
         private string AuditSite;
         //public int StatusID { get; set; }
 
+        //protected void Page_Init(object sender, EventArgs e)
+        //{
+        //    // Always recreate controls early
+        //    CreateTextBoxes(TextBoxCount);
+        //}
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -148,6 +153,12 @@ namespace CaseNotesAvailability
             }
 
         }
+        //private int TextBoxCount
+        //{
+        //    get { return ViewState["TextBoxCount"] != null ? (int)ViewState["TextBoxCount"] : 0; }
+        //    set { ViewState["TextBoxCount"] = value; }
+        //}
+
 
         protected void CreateFormDynamically_CallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
@@ -194,7 +205,7 @@ namespace CaseNotesAvailability
                         patientNameTextBox.MaxLength = 200;
                         // add in validation settings and stuff here like below one (look at combo below)
                         patientNameTextBox.ValidationSettings.RequiredField.IsRequired = true;
-                        patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal";
+                        patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal1";
                         patientNameTextBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
                         nameItem.Controls.Add(patientNameTextBox); // add control 
 
@@ -214,7 +225,7 @@ namespace CaseNotesAvailability
                         comboBox.ValidationSettings.RequiredField.IsRequired = true;
                         comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
                         comboBox.ValidationSettings.Display = Display.Dynamic;
-                        comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
+                        comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal1"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
 
                         reasonItem.Controls.Add(comboBox); // add the control
 

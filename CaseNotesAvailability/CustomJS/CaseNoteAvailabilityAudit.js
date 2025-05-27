@@ -101,23 +101,23 @@ function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s, e) {
 }
 
 /*
-function Complete_Click(s, e)
-{
-   var arr = [];
-    var UnavailableCaseNoteCount1 = UnavailableCaseNoteCount.GetValue();
-    for (var i = 1; i <= UnavailableCaseNoteCount1; i++)
-    {
-        arr[i - 1] = [];
-        var Namee = "PatientNameTextBox_" + i;
-        var PatientNameTextBox = ASPxClientTextBox.Cast(Namee);
-        var PatientNametVal = PatientNameTextBox.GetText();
-        var Reason = "ReasonComboBox_" + i;
-        var ReasonTextBox = ASPxClientComboBox.Cast(Reason);
-        var ReasonVal = ReasonTextBox.GetValue();
 
-        arr[i - 1][0] = PatientNameTextBox.GetText();
-        arr[i - 1][1] = ReasonTextBox.GetValue();
+function ValidateMyGroup() {
+    // Trigger client-side validation for 'MyDynamicGroup'
+    var isValid = Page_ClientValidate('MyDynamicGroup');
+
+    // Check if the validation passed
+    if (isValid) {
+        alert("Validation for 'MyDynamicGroup' passed!");
+        // Allow the postback to occur
+        return true;
+    } else {
+        alert("Validation for 'MyDynamicGroup' failed! Please check the fields.");
+        // Prevent the postback
+        return false;
     }
+}
+
 
   */
 
@@ -129,6 +129,7 @@ function ClearFields()
  txtTempNotesCount.Clear();
  txtUnavailableCaseNoteCount.Clear();
 // CreateFormDynamically_CallbackPanel.Hide();
+
 }
 
 function Complete_Click(s, e) {

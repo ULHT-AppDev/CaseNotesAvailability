@@ -247,6 +247,7 @@ namespace CaseNotesAvailability
                 btn.Visible = false;
             }
         }
+
         protected void RoleControlGridView_CustomButtonInitialize(object sender, ASPxGridViewCustomButtonEventArgs e)
         {
             if (e.ButtonID == "DeleteUserButton")
@@ -259,7 +260,6 @@ namespace CaseNotesAvailability
                 }
             }
         }
-
 
         protected void DeleteUserButton_Init(object sender, EventArgs e)
         {
@@ -337,6 +337,7 @@ namespace CaseNotesAvailability
             }
 
         }
+
         protected void HealthRecordsView_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
@@ -346,14 +347,17 @@ namespace CaseNotesAvailability
         {
             e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
         }
+
         protected void GetSites_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
         }
+
         protected void Status_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
         {
             e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
         }
+
         protected void Audit_Updating(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var obj = e.InputParameters["Audit"] as AuditBO;
@@ -420,19 +424,7 @@ namespace CaseNotesAvailability
         {
             HealthRecordsGridView.JSProperties["cpUpdated"] = true;
         }
-
-        //protected void HealthRecordsGridView_HtmlDataCellPrepared(object sender, DevExpress.Web.ASPxGridViewTableDataCellEventArgs e)
-        //{
-        //    if (e.DataColumn.FieldName == "DueByDate")
-        //    {
-        //        DateTime dueDate = Convert.ToDateTime( e.CellValue.ToString());
-        //        if (dueDate < DateTime.Now.Date)
-        //        {
-        //            e.Cell.ForeColor = System.Drawing.Color.Red; // Column index 1 = DueDate
-        //        }
-        //    }
-        //}
-
+             
 
         protected void HealthRecordsGridView_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
         {

@@ -17,8 +17,6 @@
     <asp:ObjectDataSource ID="GetSites" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="Status" runat="server" SelectMethod="GetStatus" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <div>
-
-
         <div class="container-fluid p-4 mb-5">
             <div class="row">
                 <div class="col-lg-12">
@@ -356,7 +354,7 @@
                                                 <dx:LayoutItem Caption="Of the notes provided how many were temporary notes? :" Name="TempNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" DecimalPlaces="0" 
+                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" DecimalPlaces="0"
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="TempCount_Validation" />
@@ -413,6 +411,7 @@
                                     <dx:ASPxFormLayout ID="UnavailabilityFormLayout" ClientInstanceName="UnavailabilityFormLayout" runat="server" ColCount="1">
                                     </dx:ASPxFormLayout>
                                 </div>
+
 
                             </dx:PanelContent>
                         </PanelCollection>

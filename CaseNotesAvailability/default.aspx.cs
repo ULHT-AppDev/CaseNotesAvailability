@@ -1,22 +1,14 @@
-﻿using BLL;
-using BusinessObjects;
+﻿using BusinessObjects;
 using DevExpress.Web;
-using DevExpress.Web.Internal.XmlProcessor;
-using DevExpress.XtraRichEdit.Commands;
 using Login;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
 using static BusinessObjects.Enums;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CaseNotesAvailability
 {
@@ -36,7 +28,7 @@ namespace CaseNotesAvailability
                     SortGrid("Status", DevExpress.Data.ColumnSortOrder.Descending);
                 }
                 // Initial sort on Page Load
-                
+
             }
         }
         private void SortGrid(string columnName, DevExpress.Data.ColumnSortOrder order)
@@ -98,9 +90,9 @@ namespace CaseNotesAvailability
                 //if (!String.IsNullOrEmpty(StatusID))
                 //{
                 //  StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
-              
 
-                    switch (status)
+
+                switch (status)
                 {
                     case (byte)Enums.AuditStatus.NotStarted:
                         //btn.Text = "Not Started";
@@ -237,7 +229,7 @@ namespace CaseNotesAvailability
 
         protected void NewRef_Init(object sender, EventArgs e)
         {
-                ASPxButton btn = sender as ASPxButton;
+            ASPxButton btn = sender as ASPxButton;
             if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.NursingteamUser)
             {
                 btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
@@ -424,7 +416,7 @@ namespace CaseNotesAvailability
         {
             HealthRecordsGridView.JSProperties["cpUpdated"] = true;
         }
-             
+
 
         protected void HealthRecordsGridView_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
         {

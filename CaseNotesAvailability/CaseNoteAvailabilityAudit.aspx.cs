@@ -1,27 +1,14 @@
-﻿using BLL;
-using BusinessObjects;
-using DevExpress.ClipboardSource.SpreadsheetML;
-using DevExpress.Utils.Text;
+﻿using BusinessObjects;
 using DevExpress.Web;
-using DevExpress.Web.Internal.Dialogs;
-using DevExpress.XtraRichEdit.Commands;
 using Login;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
 using static BusinessObjects.Enums;
-using static System.Data.Entity.Infrastructure.Design.Executor;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CaseNotesAvailability
 {
@@ -36,45 +23,47 @@ namespace CaseNotesAvailability
         private string AuditSite;
         //public int StatusID { get; set; }
 
-        //protected void Page_Init(object sender, EventArgs e)
-        //{
-        //    // Always recreate controls early
-        //    CreateTextBoxes(TextBoxCount);
-        //}
+        protected void Page_Init(object sender, EventArgs e)
+        {
+            if (ViewState["TextboxCount"] != null)
+            {
+                GeneratePatientForm((int)ViewState["TextboxCount"]);
+            }
+        }
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            
-                if (!(CookieHelper.GetCookieRoleID() == (byte)UserRoles.NursingteamUser))      //If the user does not have the right to view this page, we redirect
-                {
-                    Response.Redirect(FormsAuthentication.DefaultUrl);
-                   
-                }
 
-                bool canParse = int.TryParse(Request.QueryString["AuditID"], out int ID);
+            if (!(CookieHelper.GetCookieRoleID() == (byte)UserRoles.NursingteamUser))      //If the user does not have the right to view this page, we redirect
+            {
+                Response.Redirect(FormsAuthentication.DefaultUrl);
 
-                if (!canParse)
+            }
+
+            bool canParse = int.TryParse(Request.QueryString["AuditID"], out int ID);
+
+            if (!canParse)
+            {
+                Response.Redirect(FormsAuthentication.DefaultUrl);
+
+                // throw to home page with error 
+            }
+            else
+            {
+                bool bAuditExist = new BLL.UnavailableCaseNotesBLL().CheckWhetherAuditExist(ID);
+                if (bAuditExist)
                 {
-                    Response.Redirect(FormsAuthentication.DefaultUrl);
-                    
-                    // throw to home page with error 
+                    SetAuditID(ID);
                 }
                 else
                 {
-                    bool bAuditExist = new BLL.UnavailableCaseNotesBLL().CheckWhetherAuditExist(ID);
-                    if (bAuditExist)
-                    {
-                        SetAuditID(ID);
-                    }
-                    else
-                    {
-                        Response.Redirect(FormsAuthentication.DefaultUrl);
-                        Response.End();
-                    }
+                    Response.Redirect(FormsAuthentication.DefaultUrl);
+                    Response.End();
                 }
-
             }
-          
+
+        }
+
 
         protected void Application_Error(object sender, EventArgs e)
         {
@@ -169,87 +158,87 @@ namespace CaseNotesAvailability
                 if (obj.ActionID != 0)
                 {
 
-                    List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
-                    UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons();
-
-
-                    //ASPxFormLayout form = new ASPxFormLayout()
-                    //{
-                    //    AlignItemCaptions = true,
-                    //    Width = Unit.Percentage(100)
-                    //};
-                    //form.ID = "UnavailabilityFormLayout";
-                    //form.ClientInstanceName= "UnavailabilityFormLayout";
                     int iterations = obj.NumberofRows;
 
-                    for (int i = 1; i < (iterations + 1); i++)
+                    if (iterations > 0)
                     {
-
-                        LayoutGroup lg = new LayoutGroup()
-                        {
-                            Caption = $"Details for Patient {i}",
-                            GroupBoxDecoration = GroupBoxDecoration.Box,
-                            AlignItemCaptions = true
-
-                        };
-
-                        LayoutItem nameItem = new LayoutItem()
-                        {
-                            Caption = $"Patient Details",
-
-                        };
-                        nameItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
-                        ASPxTextBox patientNameTextBox = new ASPxTextBox();
-                        patientNameTextBox.ID = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                        patientNameTextBox.ClientInstanceName = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                        patientNameTextBox.MaxLength = 200;
-                        // add in validation settings and stuff here like below one (look at combo below)
-                        patientNameTextBox.ValidationSettings.RequiredField.IsRequired = true;
-                        patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal1";
-                        patientNameTextBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
-                        nameItem.Controls.Add(patientNameTextBox); // add control 
-
-                        LayoutItem reasonItem = new LayoutItem()
-                        {
-                            Caption = $"Reason for unavailability",
-                        };
-                        reasonItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
-                        ASPxComboBox comboBox = new ASPxComboBox();
-                        comboBox.ID = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                        comboBox.ClientInstanceName = $"ReasonComboBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                        comboBox.DataSource = UnAvailableReason; // datasource here etc
-                        comboBox.TextField = "ReasonText"; // whatever it is here
-                        comboBox.ValueField = "ReasonUnavailableID"; // whatever it is here
-                        comboBox.DataBind();
-
-                        comboBox.ValidationSettings.RequiredField.IsRequired = true;
-                        comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
-                        comboBox.ValidationSettings.Display = Display.Dynamic;
-                        comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal1"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
-
-                        reasonItem.Controls.Add(comboBox); // add the control
-
-                        // add layoutitems to group
-                        lg.Items.Add(nameItem);
-                        lg.Items.Add(reasonItem);
-
-                        // add group to form
-                        UnavailabilityFormLayout.Items.Add(lg);
+                        ViewState["TextboxCount"] = iterations;
+                        GeneratePatientForm(iterations);
 
                     }
-
-                    // finally add form to page (div)
-                    // DynamicFormContainer.Controls.Add(form);
-
-                }
-                else
-                {
-                    // Do nothing 
                 }
             }
         }
 
+        private void GeneratePatientForm(int count)
+        {
+            List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
+            UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons();
+            for (int i = 1; i < (count + 1); i++)
+            {
 
+                LayoutGroup lg = new LayoutGroup()
+                {
+                    Caption = $"Details for Patient {i}",
+                    GroupBoxDecoration = GroupBoxDecoration.Box,
+                    AlignItemCaptions = true
+
+                };
+
+                LayoutItem nameItem = new LayoutItem()
+                {
+                    Caption = $"Patient Details",
+
+                };
+                //PlaceHolder pholder = new PlaceHolder();
+
+                nameItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
+                ASPxTextBox patientNameTextBox = new ASPxTextBox();
+                patientNameTextBox.ID = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
+                patientNameTextBox.ClientInstanceName = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
+                patientNameTextBox.MaxLength = 200;
+                // add in validation settings and stuff here like below one (look at combo below)
+                patientNameTextBox.ValidationSettings.RequiredField.IsRequired = true;
+                patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal1";
+                patientNameTextBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
+                patientNameTextBox.ValidationSettings.Display = Display.Dynamic;
+                // pholder.Controls.Add(patientNameTextBox);
+                nameItem.Controls.Add(patientNameTextBox); // add control 
+                lg.Items.Add(nameItem);
+                LayoutItem reasonItem = new LayoutItem()
+                {
+                    Caption = $"Reason for unavailability",
+                };
+                reasonItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
+                ASPxComboBox comboBox = new ASPxComboBox()
+                {
+                    ID = $"ReasonComboBox_{i}", // id needs to be unique so can get value in js when submitting as dynamically created
+                    ClientInstanceName = $"ReasonComboBox_{i}", // id needs to be unique so can get value in js when submitting as dynamically created
+                    DataSource = UnAvailableReason, // datasource here etc
+                    TextField = "ReasonText", // whatever it is here
+                    ValueField = "ReasonUnavailableID" // whatever it is here
+                };
+                comboBox.DataBind();
+
+                comboBox.ValueType = typeof(int);
+                comboBox.Items.Insert(0, new ListEditItem("-- Select Reason --", null));
+                comboBox.ValidationSettings.RequiredField.IsRequired = true;
+                comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
+                comboBox.ValidationSettings.Display = Display.Dynamic;
+                comboBox.AutoPostBack = false;
+                comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal1"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
+                reasonItem.Controls.Add(comboBox); // add the control
+
+                // add layoutitems to group
+
+                lg.Items.Add(reasonItem);
+
+                // add group to form
+                UnavailabilityFormLayout.Items.Add(lg);
+
+            }
+
+        }
         private void getAuditClinicAnswer(int rowID, int SessionID)
         {
             AuditClinicAnswersBO FullAuditClincAnswer = new AuditClinicAnswersBO();

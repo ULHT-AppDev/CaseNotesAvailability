@@ -146,7 +146,7 @@ namespace DAL
         {
             using (var ctx = new Model.CNAEntities())
             {
-                return (from ri in ctx.LoginRights 
+                return (from ri in ctx.LoginRights
                         join rr in ctx.LoginRoleRights on ri.RightID equals rr.RightID
                         where rr.RoleID == roleID && rr.IsActive
                         select ri.RightID).ToList();

@@ -1,17 +1,12 @@
 ﻿using BusinessObjects;
 using DevExpress.Web;
-using DevExpress.XtraRichEdit.Commands;
 using Login;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace CaseNotesAvailability
 {
@@ -75,7 +70,7 @@ namespace CaseNotesAvailability
 
 
 
-               
+
                 // btn.Click += new System.EventHandler(this.Button_Click);
 
             }
@@ -90,7 +85,7 @@ namespace CaseNotesAvailability
 
             ASPxButton btn = sender as ASPxButton;
             btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
-            
+
         }
 
         protected void ChooseUserButton1_Init(object sender, EventArgs e)

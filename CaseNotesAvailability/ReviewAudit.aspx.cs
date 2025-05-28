@@ -1,29 +1,15 @@
 ﻿using BLL;
 using BusinessObjects;
-using DevExpress.ClipboardSource.SpreadsheetML;
 using DevExpress.Web;
-using DevExpress.Web.Internal.Dialogs;
-using DevExpress.XtraPrinting.Native;
-using DevExpress.XtraRichEdit.Commands;
 using Login;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Diagnostics;
-using System.Diagnostics.Eventing.Reader;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.Remoting.Lifetime;
 using System.Web;
 using System.Web.Security;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Xml.Linq;
 using static BusinessObjects.Enums;
-using static System.Data.Entity.Infrastructure.Design.Executor;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace ReviewAudit
 {
@@ -48,7 +34,7 @@ namespace ReviewAudit
                 Response.End();
             }
 
-          
+
             bool canParse = int.TryParse(Request.QueryString["AuditID"], out int ID);
 
             if (!canParse)
@@ -754,7 +740,7 @@ namespace ReviewAudit
                         {
                             grid.JSProperties["cpPopupUpdated"] = true;
                         }
-                        
+
                         //grid.DataSource = new ReviewAuditBLL().GetAuditClinicAnswers();
 
                         grid.CancelEdit();

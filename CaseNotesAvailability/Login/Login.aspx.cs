@@ -733,7 +733,7 @@ namespace Login
 
                 case LoginErrorType.NotAuthorisedToAccessBecauseUser:
                 case LoginErrorType.NotAuthorisedToAccessBecauseGroup:
-               // case LoginErrorType.NotAuthorisedToAccessBecauseRole:
+                // case LoginErrorType.NotAuthorisedToAccessBecauseRole:
                 case LoginErrorType.UserDoesNotHaveRoles:
 
                     errorMessage = $"You are not authorised to access this application. If you think you should be able to access this application please contact the {supportLink}";
@@ -756,7 +756,7 @@ namespace Login
                 case LoginErrorType.UnableToCreateSessionID:
                 case LoginErrorType.ConfigLoginGroups:
                 case LoginErrorType.UnableToUpdateUser:
-                //case LoginErrorType.RoleInsertFailed:
+                    //case LoginErrorType.RoleInsertFailed:
 
                     errorMessage = $"Login not possible due to system error, please notify the {supportLink}";
 

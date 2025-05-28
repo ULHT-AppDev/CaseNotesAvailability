@@ -2,18 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using Model;
-using System.Data.Entity.Migrations;
-using System.Data.Entity.Infrastructure.Interception;
-using System.Data.Entity;
-using System.Xml.Linq;
-using System.Security.Cryptography;
-using static BusinessObjects.Enums;
-using System.Runtime.Remoting.Contexts;
-using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace DAL
 {
@@ -48,7 +36,7 @@ namespace DAL
                 return (from u in ctx.AuditClinicAnswers
                         where u.IsActive
                         && u.AuditID == AuditID
-                        orderby u.IsReviewed 
+                        orderby u.IsReviewed
                         select new BusinessObjects.AuditClinicAnswersBO
                         {
                             AuditClinicAnswersID = u.AuditClinicAnswersID,
@@ -78,7 +66,7 @@ namespace DAL
                 return ctxSelect.Audits
                        .Where(e => e.AuditID == auditID)    // Filter by the specific Id
                        .Any();
-                                            //.All(e => e.StatusID == (byte)Enums.AuditStatus.Completed);
+                //.All(e => e.StatusID == (byte)Enums.AuditStatus.Completed);
             }
         }
         public List<SitesBO> GetSites()
@@ -225,12 +213,12 @@ namespace DAL
 
         //    }
         //}
-        public int  InsertUnAvailableCaseNoteAvailability(AuditClinicAnswersUnAvailableBO unAvailabelCaseNotes)
+        public int InsertUnAvailableCaseNoteAvailability(AuditClinicAnswersUnAvailableBO unAvailabelCaseNotes)
         {
             int auditid = unAvailabelCaseNotes.AuditID;
             using (var ctxIns = new Model.CNAEntities())
             {
-                
+
                 using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
                 {
                     try
@@ -246,7 +234,7 @@ namespace DAL
                                     ReasonUnavailableID = UnAvailableCaseN.ReasonID,
                                     IsActive = true
                                 };
-                                   ctxIns.UnavailableCaseNotes.Add(dt);
+                                ctxIns.UnavailableCaseNotes.Add(dt);
                                 ctxIns.SaveChanges();
                             }
                         }
@@ -258,20 +246,20 @@ namespace DAL
                         dbContextTransactionIns.Rollback();
                         throw ex;
                     }
-                    unAvailabelCaseNotes.AuditID = 0;   
+                    unAvailabelCaseNotes.AuditID = 0;
                 }
             }
-            
+
             int count = findremainigAudit(auditid);
             return count;
         }
 
-        public int findremainigAudit( int auditID)
+        public int findremainigAudit(int auditID)
         {
             int AuditNumber;
             using (var ctxSelect = new Model.CNAEntities())
             {
-                 AuditNumber = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive && x.StatusID != 4).Select(x => x.ClinicCode).Count();
+                AuditNumber = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive && x.StatusID != 4).Select(x => x.ClinicCode).Count();
             }
 
             return AuditNumber;
@@ -279,7 +267,7 @@ namespace DAL
 
         public void InsertAudit(AuditBO audit)
         {
-            
+
             using (var ctxIns = new Model.CNAEntities())
             {
                 using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())

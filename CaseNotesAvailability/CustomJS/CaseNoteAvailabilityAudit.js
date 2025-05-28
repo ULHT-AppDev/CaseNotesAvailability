@@ -132,14 +132,47 @@ function ClearFields()
 
 }
 
+// Validate Dynamic values
+function customValidate() {
+    var isValid1 = ASPxClientEdit.ValidateGroup("CaseNoteVal");
+    if (!isValid) return false;
+    var isValid = ASPxClientEdit.ValidateGroup("CaseNoteVal1");
+    if (!isValid) return false;
+    return true;
+
+  /*  var controls = ASPxClientControl.GetControlCollection().controls;
+
+    for (var i in controls) {
+        var ctrl = controls[i];
+
+        // Check if control is a textbox and belongs to the validation group
+        if (ctrl.GetValue && ctrl.validationGroup === "CaseNoteVal1") {
+            var val = ctrl.GetValue();
+            if (val === null || val.toString().trim() === "") {
+                alert(ctrl.name + " cannot be empty.");
+                ctrl.Focus();
+                return false;
+            }
+        }
+    }
+
+    return true;
+    */
+}
+
+// Validate Dynamic values
+
+
 function Complete_Click(s, e) {
+    /*
  txtTotalAppointments.Validate();
  txtActualAppointments.Validate();
  txtStartCount.Validate();
  txtTempNotesCount.Validate();
  txtUnavailableCaseNoteCount.Validate();
-
- var test = txtTotalAppointments.GetIsValid() && txtActualAppointments.GetIsValid() && txtStartCount.GetIsValid() &&txtTempNotesCount.GetIsValid() && txtUnavailableCaseNoteCount.GetIsValid()  ;
+ */
+//var test = txtTotalAppointments.GetIsValid() && txtActualAppointments.GetIsValid() && txtStartCount.GetIsValid() &&txtTempNotesCount.GetIsValid() && txtUnavailableCaseNoteCount.GetIsValid() &&customValidate()  ;
+var test = customValidate() ;
  
  if(test==true)
  {
@@ -161,11 +194,11 @@ function Complete_Click(s, e) {
         };
         arr.push(PatientDetails);
 
+    var jsonArray = JSON.stringify(arr);
+        CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
    
     }
 
-    var jsonArray = JSON.stringify(arr);
-        CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
  
 }
 }
@@ -221,7 +254,7 @@ function UnavailableCaseNoteCount_SelectedIndexChanged(s, e) {
                         CreateFormDynamically_CallbackPanel.PerformCallback(JSON.stringify(obj));
                     //CreateFormDynamically_CallbackPanel.PerformCallback(Count);
                     CreateFormDynamically_CallbackPanel.SetVisible(true);
-
+                    obj=null;
                 }
                 else {
                     CreateFormDynamically_CallbackPanel.SetVisible(false);
@@ -241,6 +274,8 @@ function UnavailableCaseNoteCount_SelectedIndexChanged(s, e) {
 
 
 }
+
+
 
 //BodyMassIndexCalculatedLabel.SetText(valueToSet);
 //document.getElementById('HiddenBMIValue').value = valueToSet;

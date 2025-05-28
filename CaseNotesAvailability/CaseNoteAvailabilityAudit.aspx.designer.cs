@@ -249,15 +249,6 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxCallbackPanel CreateFormDynamically_CallbackPanel;
 
         /// <summary>
-        /// DynamicFormContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl DynamicFormContainer;
-
-        /// <summary>
         /// UnavailabilityFormLayout control.
         /// </summary>
         /// <remarks>

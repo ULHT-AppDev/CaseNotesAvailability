@@ -2,17 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using DAL;
 
 namespace BLL
 {
     public class AuditClinicAnswersBLL
     {
         //LogsBLL logsBLL = new LogsBLL();
-        
+
         public List<AuditClinicAnswersBO> GetAuditClinicAnswers(int CSAAuditId, int SessionID)
         {
             try
@@ -24,15 +20,15 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                
+
                 new LogsBLL().LogAnError(ex, SessionID);
                 //logsBLL.LogAnError(ex,, "Inserting delivery address");
 
                 return null;
             }
         }
-        
-        
+
+
         public List<SpecilatyBO> GetSpeciality(int SessionID)
         {
             try
@@ -79,9 +75,9 @@ namespace BLL
                 return null;
             }
         }
-        
 
-        public bool InsertAudit(AuditBO Audit,int SessionID)
+
+        public bool InsertAudit(AuditBO Audit, int SessionID)
         {
             try
             {

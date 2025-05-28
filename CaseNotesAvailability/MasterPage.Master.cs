@@ -1,14 +1,8 @@
 ﻿using DevExpress.Web;
 using Login;
 using System;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
-using System.Web;
 using System.Web.Security;
-using System.Web.UI;
-using System.Web.UI.WebControls;
-using static BusinessObjects.Enums;
 
 namespace CaseNotesAvailability
 {

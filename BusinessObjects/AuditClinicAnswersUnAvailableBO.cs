@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessObjects
 {
@@ -17,6 +14,6 @@ namespace BusinessObjects
         public Nullable<int> TemporaryNotesCount { get; set; }
         public bool IsActive { get; set; }
         public Nullable<int> UnavailableCount { get; set; }
-        public List<CompleteCallbackBO> UnavailableList {  get; set; }  
+        public List<CompleteCallbackBO> UnavailableList { get; set; }
     }
 }

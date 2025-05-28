@@ -2,11 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using DAL;
-using static BusinessObjects.Enums;
 
 namespace BLL
 {
@@ -24,9 +19,9 @@ namespace BLL
                     AuditID = x.Key,
                     ClinicCode = string.Join(",", x.ToList().Select(y => y.ClinicCode.ToString()).Distinct().ToArray()) // get clinic codes into string for clinic id seperated by comma
                 }).ToList();
-               // if (CookieHelper.GetCookieRoleID() != (byte)UserRoles.HRManagers)
+                // if (CookieHelper.GetCookieRoleID() != (byte)UserRoles.HRManagers)
                 //{ 
-                    List<AuditBO> Audit = new DAL.AuditDAL().GetAudit().OrderByDescending(x => x.StatusID).ToList();
+                List<AuditBO> Audit = new DAL.AuditDAL().GetAudit().OrderByDescending(x => x.StatusID).ToList();
                 //}
                 //else
                 //{
@@ -164,7 +159,7 @@ namespace BLL
             }
         }
 
-        public static void DeleteAudit(int AuditID,int SessionID)
+        public static void DeleteAudit(int AuditID, int SessionID)
         {
             try
             {

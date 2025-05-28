@@ -385,7 +385,7 @@
                                                             <dx:ASPxSpinEdit ID="txtUnavailableCaseNoteCount" ClientInstanceName="txtUnavailableCaseNoteCount" runat="server" DecimalPlaces="0"
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" MinValue="0" MaxValue="10" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
-                                                                <ClientSideEvents Validation="UnavailableCaseNoteCount_SelectedIndexChanged" />
+                                                                <ClientSideEvents LostFocus="UnavailableCaseNoteCount_SelectedIndexChanged" />
                                                                 <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
@@ -404,7 +404,7 @@
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>
-                    <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" ClientVisible="false" ClientInstanceName="CreateFormDynamically_CallbackPanel" OnCallback="CreateFormDynamically_CallbackPanel_Callback" runat="server">
+                    <%-- <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" ClientVisible="false" ClientInstanceName="CreateFormDynamically_CallbackPanel" OnCallback="CreateFormDynamically_CallbackPanel_Callback" runat="server">
                         <PanelCollection>
                             <dx:PanelContent>
                                 <div id="DynamicFormContainer" runat="server">
@@ -413,6 +413,14 @@
                                 </div>
 
 
+                            </dx:PanelContent>
+                        </PanelCollection>
+                    </dx:ASPxCallbackPanel>--%>
+                    <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" runat="server" ClientInstanceName="CreateFormDynamically_CallbackPanel"
+                        OnCallback="CreateFormDynamically_CallbackPanel_Callback">
+                        <PanelCollection>
+                            <dx:PanelContent>
+                                <dx:ASPxFormLayout ID="UnavailabilityFormLayout" runat="server" ClientInstanceName="UnavailabilityFormLayout" ColCount="1"/>
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>
@@ -425,7 +433,7 @@
                                     Text="Complete"
                                     AutoPostBack="false"
                                     UseSubmitBehavior="false"
-                                    ValidationGroup="CaseNoteVal"
+                                    ValidationGroup="CaseNoteVal1"
                                     CausesValidation="true"
                                     OnInit="CompleteButton_Init">
                                 </dx:ASPxButton>

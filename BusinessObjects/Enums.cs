@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BusinessObjects
+﻿namespace BusinessObjects
 {
     public class Enums
     {
@@ -20,7 +14,7 @@ namespace BusinessObjects
             InProgress = 2,
             PendingHRreview = 3,
             Completed = 4,
-            Reviewed =5
+            Reviewed = 5
         }
     }
 }

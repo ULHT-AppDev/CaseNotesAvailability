@@ -2,10 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using DAL;
 
 namespace BLL
 {
@@ -272,9 +268,9 @@ namespace BLL
             }
         }
 
-        public bool UpdateImprovementActionDetails(short userID,UpdateImprovementActionCallbackBO updateImprovementAction)
+        public bool UpdateImprovementActionDetails(short userID, UpdateImprovementActionCallbackBO updateImprovementAction)
         {
-            new DAL.ReviewAuditDAL().UpdateImprovementActionDetails(userID,updateImprovementAction);
+            new DAL.ReviewAuditDAL().UpdateImprovementActionDetails(userID, updateImprovementAction);
             return true;
         }
 

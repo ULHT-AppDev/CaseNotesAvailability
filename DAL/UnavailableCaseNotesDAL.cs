@@ -1,13 +1,6 @@
 ﻿using BusinessObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using Model;
-using System.Data.Entity.Migrations;
-using System.Data.Entity.Infrastructure.Interception;
 
 namespace DAL
 {

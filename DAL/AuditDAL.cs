@@ -2,12 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Net.Mime.MediaTypeNames;
-using Model;
-using System.Data.Entity.Migrations;
-using System.Data.Entity.Infrastructure.Interception;
 
 namespace DAL
 {
@@ -255,7 +249,7 @@ namespace DAL
             }
         }
 
-       
+
 
 
         public SingleAuditBO GetSingleAudit(int auditID)
@@ -265,7 +259,7 @@ namespace DAL
             {
                 //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
                 return (from p in ctx.Audits
-                        where p.IsActive && auditID == p.AuditID    
+                        where p.IsActive && auditID == p.AuditID
                         join t in ctx.Specialities on p.SpecialtyID equals t.SpecilatiesID
                         join s in ctx.Sites on p.SiteID equals s.SiteId
                         select new BusinessObjects.SingleAuditBO

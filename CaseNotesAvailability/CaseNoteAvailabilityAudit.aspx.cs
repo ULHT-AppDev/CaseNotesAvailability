@@ -205,6 +205,7 @@ namespace CaseNotesAvailability
                 // pholder.Controls.Add(patientNameTextBox);
                 nameItem.Controls.Add(patientNameTextBox); // add control 
                 lg.Items.Add(nameItem);
+
                 LayoutItem reasonItem = new LayoutItem()
                 {
                     Caption = $"Reason for unavailability",
@@ -221,13 +222,14 @@ namespace CaseNotesAvailability
                 comboBox.DataBind();
 
                 comboBox.ValueType = typeof(int);
-                comboBox.Items.Insert(0, new ListEditItem("-- Select Reason --", null));
+                //comboBox.Items.Insert(0, new ListEditItem("-- Select Reason --", null));
                 comboBox.ValidationSettings.RequiredField.IsRequired = true;
                 comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
                 comboBox.ValidationSettings.Display = Display.Dynamic;
                 comboBox.AutoPostBack = false;
                 comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal1"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
-                reasonItem.Controls.Add(comboBox); // add the control
+                //reasonItem.Controls.Add(comboBox); // add the control
+                nameItem.Controls.Add(comboBox); // add control
 
                 // add layoutitems to group
 

@@ -310,7 +310,7 @@
                                                                 NumberType="Integer" Width="200px" MaxValue="50" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <%--<ClientSideEvents ValueChanged="UnavailableCaseNoteCount_SelectedIndexChanged" />--%>
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -326,7 +326,7 @@
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <%--<ClientSideEvents ValueChanged="UnavailableCaseNoteCount_SelectedIndexChanged" />--%>
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -342,8 +342,8 @@
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="StartCount_Validation" />
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
-                                                                    ErrorTextPosition="Right" SetFocusOnError="true">
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                    ErrorTextPosition="Right"  SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
                                                             </dx:ASPxSpinEdit>
@@ -358,7 +358,7 @@
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="TempCount_Validation" />
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -386,7 +386,7 @@
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" MinValue="0" MaxValue="10" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents LostFocus="UnavailableCaseNoteCount_SelectedIndexChanged" />
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithText" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>

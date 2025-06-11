@@ -190,12 +190,14 @@ namespace CaseNotesAvailability
                         if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
                         {
                             //btn.Text = "Not Started";
-                            btn.Text = "Edit";
-                            btn.ForeColor = Color.FromName("#3a75df");
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
+                        btn.Text = "Edit";
+                        btn.ForeColor = Color.FromName("#3a75df");
+                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
                         }
                         else
                         { btn.Visible = false; }
+                        //btn.Text = "Not Started";
+                       
                         break;
                     //case (byte)Enums.AuditStatus.InProgress:
                     //    //btn.Text = "In Progress";

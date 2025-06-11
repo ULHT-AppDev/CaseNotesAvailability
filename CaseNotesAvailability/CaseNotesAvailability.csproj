@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ASPxScriptIntelliSense.js" />
+    <Content Include="CustomCSS\CasenoteAudit.css" />
     <Content Include="CustomJS\ReviewAudit.js" />
     <Content Include="ReviewAudit.aspx" />
     <Content Include="Content\all.css" />

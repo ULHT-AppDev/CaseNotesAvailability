@@ -189,7 +189,7 @@ namespace CaseNotesAvailability
                     case (byte)Enums.AuditStatus.NotStarted:
                         //btn.Text = "Not Started";
                         btn.Text = "Edit";
-                        btn.ForeColor = Color.LightBlue;
+                        btn.ForeColor = Color.FromName("#3a75df");
                         btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
                         break;
                     //case (byte)Enums.AuditStatus.InProgress:

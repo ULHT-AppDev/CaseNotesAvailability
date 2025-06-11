@@ -15,7 +15,7 @@
     <asp:ObjectDataSource ID="GetSpeciality" OnSelecting="GetSpeciality_Selecting" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSites" OnSelecting="GetSites_Selecting" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="Status" OnSelecting="Status_Selecting" runat="server" SelectMethod="GetStatus" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
-    <div class="py-3 mx-3 defaultBorderBottom d-flex align-items-center">
+    <div class="py-3 mx-3 d-flex align-items-center">
         <div>
             <div>
                 <dx:ASPxLabel ID="PageHeaderLabel" ClientInstanceName="pageHeaderLabel" CssClass="PageHeaderLabel" OnInit="PageHeaderLabel_Init" runat="server"></dx:ASPxLabel>
@@ -29,15 +29,12 @@
                     AutoPostBack="false"
                     UseSubmitBehavior="false"
                     CausesValidation="false"
-                    OnInit="NewRef_Init"
-                    Paddings-PaddingTop="10px"
-                    Paddings-PaddingBottom="10px">
+                    OnInit="NewRef_Init">
                 </dx:ASPxButton>
             </div>
         </div>
     </div>
-    <div class="ml-auto text-black text-right">
-    </div>
+
     <dx:ASPxGridView ID="HealthRecordsGridView" runat="server" AllowSorting="true" 
         ClientInstanceName="HealthRecordsGridView"
         OnRowUpdating="AuditRow_Updating"
@@ -137,7 +134,7 @@
                 </DataItemTemplate>
             </dx:GridViewDataColumn>
 
-            <dx:GridViewDataTextColumn Caption="AuditID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+            <dx:GridViewDataTextColumn Caption="Audit ID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
                 <EditItemTemplate>
                     <dx:ASPxLabel ID="AuditIDReadonlyLabel" runat="server" Text='<%# Eval("AuditID") %>'></dx:ASPxLabel>
                 </EditItemTemplate>

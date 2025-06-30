@@ -135,7 +135,7 @@ function ClearFields()
 // Validate Dynamic values
 function customValidate() {
     var isValid1 = ASPxClientEdit.ValidateGroup("CaseNoteVal");
-    if (!isValid) return false;
+    if (!isValid1) return false;
     var isValid = ASPxClientEdit.ValidateGroup("CaseNoteVal1");
     if (!isValid) return false;
     return true;

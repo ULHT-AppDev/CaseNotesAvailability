@@ -122,7 +122,7 @@ namespace BLL
             }
         }
 
-        public bool UpdateAuditRecords(AuditBO Audit, int SessionID)
+        public bool UpdateAuditRecords(AuditBO Audit)
         {
             try
             {
@@ -152,7 +152,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                new LogsBLL().LogAnError(ex, SessionID);
+                new LogsBLL().LogAnError(ex, Audit.SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;

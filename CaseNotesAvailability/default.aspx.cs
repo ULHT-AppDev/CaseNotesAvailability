@@ -353,7 +353,9 @@ namespace CaseNotesAvailability
         protected void Audit_Updating(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var obj = e.InputParameters["Audit"] as AuditBO;
-            e.InputParameters.Add("SessionID", CookieHelper.GetCookieSessionID());
+            //e.InputParameters.Add("SessionID", CookieHelper.GetCookieSessionID());
+            obj.SessionID = CookieHelper.GetCookieSessionID();
+            // e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
             short userID = Login.CookieHelper.GetCookieUserID();
             obj.CreatedByUserID = userID;
         }

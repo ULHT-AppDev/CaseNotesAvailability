@@ -486,19 +486,19 @@ namespace CaseNotesAvailability
         protected void CasenoteLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl1 = sender as ASPxLabel;
-            lbl1.Text = $"Audit Date: {AuditDate.ToShortDateString()}";
+            lbl1.Text = $"<span class='AuditDetailsCaption'>Audit Date:</span><span class='AuditDetailsDetail'>{AuditDate.ToShortDateString()}</span>";
 
             //Speciality
         }
         protected void lblSpeciality_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"Speciality: {Specialty}";
+            lbl2.Text = $"<span class='AuditDetailsCaption'>Speciality:</span><span class='AuditDetailsDetail'>{Specialty}</span>";
         }
         protected void lblSite_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"Site: {AuditSite}";
+            lbl2.Text = $"<span class='AuditDetailsCaption'>Site:</span><span class='AuditDetailsDetail'>{AuditSite}</span>";
         }
 
         //protected void CompleteButton_Click(object sender, EventArgs e)

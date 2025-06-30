@@ -7,6 +7,7 @@
     <script src="CustomJS/CaseNoteAvailabilityAudit.js"></script>
     <script src="UserControl/UserAlertControl/Scripts/UserAlert.js"></script>
     <link href="UserControl/UserAlertControl/CSS/UserAlert.css" rel="stylesheet" />
+    <link href="customcss/CasenoteAudit.css" rel="stylesheet" />
 
 </asp:Content>
 
@@ -80,9 +81,7 @@
                     RenderMode="Button"
                     AutoPostBack="false"
                     UseSubmitBehavior="false"
-                    CausesValidation="false"
-                    Paddings-PaddingTop="10px"
-                    Paddings-PaddingBottom="10px">
+                    CausesValidation="false">
                     <ClientSideEvents Click="AuditDetails_Click" />
                     <Image>
                         <SpriteProperties CssClass="fas fa-chevron-left" />
@@ -343,7 +342,7 @@
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="StartCount_Validation" />
                                                                 <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
-                                                                    ErrorTextPosition="Right"  SetFocusOnError="true">
+                                                                    ErrorTextPosition="Right" SetFocusOnError="true">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
                                                             </dx:ASPxSpinEdit>
@@ -420,7 +419,7 @@
                         OnCallback="CreateFormDynamically_CallbackPanel_Callback">
                         <PanelCollection>
                             <dx:PanelContent>
-                                <dx:ASPxFormLayout ID="UnavailabilityFormLayout" runat="server" ClientInstanceName="UnavailabilityFormLayout" ColCount="1"/>
+                                <dx:ASPxFormLayout ID="UnavailabilityFormLayout" runat="server" ClientInstanceName="UnavailabilityFormLayout" ColCount="1" />
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>

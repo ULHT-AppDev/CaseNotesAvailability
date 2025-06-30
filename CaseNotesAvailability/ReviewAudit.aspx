@@ -7,12 +7,13 @@
     <script src="CustomJS/ReviewAudit.js"></script>
     <script src="UserControl/UserAlertControl/Scripts/UserAlert.js"></script>
     <link href="UserControl/UserAlertControl/CSS/UserAlert.css" rel="stylesheet" />
+    <link href="customcss/CasenoteAudit.css" rel="stylesheet" />
 
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ObjectDataSource ID="ReviewAuditRecordsView" runat="server" SelectMethod="GetAuditClinicAnswers" OnSelecting="ReviewAuditRecordsView_Selecting" UpdateMethod="UpdateAuditRecords" DeleteMethod=""
-        OnUpdating="Audit_Updating" OnInserting="Audit_Inserting" TypeName="BLL.AuditClinicAnswersBLL"  DataObjectTypeName="BusinessObjects.AuditClinicAnswersBO" InsertMethod="InsertAudit"></asp:ObjectDataSource>
+        OnUpdating="Audit_Updating" OnInserting="Audit_Inserting" TypeName="BLL.AuditClinicAnswersBLL" DataObjectTypeName="BusinessObjects.AuditClinicAnswersBO" InsertMethod="InsertAudit"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSpeciality" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSites" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="Status" runat="server" SelectMethod="GetStatus" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
@@ -24,21 +25,7 @@
     <div class="container-fluid p-4 mb-5">
         <div class="row">
             <div class="col-lg-12">
-                <div class="pb-2">
-                    <dx:ASPxButton ID="AuditDetails"
-                        runat="server"
-                        Text="Go back"
-                        RenderMode="Button"
-                        Width="200px"
-                        AutoPostBack="false"
-                        UseSubmitBehavior="false"
-                        CausesValidation="false">
-                        <ClientSideEvents Click="AuditDetails_Click" />
-                        <Image>
-                            <SpriteProperties CssClass="fas fa-chevron-left" />
-                        </Image>
-                    </dx:ASPxButton>
-                </div>
+
                 <div id="DefaultPageTitleContainer" class="DefaultPageTitleContainer d-flex align-items-center">
                     <div>
                         <dx:ASPxLabel ID="DefaultPageTitleLabel"
@@ -85,6 +72,23 @@
 
                     </div>
                 </div>
+
+                <div class="pt-2">
+                    <dx:ASPxButton ID="AuditDetails"
+                        runat="server"
+                        Text="Go back"
+                        RenderMode="Button"
+                        Width="200px"
+                        AutoPostBack="false"
+                        UseSubmitBehavior="false"
+                        CausesValidation="false">
+                        <ClientSideEvents Click="AuditDetails_Click" />
+                        <Image>
+                            <SpriteProperties CssClass="fas fa-chevron-left" />
+                        </Image>
+                    </dx:ASPxButton>
+                </div>
+
             </div>
         </div>
 
@@ -131,8 +135,8 @@
                                 <dx:GridViewColumnLayoutItem Caption="CaseNotes available startcount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="TemporaryNotes count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Number of case notes unavailable" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                
-                                
+
+
                                 <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                             </Items>
                         </dx:GridViewLayoutGroup>
@@ -171,7 +175,7 @@
                     <dx:GridViewDataTextColumn Caption="CaseNotes available start count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Temporary notes count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Number of case notes unavailable" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataCheckColumn Caption ="IsReviewed" ReadOnly ="true" FieldName="IsReviewed" VisibleIndex ="7" MinWidth ="100" MaxWidth ="150"></dx:GridViewDataCheckColumn>
+                    <dx:GridViewDataCheckColumn Caption="IsReviewed" ReadOnly="true" FieldName="IsReviewed" VisibleIndex="7" MinWidth="100" MaxWidth="150"></dx:GridViewDataCheckColumn>
                 </Columns>
 
                 <Settings ShowFilterRow="true" />
@@ -190,7 +194,7 @@
                                     EncodeHtml="false"
                                     ForeColor="GrayText">
                                 </dx:ASPxLabel>
-                               
+
                             </div>
 
                             <div class="mt-2">
@@ -238,8 +242,7 @@
                                                 </div>
                                             </DataItemTemplate>
                                         </dx:GridViewDataColumn>
-                                        <dx:GridViewDataComboBoxColumn Caption="Improvement details" PropertiesComboBox-ClientInstanceName="ImprovementDetailID"  FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500" >
-                                            
+                                        <dx:GridViewDataComboBoxColumn Caption="Improvement details" PropertiesComboBox-ClientInstanceName="ImprovementDetailID" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
                                         </dx:GridViewDataComboBoxColumn>
                                         <dx:GridViewDataTextColumn FieldName="Comment" PropertiesTextEdit-ClientInstanceName="Comment" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
                                         </dx:GridViewDataTextColumn>

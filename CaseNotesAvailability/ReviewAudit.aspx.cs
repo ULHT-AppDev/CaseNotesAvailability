@@ -546,19 +546,19 @@ namespace ReviewAudit
         protected void CasenoteLabel_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl1 = sender as ASPxLabel;
-            lbl1.Text = $"<span class='ReviewingCaption'>Audit Date:</span><span class='ReviewingItemDetails'>{AuditDate.ToShortDateString()}</span>";
+            lbl1.Text = $"<span class='AuditDetailsCaption'>Audit Date:</span><span class='AuditDetailsDetail'>{AuditDate.ToShortDateString()}</span>";
 
             //Speciality
         }
         protected void lblSpeciality_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"<span class='ReviewingCaption'>Speciality:</span><span class='ReviewingItemDetails'>{Speciality}</span>";
+            lbl2.Text = $"<span class='AuditDetailsCaption'>Speciality:</span><span class='AuditDetailsDetail'>{Speciality}</span>";
         }
         protected void lblSite_Init(object sender, EventArgs e)
         {
             ASPxLabel lbl2 = sender as ASPxLabel;
-            lbl2.Text = $"<span class='ReviewingCaption'>Site:</span><span class='ReviewingItemDetails'>{AuditSite}</span>";
+            lbl2.Text = $"<span class='AuditDetailsCaption'>Site:</span><span class='AuditDetailsDetail'>{AuditSite}</span>";
         }
 
         //protected void CompleteButton_Click(object sender, EventArgs e)

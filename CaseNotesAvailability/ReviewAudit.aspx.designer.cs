@@ -87,15 +87,6 @@ namespace ReviewAudit
         protected global::System.Web.UI.WebControls.ObjectDataSource ImpReason;
 
         /// <summary>
-        /// AuditDetails control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxButton AuditDetails;
-
-        /// <summary>
         /// DefaultPageTitleLabel control.
         /// </summary>
         /// <remarks>
@@ -139,6 +130,15 @@ namespace ReviewAudit
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel lblSite;
+
+        /// <summary>
+        /// AuditDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton AuditDetails;
 
         /// <summary>
         /// ReviewAuditRecordsGridView control.

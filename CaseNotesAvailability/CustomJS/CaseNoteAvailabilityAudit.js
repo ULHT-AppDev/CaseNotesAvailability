@@ -61,7 +61,7 @@ function popup_Closing(s, e)
         };
         //Action nothing to do 
 
-    CreateFormDynamically_CallbackPanel.PerformCallback(JSON.stringify(obj));
+   CreateFormDynamically_CallbackPanel.PerformCallback(JSON.stringify(obj));
 }
 
 
@@ -88,7 +88,7 @@ function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s, e) {
     }
     else if (s.cpPopupUpdatedPending == true) {
         CaseNoteAvailabilityUnAvailabilityPopup.Hide();
-        CaseNoteAvailabilityAuditRecordsGridView.Refresh();
+       CaseNoteAvailabilityAuditRecordsGridView.Refresh();
         SetAndShowAlert(1, 'All Records Inserted Successfully.. Please click on Go back to Audit page', '');
         delete s.cpPopupUpdatedPending;
     }
@@ -164,16 +164,7 @@ function customValidate() {
 
 
 function Complete_Click(s, e) {
-    /*
- txtTotalAppointments.Validate();
- txtActualAppointments.Validate();
- txtStartCount.Validate();
- txtTempNotesCount.Validate();
- txtUnavailableCaseNoteCount.Validate();
- */
-//var test = txtTotalAppointments.GetIsValid() && txtActualAppointments.GetIsValid() && txtStartCount.GetIsValid() &&txtTempNotesCount.GetIsValid() && txtUnavailableCaseNoteCount.GetIsValid() &&customValidate()  ;
 var test = customValidate() ;
- 
  if(test==true)
  {
     let arr = [];
@@ -193,13 +184,10 @@ var test = customValidate() ;
             ReasonID: ReasonVal
         };
         arr.push(PatientDetails);
-
+        }
     var jsonArray = JSON.stringify(arr);
         CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
-   
-    }
 
- 
 }
 }
 

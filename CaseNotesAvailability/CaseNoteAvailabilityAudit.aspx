@@ -403,6 +403,7 @@
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>
+                    
                     <%-- <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" ClientVisible="false" ClientInstanceName="CreateFormDynamically_CallbackPanel" OnCallback="CreateFormDynamically_CallbackPanel_Callback" runat="server">
                         <PanelCollection>
                             <dx:PanelContent>
@@ -415,6 +416,7 @@
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>--%>
+
                     <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" runat="server" ClientInstanceName="CreateFormDynamically_CallbackPanel"
                         OnCallback="CreateFormDynamically_CallbackPanel_Callback">
                         <PanelCollection>
@@ -454,7 +456,7 @@
                         </div>
 
                     </div>
-                    <dx:ASPxCallback ID="CompleteCallback" ClientInstanceName="CompleteCallback" OnCallback="CompleteCallback_Callback" runat="server"></dx:ASPxCallback>
+                    <%--<dx:ASPxCallback ID="CompleteCallback" ClientInstanceName="CompleteCallback" OnCallback="CompleteCallback_Callback" runat="server"></dx:ASPxCallback>--%>
                 </dx:PopupControlContentControl>
             </ContentCollection>
         </dx:ASPxPopupControl>

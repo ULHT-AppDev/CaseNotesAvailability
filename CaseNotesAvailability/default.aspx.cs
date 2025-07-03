@@ -187,10 +187,15 @@ namespace CaseNotesAvailability
                 switch (status)
                 {
                     case (byte)Enums.AuditStatus.NotStarted:
-                        //btn.Text = "Not Started";
-                        btn.Text = "Edit";
-                        btn.ForeColor = Color.FromName("#3a75df");
-                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
+                        if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
+                        {
+                            //btn.Text = "Not Started";
+                            btn.Text = "Edit";
+                            btn.ForeColor = Color.FromName("#3a75df");
+                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
+                        }
+                        else
+                        { btn.Visible = false; }
                         break;
                     //case (byte)Enums.AuditStatus.InProgress:
                     //    //btn.Text = "In Progress";
@@ -230,7 +235,7 @@ namespace CaseNotesAvailability
         protected void NewRef_Init(object sender, EventArgs e)
         {
             ASPxButton btn = sender as ASPxButton;
-            if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.NursingteamUser)
+            if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
             {
                 btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
             }
@@ -278,9 +283,14 @@ namespace CaseNotesAvailability
                 switch (status)
                 {
                     case (byte)Enums.AuditStatus.NotStarted:
-                        btn.Text = "Delete";
-                        btn.ForeColor = Color.Red;
-                        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ DeleteButton_Click(s, e, '{0}' ); }}", container.VisibleIndex);
+                        if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
+                        {
+                            btn.Text = "Delete";
+                            btn.ForeColor = Color.Red;
+                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ DeleteButton_Click(s, e, '{0}' ); }}", container.VisibleIndex);
+                        }
+                        else
+                        { btn.Visible = false; }
                         break;
                     default:
                         btn.Visible = false;

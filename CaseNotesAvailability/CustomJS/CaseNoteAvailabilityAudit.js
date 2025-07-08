@@ -88,12 +88,14 @@ function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s, e) {
     }
     else if (s.cpPopupUpdatedPending == true) {
         CaseNoteAvailabilityUnAvailabilityPopup.Hide();
+        //PageControl.TabPages.Clear();
        CaseNoteAvailabilityAuditRecordsGridView.Refresh();
         SetAndShowAlert(1, 'All Records Inserted Successfully.. Please click on Go back to Audit page', '');
         delete s.cpPopupUpdatedPending;
     }
     else if (s.cpPopupUpdated == true) {
         CaseNoteAvailabilityUnAvailabilityPopup.Hide();
+        //PageControl.TabPages.Clear();
         CaseNoteAvailabilityAuditRecordsGridView.Refresh();
         SetAndShowAlert(1, 'Record Inserted Successfully', '');
         delete s.cpPopupUpdated;
@@ -171,6 +173,7 @@ var test = customValidate() ;
     var UnavailableCaseNoteCount1 = txtUnavailableCaseNoteCount.GetValue();
     for (var i = 1; i <= UnavailableCaseNoteCount1; i++) {
 
+       // var layout = "ContentPlaceHolder2_CaseNoteAvailabilityUnAvailabilityPopup_CreateFormDynamically_CallbackPanel_PageControl_formLayout_"+ Math.ceil(i/10);
         //  arr[i - 1] = [];
         var Namee = "PatientNameTextBox_" + i;
         var PatientNameTextBox = ASPxClientTextBox.Cast(Namee);

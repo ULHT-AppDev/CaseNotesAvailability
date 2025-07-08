@@ -219,7 +219,7 @@
             ModalBackgroundStyle-Opacity="025"
             ShowHeader="true"
             ShowFooter="false" HeaderStyle-Border-BorderWidth="0" HeaderStyle-Paddings-PaddingBottom="0" ContentStyle-Paddings-PaddingTop="0">
-            <SettingsAdaptivity MinWidth="50%" MinHeight="50%" Mode="Always" HorizontalAlign="WindowCenter" VerticalAlign="WindowCenter" />
+            <SettingsAdaptivity MinWidth="70%" MinHeight="80%" Mode="Always" HorizontalAlign="WindowCenter" VerticalAlign="WindowCenter" />
             <ClientSideEvents Closing="popup_Closing" />
             <ContentStyle>
                 <Paddings PaddingTop="0px"></Paddings>
@@ -382,7 +382,7 @@
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtUnavailableCaseNoteCount" ClientInstanceName="txtUnavailableCaseNoteCount" runat="server" DecimalPlaces="0"
-                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" MinValue="0" MaxValue="10" SpinButtons-ShowIncrementButtons="false">
+                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" MinValue="0" MaxValue="50" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents LostFocus="UnavailableCaseNoteCount_SelectedIndexChanged" />
                                                                 <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
@@ -403,7 +403,7 @@
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>
-                    
+
                     <%-- <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" ClientVisible="false" ClientInstanceName="CreateFormDynamically_CallbackPanel" OnCallback="CreateFormDynamically_CallbackPanel_Callback" runat="server">
                         <PanelCollection>
                             <dx:PanelContent>
@@ -421,7 +421,11 @@
                         OnCallback="CreateFormDynamically_CallbackPanel_Callback">
                         <PanelCollection>
                             <dx:PanelContent>
-                                <dx:ASPxFormLayout ID="UnavailabilityFormLayout" runat="server" ClientInstanceName="UnavailabilityFormLayout" ColCount="1" />
+                                <dx:ASPxPageControl ID="PageControl" runat="server" EnableCallBacks="false">
+                                    <TabPages>
+                                        <%--<dx:ASPxFormLayout ID="UnavailabilityFormLayout" runat="server" ClientInstanceName="UnavailabilityFormLayout" ColCount="3" />--%>
+                                    </TabPages>
+                                </dx:ASPxPageControl>
                             </dx:PanelContent>
                         </PanelCollection>
                     </dx:ASPxCallbackPanel>

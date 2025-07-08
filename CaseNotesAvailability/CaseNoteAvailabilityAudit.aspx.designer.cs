@@ -249,13 +249,13 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxCallbackPanel CreateFormDynamically_CallbackPanel;
 
         /// <summary>
-        /// UnavailabilityFormLayout control.
+        /// PageControl control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxFormLayout UnavailabilityFormLayout;
+        protected global::DevExpress.Web.ASPxPageControl PageControl;
 
         /// <summary>
         /// CompleteButton control.

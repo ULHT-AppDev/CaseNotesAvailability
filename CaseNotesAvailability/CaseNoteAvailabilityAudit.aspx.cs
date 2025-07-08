@@ -1,5 +1,7 @@
 ﻿using BusinessObjects;
 using DevExpress.Web;
+using DevExpress.Web.Internal.Dialogs;
+using DevExpress.Xpo.DB;
 using Login;
 using System;
 using System.Collections;
@@ -172,73 +174,91 @@ namespace CaseNotesAvailability
 
         private void GeneratePatientForm(int count)
         {
+            PageControl.TabPages.Clear();
+            int totalItems = count;
+            int itemsPerTab = 10;
+            int tabCount = (int)Math.Ceiling((double)totalItems / itemsPerTab);
+
             List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
             UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons();
-            for (int i = 1; i < (count + 1); i++)
+            for (int tabIndex = 0; tabIndex < tabCount; tabIndex++)
             {
 
-                LayoutGroup lg = new LayoutGroup()
+                TabPage tab = new TabPage();
+                tab.Text = "Page " + (tabIndex + 1);
+
+                ASPxFormLayout UnavailabilityFormLayout = new ASPxFormLayout();
+                UnavailabilityFormLayout.ID = "formLayout_" + tabIndex;
+                UnavailabilityFormLayout.Width = Unit.Percentage(100);
+                UnavailabilityFormLayout.ColumnCount = 2;
+                for (int i = 1; i < (itemsPerTab + 1); i++)
                 {
-                    Caption = $"Details for Patient {i}",
-                    GroupBoxDecoration = GroupBoxDecoration.Box,
-                    AlignItemCaptions = true
+                    int itemIndex = tabIndex * itemsPerTab + i;
+                    if (itemIndex >= totalItems +1) break;
+                    LayoutGroup lg = new LayoutGroup()
+                    {
+                        Caption = $"Details for Patient {itemIndex}",
+                        GroupBoxDecoration = GroupBoxDecoration.Box,
+                        AlignItemCaptions = true
 
-                };
+                    };
 
-                LayoutItem nameItem = new LayoutItem()
-                {
-                    Caption = $"Patient Details",
+                    LayoutItem nameItem = new LayoutItem()
+                    {
+                        Caption = $"Patient Details",
 
-                };
-                //PlaceHolder pholder = new PlaceHolder();
+                    };
+                    //PlaceHolder pholder = new PlaceHolder();
 
-                nameItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
-                ASPxTextBox patientNameTextBox = new ASPxTextBox();
-                patientNameTextBox.ID = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                patientNameTextBox.ClientInstanceName = $"PatientNameTextBox_{i}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                patientNameTextBox.MaxLength = 200;
-                // add in validation settings and stuff here like below one (look at combo below)
-                patientNameTextBox.ValidationSettings.RequiredField.IsRequired = true;
-                patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal1";
-                patientNameTextBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
-                patientNameTextBox.ValidationSettings.Display = Display.Dynamic;
-                // pholder.Controls.Add(patientNameTextBox);
-                nameItem.Controls.Add(patientNameTextBox); // add control 
-                lg.Items.Add(nameItem);
+                    nameItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
+                    ASPxTextBox patientNameTextBox = new ASPxTextBox();
+                    patientNameTextBox.ID = $"PatientNameTextBox_{itemIndex}"; // id needs to be unique so can get value in js when submitting as dynamically created
+                    patientNameTextBox.ClientInstanceName = $"PatientNameTextBox_{itemIndex}"; // id needs to be unique so can get value in js when submitting as dynamically created
+                    patientNameTextBox.MaxLength = 200;
+                    // add in validation settings and stuff here like below one (look at combo below)
+                    patientNameTextBox.ValidationSettings.RequiredField.IsRequired = true;
+                    patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal1";
+                    patientNameTextBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
+                    patientNameTextBox.ValidationSettings.Display = Display.Dynamic;
+                    // pholder.Controls.Add(patientNameTextBox);
+                    nameItem.Controls.Add(patientNameTextBox); // add control 
+                    lg.Items.Add(nameItem);
 
-                LayoutItem reasonItem = new LayoutItem()
-                {
-                    Caption = $"Reason for unavailability",
-                };
-                reasonItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
-                ASPxComboBox comboBox = new ASPxComboBox()
-                {
-                    ID = $"ReasonComboBox_{i}", // id needs to be unique so can get value in js when submitting as dynamically created
-                    ClientInstanceName = $"ReasonComboBox_{i}", // id needs to be unique so can get value in js when submitting as dynamically created
-                    DataSource = UnAvailableReason, // datasource here etc
-                    TextField = "ReasonText", // whatever it is here
-                    ValueField = "ReasonUnavailableID" // whatever it is here
-                };
+                    LayoutItem reasonItem = new LayoutItem()
+                    {
+                        Caption = $"Reason for unavailability",
+                    };
+                    reasonItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
+                    ASPxComboBox comboBox = new ASPxComboBox()
+                    {
+                        ID = $"ReasonComboBox_{itemIndex}", // id needs to be unique so can get value in js when submitting as dynamically created
+                        ClientInstanceName = $"ReasonComboBox_{itemIndex}", // id needs to be unique so can get value in js when submitting as dynamically created
+                        DataSource = UnAvailableReason, // datasource here etc
+                        TextField = "ReasonText", // whatever it is here
+                        ValueField = "ReasonUnavailableID" // whatever it is here
+                    };
 
-                comboBox.ValueType = typeof(int);
-                //comboBox.Items.Insert(0, new ListEditItem("-- Select Reason --", null));
-                comboBox.ValidationSettings.RequiredField.IsRequired = true;
-                comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal1"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
-                comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
-                comboBox.ValidationSettings.Display = Display.Dynamic;
-                comboBox.AutoPostBack = false;
-                comboBox.DataBind();
-                reasonItem.Controls.Add(comboBox); // add the control
+                    comboBox.ValueType = typeof(int);
+                    //comboBox.Items.Insert(0, new ListEditItem("-- Select Reason --", null));
+                    comboBox.ValidationSettings.RequiredField.IsRequired = true;
+                    comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal1"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
+                    comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
+                    comboBox.ValidationSettings.Display = Display.Dynamic;
+                    comboBox.AutoPostBack = false;
+                    comboBox.DataBind();
+                    reasonItem.Controls.Add(comboBox); // add the control
 
-                // add layoutitems to group
+                    // add layoutitems to group
 
-                lg.Items.Add(reasonItem);
+                    lg.Items.Add(reasonItem);
 
-                // add group to form
-                UnavailabilityFormLayout.Items.Add(lg);
+                    // add group to form
+                    UnavailabilityFormLayout.Items.Add(lg);
 
+                }
+                tab.Controls.Add(UnavailabilityFormLayout);
+                PageControl.TabPages.Add(tab);
             }
-
         }
         private void getAuditClinicAnswer(int rowID, int SessionID)
         {
@@ -501,7 +521,7 @@ namespace CaseNotesAvailability
             lbl2.Text = $"<span class='AuditDetailsCaption'>Site:</span><span class='AuditDetailsDetail'>{AuditSite}</span>";
         }
 
-       
+
 
         protected void CompleteButton_Init(object sender, EventArgs e)
         {
@@ -535,7 +555,7 @@ namespace CaseNotesAvailability
                     //auditClinicAnswers.IsActive = true;
                     //auditClinicAnswers.Add(UnAvailable);
                     //}
-                    
+
                     // AuditClinicAnswersBO AuditClinicAnswers = new AuditClinicAnswersBO();
                     AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
                     AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
@@ -564,7 +584,7 @@ namespace CaseNotesAvailability
                     {
                         CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
                     }
-                    
+
                     //CaseNoteAvailabilityAuditRecordsGridView.CancelEdit();
                     //bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(AuditClinicAnswers);
                     //if (update1)

@@ -20,7 +20,11 @@
     <asp:ObjectDataSource ID="GetUnavailableReason" runat="server" SelectMethod="GetUnavailableReason" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="ImpReviewAudit" runat="server" SelectMethod="GetImprovementDetails" UpdateMethod="UpdateImprovementDetails" DataObjectTypeName="BusinessObjects.RequiresImprovementDetailsBO" InsertMethod="InsertImprovementDetails" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="ActPointReviewAudit" runat="server" SelectMethod="GetActPointAuditReview" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
-    <asp:ObjectDataSource ID="ImpReason" runat="server" SelectMethod="GetImprovementReason" TypeName="BLL.ReviewAuditBLL"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ImpReason" runat="server" SelectMethod="GetImprovementReason" OnSelecting="ImpReason_Selecting" TypeName="BLL.ReviewAuditBLL">
+        <SelectParameters>
+            <asp:Parameter Name="SessionID" Type="Int32" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
 
     <div class="container-fluid p-4 mb-5">
         <div class="row">
@@ -109,7 +113,7 @@
                 <ClientSideEvents EndCallback="ReviewAuditRecordsGridView_EndCallBack" />
                 <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
 
-                <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
+                <SettingsEditing Mode="EditForm" EditFormColumnCount="2"></SettingsEditing>
 
                 <SettingsPopup>
                     <FilterControl AutoUpdatePosition="False"></FilterControl>
@@ -185,6 +189,61 @@
                     <EditForm>
                         <div class="p-4">
 
+                            <%--test--%>
+
+                            <div>
+                                <dx:ASPxLabel ID="TempNotesLabel"
+                                    ClientInstanceName="TempNotesLabel"
+                                    Text="Temporary Notes"
+                                    runat="server"
+                                    Font-Size="20px"
+                                    EncodeHtml="false"
+                                    ForeColor="GrayText">
+                                </dx:ASPxLabel>
+                            </div>
+                            <div class="mt-3">
+                                <dx:ASPxGridView ID="ASPxGridViewTempNotes"
+                                    ClientInstanceName="ASPxGridViewTempNotes"
+                                    runat="server"
+                                    AllowSorting="true"
+                                    KeyFieldName="AuditClinicAnswersID"
+                                    AutoGenerateColumns="False"
+                                    OnInit="ASPxGridViewTempNotes_Init"
+                                    SettingsDataSecurity-AllowReadUnexposedColumnsFromClientApi="True"
+                                    SettingsDataSecurity-PreventLoadClientValuesForInvisibleColumns="True">
+                                    <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
+                                    <Columns>
+                                        <dx:GridViewDataColumn FieldName="RequiresImprovementDetailsID" Visible="false"></dx:GridViewDataColumn>
+                                        <%--  <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="100" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
+                                            <DataItemTemplate>
+                                                <div>
+                                                    <dx:ASPxButton ID="DeleteReviewButton"
+                                                        OnInit="DeleteImpReviewButton_Init"
+                                                        runat="server"
+                                                        Text="Delete"
+                                                        RenderMode="Link"
+                                                        AutoPostBack="false"
+                                                        UseSubmitBehavior="false"
+                                                        CausesValidation="false">
+                                                    </dx:ASPxButton>
+                                                </div>
+                                            </DataItemTemplate>
+                                        </dx:GridViewDataColumn>--%>
+                                        <dx:GridViewDataTextColumn FieldName="PatientDetails" PropertiesTextEdit-ClientInstanceName="txtPatientDetails" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
+                                        </dx:GridViewDataTextColumn>
+                                        <dx:GridViewDataTextColumn FieldName="ReasonUnavailable" PropertiesTextEdit-ClientInstanceName="ReasonUnavailable" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
+                                        </dx:GridViewDataTextColumn>
+
+
+                                    </Columns>
+                                    <SettingsPager PageSize="5"></SettingsPager>
+                                    <Settings ShowFilterRow="true" />
+                                    <SettingsBehavior AllowEllipsisInText="true" AllowDragDrop="false" AllowSort="false" />
+                                    <SettingsResizing ColumnResizeMode="NextColumn" />
+                                </dx:ASPxGridView>
+                            </div>
+
+                            <%--test--%>
                             <div>
                                 <dx:ASPxLabel ID="ClinicCodeLabel"
                                     ClientInstanceName="ClinicCodeLabel"
@@ -242,7 +301,11 @@
                                                 </div>
                                             </DataItemTemplate>
                                         </dx:GridViewDataColumn>
-                                        <dx:GridViewDataComboBoxColumn Caption="Improvement details" PropertiesComboBox-ClientInstanceName="ImprovementDetailID" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+                                        <dx:GridViewDataComboBoxColumn Caption="Improvement details" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+                                            <PropertiesComboBox ClientInstanceName="ImprovementDetailID" DataSourceID="ImpReason" TextField="Issue" ValueField="ImprovementReasonID">
+                                                <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
+                                                </ValidationSettings>
+                                            </PropertiesComboBox>
                                         </dx:GridViewDataComboBoxColumn>
                                         <dx:GridViewDataTextColumn FieldName="Comment" PropertiesTextEdit-ClientInstanceName="Comment" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
                                         </dx:GridViewDataTextColumn>

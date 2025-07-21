@@ -1,4 +1,5 @@
 ﻿using BusinessObjects;
+using Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -344,6 +345,7 @@ namespace DAL
                                 catch (Exception ex)
                                 {
                                     dbContextTransactionIns.Rollback();
+                                    throw ex;
                                 }
                             }
                         }
@@ -387,8 +389,22 @@ namespace DAL
 
         }
 
-
-
-
+        public List<UnavailableCaseNotesReasonBO> GetUnAvailableCaseNotes(string code)
+        {
+            int code1= Convert.ToInt32(code);
+            using (var ctx = new Model.CNAEntities())
+            {
+                return (from u in ctx.UnavailableCaseNotes
+                        join m in ctx.ReasonUnavailables on u.ReasonUnavailableID equals m.ReasonUnavailableID
+                        where (u.IsActive) && (u.AuditClinicAnswersID == code1)
+                        select new BusinessObjects.UnavailableCaseNotesReasonBO
+                        {
+                            UnavailableCaseNotesID=u.UnavailableCaseNotesID,
+                            AuditClinicAnswersID =u.AuditClinicAnswersID,
+                            PatientDetails =u.PatientDetails,
+                            ReasonUnavailable = m.ReasonText
+                        }).ToList();
+            }
+        }
     }
 }

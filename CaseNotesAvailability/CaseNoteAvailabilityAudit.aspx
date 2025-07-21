@@ -445,7 +445,7 @@
                                 <dx:ASPxButton ID="CloseButton"
                                     ClientInstanceName="CloseButton"
                                     runat="server"
-                                    Text="Close Popup"
+                                    Text="Cancel"
                                     AutoPostBack="false"
                                     UseSubmitBehavior="false"
                                     ValidationGroup="CaseNoteVal"

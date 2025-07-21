@@ -260,30 +260,6 @@ function ReviewAuditRecordsGridView_EndCallback(s, e) {
     }
 }
 
-/*
-function Complete_Click(s, e)
-{
-   var arr = [];
-    var UnavailableCaseNoteCount1 = UnavailableCaseNoteCount.GetValue();
-    for (var i = 1; i <= UnavailableCaseNoteCount1; i++)
-    {
-        arr[i - 1] = [];
-        var Namee = "PatientNameTextBox_" + i;
-        var PatientNameTextBox = ASPxClientTextBox.Cast(Namee);
-        var PatientNametVal = PatientNameTextBox.GetText();
-        var Reason = "ReasonComboBox_" + i;
-        var ReasonTextBox = ASPxClientComboBox.Cast(Reason);
-        var ReasonVal = ReasonTextBox.GetValue();
-
-        arr[i - 1][0] = PatientNameTextBox.GetText();
-        arr[i - 1][1] = ReasonTextBox.GetValue();
-    }
-
-  */
-
-
-
-
 function Complete_Click(s, e) {
     let arr = [];
     var UnavailableCaseNoteCount1 = UnavailableCaseNoteCount.GetValue();

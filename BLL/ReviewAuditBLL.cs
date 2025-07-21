@@ -7,7 +7,7 @@ namespace BLL
 {
     public class ReviewAuditBLL
     {
-        public List<AuditBO> GetAudit()
+        public List<AuditBO> GetAudit(int SessionID)
         {
             try
             {
@@ -40,13 +40,13 @@ namespace BLL
             }
             catch (Exception ex)
             {
-                //ErrorLog error = new ErrorLog(ex, sessionID, null);
+                new LogsBLL().LogAnError(ex, SessionID);
                 //new LogsBLL().LogAnError(error);
                 return null;
             }
         }
 
-        public List<SpecilatyBO> GetSpeciality()
+        public List<SpecilatyBO> GetSpeciality(int SessionID)
         {
             try
             {
@@ -57,12 +57,13 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
             }
         }
-        public List<SitesBO> GetSites()
+        public List<SitesBO> GetSites(int SessionID)
         {
             try
             {
@@ -73,13 +74,14 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
             }
         }
 
-        public List<StatusBO> GetStatus()
+        public List<StatusBO> GetStatus(int SessionID)
         {
             try
             {
@@ -90,6 +92,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
@@ -97,7 +100,7 @@ namespace BLL
         }
 
 
-        public bool InsertAudit(AuditBO Audit)
+        public bool InsertAudit(AuditBO Audit, int SessionID)
         {
             try
             {
@@ -106,6 +109,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
@@ -113,7 +117,7 @@ namespace BLL
         }
 
 
-        public List<RequiresImprovementDetailsBO> GetImprovementDetails()
+        public List<RequiresImprovementDetailsBO> GetImprovementDetails(int SessionID)
         {
             try
             {
@@ -124,16 +128,18 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
             }
         }
 
-        public List<Issues> GetImprovementReason()
+        public List<Issues> GetImprovementReason(int SessionID)
         {
             try
             {
+                
                 List<Issues> Status = new List<Issues>();
                 Status = new DAL.ReviewAuditDAL().GetImprovementReason();
 
@@ -141,13 +147,14 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
             }
         }
 
-        public bool UpdateImprovementDetails(RequiresImprovementDetailsBO Details)
+        public bool UpdateImprovementDetails(RequiresImprovementDetailsBO Details, int SessionID)
         {
             try
             {
@@ -156,12 +163,13 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
             }
         }
-        public bool InsertImprovementDetails(RequiresImprovementDetailsBO Details)
+        public bool InsertImprovementDetails(RequiresImprovementDetailsBO Details, int SessionID)
         {
             try
             {
@@ -170,13 +178,14 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
             }
         }
 
-        public List<ReasonUnavailableBO> GetUnavailableReason()
+        public List<ReasonUnavailableBO> GetUnavailableReason(int SessionID)
         {
             try
             {
@@ -187,6 +196,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, sessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return null;
@@ -196,7 +206,7 @@ namespace BLL
 
 
 
-        public bool UpdateAuditRecords(AuditBO Audit)
+        public bool UpdateAuditRecords(AuditBO Audit, int SessionID)
         {
             try
             {
@@ -226,6 +236,7 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
@@ -238,7 +249,7 @@ namespace BLL
         }
 
 
-        public bool ImprovementDetailsCallbackUpdate(List<ImprovementDetailsCallbackBO> ImprovementDetailsCallback, string ClinicCode, int userID)
+        public bool ImprovementDetailsCallbackUpdate(List<ImprovementDetailsCallbackBO> ImprovementDetailsCallback, string ClinicCode, int userID, int SessionID)
         {
             try
             {
@@ -247,13 +258,14 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
             }
         }
 
-        public bool ImprovementActionDetailsCallbackUpdate(List<ActionDetailsCallbackBO> actionDetailsCallback, string clinicCode, short userID)
+        public bool ImprovementActionDetailsCallbackUpdate(List<ActionDetailsCallbackBO> actionDetailsCallback, string clinicCode, short userID, int SessionID)
         {
             try
             {
@@ -262,26 +274,66 @@ namespace BLL
             }
             catch (Exception ex)
             {
+                new LogsBLL().LogAnError(ex, SessionID);
                 //ErrorLog error = new ErrorLog(ex, Application.SessionID, null);
                 //new LogsBLL().LogAnError(error);
                 return false;
             }
         }
 
-        public bool UpdateImprovementActionDetails(short userID, UpdateImprovementActionCallbackBO updateImprovementAction)
+        public bool UpdateImprovementActionDetails(short userID, UpdateImprovementActionCallbackBO updateImprovementAction, int SessionID)
         {
-            new DAL.ReviewAuditDAL().UpdateImprovementActionDetails(userID, updateImprovementAction);
-            return true;
+            try
+            {
+                new DAL.ReviewAuditDAL().UpdateImprovementActionDetails(userID, updateImprovementAction);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                new LogsBLL().LogAnError(ex, SessionID);
+                return false ;
+            }
         }
 
-        public bool CheckandUpdateAuditStatus(int AuditClinicAnswersID)
+        public bool CheckandUpdateAuditStatus(int AuditClinicAnswersID, int SessionID)
         {
-            return new DAL.ReviewAuditDAL().CheckandUpdateAuditStatus(AuditClinicAnswersID);
-
+            try
+            {
+                return new DAL.ReviewAuditDAL().CheckandUpdateAuditStatus(AuditClinicAnswersID);
+            }
+            catch (Exception ex)
+            {
+                new LogsBLL().LogAnError(ex, SessionID);
+                return false;
+            }
         }
-        public bool CheckWhetherAuditExist(int auditID)
+        public bool CheckWhetherAuditExist(int auditID, int SessionID)
         {
-            return new DAL.ReviewAuditDAL().CheckWhetherAuditExist(auditID);
+            try
+            {
+                return new DAL.ReviewAuditDAL().CheckWhetherAuditExist(auditID);
+            }
+            catch (Exception ex)
+            {
+                new LogsBLL().LogAnError(ex, SessionID);
+                return false;
+            }
+        }
+
+        public List<UnavailableCaseNotesReasonBO> GetUnAvailableCaseNotes(string code, int SessionID)
+        {
+            try
+            {
+                List<UnavailableCaseNotesReasonBO> UnavailableCaseNotes = new List<UnavailableCaseNotesReasonBO>();
+                UnavailableCaseNotes = new DAL.ReviewAuditDAL().GetUnAvailableCaseNotes(code).OrderBy(x => x.UnavailableCaseNotesID).ToList();
+                return UnavailableCaseNotes;
+            }
+            catch (Exception ex)
+            {
+                new LogsBLL().LogAnError(ex, SessionID);
+                return null;
+
+            }
         }
     }
 }

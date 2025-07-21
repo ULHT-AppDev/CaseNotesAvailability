@@ -5,6 +5,7 @@ using Login;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
@@ -45,7 +46,7 @@ namespace ReviewAudit
             }
             else
             {
-                bool bAuditExist = new BLL.ReviewAuditBLL().CheckWhetherAuditExist(ID);
+                bool bAuditExist = new BLL.ReviewAuditBLL().CheckWhetherAuditExist(ID, CookieHelper.GetCookieSessionID());
                 if (bAuditExist)
                 {
                     SetAuditID(ID);
@@ -68,7 +69,7 @@ namespace ReviewAudit
         {
             this.CASAuditId = auditID;
             SingleAuditBO SelectedAudit = new SingleAuditBO();
-            SelectedAudit = new BLL.UnavailableCaseNotesBLL().SelectedAudit(auditID);
+            SelectedAudit = new BLL.UnavailableCaseNotesBLL().SelectedAudit(auditID, CookieHelper.GetCookieSessionID());
             Speciality = SelectedAudit.Specialty;
             AuditDate = SelectedAudit.Date ?? DateTime.MinValue;
             Specialty = SelectedAudit.Specialty;
@@ -730,8 +731,8 @@ namespace ReviewAudit
                     if (UpdateImprovementAction.ActionPointsDS != null || UpdateImprovementAction.ImprovementDetailsDS != null)
                     {
                         short userID = Login.CookieHelper.GetCookieUserID();
-                        bool update = new ReviewAuditBLL().UpdateImprovementActionDetails(userID, UpdateImprovementAction);
-                        bool AllReviewed = new ReviewAuditBLL().CheckandUpdateAuditStatus(UpdateImprovementAction.AuditClinicAnswersID);
+                        bool update = new ReviewAuditBLL().UpdateImprovementActionDetails(userID, UpdateImprovementAction, CookieHelper.GetCookieSessionID());
+                        bool AllReviewed = new ReviewAuditBLL().CheckandUpdateAuditStatus(UpdateImprovementAction.AuditClinicAnswersID, CookieHelper.GetCookieSessionID());
                         if (AllReviewed)
                         {
                             grid.JSProperties["cpAllPopupUpdated"] = true;
@@ -888,7 +889,7 @@ namespace ReviewAudit
         //    //view.SetRowCellValue(e.RowHandle, view.Columns[1], 2);
         //    //view.SetRowCellValue(e.RowHandle, view.Columns[2], 3);
         //}
-
+        
         protected void Complete_Click(object sender, EventArgs e)
         {
             // Find the clicked button
@@ -938,6 +939,50 @@ namespace ReviewAudit
 
         }
 
+      
 
+        //protected void ReviewAuditRecordsGridView_HtmlEditFormCreated(object sender, ASPxGridViewEditFormEventArgs e)
+        //{
+
+        //    if(!ReviewAuditRecordsGridView.IsEditing || ReviewAuditRecordsGridView.EditingRowVisibleIndex<0)
+        //    { return; }
+
+        //    var AClinicAnswerId = ReviewAuditRecordsGridView.GetRowValues(ReviewAuditRecordsGridView.EditingRowVisibleIndex, "AuditClinicAnswersID");
+        //    ASPxGridView ASPxGridViewTempNotes = ReviewAuditRecordsGridView.FindEditFormLayoutItemTemplateControl("ASPxGridViewTempNotes") as ASPxGridView;
+
+        //    ASPxTextBox TempNotesLabel1 = ReviewAuditRecordsGridView.FindEditFormLayoutItemTemplateControl("TempNotesLabel") as ASPxTextBox;
+
+            
+        //    //ASPxButton btn = sender as ASPxButton;
+        //    //GridViewEditFormTemplateContainer container = btn.NamingContainer as GridViewEditFormTemplateContainer;
+        //    //var AClinicAnswerId = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "AuditClinicAnswersID");
+
+        //    if (AClinicAnswerId != null && ASPxGridViewTempNotes !=null)
+        //    {
+        //        List<UnavailableCaseNotesBO> UnAvailableCaseNotes = new List<UnavailableCaseNotesBO>();
+        //        UnAvailableCaseNotes = new BLL.ReviewAuditBLL().GetUnAvailableCaseNotes(AClinicAnswerId.ToString());
+        //        ASPxGridViewTempNotes.DataSource = UnAvailableCaseNotes;
+        //        ASPxGridViewTempNotes.DataBind();
+
+        //    }
+        //}
+
+        protected void ASPxGridViewTempNotes_Init(object sender, EventArgs e)
+        {
+            ASPxGridView gView = sender as ASPxGridView;
+            var AClinicAnswerId = ReviewAuditRecordsGridView.GetRowValues(ReviewAuditRecordsGridView.EditingRowVisibleIndex, "AuditClinicAnswersID");
+            if (AClinicAnswerId != null)
+            {
+                List<UnavailableCaseNotesReasonBO> UnAvailableCaseNotes = new List<UnavailableCaseNotesReasonBO>();
+                UnAvailableCaseNotes = new BLL.ReviewAuditBLL().GetUnAvailableCaseNotes(AClinicAnswerId.ToString(), CookieHelper.GetCookieSessionID());
+                gView.DataSource = UnAvailableCaseNotes;
+                gView.DataBind();
+            }
+        }
+
+        protected void ImpReason_Selecting(object sender, ObjectDataSourceSelectingEventArgs e)
+        {
+            e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace CaseNotesAvailability
             }
             else
             {
-                bool bAuditExist = new BLL.UnavailableCaseNotesBLL().CheckWhetherAuditExist(ID);
+                bool bAuditExist = new BLL.UnavailableCaseNotesBLL().CheckWhetherAuditExist(ID, CookieHelper.GetCookieSessionID());
                 if (bAuditExist)
                 {
                     SetAuditID(ID);
@@ -83,7 +83,7 @@ namespace CaseNotesAvailability
         {
             this.CASAuditId = auditID;
             SingleAuditBO SelectedAudit = new SingleAuditBO();
-            SelectedAudit = new BLL.UnavailableCaseNotesBLL().SelectedAudit(auditID);
+            SelectedAudit = new BLL.UnavailableCaseNotesBLL().SelectedAudit(auditID, CookieHelper.GetCookieSessionID());
             AuditDate = SelectedAudit.Date ?? DateTime.MinValue;
             Specialty = SelectedAudit.Specialty;
             AuditSite = SelectedAudit.Site;
@@ -104,10 +104,6 @@ namespace CaseNotesAvailability
                 string AuditID = values[2]?.ToString() ?? "";
                 string StatusID = values[3]?.ToString() ?? "";
 
-                //if (!String.IsNullOrEmpty(AuditID))
-                //{
-                //    AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
-                //}
                 if (!String.IsNullOrEmpty(StatusID))
                 {
                     StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
@@ -144,12 +140,6 @@ namespace CaseNotesAvailability
             }
 
         }
-        //private int TextBoxCount
-        //{
-        //    get { return ViewState["TextBoxCount"] != null ? (int)ViewState["TextBoxCount"] : 0; }
-        //    set { ViewState["TextBoxCount"] = value; }
-        //}
-
 
         protected void CreateFormDynamically_CallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         {
@@ -180,7 +170,7 @@ namespace CaseNotesAvailability
             int tabCount = (int)Math.Ceiling((double)totalItems / itemsPerTab);
 
             List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
-            UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons();
+            UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons(CookieHelper.GetCookieSessionID());
             for (int tabIndex = 0; tabIndex < tabCount; tabIndex++)
             {
 
@@ -272,130 +262,6 @@ namespace CaseNotesAvailability
             txtTempNotesCount.Text = FullAuditClincAnswer.TemporaryNotesCount.ToString();
             //txtCaseNoteCount.Text = FullAuditClincAnswer[0]..ToString();
         }
-
-        //protected void EditUserButton_Init(object sender, EventArgs e)
-        //{
-        //    ASPxButton btn = sender as ASPxButton;
-        //    GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
-
-        //    object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
-
-
-        //    if (values != null)
-        //    {
-        //        string AuditID = values[0]?.ToString() ?? "";
-        //        string StatusID = values[1]?.ToString() ?? "";
-
-
-        //        if (!String.IsNullOrEmpty(AuditID))
-        //        {
-        //            AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
-        //        }
-
-        //        if (!String.IsNullOrEmpty(StatusID))
-        //        {
-        //            StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
-
-        //            switch (Convert.ToByte(StatusID))
-        //            {
-        //                case (byte)Enums.AuditStatus.NotStarted:
-        //                    //btn.Text = "Not Started";
-        //                    btn.Text = "Edit";
-        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
-        //                    break;
-        //                case (byte)Enums.AuditStatus.InProgress:
-        //                    //btn.Text = "In Progress";
-        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-        //                    btn.Visible = false;
-        //                    break;
-        //                case (byte)Enums.AuditStatus.PendingHRreview:
-        //                    //btn.Text = "Pending HR review";
-        //                    btn.Text = "Review audit";
-        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-        //                    break;
-        //                case (byte)Enums.AuditStatus.Completed:
-        //                    //btn.Text = "Completed";
-        //                    btn.Visible = false;
-        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-        //                    break;
-        //                default:
-        //                    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-        //                    break;
-
-        //            }
-        //        }
-
-        //        // btn.Click += new System.EventHandler(this.Button_Click);
-        //    }
-        //    else
-        //    {
-        //        btn.Visible = false;
-        //    }
-        //}
-
-        //protected void NewRef_Init(object sender, EventArgs e)
-        //{
-
-        //    ASPxButton btn = sender as ASPxButton;
-        //    btn.ClientSideEvents.Click = String.Format("function(s, e) {{ NewRef_Init(s, e); }}");
-
-        //}
-
-        //protected void ChooseUserButton1_Init(object sender, EventArgs e)
-        //{
-        //    ASPxButton btn = sender as ASPxButton;
-        //    GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
-
-        //    object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
-
-        //    if (values != null)
-        //    {
-        //        string AuditID = values[0]?.ToString() ?? "";
-        //        string StatusID = values[1]?.ToString() ?? "";
-
-
-        //        if (!String.IsNullOrEmpty(AuditID))
-        //        {
-        //            AuditID = HttpUtility.JavaScriptStringEncode(AuditID);
-        //        }
-
-        //        if (!String.IsNullOrEmpty(StatusID))
-        //        {
-        //            StatusID = HttpUtility.JavaScriptStringEncode(StatusID);
-        //            switch (StatusID)
-        //            {
-        //                case "1":
-        //                    btn.Text = "Delete";
-        //                    //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ DeleteRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
-        //                    break;
-        //                default:
-        //                    btn.Visible = false;
-        //                    break;
-
-        //            }
-        //        }
-        //        btn.Click += Btn_Click;
-
-        //        //btn.ClientSideEvents.Click = String.Format("function(s, e) {{ ChooseUserButton1_Click(s, e, '{0}', '{1}'); }}", values[0], StatusID);
-        //    }
-        //    else
-        //    {
-        //        btn.Visible = false;
-        //    }
-        //}
-
-        //private void Btn_Click(object sender, EventArgs e)
-        //{
-        //    ASPxButton btn = sender as ASPxButton;
-        //    GridViewDataItemTemplateContainer container = btn.NamingContainer as GridViewDataItemTemplateContainer;
-
-        //    object[] values = CaseNoteAvailabilityAuditRecordsGridView.GetRowValues(container.VisibleIndex, new string[] { "AuditID", "StatusID" }) as object[];
-
-        //    BLL.AuditBLL.DeleteAudit(Convert.ToInt32(values[0]));
-
-        //    ClientScript.RegisterStartupScript
-        //    (GetType(), Guid.NewGuid().ToString(), "DeleteRow_Click();", true);
-        //}
 
         protected void AuditRow_Updating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
         {
@@ -521,8 +387,6 @@ namespace CaseNotesAvailability
             lbl2.Text = $"<span class='AuditDetailsCaption'>Site:</span><span class='AuditDetailsDetail'>{AuditSite}</span>";
         }
 
-
-
         protected void CompleteButton_Init(object sender, EventArgs e)
         {
             ASPxButton btn = sender as ASPxButton;
@@ -543,20 +407,7 @@ namespace CaseNotesAvailability
                     AuditClinicAnswersUnAvailableBO AuditClinicAnswers = new AuditClinicAnswersUnAvailableBO();
                     List<CompleteCallbackBO> myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CompleteCallbackBO>>(e.Parameters);
                     // Use the array on server side
-                    AuditClinicAnswers.UnavailableList = myArray;
-
-                    //List<UnavailableCaseNotesBO> UnAvailabelCaseNotes = new List<UnavailableCaseNotesBO>();
-                    //foreach (CompleteCallbackBO item in myArray)
-                    //{
-                    // UnavailableCaseNotesBO UnAvailable = new UnavailableCaseNotesBO();
-                    //auditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
-                    //auditClinicAnswers.PatientDetails = item.PatientDetails;
-                    //auditClinicAnswers.ReasonUnavailableID = Convert.ToInt32(item.ReasonID);
-                    //auditClinicAnswers.IsActive = true;
-                    //auditClinicAnswers.Add(UnAvailable);
-                    //}
-
-                    // AuditClinicAnswersBO AuditClinicAnswers = new AuditClinicAnswersBO();
+                    AuditClinicAnswers.UnavailableList = myArray;                  
                     AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
                     AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
                     AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
@@ -584,18 +435,6 @@ namespace CaseNotesAvailability
                     {
                         CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
                     }
-
-                    //CaseNoteAvailabilityAuditRecordsGridView.CancelEdit();
-                    //bool update1 = new BLL.AuditClinicAnswersBLL().InsertUnAvailableCaseNoteAvailability(AuditClinicAnswers);
-                    //if (update1)
-                    //{
-                    //    CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = true;
-                    //    //new BLL.AuditClinicAnswersBLL().GetAwaitingActionCount(Convert.ToInt32(txtAuditClinicAnswerId.Value), Convert.ToInt32(txtAuditId.Value));
-                    //}
-                    //else
-                    //{
-                    //    CaseNoteAvailabilityAuditRecordsGridView.JSProperties["cpPopupUpdated"] = false;
-                    //}
 
                 }
             }

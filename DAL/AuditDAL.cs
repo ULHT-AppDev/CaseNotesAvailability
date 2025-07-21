@@ -9,97 +9,133 @@ namespace DAL
     {
         public List<AuditBO> GetAudit()
         {
-
-            using (var ctx = new Model.CNAEntities())
+            try
             {
-                //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
-                return (from p in ctx.Audits
-                        where p.IsActive
-                        select new BusinessObjects.AuditBO
-                        {
-                            AuditID = p.AuditID,
-                            Date = p.Date,
-                            SpecialtyID = p.SpecialtyID,
-                            SiteID = p.SiteID,
-                            CreatedByUserID = p.CreatedByUserID,
-                            CompletedByUserID = p.CompletedByUserID,
-                            DueByDate = p.DueByDate,
-                            StatusID = p.StatusID
-                        }).ToList();
+
+                using (var ctx = new Model.CNAEntities())
+                {
+                    //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
+                    return (from p in ctx.Audits
+                            where p.IsActive
+                            select new BusinessObjects.AuditBO
+                            {
+                                AuditID = p.AuditID,
+                                Date = p.Date,
+                                SpecialtyID = p.SpecialtyID,
+                                SiteID = p.SiteID,
+                                CreatedByUserID = p.CreatedByUserID,
+                                CompletedByUserID = p.CompletedByUserID,
+                                DueByDate = p.DueByDate,
+                                StatusID = p.StatusID
+                            }).ToList();
+                }
+            }
+
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
-
         public List<AuditClinicAnswersBO> GetAuditClincAnswer()
         {
-            using (var ctx = new Model.CNAEntities())
+            try
             {
-                return (from u in ctx.AuditClinicAnswers
-                        where u.IsActive
-                        select new BusinessObjects.AuditClinicAnswersBO
-                        {
-                            AuditClinicAnswersID = u.AuditClinicAnswersID,
-                            AuditID = u.AuditID,
-                            ClinicCode = u.ClinicCode,
-                            NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
-                            CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
-                            TemporaryNotesCount = u.TemporaryNotesCount,
-                            IsReviewed = u.IsReviewed,
-                            IsActive = u.IsActive
-                        }).ToList();
+                using (var ctx = new Model.CNAEntities())
+                {
+                    return (from u in ctx.AuditClinicAnswers
+                            where u.IsActive
+                            select new BusinessObjects.AuditClinicAnswersBO
+                            {
+                                AuditClinicAnswersID = u.AuditClinicAnswersID,
+                                AuditID = u.AuditID,
+                                ClinicCode = u.ClinicCode,
+                                NumberOfAppointmentsAllocated = u.NumberOfAppointmentsAllocated,
+                                CaseNotesAvailableStartCount = u.CaseNotesAvailableStartCount,
+                                TemporaryNotesCount = u.TemporaryNotesCount,
+                                IsReviewed = u.IsReviewed,
+                                IsActive = u.IsActive
+                            }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
         public List<SitesBO> GetSites()
         {
-            using (var ctx = new Model.CNAEntities())
+            try
             {
-                return (from u in ctx.Sites
-                        where u.IsActive
-                        select new BusinessObjects.SitesBO
-                        {
-                            SiteId = u.SiteId,
-                            SiteName = u.SiteName,
-                            SiteCode = u.SiteCode
-                            ,
-                            IsActive = u.IsActive
-                        }).ToList();
+                using (var ctx = new Model.CNAEntities())
+                {
+                    return (from u in ctx.Sites
+                            where u.IsActive
+                            select new BusinessObjects.SitesBO
+                            {
+                                SiteId = u.SiteId,
+                                SiteName = u.SiteName,
+                                SiteCode = u.SiteCode
+                                ,
+                                IsActive = u.IsActive
+                            }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
         public List<SpecilatyBO> GetSpeciality()
         {
-            using (var ctx = new Model.CNAEntities())
+            try
             {
-                return (from u in ctx.Specialities
-                        where u.IsActive
-                        select new BusinessObjects.SpecilatyBO
-                        {
-                            SpecilatiesID = u.SpecilatiesID,
-                            SpecilatiesName = u.SpecilatiesName
-                            ,
-                            IsActive = u.IsActive
-                        }).ToList();
+                using (var ctx = new Model.CNAEntities())
+                {
+                    return (from u in ctx.Specialities
+                            where u.IsActive
+                            select new BusinessObjects.SpecilatyBO
+                            {
+                                SpecilatiesID = u.SpecilatiesID,
+                                SpecilatiesName = u.SpecilatiesName
+                                ,
+                                IsActive = u.IsActive
+                            }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
 
         public List<StatusBO> GetStatus()
         {
-            using (var ctx = new Model.CNAEntities())
+            try
             {
-                return (from u in ctx.Status
-                        where u.IsActive
-                        select new BusinessObjects.StatusBO
-                        {
-                            StatusID = u.StatusId,
-                            StatusName = u.StatusName,
-                            IsActive = u.IsActive
-                        }).ToList();
+                using (var ctx = new Model.CNAEntities())
+                {
+                    return (from u in ctx.Status
+                            where u.IsActive
+                            select new BusinessObjects.StatusBO
+                            {
+                                StatusID = u.StatusId,
+                                StatusName = u.StatusName,
+                                IsActive = u.IsActive
+                            }).ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
 
         public void InsertAudit(AuditBO audit)
         {
+
             using (var ctxIns = new Model.CNAEntities())
             {
                 using (var dbContextTransactionIns = ctxIns.Database.BeginTransaction())
@@ -160,14 +196,21 @@ namespace DAL
 
         public List<string> SelectClinicCodesforAuditId(int auditID)
         {
-            List<string> ClinicCodesforAudit = new List<string>();
-
-            using (var ctxSelect = new Model.CNAEntities())
+            try
             {
-                ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive).Select(x => x.ClinicCode).Distinct().ToList();
-            }
+                List<string> ClinicCodesforAudit = new List<string>();
 
-            return ClinicCodesforAudit;
+                using (var ctxSelect = new Model.CNAEntities())
+                {
+                    ClinicCodesforAudit = ctxSelect.AuditClinicAnswers.Where(x => x.AuditID == auditID && x.IsActive).Select(x => x.ClinicCode).Distinct().ToList();
+                }
+
+                return ClinicCodesforAudit;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public void UpdateAudit(AuditBO d, List<String> ClinicCodesToAdd, List<String> ClinicCodesToToRemove)
@@ -254,22 +297,28 @@ namespace DAL
 
         public SingleAuditBO GetSingleAudit(int auditID)
         {
-
-            using (var ctx = new Model.CNAEntities())
+            try
             {
-                //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
-                return (from p in ctx.Audits
-                        where p.IsActive && auditID == p.AuditID
-                        join t in ctx.Specialities on p.SpecialtyID equals t.SpecilatiesID
-                        join s in ctx.Sites on p.SiteID equals s.SiteId
-                        select new BusinessObjects.SingleAuditBO
-                        {
-                            AuditID = p.AuditID,
-                            Date = p.Date,
-                            Specialty = t.SpecilatiesName,
-                            Site = s.SiteName,
-                            StatusID = p.StatusID
-                        }).FirstOrDefault();
+                using (var ctx = new Model.CNAEntities())
+                {
+                    //return ctx.Applications.Where(x => x.IsActive).Select(x => new audit
+                    return (from p in ctx.Audits
+                            where p.IsActive && auditID == p.AuditID
+                            join t in ctx.Specialities on p.SpecialtyID equals t.SpecilatiesID
+                            join s in ctx.Sites on p.SiteID equals s.SiteId
+                            select new BusinessObjects.SingleAuditBO
+                            {
+                                AuditID = p.AuditID,
+                                Date = p.Date,
+                                Specialty = t.SpecilatiesName,
+                                Site = s.SiteName,
+                                StatusID = p.StatusID
+                            }).FirstOrDefault();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
 
         }

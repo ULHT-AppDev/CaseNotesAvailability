@@ -188,6 +188,7 @@ namespace DAL
                                 catch (Exception ex)
                                 {
                                     dbContextTransactionIns.Rollback();
+                                    throw ex;
                                 }
                             }
                         }

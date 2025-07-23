@@ -384,9 +384,9 @@
                                                             <dx:ASPxSpinEdit ID="txtUnavailableCaseNoteCount" ClientInstanceName="txtUnavailableCaseNoteCount" runat="server" DecimalPlaces="0"
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" MinValue="0" MaxValue="50" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
-                                                                <ClientSideEvents LostFocus="UnavailableCaseNoteCount_SelectedIndexChanged" />
+                                                                <ClientSideEvents Validation="UnavailableCaseNoteCount_Validation" />
                                                                 <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
-                                                                    ErrorTextPosition="Right" SetFocusOnError="true">
+                                                                    ErrorTextPosition="Right" SetFocusOnError="false">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
                                                             </dx:ASPxSpinEdit>

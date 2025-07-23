@@ -216,7 +216,7 @@ function StartCount_Validation(s, e)
     }
     }
 
-function UnavailableCaseNoteCount_SelectedIndexChanged(s, e) {
+function UnavailableCaseNoteCount_Validation(s, e) {
 
     if (s.GetText() !== null && s.GetText() !== "") {
         let Count = txtUnavailableCaseNoteCount.GetValue();

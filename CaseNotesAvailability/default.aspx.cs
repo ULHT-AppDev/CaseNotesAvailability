@@ -20,12 +20,12 @@ namespace CaseNotesAvailability
             {
                 if (CookieHelper.GetCookieRoleID() != (byte)UserRoles.HRManagers)
                 {
-                    SortGrid("Status", DevExpress.Data.ColumnSortOrder.Descending);
-                    //HealthRecordsGridView.Columns[""].SortOrder = SortOrder.Ascending;
+                    SortGrid("Status", DevExpress.Data.ColumnSortOrder.Ascending);
+                    //HealthRecordsGridView.Columns[""].SortOrder = SortOrder.Descending;
                 }
                 else
                 {
-                    SortGrid("Status", DevExpress.Data.ColumnSortOrder.Ascending);
+                    SortGrid("Status", DevExpress.Data.ColumnSortOrder.Descending);
                 }
                 // Initial sort on Page Load
 

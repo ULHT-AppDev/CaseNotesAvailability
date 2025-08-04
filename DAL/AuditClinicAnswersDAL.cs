@@ -155,12 +155,12 @@ namespace DAL
 
 
                     bool hasOnlyCompletedStatus = ctxSelect.AuditClinicAnswers
-                                        .Where(e => e.AuditID == Auditid)    // Filter by the specific Id
-                                            .All(e => e.StatusID == (byte)Enums.AuditStatus.Completed &&  e.IsActive); // Ensure all statuses are "Completed"
+                                        .Where(e => e.AuditID == Auditid && e.IsActive)    // Filter by the specific Id
+                                            .All(e => e.StatusID == (byte)Enums.AuditStatus.Completed); // Ensure all statuses are "Completed"
 
                     bool hasOnlyNotStartedStatus = ctxSelect.AuditClinicAnswers
-                                       .Where(e => e.AuditID == Auditid)    // Filter by the specific Id
-                                           .All(e => e.StatusID == (byte)Enums.AuditStatus.NotStarted && e.IsActive); // Ensure all statuses are "not started"
+                                       .Where(e => e.AuditID == Auditid && e.IsActive)    // Filter by the specific Id
+                                           .All(e => e.StatusID == (byte)Enums.AuditStatus.NotStarted ); // Ensure all statuses are "not started"
 
                     //bool hasReviewed = ctxSelect.AuditClinicAnswers
                     //                   .Where(e => e.AuditID == Auditid)    // Filter by the specific Id

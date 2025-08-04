@@ -15,7 +15,24 @@ namespace BusinessObjects
         public string ClinicCodes { get; set; }
         public int StatusID { get; set; }
         public int SessionID { get; set; }
+        public int Sortorder { get => getSororder(); }
 
+        private int getSororder()
+        {
+            switch (StatusID)
+            {
+                case (byte)Enums.AuditStatus.NotStarted:
+                    return (byte)Enums.AuditStatus.NotStarted;
+                case (byte)Enums.AuditStatus.InProgress:
+                    return (byte)Enums.AuditStatus.InProgress;
+                case (byte)Enums.AuditStatus.Completed:
+                    return (byte)Enums.AuditStatus.Completed;
+                case (byte)Enums.AuditStatus.PendingHRreview:
+                    return (byte)Enums.AuditStatus.PendingHRreview;
+                default:
+                    return 0;
+            }
+        }
     }
 
     public class AuditDeleteBO

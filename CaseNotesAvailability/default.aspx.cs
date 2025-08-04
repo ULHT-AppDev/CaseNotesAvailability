@@ -20,15 +20,16 @@ namespace CaseNotesAvailability
             {
                 if (CookieHelper.GetCookieRoleID() != (byte)UserRoles.HRManagers)
                 {
-                    SortGrid("Status", DevExpress.Data.ColumnSortOrder.Ascending);
+                    //SortGrid("Status", DevExpress.Data.ColumnSortOrder.Ascending);
                     //HealthRecordsGridView.Columns[""].SortOrder = SortOrder.Descending;
+                    HealthRecordsGridView.SortBy(HealthRecordsGridView.Columns["Status"], DevExpress.Data.ColumnSortOrder.Ascending);
                 }
                 else
                 {
-                    SortGrid("Status", DevExpress.Data.ColumnSortOrder.Descending);
+                    //SortGrid("Sortorder", DevExpress.Data.ColumnSortOrder.Descending);
+                    HealthRecordsGridView.SortBy(HealthRecordsGridView.Columns["Sortorder"], DevExpress.Data.ColumnSortOrder.Descending);
                 }
                 // Initial sort on Page Load
-
             }
         }
         private void SortGrid(string columnName, DevExpress.Data.ColumnSortOrder order)
@@ -525,5 +526,6 @@ namespace CaseNotesAvailability
                 }
             }
         }
+
     }
 }

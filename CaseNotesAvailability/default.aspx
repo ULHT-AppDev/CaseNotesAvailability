@@ -10,7 +10,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <asp:ObjectDataSource ID="HealthRecordsView" runat="server" SelectMethod="GetAudit"  OnSelecting="HealthRecordsView_Selecting" UpdateMethod="UpdateAuditRecords" DeleteMethod="" 
+    <asp:ObjectDataSource ID="HealthRecordsView" runat="server" SelectMethod="GetAudit" OnSelecting="HealthRecordsView_Selecting" UpdateMethod="UpdateAuditRecords" DeleteMethod=""
         OnUpdating="Audit_Updating" OnInserting="Audit_Inserting" TypeName="BLL.AuditBLL" DataObjectTypeName="BusinessObjects.AuditBO" InsertMethod="InsertAudit"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSpeciality" OnSelecting="GetSpeciality_Selecting" runat="server" SelectMethod="GetSpeciality" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
     <asp:ObjectDataSource ID="GetSites" OnSelecting="GetSites_Selecting" runat="server" SelectMethod="GetSites" TypeName="BLL.AuditBLL"></asp:ObjectDataSource>
@@ -35,7 +35,7 @@
         </div>
     </div>
 
-    <dx:ASPxGridView ID="HealthRecordsGridView" runat="server" AllowSorting="true" 
+    <dx:ASPxGridView ID="HealthRecordsGridView" runat="server" AllowSorting="true"
         ClientInstanceName="HealthRecordsGridView"
         OnRowUpdating="AuditRow_Updating"
         KeyFieldName="AuditID"
@@ -47,13 +47,14 @@
         OnRowUpdated="HealthRecordsGridView_RowUpdated"
         OnRowInserted="HealthRecordsGridView_RowInserted"
         OnCustomButtonInitialize="RoleControlGridView_CustomButtonInitialize"
-        OnRowValidating ="HealthRecordsGridView_RowValidating"
+        OnRowValidating="HealthRecordsGridView_RowValidating"
         OnAfterPerformCallback="HealthRecordsGridView_AfterPerformCallback"
         OnHtmlRowPrepared="HealthRecordsGridView_HtmlRowPrepared"
+   
         Width="100%">
         <ClientSideEvents EndCallback="HealthRecordsGridView_EndCallBack" />
-        <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780"  AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
-       
+        <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
+
         <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
 
         <SettingsPopup>
@@ -76,7 +77,7 @@
                         <dx:GridViewColumnLayoutItem ColumnName="AuditID" Name="AuditID" Caption="Audit ID" Width="100%" ColSpan="2"></dx:GridViewColumnLayoutItem>
 
                         <dx:GridViewColumnLayoutItem ColumnName="Date" Caption="Audit start date" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
-                        <dx:GridViewColumnLayoutItem Caption="Audit due by date" ColumnName="DueByDate"  ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
+                        <dx:GridViewColumnLayoutItem Caption="Audit due by date" ColumnName="DueByDate" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                         <dx:GridViewColumnLayoutItem Caption="Site" ColumnName="SiteID" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
                         <dx:GridViewColumnLayoutItem Caption="Speciality" ColumnName="SpecialtyID" ColSpan="2" Width="400px"></dx:GridViewColumnLayoutItem>
 
@@ -85,7 +86,7 @@
                                 <dx:ASPxLabel ID="ClinicCodesHelpLabel" runat="server" OnInit="ClinicCodesHelpLabel_Init" EncodeHtml="false"></dx:ASPxLabel>
                             </Template>
                         </dx:GridViewColumnLayoutItem>
-                        <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes"  Caption="Clinic codes" ColSpan="2" Width="100%">
+                        <dx:GridViewColumnLayoutItem ColumnName="ClinicCodes" Caption="Clinic codes" ColSpan="2" Width="100%">
                         </dx:GridViewColumnLayoutItem>
                         <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                     </Items>
@@ -149,7 +150,7 @@
             </dx:GridViewDataDateColumn>
 
             <dx:GridViewDataDateColumn Caption="Due by date" FieldName="DueByDate" VisibleIndex="3" MinWidth="200" MaxWidth="200">
-                <PropertiesDateEdit  ClientInstanceName="DueByDate" DisplayFormatString="dd-MMM-yyyy">
+                <PropertiesDateEdit ClientInstanceName="DueByDate" DisplayFormatString="dd-MMM-yyyy">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="A date is required" />
                     </ValidationSettings>
@@ -174,17 +175,17 @@
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
 
-            <dx:GridViewDataTokenBoxColumn FieldName="ClinicCodes"  VisibleIndex="6">
-                <PropertiesTokenBox AllowCustomTokens="true"  ValueSeparator="," MaxLength="100">
-                    <ValidationSettings Display="Dynamic"  ErrorDisplayMode="ImageWithTooltip">
+            <dx:GridViewDataTokenBoxColumn FieldName="ClinicCodes" VisibleIndex="6">
+                <PropertiesTokenBox AllowCustomTokens="true" ValueSeparator="," MaxLength="100">
+                    <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="At least one clinic code is required & blank text is not allowed" />
                     </ValidationSettings>
-                <ClientSideEvents ValueChanged="OnTokenBoxValueChanged" />
+                    <ClientSideEvents ValueChanged="OnTokenBoxValueChanged" />
                 </PropertiesTokenBox>
-                
+
             </dx:GridViewDataTokenBoxColumn>
 
-            <dx:GridViewDataComboBoxColumn Caption="Status" PropertiesComboBox-ClientInstanceName="Status" SortIndex ="0" SortOrder ="Descending" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
+            <dx:GridViewDataComboBoxColumn Caption="Status" PropertiesComboBox-ClientInstanceName="Status" SortIndex="0" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
                 PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="StatusID" VisibleIndex="7" MinWidth="200" MaxWidth="400">
                 <PropertiesComboBox DataSourceID="Status" TextField="StatusName" ValueField="StatusID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
@@ -192,8 +193,12 @@
                     </ValidationSettings>
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
+
+            <dx:GridViewDataTextColumn Caption="Sort Order" ReadOnly="true" FieldName="Sortorder" Settings-AllowSort="True" Settings-SortMode="DisplayText" SortOrder="Descending" SortIndex="0" >
+            </dx:GridViewDataTextColumn>
+
         </Columns>
-        <Settings ShowFilterRow="true"  AutoFilterCondition="Contains" />
+        <Settings ShowFilterRow="true" AutoFilterCondition="Contains" />
         <SettingsBehavior AllowEllipsisInText="true" />
         <SettingsResizing ColumnResizeMode="NextColumn" />
     </dx:ASPxGridView>
@@ -300,7 +305,7 @@
                         runat="server"
                         Text="Cancel"
                         Width="200px"
-                        RenderMode ="Secondary"
+                        RenderMode="Secondary"
                         AutoPostBack="false"
                         CausesValidation="true"
                         ValidationGroup="CancelCaseNote"
@@ -308,14 +313,14 @@
                         <ClientSideEvents Click="CancelDeleteButton_Click" />
                     </dx:ASPxButton>
                 </div>
-                <div>&nbsp;</div> 
+                <div>&nbsp;</div>
                 <div class="pl-3">
                     <dx:ASPxButton ID="DeleteCaseNoteButton"
                         ClientInstanceName="DeleteCaseNoteButton"
                         runat="server"
                         Text="Delete"
                         Width="200px"
-                        RenderMode ="Danger"
+                        RenderMode="Danger"
                         AutoPostBack="false"
                         CausesValidation="true"
                         ValidationGroup="DeleteCaseNote"

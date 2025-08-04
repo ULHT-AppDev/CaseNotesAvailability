@@ -179,7 +179,7 @@
                     <dx:GridViewDataTextColumn Caption="CaseNotes available start count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Temporary notes count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Number of case notes unavailable" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataCheckColumn Caption="IsReviewed" ReadOnly="true" FieldName="IsReviewed" VisibleIndex="7" MinWidth="100" MaxWidth="150"></dx:GridViewDataCheckColumn>
+                    <dx:GridViewDataCheckColumn Caption="IsReviewed" ReadOnly="true" FieldName="IsReviewed" Visible="false" VisibleIndex="7" MinWidth="100" MaxWidth="150"></dx:GridViewDataCheckColumn>
                 </Columns>
 
                 <Settings ShowFilterRow="true" />

@@ -195,7 +195,7 @@ namespace CaseNotesAvailability
 
                     LayoutItem nameItem = new LayoutItem()
                     {
-                        Caption = $"Patient Details",
+                        Caption = $"NHS/UNumber",
 
                     };
                     //PlaceHolder pholder = new PlaceHolder();

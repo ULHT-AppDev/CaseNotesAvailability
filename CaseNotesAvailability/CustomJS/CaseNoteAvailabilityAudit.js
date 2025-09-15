@@ -191,7 +191,8 @@ var test = customValidate() ;
     var jsonArray = JSON.stringify(arr);
         CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
 
-}
+    }
+    popup_Closing(s, e);
 }
 
 function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e) {

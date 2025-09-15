@@ -22,15 +22,15 @@ namespace BusinessObjects
             switch (StatusID)
             {
                 case (byte)Enums.AuditStatus.NotStarted:
-                    return (byte)Enums.AuditStatus.NotStarted;
+                    return 1;
                 case (byte)Enums.AuditStatus.InProgress:
-                    return (byte)Enums.AuditStatus.InProgress;
+                    return 2;
                 case (byte)Enums.AuditStatus.Completed:
-                    return (byte)Enums.AuditStatus.Completed;
-                case (byte)Enums.AuditStatus.PendingHRreview:
-                    return (byte)Enums.AuditStatus.PendingHRreview;
-                default:
                     return 0;
+                case (byte)Enums.AuditStatus.PendingHRreview:
+                    return 3;
+                default:
+                    return -1;
             }
         }
     }

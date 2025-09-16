@@ -411,7 +411,7 @@ namespace CaseNotesAvailability
                     AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
                     AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
                     AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
-                    AuditClinicAnswers.Totalappointments = Convert.ToInt32(txtTotalAppointments.Text);
+                    AuditClinicAnswers.Totalappointments = Convert.ToInt32(txtTotalAppointments.Value);
                     AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
                     AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
                     AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);

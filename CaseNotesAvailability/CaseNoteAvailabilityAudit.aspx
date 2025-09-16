@@ -385,7 +385,7 @@
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" MinValue="0" MaxValue="50" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="UnavailableCaseNoteCount_Validation" />
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal2" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="false">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>

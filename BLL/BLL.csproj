@@ -63,5 +63,10 @@
       <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\CaseNotesAvailability\CaseNoteAvailabilityAudit.aspx">
+      <Link>CaseNoteAvailabilityAudit.aspx</Link>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

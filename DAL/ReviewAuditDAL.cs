@@ -321,7 +321,7 @@ namespace DAL
                                         .Where(x => x.AuditClinicAnswersID == AuditClinicAnswersID).Select(x => x.AuditID).SingleOrDefault();
 
                     bool hasReviewed = ctxSelect.AuditClinicAnswers
-                                       .Where(e => e.AuditID == AuditID)    // Filter by the specific Id
+                                       .Where(e => e.AuditID == AuditID && e.IsActive)    // Filter by the specific Id
                                            .All(e => e.IsReviewed == true); // Ensure all statuses are "Audited"
 
                     //byte status = hasReviewed ? (byte)Enums.AuditStatus.Reviewed:;

@@ -50,11 +50,10 @@
         OnRowValidating="HealthRecordsGridView_RowValidating"
         OnAfterPerformCallback="HealthRecordsGridView_AfterPerformCallback"
         OnHtmlRowPrepared="HealthRecordsGridView_HtmlRowPrepared"
-   
+        onload ="HealthRecordsGridView_Load"
         Width="100%">
         <ClientSideEvents EndCallback="HealthRecordsGridView_EndCallBack" />
         <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
-
         <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
 
         <SettingsPopup>
@@ -185,7 +184,7 @@
 
             </dx:GridViewDataTokenBoxColumn>
 
-            <dx:GridViewDataComboBoxColumn Caption="Status" PropertiesComboBox-ClientInstanceName="Status" SortIndex="0" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
+            <dx:GridViewDataComboBoxColumn Caption="Status" PropertiesComboBox-ClientInstanceName="Status"  SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
                 PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="StatusID" VisibleIndex="7" MinWidth="200" MaxWidth="400">
                 <PropertiesComboBox DataSourceID="Status" TextField="StatusName" ValueField="StatusID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
@@ -194,7 +193,7 @@
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
 
-            <dx:GridViewDataTextColumn Caption="Sort Order" ReadOnly="true" FieldName="Sortorder" Settings-AllowSort="True" Settings-SortMode="DisplayText" SortOrder="Descending" SortIndex="0" >
+            <dx:GridViewDataTextColumn Caption="Sort Order" ReadOnly="true" FieldName="Sortorder" Settings-AllowSort="True" Settings-SortMode="DisplayText" >
             </dx:GridViewDataTextColumn>
 
         </Columns>

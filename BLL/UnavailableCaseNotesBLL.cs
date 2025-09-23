@@ -33,7 +33,7 @@ namespace BLL
             {
                 List<ReasonUnavailableBO> UnavailableReasons = new List<ReasonUnavailableBO>();
 
-                UnavailableReasons = new DAL.UnavailableCaseNotesDAL().GetUnAvailableReasons().OrderByDescending(x => x.ReasonUnavailableID).ToList();
+                UnavailableReasons = new DAL.UnavailableCaseNotesDAL().GetUnAvailableReasons().OrderBy(x => x.ReasonText).ToList();
                 //FullAuditClincAnswer = FullAuditClincAnswer.Where(x => !FullAuditClincAnswer.Contains(x)).ToList(); 
                 return UnavailableReasons;
             }

@@ -76,25 +76,25 @@ function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
 
 function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s, e) {
     if (s.cpUpdated == true) {
-        SetAndShowAlert(1, 'Record Updated Successfully', '');
+        SetAndShowAlert(1, 'Record updated successfully', '');
         delete s.cpUpdated;
     }
     else if (s.cpInserted == true) {
-        SetAndShowAlert(1, 'Record Inserted Successfully', '');
+        SetAndShowAlert(1, 'Record inserted successfully', '');
         delete s.cpInserted;
     }
     else if (s.cpPopupUpdatedPending == true) {
         CaseNoteAvailabilityUnAvailabilityPopup.Hide();
         //PageControl.TabPages.Clear();
         CaseNoteAvailabilityAuditRecordsGridView.Refresh();
-        SetAndShowAlert(1, 'All Records Inserted Successfully.. Please click on Go back to Audit page', '');
+        SetAndShowAlert(1, 'All records inserted successfully.. Please click on Go back to audit page', '');
         delete s.cpPopupUpdatedPending;
     }
     else if (s.cpPopupUpdated == true) {
         CaseNoteAvailabilityUnAvailabilityPopup.Hide();
         //PageControl.TabPages.Clear();
         CaseNoteAvailabilityAuditRecordsGridView.Refresh();
-        SetAndShowAlert(1, 'Record Inserted Successfully', '');
+        SetAndShowAlert(1, 'Record inserted successfully', '');
         delete s.cpPopupUpdated;
     }
 }
@@ -209,6 +209,7 @@ function StartCount_Validation(s, e) {
 }
 
 function UnavailableCaseNoteCount_Validation(s, e) {
+    var value = s.GetValue();
 
     if (s.GetText() !== null && s.GetText() !== "") {
         let Count = txtUnavailableCaseNoteCount.GetValue();
@@ -245,12 +246,12 @@ function UnavailableCaseNoteCount_Validation(s, e) {
             }
         } else {
             e.isValid = false;
-            e.errorText = "Temp Count must have a value.";
+            e.errorText = "Temp count must have a value.";
         }
     }
     else {
         e.isValid = false;
-        e.errorText = "Temp Count Must have a value";
+        e.errorText = "Temp count must have a value";
     }
 
 

@@ -186,17 +186,17 @@ namespace CaseNotesAvailability
                         //btn.Text = "Not Started";
 
                         break;
-                    case (byte)Enums.AuditStatus.InProgress:
-                        if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
-                        {
-                            //btn.Text = "Not Started";
-                            btn.Text = "Edit";
-                            btn.ForeColor = Color.FromName("#3a75df");
-                            btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
-                        }
-                        else
-                        { btn.Visible = false; }
-                        //btn.Text = "Not Started";
+                    //case (byte)Enums.AuditStatus.InProgress:
+                    //    if (CookieHelper.GetCookieRoleID() == (byte)UserRoles.HRManagers)
+                    //    {
+                    //        //btn.Text = "Not Started";
+                    //        btn.Text = "Edit";
+                    //        btn.ForeColor = Color.FromName("#3a75df");
+                    //        btn.ClientSideEvents.Click = String.Format("function(s, e) {{ EditRow_Click(s, e, '{0}', '{1}'); }}", values[0], container.VisibleIndex);
+                    //    }
+                    //    else
+                    //    { btn.Visible = false; }
+                        
 
                         break;
                     //case (byte)Enums.AuditStatus.InProgress:
@@ -428,7 +428,7 @@ namespace CaseNotesAvailability
 
         protected void HealthRecordsGridView_RowInserted(object sender, DevExpress.Web.Data.ASPxDataInsertedEventArgs e)
         {
-            HealthRecordsGridView.JSProperties["cpUpdated"] = true;
+            HealthRecordsGridView.JSProperties["cpInserted"] = true;
         }
 
 
@@ -498,6 +498,11 @@ namespace CaseNotesAvailability
                     GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
                     group.Caption = "Create new Audit";
                     grid.SettingsCommandButton.UpdateButton.Text = "Create new Audit";
+                    grid.SettingsCommandButton.UpdateButton.RenderMode = GridCommandButtonRenderMode.Button;
+                    grid.SettingsCommandButton.CancelButton.RenderMode = GridCommandButtonRenderMode.Button;
+                    grid.SettingsCommandButton.CancelButton.Styles.Style.BackColor = System.Drawing.Color.Green;
+                    grid.SettingsCommandButton.CancelButton.Styles.Style.CssClass = "buttonSpace";
+
 
                     // hide audit column on new row
                     GridViewColumnLayoutItem auditCol = grid.EditFormLayoutProperties.FindItemOrGroupByName("AuditID") as GridViewColumnLayoutItem;
@@ -509,6 +514,10 @@ namespace CaseNotesAvailability
                     GridViewLayoutGroup group = grid.EditFormLayoutProperties.FindItemOrGroupByName("FieldGroup") as GridViewLayoutGroup;
                     group.Caption = $"Update Audit (ID: {val})";
                     grid.SettingsCommandButton.UpdateButton.Text = "Update Audit";
+                    grid.SettingsCommandButton.UpdateButton.RenderMode = GridCommandButtonRenderMode.Button;
+                    grid.SettingsCommandButton.CancelButton.RenderMode = GridCommandButtonRenderMode.Button;
+                    grid.SettingsCommandButton.CancelButton.Styles.Style.BackColor = System.Drawing.Color.Green;
+                    grid.SettingsCommandButton.CancelButton.Styles.Style.CssClass = "buttonSpace";
                 }
             }
         }

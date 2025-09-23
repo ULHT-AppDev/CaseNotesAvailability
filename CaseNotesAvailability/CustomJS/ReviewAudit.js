@@ -22,6 +22,8 @@ let reviewSender = null;
 
 function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
 
+    lblMessage.SetVisible(false); 
+
     currentClinicCode = ClinicCode;
     AddReviewPopupHeaderLabel.SetText('Improvement Details');
     //clearing the popup
@@ -46,6 +48,8 @@ function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
     AddReviewPopup.Show();
 }
 function AddActionPoint_ClientClick(s, e, ClinicCode, reviewSender1) {
+
+    lblMessage.SetVisible(false); 
 
     currentClinicCode = ClinicCode;
     //document.getElementById('AddReviewPopupHeaderLabel').innerHTML ='Action point';
@@ -136,7 +140,7 @@ function DeleteActionReview_Click(s, e, id) {
     if (!ActionPointDetailsGridView.InCallback()) {
 
         // would add in a popup here to confirm removal etc 
-        InMemoryActionDetailsDS = InMemoryActionDetailsDS.filter(item => item.RequiresImprovementDetailsID != id); // no type match on check - could change this
+        InMemoryActionDetailsDS = InMemoryActionDetailsDS.filter(item => item.ReasonUnavailableID != id); // no type match on check - could change this
 
         ActionPointDetailsGridView.PerformCallback(JSON.stringify(InMemoryActionDetailsDS));
     }
@@ -164,9 +168,7 @@ function ImprovementDetailsGridView_EndCallback(s, e) {
         InMemoryImprovementDetailsDS = []; // reset
         InMemoryImprovementDetailsCounter = 0; // reset
     }
-
 }
-
 
 function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
     const relativeURL = 'default.aspx?';
@@ -196,22 +198,27 @@ function ReviewAuditRecordsGridView_EndCallBack(s, e) {
 }
 
 function CompleteAuditReview_Click(s, e, code) {
- if (InMemoryImprovementDetailsDS.length >0 && InMemoryActionDetailsDS.length > 0 ) {
+    if (InMemoryImprovementDetailsDS.length > 0 || InMemoryActionDetailsDS.length > 0) {
 
-    let CallbackObj =
-    {
-        ActionID: 1,
-        AuditClinicAnswersID: code,
-        ImprovementDetailsDS: InMemoryImprovementDetailsDS,
-        ActionPointsDS: InMemoryActionDetailsDS
-    };
+        let CallbackObj =
+        {
+            ActionID: 1,
+            AuditClinicAnswersID: code,
+            ImprovementDetailsDS: InMemoryImprovementDetailsDS,
+            ActionPointsDS: InMemoryActionDetailsDS
+        };
 
-    var jsonArray = JSON.stringify(CallbackObj);
+        var jsonArray = JSON.stringify(CallbackObj);
 
-    //CompleteCallback.PerformCallback(jsonArray);
-    ReviewAuditRecordsGridView.PerformCallback(jsonArray);
+        //CompleteCallback.PerformCallback(jsonArray);
+        ReviewAuditRecordsGridView.PerformCallback(jsonArray);
 
-}
+    }
+    else {
+        lblMessage.SetVisible(true);
+        lblMessage.SetText("⚠️ Please fill Improvement detail or Action point !");
+        return false;
+    }
 }
 
 

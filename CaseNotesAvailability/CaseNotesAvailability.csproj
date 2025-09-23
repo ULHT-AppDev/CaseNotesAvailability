@@ -124,6 +124,7 @@
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="CustomCSS\CasenoteAudit.css" />
+    <Content Include="CustomCSS\default.css" />
     <Content Include="CustomJS\ReviewAudit.js" />
     <Content Include="ReviewAudit.aspx" />
     <Content Include="Content\all.css" />
@@ -485,7 +486,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
   <ItemGroup>
     <Analyzer Include="C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.data\25.1.5\analyzers\dotnet\DevExpress.Generator.dll" Visible="false" Condition="Exists('C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.data\25.1.5\analyzers\dotnet\DevExpress.Generator.dll')" />
   </ItemGroup>

@@ -4,6 +4,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="CustomCSS/NotificationHelper.css" rel="stylesheet" />
+    <link href="CustomCSS/default.css" rel="stylesheet" />
     <script src="CustomJS/Audit.js">  </script>
     <script src="UserControl/UserAlertControl/Scripts/UserAlert.js"></script>
     <link href="UserControl/UserAlertControl/CSS/UserAlert.css" rel="stylesheet" />
@@ -134,7 +135,7 @@
                 </DataItemTemplate>
             </dx:GridViewDataColumn>
 
-            <dx:GridViewDataTextColumn Caption="Audit ID" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+            <dx:GridViewDataTextColumn Caption="Audit Identifier" ReadOnly="true" FieldName="AuditID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
                 <EditItemTemplate>
                     <dx:ASPxLabel ID="AuditIDReadonlyLabel" runat="server" Text='<%# Eval("AuditID") %>'></dx:ASPxLabel>
                 </EditItemTemplate>
@@ -164,9 +165,8 @@
                     </ValidationSettings>
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
-
-            <dx:GridViewDataComboBoxColumn Caption="Site" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
-                PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="SiteID" VisibleIndex="5" MinWidth="200" MaxWidth="400">
+               <%--<dx:GridViewDataComboBoxColumn Caption="Site" SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"--%>
+            <dx:GridViewDataComboBoxColumn Caption="Site" FieldName="SiteID" VisibleIndex="5" MinWidth="200" MaxWidth="400">
                 <PropertiesComboBox DataSourceID="GetSites" TextField="SiteName" ValueField="SiteID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="Site is required" />
@@ -183,8 +183,8 @@
                 </PropertiesTokenBox>
 
             </dx:GridViewDataTokenBoxColumn>
-
-            <dx:GridViewDataComboBoxColumn Caption="Status" PropertiesComboBox-ClientInstanceName="Status"  SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"
+             <%--<dx:GridViewDataComboBoxColumn Caption="Status" PropertiesComboBox-ClientInstanceName="Status"  SettingsHeaderFilter-DateRangeCalendarSettings-ShowClearButton="true"--%>
+            <dx:GridViewDataComboBoxColumn Caption="Status" PropertiesComboBox-ClientInstanceName="Status"  
                 PropertiesComboBox-ClearButton-DisplayMode="OnHover" FieldName="StatusID" VisibleIndex="7" MinWidth="200" MaxWidth="400">
                 <PropertiesComboBox DataSourceID="Status" TextField="StatusName" ValueField="StatusID">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
@@ -193,7 +193,7 @@
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
 
-            <dx:GridViewDataTextColumn Caption="Sort Order" ReadOnly="true" FieldName="Sortorder" Settings-AllowSort="True" Settings-SortMode="DisplayText" >
+            <dx:GridViewDataTextColumn Caption="Sort Order" ReadOnly="true" FieldName="Sortorder" Visible="false" Settings-AllowSort="True" Settings-SortMode="DisplayText" >
             </dx:GridViewDataTextColumn>
 
         </Columns>

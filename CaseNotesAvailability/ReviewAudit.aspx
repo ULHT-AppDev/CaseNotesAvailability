@@ -133,11 +133,11 @@
                         <dx:GridViewLayoutGroup Name="FieldGroup" Caption="Health Records View" ColCount="2" ColumnCount="2" ColSpan="1" ColumnSpan="1">
                             <Items>
                                 <dx:GridViewColumnLayoutItem ClientVisible="false" ColumnName="AuditClinicAnswersID" Name="AuditClinicAnswersID" Caption="AuditClinic AnswersID" Width="100%" ColumnSpan="1"></dx:GridViewColumnLayoutItem>
-                                <dx:GridViewColumnLayoutItem ColumnName="ClinicCode" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem ColumnName="Clinic node" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Total appointments" ColumnName="Totalappointments" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                <dx:GridViewColumnLayoutItem Caption="Number Of appointments allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                <dx:GridViewColumnLayoutItem Caption="CaseNotes available startcount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                <dx:GridViewColumnLayoutItem Caption="TemporaryNotes count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Number of appointments allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Case notes available startcount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Temporary notes count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Number of case notes unavailable" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
 
 
@@ -165,21 +165,35 @@
                         </DataItemTemplate>
                     </dx:GridViewDataColumn>
                     <dx:GridViewDataTextColumn Caption="AuditClinicAnswersID" Visible="false" ReadOnly="true" FieldName="AuditClinicAnswersID" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+                        <Settings AutoFilterCondition="Contains" />
                         <EditItemTemplate>
                             <dx:ASPxLabel ID="AuditClinicAnswersIDReadonlyLabel" runat="server" Text='<%# Eval("AuditClinicAnswersID") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
                     </dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="ClinicCode" ReadOnly="true" FieldName="ClinicCode" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+                    <dx:GridViewDataTextColumn Caption="Clinic code" ReadOnly="true" FieldName="ClinicCode" VisibleIndex="1" MinWidth="50" MaxWidth="100">
+                        <Settings AutoFilterCondition="Contains" />
                         <EditItemTemplate>
                             <dx:ASPxLabel ID="ClinicCodeReadonlyLabel" runat="server" Text='<%# Eval("ClinicCode") %>'></dx:ASPxLabel>
                         </EditItemTemplate>
                     </dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Total appointments" FieldName="Totalappointments" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Number of appointments allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="CaseNotes available start count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Temporary notes count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Number of case notes unavailable" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataCheckColumn Caption="IsReviewed" ReadOnly="true" FieldName="IsReviewed" Visible="false" VisibleIndex="7" MinWidth="100" MaxWidth="150"></dx:GridViewDataCheckColumn>
+                    <dx:GridViewDataTextColumn Caption="Total appointments" FieldName="Totalappointments" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200">
+                        <Settings AutoFilterCondition="Contains" />
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Number of appointments allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200">
+                        <Settings AutoFilterCondition="Contains" />
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Case notes available start count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200">
+                        <Settings AutoFilterCondition="Contains" />
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Temporary notes count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200">
+                        <Settings AutoFilterCondition="Contains" />
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Number of case notes unavailable" FieldName="UnavailableCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200">
+                        <Settings AutoFilterCondition="Contains" />
+                    </dx:GridViewDataTextColumn>
+                    <dx:GridViewDataCheckColumn Caption="Is reviewed" ReadOnly="true" FieldName="IsReviewed" Visible="false" VisibleIndex="7" MinWidth="100" MaxWidth="150">
+                        <Settings AutoFilterCondition="Contains" />
+                    </dx:GridViewDataCheckColumn>
                 </Columns>
 
                 <Settings ShowFilterRow="true" />
@@ -229,9 +243,9 @@
                                                 </div>
                                             </DataItemTemplate>
                                         </dx:GridViewDataColumn>--%>
-                                        <dx:GridViewDataTextColumn FieldName="PatientDetails" PropertiesTextEdit-ClientInstanceName="txtPatientDetails" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
+                                        <dx:GridViewDataTextColumn caption="Patient details" FieldName="PatientDetails" PropertiesTextEdit-ClientInstanceName="txtPatientDetails" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn FieldName="ReasonUnavailable" PropertiesTextEdit-ClientInstanceName="ReasonUnavailable" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
+                                        <dx:GridViewDataTextColumn Caption ="Reason for unavailability" FieldName="ReasonUnavailable" PropertiesTextEdit-ClientInstanceName="ReasonUnavailable" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
                                         </dx:GridViewDataTextColumn>
 
 
@@ -316,7 +330,7 @@
                                     <SettingsBehavior AllowEllipsisInText="true" AllowDragDrop="false" AllowSort="false" />
                                     <SettingsResizing ColumnResizeMode="NextColumn" />
                                 </dx:ASPxGridView>
-                                <dx:ASPxLabel ID="NoImprovementDetailReviewLabel" ClientInstanceName="NoImprovementDetailReviewLabel" runat="server" Text="There are no improvement detail reviews"></dx:ASPxLabel>
+                                <dx:ASPxLabel ID="NoImprovementDetailReviewLabel" ClientInstanceName="NoImprovementDetailReviewLabel" runat="server" Text="No improvement details recorded. To add an improvement detail record click the ‘Add improvement details’ button."></dx:ASPxLabel>
                             </div>
                             <div class="mt-2">
                                 <dx:ASPxButton ID="AddActionPoint"
@@ -370,17 +384,8 @@
                                     <SettingsBehavior AllowEllipsisInText="true" AllowDragDrop="false" AllowSort="false" />
                                     <SettingsResizing ColumnResizeMode="NextColumn" />
                                 </dx:ASPxGridView>
-                                <dx:ASPxLabel ID="ASPxLabel1" ClientInstanceName="NoActionPointDetailReviewLabel" runat="server" Text="There are no action points to add"></dx:ASPxLabel>
+                                <dx:ASPxLabel ID="ASPxLabel1" ClientInstanceName="NoActionPointDetailReviewLabel" runat="server" Text="No action points recorded. To add an action point to this review click the ‘Add Action Point’ button."></dx:ASPxLabel>
                             </div>
-
-                            <%--                            <div>
-                                Complete audit review button - popup to confirm then take the two in memory ds and save back to ReviewAuditRecordsGridView. 
-                                Button should probably also check for atleast one improvement and one action before allowing to submit
-                            </div>--%>
-
-                            <%--                            <div>
-                                cancel button but with a warning that it will remove all existing comments on this clinic review
-                            </div>--%>
                         </div>
 
                         </div>
@@ -395,15 +400,12 @@
                                     OnInit="CompleteAuditReview_Init">
                                     <%--<ClientSideEvents Click="CompleteClient_Click" />--%>
                                 </dx:ASPxButton>
+                                <dx:ASPxLabel ID="lblMessage" ClientInstanceName="lblMessage" ForeColor="Red" runat="server" ></dx:ASPxLabel>
                     </EditForm>
                 </Templates>
             </dx:ASPxGridView>
         </div>
-        <%--                                            <PropertiesComboBox ClientInstanceName="Specialities" DataSourceID="GetUnavailableReason" TextField="ReasonText" ValueField="ReasonUnavailableID">
-                                                <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
-                                                    <RequiredField IsRequired="true" ErrorText="Unavailable reason is required" />
-                                                </ValidationSettings>
-                                            </PropertiesComboBox>--%>
+
     </div>
 
     <dx:ASPxPopupControl ID="AddReviewPopup"
@@ -477,7 +479,7 @@
                             </dx:LayoutGroup>
 
 
-                            <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Action point details" Name="ActionPointsReview" ClientVisible="false">
+                            <dx:LayoutGroup ColSpan="1" GroupBoxDecoration="Box" Caption="Action point comment" Name="ActionPointsReview" ClientVisible="false">
                                 <Items>
                                     <%-- <dx:LayoutItem ColSpan="1" Caption="Unavailable Reason">
                                         <LayoutItemNestedControlCollection>
@@ -498,7 +500,7 @@
                                             </dx:LayoutItemNestedControlContainer>
                                         </LayoutItemNestedControlCollection>
                                     </dx:LayoutItem>--%>
-                                    <dx:LayoutItem ColSpan="1" Caption="details">
+                                    <dx:LayoutItem ColSpan="1" Caption="Comment">
                                         <LayoutItemNestedControlCollection>
                                             <dx:LayoutItemNestedControlContainer runat="server">
 

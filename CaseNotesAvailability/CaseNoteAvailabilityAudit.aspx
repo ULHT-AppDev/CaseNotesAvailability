@@ -78,7 +78,7 @@
                 <dx:ASPxButton ID="AuditDetails"
                     runat="server"
                     Text="Go back to Audit page"
-                    RenderMode="Button"
+                    RenderMode="Link"
                     AutoPostBack="false"
                     UseSubmitBehavior="false"
                     CausesValidation="false">
@@ -378,14 +378,14 @@
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>--%>
 
-                                                <dx:LayoutItem Name="UnavailableCaseNoteCount" Caption="Number of casenotes unavailable :" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                <dx:LayoutItem Name="UnavailableCaseNoteCount" Caption="Number of case notes unavailable :" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtUnavailableCaseNoteCount" ClientInstanceName="txtUnavailableCaseNoteCount" runat="server" DecimalPlaces="0"
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" MinValue="0" MaxValue="50" SpinButtons-ShowIncrementButtons="false">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="UnavailableCaseNoteCount_Validation" />
-                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal2" Display="Dynamic" EnableCustomValidation="true"
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic" EnableCustomValidation="true"
                                                                     ErrorTextPosition="Right" SetFocusOnError="false">
                                                                     <RequiredField ErrorText="This field is required" IsRequired="true" />
                                                                 </ValidationSettings>
@@ -442,11 +442,13 @@
                                     CausesValidation="true"
                                     OnInit="CompleteButton_Init">
                                 </dx:ASPxButton>
+                                <span style="display: inline-block; width: 15px;"></span>
                                 <dx:ASPxButton ID="CloseButton"
                                     ClientInstanceName="CloseButton"
                                     runat="server"
                                     Text="Cancel"
                                     AutoPostBack="false"
+                                    BackColor="Green"
                                     UseSubmitBehavior="false"
                                     ValidationGroup="CaseNoteVal"
                                     CausesValidation="true">

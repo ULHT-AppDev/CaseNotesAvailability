@@ -226,6 +226,7 @@ namespace CaseNotesAvailability
                         DataSource = UnAvailableReason, // datasource here etc
                         TextField = "ReasonText", // whatever it is here
                         ValueField = "ReasonUnavailableID" // whatever it is here
+                        
                     };
 
                     comboBox.ValueType = typeof(int);

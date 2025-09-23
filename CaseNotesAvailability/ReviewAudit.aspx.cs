@@ -399,6 +399,7 @@ namespace ReviewAudit
         protected void Audit_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var obj = e.InputParameters["Audit"] as AuditBO;
+            
             short userID = Login.CookieHelper.GetCookieUserID();
             obj.CreatedByUserID = userID;
             //obj.Date = DateTime.Now;

@@ -258,7 +258,7 @@ namespace CaseNotesAvailability
             //TextBox1.Text = FullAuditClincAnswer[0].ClinicCode;
             txtClinicCode.Text = FullAuditClincAnswer.ClinicCode;
             txtAuditClinicAnswerId.Value = FullAuditClincAnswer.AuditClinicAnswersID;
-            txtNumAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
+            txtActualAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
             txtStartCount.Text = FullAuditClincAnswer.CaseNotesAvailableStartCount.ToString();
             txtTempNotesCount.Text = FullAuditClincAnswer.TemporaryNotesCount.ToString();
             //txtCaseNoteCount.Text = FullAuditClincAnswer[0]..ToString();
@@ -413,7 +413,7 @@ namespace CaseNotesAvailability
                     AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
                     AuditClinicAnswers.ClinicCode = txtClinicCode.Text;
                     AuditClinicAnswers.Totalappointments = Convert.ToInt32(txtTotalAppointments.Value);
-                    AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtNumAppointments.Value);
+                    AuditClinicAnswers.NumberOfAppointmentsAllocated = Convert.ToInt32(txtActualAppointments.Value);
                     AuditClinicAnswers.CaseNotesAvailableStartCount = Convert.ToInt32(txtStartCount.Value);
                     AuditClinicAnswers.TemporaryNotesCount = Convert.ToInt32(txtTempNotesCount.Value);
                     AuditClinicAnswers.UnavailableCount = Convert.ToInt32(txtUnavailableCaseNoteCount.Value);
@@ -421,7 +421,7 @@ namespace CaseNotesAvailability
                     txtAuditClinicAnswerId.Text = "";
                     txtAuditId.Text = "";
                     txtTotalAppointments.Text = "";
-                    txtNumAppointments.Text = "";
+                    txtActualAppointments.Text = "";
                     txtStartCount.Text = "";
                     txtTempNotesCount.Text = "";
                     txtUnavailableCaseNoteCount.Text = "";

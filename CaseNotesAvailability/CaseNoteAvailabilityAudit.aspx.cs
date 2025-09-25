@@ -1,5 +1,6 @@
 ﻿using BusinessObjects;
 using DevExpress.Web;
+using DevExpress.Web.Internal;
 using DevExpress.Web.Internal.Dialogs;
 using DevExpress.Xpo.DB;
 using Login;
@@ -147,33 +148,45 @@ namespace CaseNotesAvailability
             {
                 DynamicFormBO obj = Newtonsoft.Json.JsonConvert.DeserializeObject<DynamicFormBO>(e.Parameter);
 
-                if (obj.ActionID != 0)
+                if (obj.ActionID == 1)
                 {
-
                     int iterations = obj.NumberofRows;
 
                     if (iterations > 0)
                     {
-                        ViewState["TextboxCount"] = iterations;
-                        GeneratePatientForm(iterations);
+
+                        //ViewState["TextboxCount"] = iterations;
+                        //CreateFormDynamically_CallbackPanel.JSProperties["cpTextBoxCount"] = iterations;
+                        try
+                        {
+                            GeneratePatientForm(iterations);
+                            PageControl.Visible = true;
+                            CreateFormDynamically_CallbackPanel.JSProperties["cpGeneratedItemsSuccess"] = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            CreateFormDynamically_CallbackPanel.JSProperties["cpGeneratedItemsError"] = true;
+                        }
+
 
                     }
                 }
             }
         }
 
-        private void GeneratePatientForm(int count)
+        private void GeneratePatientForm(int totalItems)
         {
-            PageControl.TabPages.Clear();
-            int totalItems = count;
+            PageControl.TabPages.Clear(); // clear
+
             int itemsPerTab = 10;
             int tabCount = (int)Math.Ceiling((double)totalItems / itemsPerTab);
 
             List<ReasonUnavailableBO> UnAvailableReason = new List<ReasonUnavailableBO>();
+
             UnAvailableReason = new BLL.UnavailableCaseNotesBLL().GetUnAvailableReasons(CookieHelper.GetCookieSessionID());
+
             for (int tabIndex = 0; tabIndex < tabCount; tabIndex++)
             {
-
                 TabPage tab = new TabPage();
                 tab.Text = "Page " + (tabIndex + 1);
 
@@ -181,33 +194,35 @@ namespace CaseNotesAvailability
                 UnavailabilityFormLayout.ID = "formLayout_" + tabIndex;
                 UnavailabilityFormLayout.Width = Unit.Percentage(100);
                 UnavailabilityFormLayout.ColumnCount = 2;
+
                 for (int i = 1; i < (itemsPerTab + 1); i++)
                 {
                     int itemIndex = tabIndex * itemsPerTab + i;
-                    if (itemIndex >= totalItems +1) break;
+
+                    if (itemIndex >= totalItems + 1) break;
+
                     LayoutGroup lg = new LayoutGroup()
                     {
                         Caption = $"Details for Patient {itemIndex}",
                         GroupBoxDecoration = GroupBoxDecoration.Box,
                         AlignItemCaptions = true
-
                     };
 
                     LayoutItem nameItem = new LayoutItem()
                     {
                         Caption = $"NHS/UNumber",
-
                     };
-                    //PlaceHolder pholder = new PlaceHolder();
 
                     nameItem.CaptionStyle.Font.Size = System.Web.UI.WebControls.FontUnit.Point(11);
+
                     ASPxTextBox patientNameTextBox = new ASPxTextBox();
                     patientNameTextBox.ID = $"PatientNameTextBox_{itemIndex}"; // id needs to be unique so can get value in js when submitting as dynamically created
                     patientNameTextBox.ClientInstanceName = $"PatientNameTextBox_{itemIndex}"; // id needs to be unique so can get value in js when submitting as dynamically created
-                    patientNameTextBox.MaxLength = 200;
+                    patientNameTextBox.MaxLength = 16;
+
                     // add in validation settings and stuff here like below one (look at combo below)
                     patientNameTextBox.ValidationSettings.RequiredField.IsRequired = true;
-                    patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal1";
+                    patientNameTextBox.ValidationSettings.ValidationGroup = "CaseNoteVal";
                     patientNameTextBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
                     patientNameTextBox.ValidationSettings.Display = Display.Dynamic;
                     // pholder.Controls.Add(patientNameTextBox);
@@ -226,13 +241,13 @@ namespace CaseNotesAvailability
                         DataSource = UnAvailableReason, // datasource here etc
                         TextField = "ReasonText", // whatever it is here
                         ValueField = "ReasonUnavailableID" // whatever it is here
-                        
+
                     };
 
                     comboBox.ValueType = typeof(int);
                     //comboBox.Items.Insert(0, new ListEditItem("-- Select Reason --", null));
                     comboBox.ValidationSettings.RequiredField.IsRequired = true;
-                    comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal1"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
+                    comboBox.ValidationSettings.ValidationGroup = "CaseNoteVal"; // IMPORTANT to give a validation group to the submit button and all editors to have the same validation group.
                     comboBox.ValidationSettings.RequiredField.ErrorText = "Field is required";
                     comboBox.ValidationSettings.Display = Display.Dynamic;
                     comboBox.AutoPostBack = false;
@@ -245,8 +260,8 @@ namespace CaseNotesAvailability
 
                     // add group to form
                     UnavailabilityFormLayout.Items.Add(lg);
-
                 }
+
                 tab.Controls.Add(UnavailabilityFormLayout);
                 PageControl.TabPages.Add(tab);
             }
@@ -408,7 +423,7 @@ namespace CaseNotesAvailability
                     AuditClinicAnswersUnAvailableBO AuditClinicAnswers = new AuditClinicAnswersUnAvailableBO();
                     List<CompleteCallbackBO> myArray = Newtonsoft.Json.JsonConvert.DeserializeObject<List<CompleteCallbackBO>>(e.Parameters);
                     // Use the array on server side
-                    AuditClinicAnswers.UnavailableList = myArray;                  
+                    AuditClinicAnswers.UnavailableList = myArray;
                     AuditClinicAnswers.AuditClinicAnswersID = Convert.ToInt32(txtAuditClinicAnswerId.Value);
                     AuditClinicAnswers.AuditID = Convert.ToInt32(txtAuditId.Value);
                     AuditClinicAnswers.ClinicCode = txtClinicCode.Text;

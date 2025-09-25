@@ -1,4 +1,215 @@
-﻿function onDismissalDateChanged(s, e) {
+﻿function TotalAppointments_ValueChanged(s, e) {
+
+    if (s.GetValue() != null) {
+        CheckAllCountsValidation();
+    }
+
+}
+
+
+function ActualAppointments_ValueChanged(s, e) {
+    if (s.GetValue() != null) {
+        CheckAllCountsValidation();
+    }
+}
+
+
+function StartCount_Validation(s, e) {
+
+    e.isValid = true;
+
+    let startCount = s.GetValue();
+
+    if (startCount !== null) {
+
+        let ActualAppointment = txtActualAppointments.GetValue();
+
+        if (ActualAppointment !== null) {
+            if (startCount > ActualAppointment) {
+                e.isValid = false;
+                e.errorText = "Casenotes available at the start of clinic can't be greater than Actual Appointments.";
+            }
+
+            CheckAllCountsValidation();
+        }
+    }
+    else {
+        e.isValid = false; // required field
+    }
+}
+
+
+function TempCount_Validation(s, e) {
+
+    e.isValid = true;
+
+    let tempCount = txtTempNotesCount.GetValue();
+
+    if (tempCount !== null) {
+
+        let ActualAppointment = txtActualAppointments.GetValue();
+
+        if (ActualAppointment !== null) {
+
+            if (tempCount > ActualAppointment) {
+                e.isValid = false;
+                e.errorText = "Temp Count can't be greater than Actual Appointments.";
+            }
+
+            CheckAllCountsValidation();
+        }
+    } else {
+        e.isValid = false; // required field
+    }
+
+}
+
+//function CheckAllCountsValidation(e) {
+function CheckAllCountsValidation() {
+
+    CaseNoteFormLayout.GetItemByName("SumErrorLabelItem").SetVisible(false);
+
+    let actualAppointment = txtActualAppointments.GetValue();
+    let startCount = txtStartCount.GetValue();
+    let tempAppointment = txtTempNotesCount.GetValue();
+    let unavailableCount = txtUnavailableCaseNoteCount.GetValue();
+
+    if (unavailableCount !== null && actualAppointment !== null && tempAppointment !== null && startCount !== null) {
+
+        let total = unavailableCount + tempAppointment + startCount;
+
+        if (total > actualAppointment) {
+            // total of all 3 cant be bigger than actual
+
+            CaseNoteFormLayout.GetItemByName("SumErrorLabelItem").SetVisible(true);
+            return false;
+            //e.isValid = false;
+            //e.errorText = "The sum of start count, temporary count & unavailable count can not be greater than actual appointments.";
+        }
+    }
+
+    return true;
+}
+
+function UnavailableCaseNoteCount_Validation(s, e) {
+
+    e.isValid = true;
+
+    let unavailableCount = txtUnavailableCaseNoteCount.GetValue();
+
+    if (unavailableCount !== null) {
+
+        let ActualAppointment = txtActualAppointments.GetValue();
+
+        if (ActualAppointment !== null) {
+
+            if (unavailableCount > ActualAppointment) {
+                e.isValid = false;
+                e.errorText = "Number of case notes unavailable can't be greater than Actual Appointments.";
+            }
+
+            CheckAllCountsValidation();
+        }
+    } else {
+        e.isValid = false; // required field
+    }
+}
+
+let tempDataStorage = [];
+
+function txtUnavailableCaseNoteCount_ValueChanged(s, e) {
+
+    let unavailableCount = s.GetValue();
+
+    if (unavailableCount !== null && unavailableCount > 0) {
+
+
+
+        // disable complete button
+        CompleteButton.SetEnabled(false);
+
+
+        // set temp data storage
+        tempDataStorage = []; // reset
+
+        for (var i = 1; i <= unavailableCount; i++) {
+
+            var Namee = "PatientNameTextBox_" + i;
+            var PatientNameTextBox = ASPxClientTextBox.Cast(Namee);
+
+            // may be higher than
+            if (PatientNameTextBox !== undefined) {
+                var PatientNametVal = PatientNameTextBox.GetText();
+                var Reason = "ReasonComboBox_" + i;
+                var ReasonTextBox = ASPxClientComboBox.Cast(Reason);
+                var ReasonVal = ReasonTextBox.GetValue();
+
+                let PatientDetails = {
+                    ID: i,
+                    PatientDetails: PatientNametVal,
+                    ReasonID: ReasonVal
+                };
+
+                tempDataStorage.push(PatientDetails);
+            }
+        }
+
+        let obj = {
+            ActionID: 1,
+            NumberofRows: unavailableCount
+            /*TempData: tempDataStorage*/
+        };
+
+        CreateFormDynamically_CallbackPanel.PerformCallback(JSON.stringify(obj));
+        //CreateFormDynamically_CallbackPanel.SetVisible(true);
+        obj = null;
+    }
+    else {
+        // clear datasource and hide tab pages
+
+        PageControl.SetVisible(false);
+
+    }
+}
+
+function CreateFormDynamically_CallbackPanel_EndCallback(s, e) {
+    if (s.cpGeneratedItemsSuccess) {
+        delete s.cpGeneratedItemsSuccess;
+        CompleteButton.SetEnabled(true);
+
+        // reset values
+        if (tempDataStorage !== null) {
+            for (var x = 0; x < tempDataStorage.length; x++) {
+
+                var currentItem = tempDataStorage[x];
+
+                var id = currentItem.ID;
+                var currentPatientTextBox = "PatientNameTextBox_" + id;
+                var currentPatientTextBoxControl = ASPxClientTextBox.Cast(currentPatientTextBox);
+
+                // try find textbox again
+
+                if (currentPatientTextBoxControl !== undefined) {
+                    currentPatientTextBoxControl.SetText(currentItem.PatientDetails);
+
+                    var Reason = "ReasonComboBox_" + id;
+                    var ReasonTextBox = ASPxClientComboBox.Cast(Reason);
+                    ReasonTextBox.SetValue(currentItem.ReasonID);
+                }
+            }
+        }
+    }
+
+    if (s.cpGeneratedItemsError) {
+        delete s.cpGeneratedItemsError;
+        // handle error 
+        alert("error please contact ICT support");
+
+    }
+}
+
+
+function onDismissalDateChanged(s, e) {
     var contactLayoutGroup = CaseNoteAvailabilityAuditRecordsGridView.GetEditFormLayoutItemOrGroup("groupContactInfo");
     var isContactLayoutGroupVisible = contactLayoutGroup.GetVisible();
     //s.SetText(isContactLayoutGroupVisible ? "Show Details..." : "Hide Details");
@@ -25,27 +236,7 @@ function CloseButton_Init(s, e) {
     CaseNoteAvailabilityUnAvailabilityPopup.Hide();
 }
 
-function TempCount_Validation(s, e) {
-    if (ASPxClientEdit.AreEditorsValid("CaseNoteAvailabilityUnAvailabilityPopupContainer", "CaseNoteVal", false))
-    {
-        if (s.GetText() !== null && s.GetText() !== "") {
-            let Count = txtTempNotesCount.GetValue();
-            let ActualAppointment = txtActualAppointments.GetValue();
 
-            if (Count !== null) {
-
-                if (Count > ActualAppointment) {
-                    e.isValid = false;
-                    e.errorText = "Temp Count can't be greater than Actual Appointment.";
-                }
-                else {
-                    e.isValid = true;
-                }
-            }
-        }
-    }
-
-}
 
 function popup_Closing(s, e) {
     ASPxClientEdit.ClearGroup('CaseNoteVal', true);
@@ -96,11 +287,11 @@ function CaseNoteAvailabilityAuditRecordsGridView_EndCallBack(s, e) {
 }
 
 /*
-
+ 
 function ValidateMyGroup() {
     // Trigger client-side validation for 'MyDynamicGroup'
     var isValid = Page_ClientValidate('MyDynamicGroup');
-
+ 
     // Check if the validation passed
     if (isValid) {
         alert("Validation for 'MyDynamicGroup' passed!");
@@ -112,8 +303,8 @@ function ValidateMyGroup() {
         return false;
     }
 }
-
-
+ 
+ 
   */
 function validatePrevious(prevField) {
     prevField.ClearValidation();
@@ -140,116 +331,52 @@ function customValidate() {
     if (!isValid) return false;
     return true;
 }
-function AuditValidate(s,e)
-{
+function AuditValidate(s, e) {
     var isValid1 = ASPxClientEdit.ValidateGroup("CaseNoteVal");
     if (!isValid1) return false;
 }
 
 
+
+
 function Complete_Click(s, e) {
-    var test = customValidate();
-    if (test == true) {
-        //txtUnavailableCaseNoteCount.Validate();
-        //if (txtUnavailableCaseNoteCount.GetIsValid()) {
-            let arr = [];
-            var UnavailableCaseNoteCount1 = txtUnavailableCaseNoteCount.GetValue();
-            for (var i = 1; i <= UnavailableCaseNoteCount1; i++) {
+    // check form and custom validation CheckAllCountsValidation()
+    if (ASPxClientEdit.AreEditorsValid("CaseNoteAvailabilityUnAvailabilityPopupContainer", "CaseNoteVal", false) && CheckAllCountsValidation() && !CaseNoteAvailabilityAuditRecordsGridView.InCallback()) {
 
-                // var layout = "ContentPlaceHolder2_CaseNoteAvailabilityUnAvailabilityPopup_CreateFormDynamically_CallbackPanel_PageControl_formLayout_"+ Math.ceil(i/10);
-                //  arr[i - 1] = [];
-                var Namee = "PatientNameTextBox_" + i;
-                var PatientNameTextBox = ASPxClientTextBox.Cast(Namee);
-                var PatientNametVal = PatientNameTextBox.GetText();
-                var Reason = "ReasonComboBox_" + i;
-                var ReasonTextBox = ASPxClientComboBox.Cast(Reason);
-                var ReasonVal = ReasonTextBox.GetValue();
+        let arr = [];
+        var UnavailableCaseNoteCount1 = txtUnavailableCaseNoteCount.GetValue();
 
-                let PatientDetails = {
-                    PatientDetails: PatientNametVal,
-                    ReasonID: ReasonVal
-                };
-                arr.push(PatientDetails);
-            }
-            var jsonArray = JSON.stringify(arr);
-            CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
+        for (var i = 1; i <= UnavailableCaseNoteCount1; i++) {
 
+            var Namee = "PatientNameTextBox_" + i;
+            var PatientNameTextBox = ASPxClientTextBox.Cast(Namee);
+            var PatientNametVal = PatientNameTextBox.GetText();
+            var Reason = "ReasonComboBox_" + i;
+            var ReasonTextBox = ASPxClientComboBox.Cast(Reason);
+            var ReasonVal = ReasonTextBox.GetValue();
+
+            let PatientDetails = {
+                PatientDetails: PatientNametVal,
+                ReasonID: ReasonVal
+            };
+
+            arr.push(PatientDetails);
         }
-    //}
-    /* popup_Closing(s, e);*/
+
+        var jsonArray = JSON.stringify(arr);
+
+        CaseNoteAvailabilityAuditRecordsGridView.PerformCallback(jsonArray);
+
+    }
 }
 
 function CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback(s, e) {
 
 }
-function StartCount_Validation(s, e) {
-    if (ASPxClientEdit.AreEditorsValid("CaseNoteAvailabilityUnAvailabilityPopupContainer", "CaseNoteVal", false))
-    {
-        if (s.GetText() !== null && s.GetText() !== "") {
-            let Count = txtStartCount.GetValue();
-            let ActualAppointment = txtActualAppointments.GetValue();
-
-            if (Count !== null) {
-                if (Count > ActualAppointment) {
-                    e.isValid = false;
-                    e.errorText = "Casenotes available at the start of clinic can't be greater than Actual Appointments.";
-                }
-
-            }
-        }
-    }
-}
 
 
-function UnavailableCaseNoteCount_Validation(s, e) {
 
-    //if (ASPxClientEdit.AreEditorsValid("CaseNoteAvailabilityUnAvailabilityPopupContainer", "CaseNoteVal", false)) {
-    var value = s.GetValue();
 
-        if (s.GetText() !== null && s.GetText() !== "") {
-            let Count = txtUnavailableCaseNoteCount.GetValue();
-            let ActualAppointment = txtActualAppointments.GetValue();
-            // let StartCount = txtStartCount.GetValue();
-
-            if (Count !== null) {
-
-                if (Count > ActualAppointment) {
-                    e.isValid = false;
-                    e.errorText = "Number of case notes unavailable can't be greater than Actual Appointments.";
-                    
-                }
-                else if (Count < 0) {
-                    e.isValid = false;
-                    e.errorText = "Number of case notes unavailable must be more than or equal to 0.";
-                } else {
-                    //e.isValid = true;
-                    Count = txtUnavailableCaseNoteCount.GetValue();
-                    if (Count > 0) {
-                        let obj = {
-                            ActionID: 1,
-                            NumberofRows: Count
-                        };
-                        //Action nothing to do 
-
-                        CreateFormDynamically_CallbackPanel.PerformCallback(JSON.stringify(obj));
-                        //CreateFormDynamically_CallbackPanel.PerformCallback(Count);
-                        CreateFormDynamically_CallbackPanel.SetVisible(true);
-                        obj = null;
-                    }
-                    else {
-                        CreateFormDynamically_CallbackPanel.SetVisible(false);
-                    }
-                }
-            } else {
-                e.isValid = false;
-                e.errorText = "Temp count must have a value.";
-            }
-        }
-        else {
-            e.isValid = false;
-            e.errorText = "Temp count must have a value";
-        }
-    }
 
 
 

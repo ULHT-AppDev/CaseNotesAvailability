@@ -216,7 +216,7 @@ function CompleteAuditReview_Click(s, e, code) {
     }
     else {
         lblMessage.SetVisible(true);
-        lblMessage.SetText("⚠️ Please fill Improvement detail or Action point !");
+        lblMessage.SetText("<i class='fas fa-exclamation-triangle'></i><span class='ps-2'> Please fill Improvement detail or Action point !");
         return false;
     }
 }

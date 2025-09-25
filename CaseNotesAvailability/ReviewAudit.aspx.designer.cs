@@ -150,6 +150,150 @@ namespace ReviewAudit
         protected global::DevExpress.Web.ASPxGridView ReviewAuditRecordsGridView;
 
         /// <summary>
+        /// AuditorView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton AuditorView;
+
+        /// <summary>
+        /// AuditClinicAnswersIDReadonlyLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel AuditClinicAnswersIDReadonlyLabel;
+
+        /// <summary>
+        /// ClinicCodeReadonlyLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel ClinicCodeReadonlyLabel;
+
+        /// <summary>
+        /// TempNotesLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel TempNotesLabel;
+
+        /// <summary>
+        /// ASPxGridViewTempNotes control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridView ASPxGridViewTempNotes;
+
+        /// <summary>
+        /// ClinicCodeLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel ClinicCodeLabel;
+
+        /// <summary>
+        /// AddImpDetails control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton AddImpDetails;
+
+        /// <summary>
+        /// ImprovementDetailsGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridView ImprovementDetailsGridView;
+
+        /// <summary>
+        /// DeleteReviewButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton DeleteReviewButton;
+
+        /// <summary>
+        /// NoImprovementDetailReviewLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel NoImprovementDetailReviewLabel;
+
+        /// <summary>
+        /// AddActionPoint control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton AddActionPoint;
+
+        /// <summary>
+        /// ActionPointDetailsGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxGridView ActionPointDetailsGridView;
+
+        ///// <summary>
+        ///// DeleteReviewButton control.
+        ///// </summary>
+        ///// <remarks>
+        ///// Auto-generated field.
+        ///// To modify move field declaration from designer file to code-behind file.
+        ///// </remarks>
+        //protected global::DevExpress.Web.ASPxButton DeleteReviewButton;
+
+        /// <summary>
+        /// ASPxLabel1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel ASPxLabel1;
+
+        /// <summary>
+        /// btnCompleteReview control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton btnCompleteReview;
+
+        /// <summary>
+        /// lblMessage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel lblMessage;
+
+        /// <summary>
         /// AddReviewPopup control.
         /// </summary>
         /// <remarks>
@@ -157,6 +301,15 @@ namespace ReviewAudit
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxPopupControl AddReviewPopup;
+
+        /// <summary>
+        /// AddReviewPopupHeaderLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel AddReviewPopupHeaderLabel;
 
         /// <summary>
         /// AddReviewContainer control.
@@ -202,6 +355,24 @@ namespace ReviewAudit
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxMemo ActReviewCommentMemo;
+
+        /// <summary>
+        /// SubmitReviewButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton SubmitReviewButton;
+
+        /// <summary>
+        /// CloseReviewButton control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxButton CloseReviewButton;
 
         /// <summary>
         /// CompleteCallback control.

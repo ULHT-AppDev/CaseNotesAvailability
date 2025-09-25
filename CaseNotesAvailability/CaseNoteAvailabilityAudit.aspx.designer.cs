@@ -168,13 +168,13 @@ namespace CaseNotesAvailability
         protected global::System.Web.UI.HtmlControls.HtmlGenericControl CaseNoteAvailabilityUnAvailabilityPopupContainer;
 
         /// <summary>
-        /// ReferralTopSectionFormLayout control.
+        /// CaseNoteFormLayout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::DevExpress.Web.ASPxFormLayout ReferralTopSectionFormLayout;
+        protected global::DevExpress.Web.ASPxFormLayout CaseNoteFormLayout;
 
         /// <summary>
         /// txtAuditClinicAnswerId control.
@@ -247,6 +247,15 @@ namespace CaseNotesAvailability
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxSpinEdit txtUnavailableCaseNoteCount;
+
+        /// <summary>
+        /// SumErrorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::DevExpress.Web.ASPxLabel SumErrorLabel;
 
         /// <summary>
         /// CreateFormDynamically_CallbackPanel control.

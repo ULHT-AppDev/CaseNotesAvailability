@@ -78,7 +78,8 @@
                 <dx:ASPxButton ID="AuditDetails"
                     runat="server"
                     Text="Go back to Audit page"
-                    RenderMode="Link"
+                    RenderMode="Button"
+                    Width="200px"
                     AutoPostBack="false"
                     UseSubmitBehavior="false"
                     CausesValidation="false">
@@ -129,6 +130,7 @@
                                 <dx:GridViewColumnLayoutItem Caption="Number of appointments allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="CaseNotes available startCount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Temporarynotes count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Unavailable notes count" ColumnName="UnavailableCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
                             </Items>
                         </dx:GridViewLayoutGroup>
@@ -166,9 +168,10 @@
                     <dx:GridViewDataTextColumn Caption="Number of appointments allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="CaseNotes available start count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Temporary notes count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Unavailable notes count" FieldName="UnavailableCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                 </Columns>
 
-                <Settings ShowFilterRow="true" />
+                <Settings ShowFilterRow="true" AutoFilterCondition="Contains" />
                 <SettingsBehavior AllowEllipsisInText="true" />
                 <SettingsResizing ColumnResizeMode="NextColumn" />
 
@@ -355,8 +358,9 @@
                                                     CaptionStyle-CssClass="Form-Caption-Style" ClientVisible="false">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <dx:ASPxLabel ID="SumErrorLabel" runat="server" EncodeHtml="false" 
-                                                                Text="<i class='fas fa-exclamation-triangle'></i><span class='ps-2'>The sum of start count, temporary count & unavailable count can not be greater than actual appointments.</span>" ForeColor="Red"></dx:ASPxLabel>
+                                                            <dx:ASPxLabel ID="SumErrorLabel" runat="server" EncodeHtml="false"
+                                                                Text="<i class='fas fa-exclamation-triangle'></i><span class='ps-2'>The sum of start count, temporary count & unavailable count can not be greater than actual appointments.</span>" ForeColor="Red">
+                                                            </dx:ASPxLabel>
                                                         </dx:LayoutItemNestedControlContainer>
                                                     </LayoutItemNestedControlCollection>
                                                 </dx:LayoutItem>
@@ -393,13 +397,13 @@
                                     CausesValidation="true"
                                     OnInit="CompleteButton_Init">
                                 </dx:ASPxButton>
-                                <span style="display: inline-block; width: 15px;"></span>
+                                <span style="display: inline-block; width: 25px;"></span>
                                 <dx:ASPxButton ID="CloseButton"
                                     ClientInstanceName="CloseButton"
                                     runat="server"
                                     Text="Cancel"
-                                    AutoPostBack="false"
-                                    BackColor="Green"
+                                    AutoPostBack="false"                                    
+                                    BackColor="Gray"
                                     UseSubmitBehavior="false"
                                     CausesValidation="false">
                                     <ClientSideEvents Click="CloseButton_Init" />

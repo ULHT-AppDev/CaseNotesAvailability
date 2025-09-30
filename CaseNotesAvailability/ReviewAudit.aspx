@@ -109,6 +109,7 @@
                 OnStartRowEditing="ReviewAuditRecordsGridView_StartRowEditing"
                 OnCellEditorInitialize="ReviewAuditRecordsGridView_CellEditorInitialize"
                 OnCustomCallback="ReviewAuditRecordsGridView_CustomCallback"
+                OnAfterPerformCallback="ReviewAuditRecordsGridView_AfterPerformCallback"
                 Width="100%">
                 <ClientSideEvents EndCallback="ReviewAuditRecordsGridView_EndCallBack" />
                 <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>

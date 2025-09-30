@@ -1,3 +1,14 @@
 ﻿.buttonSpace {
-    margin-right: 15px; /* Adjust the pixel value for desired spacing */
+    margin-right: 15px;
 }
+
+.cancelButtonBlackWhite {
+    background-color: #000000;
+    color: #FFFFFF;
+    border-color: #C0C0C0;
+}
+
+    .cancelButtonBlackWhite:hover {
+        background-color: #333333;
+        color: #FFFFFF;
+    }

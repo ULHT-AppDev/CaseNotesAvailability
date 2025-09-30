@@ -26,6 +26,15 @@ namespace ReviewAudit
         private string ClinicCode;
         private string AuditClinicAnswersID;
 
+        private void SortGrid(string columnName, DevExpress.Data.ColumnSortOrder order)
+        {
+            GridViewColumn column = ReviewAuditRecordsGridView.Columns[columnName];
+            if (column != null)
+            {
+                ReviewAuditRecordsGridView.ClearSort();
+                ReviewAuditRecordsGridView.SortBy(column, order);
+            }
+        }
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
@@ -134,6 +143,7 @@ namespace ReviewAudit
             }
         }
 
+        //
         //protected void CaseNoteAvailabilityUnAvailabilityCallbackPanel_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
         //{
         //    if (e.Parameter != null) // select patient referrals & details sent from patient search grid
@@ -399,7 +409,7 @@ namespace ReviewAudit
         protected void Audit_Inserting(object sender, ObjectDataSourceMethodEventArgs e)
         {
             var obj = e.InputParameters["Audit"] as AuditBO;
-            
+
             short userID = Login.CookieHelper.GetCookieUserID();
             obj.CreatedByUserID = userID;
             //obj.Date = DateTime.Now;
@@ -436,11 +446,6 @@ namespace ReviewAudit
 
         protected void ReviewAuditRecordsGridView_CellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
         {
-            //if (e.Column.FieldName == "Date" || e.Column.FieldName == "DueByDate")
-            //{
-            //    var date = e.Editor as ASPxDateEdit;
-            //    date.MinDate = DateTime.Now.Date;
-            //}
             ASPxGridView gridView = sender as ASPxGridView;
             if (e.Column.FieldName == "TemporaryNotesCount")
             {
@@ -890,7 +895,7 @@ namespace ReviewAudit
         //    //view.SetRowCellValue(e.RowHandle, view.Columns[1], 2);
         //    //view.SetRowCellValue(e.RowHandle, view.Columns[2], 3);
         //}
-        
+
         protected void Complete_Click(object sender, EventArgs e)
         {
             // Find the clicked button
@@ -940,7 +945,7 @@ namespace ReviewAudit
 
         }
 
-      
+
 
         //protected void ReviewAuditRecordsGridView_HtmlEditFormCreated(object sender, ASPxGridViewEditFormEventArgs e)
         //{
@@ -953,7 +958,7 @@ namespace ReviewAudit
 
         //    ASPxTextBox TempNotesLabel1 = ReviewAuditRecordsGridView.FindEditFormLayoutItemTemplateControl("TempNotesLabel") as ASPxTextBox;
 
-            
+
         //    //ASPxButton btn = sender as ASPxButton;
         //    //GridViewEditFormTemplateContainer container = btn.NamingContainer as GridViewEditFormTemplateContainer;
         //    //var AClinicAnswerId = ReviewAuditRecordsGridView.GetRowValues(container.VisibleIndex, "AuditClinicAnswersID");
@@ -985,5 +990,22 @@ namespace ReviewAudit
         {
             e.InputParameters["SessionID"] = CookieHelper.GetCookieSessionID();
         }
+
+        protected void ReviewAuditRecordsGridView_AfterPerformCallback(object sender, DevExpress.Web.ASPxGridViewAfterPerformCallbackEventArgs e)
+        {
+            ASPxGridView grid = sender as ASPxGridView;
+            if (e.CallbackName == "SORT")
+            {
+               
+                
+                grid.JSProperties["cpSorting"] = true;
+               
+
+
+
+            }
+        }
+
+
     }
 }

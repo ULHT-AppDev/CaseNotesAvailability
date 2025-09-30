@@ -8,10 +8,10 @@ function onDismissalDateChanged(s, e) {
 
 function AuditorView_ClientClick(s, e, ClinicCode, AuditClinicAnswerId, AuditID, nIndex) {
     //ASPxPopupControl
-     InMemoryImprovementDetailsDS = []; // define in memory array
-     InMemoryImprovementDetailsCounter = 0;
-     InMemoryActionDetailsDS = [];
-     InMemoryActionDetailsCounter = 0;
+    InMemoryImprovementDetailsDS = []; // define in memory array
+    InMemoryImprovementDetailsCounter = 0;
+    InMemoryActionDetailsDS = [];
+    InMemoryActionDetailsCounter = 0;
 
     ReviewAuditRecordsGridView.StartEditRow(nIndex);
 
@@ -22,15 +22,15 @@ let reviewSender = null;
 
 function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
 
-    lblMessage.SetVisible(false); 
+    lblMessage.SetVisible(false);
 
     currentClinicCode = ClinicCode;
     AddReviewPopupHeaderLabel.SetText('Improvement Details');
     //clearing the popup
-        ImpReasonComboBox.Clear();
-        ReviewCommentMemo.Clear();
-        ActReviewCommentMemo.Clear();
- //
+    ImpReasonComboBox.Clear();
+    ReviewCommentMemo.Clear();
+    ActReviewCommentMemo.Clear();
+    //
     // reviewSender = 1; // this would need adding - send from
     reviewSender = reviewSender1;
 
@@ -49,17 +49,17 @@ function AddImpDetails_ClientClick(s, e, ClinicCode, reviewSender1) {
 }
 function AddActionPoint_ClientClick(s, e, ClinicCode, reviewSender1) {
 
-    lblMessage.SetVisible(false); 
+    lblMessage.SetVisible(false);
 
     currentClinicCode = ClinicCode;
     //document.getElementById('AddReviewPopupHeaderLabel').innerHTML ='Action point';
     AddReviewPopupHeaderLabel.SetText('Action point');
-    
+
     //clearing the popup
-        ImpReasonComboBox.Clear();
-        ReviewCommentMemo.Clear();
-        ActReviewCommentMemo.Clear();
- //
+    ImpReasonComboBox.Clear();
+    ReviewCommentMemo.Clear();
+    ActReviewCommentMemo.Clear();
+    //
     // reviewSender = 1; // this would need adding - send from
     reviewSender = reviewSender1;
 
@@ -104,7 +104,7 @@ function SubmitReviewButton_Click(s, e) {
 
     } else if (reviewSender == 2) {
         // send to other grid
-          if (ASPxClientEdit.AreEditorsValid("AddReviewPopup", "SubmitReview", false) && !ImprovementDetailsGridView.InCallback()) {
+        if (ASPxClientEdit.AreEditorsValid("AddReviewPopup", "SubmitReview", false) && !ImprovementDetailsGridView.InCallback()) {
 
             // var comboBox = ASPxClientControl.GetControlCollection().GetByName("UnavailableReasonComboBox");
 
@@ -194,6 +194,20 @@ function ReviewAuditRecordsGridView_EndCallBack(s, e) {
         ReviewAuditRecordsGridView.Refresh();
         SetAndShowAlert(1, 'All Records Inserted Successfully.. Please click on Go back to Audit page', '');
         delete s.cpAllPopupUpdated;
+    }
+    else if (s.cpSorting == true) {
+        delete s.cpSorting;
+        if (InMemoryImprovementDetailsCounter > 0)
+        {
+            //ImprovementDetailsGridView.SetVisible(true);
+            //NoImprovementDetailReviewLabel.SetVisible(false);
+            ImprovementDetailsGridView.PerformCallback(JSON.stringify(InMemoryImprovementDetailsDS))
+        }
+        if (InMemoryActionDetailsCounter > 0) {
+            //ActionPointDetailsGridView.SetVisible(true);
+            //NoActionPointDetailReviewLabel.SetVisible(false);
+            ActionPointDetailsGridView.PerformCallback(JSON.stringify(InMemoryActionDetailsDS));
+        }
     }
 }
 
@@ -293,7 +307,7 @@ function Complete_Click(s, e) {
 
     var jsonArray = JSON.stringify(arr);
     InMemoryActionDetailsDS = [];
-        InMemoryActionDetailsCounter = 0;
+    InMemoryActionDetailsCounter = 0;
     //CompleteCallback.PerformCallback(jsonArray);
     ReviewAuditRecordsGridView.PerformCallback(jsonArray);
 }

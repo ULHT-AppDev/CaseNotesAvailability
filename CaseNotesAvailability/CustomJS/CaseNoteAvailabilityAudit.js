@@ -166,8 +166,8 @@ function txtUnavailableCaseNoteCount_ValueChanged(s, e) {
     }
     else {
         // clear datasource and hide tab pages
-
-        PageControl.SetVisible(false);
+        if (!unavailableCount <= 0)
+            PageControl.SetVisible(false);
 
     }
 }

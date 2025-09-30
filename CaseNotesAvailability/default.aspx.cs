@@ -500,9 +500,9 @@ namespace CaseNotesAvailability
                     grid.SettingsCommandButton.UpdateButton.Text = "Create new Audit";
                     grid.SettingsCommandButton.UpdateButton.RenderMode = GridCommandButtonRenderMode.Button;
                     grid.SettingsCommandButton.CancelButton.RenderMode = GridCommandButtonRenderMode.Button;
-                    grid.SettingsCommandButton.CancelButton.Styles.Style.BackColor = System.Drawing.Color.Green;
+                    grid.SettingsCommandButton.CancelButton.Styles.Style.BackColor = System.Drawing.Color.Gray;
                     grid.SettingsCommandButton.CancelButton.Styles.Style.CssClass = "buttonSpace";
-
+                    
 
                     // hide audit column on new row
                     GridViewColumnLayoutItem auditCol = grid.EditFormLayoutProperties.FindItemOrGroupByName("AuditID") as GridViewColumnLayoutItem;
@@ -516,7 +516,7 @@ namespace CaseNotesAvailability
                     grid.SettingsCommandButton.UpdateButton.Text = "Update Audit";
                     grid.SettingsCommandButton.UpdateButton.RenderMode = GridCommandButtonRenderMode.Button;
                     grid.SettingsCommandButton.CancelButton.RenderMode = GridCommandButtonRenderMode.Button;
-                    grid.SettingsCommandButton.CancelButton.Styles.Style.BackColor = System.Drawing.Color.Green;
+                    grid.SettingsCommandButton.CancelButton.Styles.Style.BackColor = System.Drawing.Color.Gray;
                     grid.SettingsCommandButton.CancelButton.Styles.Style.CssClass = "buttonSpace";
                 }
             }

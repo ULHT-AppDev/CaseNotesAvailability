@@ -80,7 +80,7 @@
                 <div class="pt-2">
                     <dx:ASPxButton ID="AuditDetails"
                         runat="server"
-                        Text="Go back"
+                        Text="Go back to Audit page"
                         RenderMode="Button"
                         Width="200px"
                         AutoPostBack="false"
@@ -112,7 +112,7 @@
                 OnAfterPerformCallback="ReviewAuditRecordsGridView_AfterPerformCallback"
                 Width="100%">
                 <ClientSideEvents EndCallback="ReviewAuditRecordsGridView_EndCallBack" />
-                <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
+                <SettingsAdaptivity AdaptivityMode="HideDataCells"  AllowOnlyOneAdaptiveDetailExpanded="true"  ></SettingsAdaptivity>
 
                 <SettingsEditing Mode="EditForm" EditFormColumnCount="2"></SettingsEditing>
 
@@ -125,6 +125,7 @@
                 </Styles>
 
                 <EditFormLayoutProperties AlignItemCaptionsInAllGroups="false" AlignItemCaptions="true" LeftAndRightCaptionsWidth="125" Styles-LayoutGroup-CssClass="p-3">
+                    <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="700" />
                     <Styles>
                         <LayoutGroupBox>
                             <Caption Font-Bold="true" Font-Size="18px"></Caption>
@@ -199,7 +200,6 @@
 
                 <Settings ShowFilterRow="true" />
                 <SettingsBehavior AllowEllipsisInText="true" />
-                <SettingsResizing ColumnResizeMode="NextColumn" />
                 <Templates>
                     <EditForm>
                         <div class="p-4">
@@ -207,6 +207,17 @@
                             <%--test--%>
 
                             <div>
+                                <dx:ASPxLabel ID="ClinicCodeLabel"
+                                    ClientInstanceName="ClinicCodeLabel"
+                                    runat="server"
+                                    OnInit="ClinicCodeLabel_Init"
+                                    Font-Size="20px"
+                                    EncodeHtml="false"
+                                    ForeColor="GrayText">
+                                </dx:ASPxLabel>
+
+                            </div>
+                            <%--<div>
                                 <dx:ASPxLabel ID="TempNotesLabel"
                                     ClientInstanceName="TempNotesLabel"
                                     Text="Temporary Notes"
@@ -215,7 +226,8 @@
                                     EncodeHtml="false"
                                     ForeColor="GrayText">
                                 </dx:ASPxLabel>
-                            </div>
+                            </div>--%>
+
                             <div class="mt-3">
                                 <dx:ASPxGridView ID="ASPxGridViewTempNotes"
                                     ClientInstanceName="ASPxGridViewTempNotes"
@@ -254,22 +266,10 @@
                                     <SettingsPager PageSize="5"></SettingsPager>
                                     <Settings ShowFilterRow="true" />
                                     <SettingsBehavior AllowEllipsisInText="true" AllowDragDrop="false" AllowSort="false" />
-                                    <SettingsResizing ColumnResizeMode="NextColumn" />
                                 </dx:ASPxGridView>
                             </div>
 
                             <%--test--%>
-                            <div>
-                                <dx:ASPxLabel ID="ClinicCodeLabel"
-                                    ClientInstanceName="ClinicCodeLabel"
-                                    runat="server"
-                                    OnInit="ClinicCodeLabel_Init"
-                                    Font-Size="20px"
-                                    EncodeHtml="false"
-                                    ForeColor="GrayText">
-                                </dx:ASPxLabel>
-
-                            </div>
 
                             <div class="mt-2">
                                 <dx:ASPxButton ID="AddImpDetails"
@@ -316,7 +316,7 @@
                                                 </div>
                                             </DataItemTemplate>
                                         </dx:GridViewDataColumn>
-                                        <dx:GridViewDataComboBoxColumn Caption="Improvement details" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
+                                        <dx:GridViewDataComboBoxColumn Caption="Improvement reason" FieldName="ImprovementDetailID" VisibleIndex="4" MinWidth="200" MaxWidth="500">
                                             <PropertiesComboBox ClientInstanceName="ImprovementDetailID" DataSourceID="ImpReason" TextField="Issue" ValueField="ImprovementReasonID">
                                                 <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                                                 </ValidationSettings>

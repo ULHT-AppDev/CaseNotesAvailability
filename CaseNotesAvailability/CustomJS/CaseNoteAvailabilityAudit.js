@@ -27,7 +27,7 @@ function StartCount_Validation(s, e) {
         if (ActualAppointment !== null) {
             if (startCount > ActualAppointment) {
                 e.isValid = false;
-                e.errorText = "Casenotes available at the start of clinic can't be greater than Actual Appointments.";
+                e.errorText = "Case notes available at the start of clinic can't be greater than Actual Appointments.";
             }
 
             CheckAllCountsValidation();
@@ -255,7 +255,7 @@ function txtTempNotesCount_ValueChanged(s, e) {
 
 }
 
-function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
+function AuditDetails_Click(s, e) {
     const relativeURL = 'default.aspx';
     const absoluteURL = new URL(relativeURL, window.location.href);
     window.location.href = absoluteURL.href;
@@ -341,7 +341,7 @@ function AuditValidate(s, e) {
 
 function Complete_Click(s, e) {
     // check form and custom validation CheckAllCountsValidation()
-    if (ASPxClientEdit.AreEditorsValid("CaseNoteAvailabilityUnAvailabilityPopupContainer", "CaseNoteVal", false) && CheckAllCountsValidation() && !CaseNoteAvailabilityAuditRecordsGridView.InCallback()) {
+    if (ASPxClientEdit.ValidateEditorsInContainerById("CaseNoteAvailabilityUnAvailabilityPopupContainer", "CaseNoteVal", true) && CheckAllCountsValidation() && !CaseNoteAvailabilityAuditRecordsGridView.InCallback()) {
 
         let arr = [];
         var UnavailableCaseNoteCount1 = txtUnavailableCaseNoteCount.GetValue();

@@ -102,7 +102,7 @@
                 OnCustomCallback="CaseNoteAvailabilityAuditRecordsGridView_CustomCallback"
                 Width="100%">
                 <ClientSideEvents EndCallback="CaseNoteAvailabilityAuditRecordsGridView_EndCallBack" />
-                <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
+                <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
 
                 <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
 
@@ -113,8 +113,8 @@
                 <Styles>
                     <EditingErrorRow BackColor="Yellow" />
                 </Styles>
-
                 <EditFormLayoutProperties AlignItemCaptionsInAllGroups="false" AlignItemCaptions="true" LeftAndRightCaptionsWidth="125" Styles-LayoutGroup-CssClass="p-3">
+                    <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="700" />
                     <Styles>
                         <LayoutGroupBox>
                             <Caption Font-Bold="true" Font-Size="18px"></Caption>
@@ -128,7 +128,7 @@
                                 <dx:GridViewColumnLayoutItem ColumnName="AuditID" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Total appointments" ColumnName="Totalappointments" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Number of appointments allocated" ColumnName="NumberOfAppointmentsAllocated" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
-                                <dx:GridViewColumnLayoutItem Caption="CaseNotes available startCount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
+                                <dx:GridViewColumnLayoutItem Caption="Case notes available startCount" ColumnName="CaseNotesAvailableStartCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Temporarynotes count" ColumnName="TemporaryNotesCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:GridViewColumnLayoutItem Caption="Unavailable notes count" ColumnName="UnavailableCount" ColumnSpan="1" Width="400px"></dx:GridViewColumnLayoutItem>
                                 <dx:EditModeCommandLayoutItem ColSpan="2" CssClass="ps-3"></dx:EditModeCommandLayoutItem>
@@ -138,7 +138,7 @@
                     </Items>
                 </EditFormLayoutProperties>
                 <Columns>
-                    <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="100" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
+                    <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="25" MaxWidth="200" CellStyle-HorizontalAlign="Center" Caption="Action">
                         <DataItemTemplate>
                             <div>
                                 <dx:ASPxButton ID="CompleteAudit"
@@ -148,6 +148,7 @@
                                     AutoPostBack="false"
                                     UseSubmitBehavior="false"
                                     CausesValidation="false"
+                                    Width="100%"
                                     OnInit="CompleteAudit_Init">
                                 </dx:ASPxButton>
 
@@ -166,15 +167,13 @@
                     </dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Total appointments" FieldName="Totalappointments" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                     <dx:GridViewDataTextColumn Caption="Number of appointments allocated" FieldName="NumberOfAppointmentsAllocated" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="CaseNotes available start count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Temporary notes count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
-                    <dx:GridViewDataTextColumn Caption="Unavailable notes count" FieldName="UnavailableCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Case notes available start count" FieldName="CaseNotesAvailableStartCount" PropertiesTextEdit-MaxLength="50" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Temporary notes count" FieldName="TemporaryNotesCount" PropertiesTextEdit-MaxLength="50" AdaptivePriority="3" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
+                    <dx:GridViewDataTextColumn Caption="Unavailable notes count" FieldName="UnavailableCount" PropertiesTextEdit-MaxLength="50" AdaptivePriority="3" VisibleIndex="6" MinWidth="200" MaxWidth="200"></dx:GridViewDataTextColumn>
                 </Columns>
 
                 <Settings ShowFilterRow="true" AutoFilterCondition="Contains" />
                 <SettingsBehavior AllowEllipsisInText="true" />
-                <SettingsResizing ColumnResizeMode="NextColumn" />
-
             </dx:ASPxGridView>
 
 
@@ -215,24 +214,24 @@
 
             <ContentCollection>
                 <dx:PopupControlContentControl>
-                    <dx:ASPxCallbackPanel ID="CaseNoteAvailabilityUnAvailabilityCallbackPanel"
-                        ClientInstanceName="CaseNoteAvailabilityUnAvailabilityCallbackPanel"
-                        runat="server"
-                        Width="100%"
-                        HideContentOnCallback="true"
-                        ShowCloseButton="false"
-                        OnCallback="CaseNoteAvailabilityUnAvailabilityCallbackPanel_Callback">
-                        <ClientSideEvents EndCallback="CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback" />
-                        <PanelCollection>
-                            <dx:PanelContent>
-                                <div class="px-4 pb-3 defaultBorderBottom">
-                                    <div>
-                                        <dx:ASPxLabel ID="CaseNoteAvailabilityUnAvailabilityHeaderLabel" Text="Please fill out the clinic audit details" runat="server" Font-Bold="true" Font-Size="16px"></dx:ASPxLabel>
-                                    </div>
-                                    <div>
-                                        <dx:ASPxLabel ID="ClinicCode" runat="server" ForeColor="Gray" EncodeHtml="false"></dx:ASPxLabel>
-                                    </div>
-                                    <div id="CaseNoteAvailabilityUnAvailabilityPopupContainer" runat="server">
+                    <div id="CaseNoteAvailabilityUnAvailabilityPopupContainer" runat="server">
+                        <dx:ASPxCallbackPanel ID="CaseNoteAvailabilityUnAvailabilityCallbackPanel"
+                            ClientInstanceName="CaseNoteAvailabilityUnAvailabilityCallbackPanel"
+                            runat="server"
+                            Width="100%"
+                            HideContentOnCallback="true"
+                            ShowCloseButton="false"
+                            OnCallback="CaseNoteAvailabilityUnAvailabilityCallbackPanel_Callback">
+                            <ClientSideEvents EndCallback="CaseNoteAvailabilityUnAvailabilityCallbackPanel_EndCallback" />
+                            <PanelCollection>
+                                <dx:PanelContent>
+                                    <div class="px-4 pb-3 defaultBorderBottom">
+                                        <div>
+                                            <dx:ASPxLabel ID="CaseNoteAvailabilityUnAvailabilityHeaderLabel" Text="Please fill out the clinic audit details" runat="server" Font-Bold="true" Font-Size="16px"></dx:ASPxLabel>
+                                        </div>
+                                        <div>
+                                            <dx:ASPxLabel ID="ClinicCode" runat="server" ForeColor="Gray" EncodeHtml="false"></dx:ASPxLabel>
+                                        </div>
                                         <br />
                                         <br />
                                         <dx:ASPxFormLayout ID="CaseNoteFormLayout"
@@ -306,7 +305,7 @@
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtStartCount" ClientInstanceName="txtStartCount" runat="server" DecimalPlaces="0"
-                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
+                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false"  MinValue="0">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="StartCount_Validation" />
                                                                 <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic"
@@ -322,7 +321,7 @@
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" MinValue="0" runat="server" DecimalPlaces="0"
-                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false">
+                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false"  ">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="TempCount_Validation" />
                                                                 <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic"
@@ -368,22 +367,22 @@
                                             </Items>
                                         </dx:ASPxFormLayout>
                                     </div>
-                                </div>
-                            </dx:PanelContent>
-                        </PanelCollection>
-                    </dx:ASPxCallbackPanel>
-                    <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" runat="server" ClientInstanceName="CreateFormDynamically_CallbackPanel"
-                        OnCallback="CreateFormDynamically_CallbackPanel_Callback">
-                        <ClientSideEvents EndCallback="CreateFormDynamically_CallbackPanel_EndCallback" />
-                        <PanelCollection>
-                            <dx:PanelContent>
-                                <dx:ASPxPageControl ID="PageControl" ClientInstanceName="PageControl" runat="server" EnableCallBacks="false" Visible="false">
-                                    <TabPages>
-                                    </TabPages>
-                                </dx:ASPxPageControl>
-                            </dx:PanelContent>
-                        </PanelCollection>
-                    </dx:ASPxCallbackPanel>
+                                </dx:PanelContent>
+                            </PanelCollection>
+                        </dx:ASPxCallbackPanel>
+                        <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" runat="server" ClientInstanceName="CreateFormDynamically_CallbackPanel"
+                            OnCallback="CreateFormDynamically_CallbackPanel_Callback">
+                            <ClientSideEvents EndCallback="CreateFormDynamically_CallbackPanel_EndCallback" />
+                            <PanelCollection>
+                                <dx:PanelContent>
+                                    <dx:ASPxPageControl ID="PageControl" ClientInstanceName="PageControl" runat="server"  EnableCallBacks="false" Visible="false">
+                                        <TabPages>
+                                        </TabPages>
+                                    </dx:ASPxPageControl>
+                                </dx:PanelContent>
+                            </PanelCollection>
+                        </dx:ASPxCallbackPanel>
+                    </div>
                     <div class="p-4">
                         <div class="d-flex align-items-center">
                             <div>
@@ -402,7 +401,7 @@
                                     ClientInstanceName="CloseButton"
                                     runat="server"
                                     Text="Cancel"
-                                    AutoPostBack="false"                                    
+                                    AutoPostBack="false"
                                     BackColor="Gray"
                                     UseSubmitBehavior="false"
                                     CausesValidation="false">

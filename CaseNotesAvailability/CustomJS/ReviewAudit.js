@@ -170,8 +170,8 @@ function ImprovementDetailsGridView_EndCallback(s, e) {
     }
 }
 
-function AuditDetails_Click(s, e, ClinicCode, AuditClinicAnswerId, AuditID) {
-    const relativeURL = 'default.aspx?';
+function AuditDetails_Click(s, e) {
+    const relativeURL = 'default.aspx';
     const absoluteURL = new URL(relativeURL, window.location.href);
     window.location.href = absoluteURL.href;
 }
@@ -230,7 +230,8 @@ function CompleteAuditReview_Click(s, e, code) {
     }
     else {
         lblMessage.SetVisible(true);
-        lblMessage.SetText("<i class='fas fa-exclamation-triangle'></i><span class='ps-2'> Please fill Improvement detail or Action point !");
+        //lblMessage.SetText("<i class='fas fa-exclamation-triangle'></i><span class='ps-2'> Please fill Improvement detail or Action point !");
+        lblMessage.SetText("<span class='ps-2'> Please fill Improvement detail or Action point !");
         return false;
     }
 }

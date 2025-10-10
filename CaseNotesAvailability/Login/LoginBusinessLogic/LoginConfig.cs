@@ -11,7 +11,7 @@ namespace Login
     {
 
         public static readonly string AppEnvironment = ConfigurationManager.AppSettings["Environment"]; // set in the web config release
-        public static readonly string SupportLink = "<a href =\"http://ulhintranet/ict-operations\">ICT Service Desk</a>";  //support link for error messages (shouldn't need changing)
+        public static readonly string SupportLink = "<a href =\"http://servicedesk-b5/webaccess/ss\">ICT Service Desk</a>";  //support link for error messages (shouldn't need changing)
 
         // 1. Set config properties 
         public static readonly bool Database_RequireDBForLogin = true;                                           // is the database required for a successful login (user/role/session/logging)?

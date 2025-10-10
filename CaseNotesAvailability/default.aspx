@@ -52,9 +52,10 @@
         OnAfterPerformCallback="HealthRecordsGridView_AfterPerformCallback"
         OnHtmlRowPrepared="HealthRecordsGridView_HtmlRowPrepared"
         OnLoad="HealthRecordsGridView_Load"
+        OnCustomCallback="HealthRecordsGridView_CustomCallback"
         Width="100%">
-        <ClientSideEvents EndCallback="HealthRecordsGridView_EndCallBack" />
-        <SettingsAdaptivity AdaptivityMode="HideDataCells" HideDataCellsAtWindowInnerWidth="780" AllowOnlyOneAdaptiveDetailExpanded="true" AdaptiveDetailColumnCount="2"></SettingsAdaptivity>
+        <ClientSideEvents  EndCallback="HealthRecordsGridView_EndCallBack" />
+        <SettingsAdaptivity AdaptivityMode="HideDataCells"  AllowOnlyOneAdaptiveDetailExpanded="true"  ></SettingsAdaptivity>
         <SettingsEditing EditFormColumnCount="2"></SettingsEditing>
         <%--<SettingsCommandButton>
             <CancelButton Styles-Style-Spacing="50px" >
@@ -72,6 +73,7 @@
         </Styles>
 
         <EditFormLayoutProperties AlignItemCaptionsInAllGroups="true" AlignItemCaptions="true" LeftAndRightCaptionsWidth="125" Styles-LayoutGroup-CssClass="p-3">
+            <SettingsAdaptivity AdaptivityMode="SingleColumnWindowLimit" SwitchToSingleColumnAtWindowInnerWidth="700" />
             <Styles>
                 <LayoutGroupBox>
                     <Caption Font-Bold="true" Font-Size="18px"></Caption>
@@ -102,9 +104,9 @@
         </EditFormLayoutProperties>
 
         <Columns>
-            <dx:GridViewCommandColumn Visible="false" VisibleIndex="0" Width="100px" Caption="Edit" ShowNewButtonInHeader="true" ShowEditButton="true" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
+            <dx:GridViewCommandColumn Visible="false" VisibleIndex="0" MinWidth ="50" MaxWidth="150" Caption="Edit" ShowNewButtonInHeader="true" ShowEditButton="true" ShowClearFilterButton="true" ShowApplyFilterButton="true"></dx:GridViewCommandColumn>
 
-            <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="75" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
+            <dx:GridViewDataColumn Name="Action" VisibleIndex="0" MinWidth="75" MaxWidth="150" AdaptivePriority="0" CellStyle-HorizontalAlign="Center" Caption="Action">
                 <DataItemTemplate>
                     <div>
                         <dx:ASPxButton ID="AuditorView"
@@ -113,6 +115,7 @@
                             RenderMode="Link"
                             AutoPostBack="false"
                             UseSubmitBehavior="false"
+                            Width="100px"
                             CausesValidation="false"
                             OnInit="AuditorView_Init">
                         </dx:ASPxButton>
@@ -180,7 +183,7 @@
                 </PropertiesComboBox>
             </dx:GridViewDataComboBoxColumn>
 
-            <dx:GridViewDataTokenBoxColumn FieldName="ClinicCodes" VisibleIndex="6">
+            <dx:GridViewDataTokenBoxColumn FieldName="ClinicCodes"  MinWidth="200" MaxWidth="400" VisibleIndex="6">
                 <PropertiesTokenBox AllowCustomTokens="true" ValueSeparator="," MaxLength="100">
                     <ValidationSettings Display="Dynamic" ErrorDisplayMode="ImageWithTooltip">
                         <RequiredField IsRequired="true" ErrorText="At least one clinic code is required & blank text is not allowed" />
@@ -205,7 +208,6 @@
         </Columns>
         <Settings ShowFilterRow="true" AutoFilterCondition="Contains" />
         <SettingsBehavior AllowEllipsisInText="true" />
-        <SettingsResizing ColumnResizeMode="NextColumn" />
     </dx:ASPxGridView>
 
     <dx:ASPxPopupControl ID="DeleteCaseNotePopup"

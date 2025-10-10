@@ -132,6 +132,15 @@ namespace CaseNotesAvailability
         protected global::DevExpress.Web.ASPxPopupControl CaseNoteAvailabilityUnAvailabilityPopup;
 
         /// <summary>
+        /// CaseNoteAvailabilityUnAvailabilityPopupContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CaseNoteAvailabilityUnAvailabilityPopupContainer;
+
+        /// <summary>
         /// CaseNoteAvailabilityUnAvailabilityCallbackPanel control.
         /// </summary>
         /// <remarks>
@@ -157,15 +166,6 @@ namespace CaseNotesAvailability
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxLabel ClinicCode;
-
-        /// <summary>
-        /// CaseNoteAvailabilityUnAvailabilityPopupContainer control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl CaseNoteAvailabilityUnAvailabilityPopupContainer;
 
         /// <summary>
         /// CaseNoteFormLayout control.
@@ -229,15 +229,6 @@ namespace CaseNotesAvailability
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::DevExpress.Web.ASPxSpinEdit txtStartCount;
-
-        /// <summary>
-        /// txtTempNotesCount control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::DevExpress.Web.ASPxSpinEdit txtTempNotesCount;
 
         /// <summary>
         /// txtUnavailableCaseNoteCount control.

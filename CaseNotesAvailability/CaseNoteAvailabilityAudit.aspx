@@ -175,10 +175,10 @@
                 <Settings ShowFilterRow="true" AutoFilterCondition="Contains" />
                 <SettingsBehavior AllowEllipsisInText="true" />
             </dx:ASPxGridView>
-
-
         </div>
+
         <uc1:UserAlertPopupControl runat="server" ID="UserAlertPopupControl" />
+
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
@@ -305,7 +305,7 @@
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
                                                             <dx:ASPxSpinEdit ID="txtStartCount" ClientInstanceName="txtStartCount" runat="server" DecimalPlaces="0"
-                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false"  MinValue="0">
+                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false" MinValue="0">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="StartCount_Validation" />
                                                                 <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic"
@@ -317,10 +317,28 @@
                                                     </LayoutItemNestedControlCollection>
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
                                                 </dx:LayoutItem>
-                                                <dx:LayoutItem Caption="Of the notes provided how many were temporary notes?:" Name="TempNotesCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+
+                                                <dx:LayoutItem Caption="Of the notes provided how many were temporary notes?:" Name="CaseNoteAvailabileTempCount" Visible="true" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
-                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" MinValue="0" runat="server" DecimalPlaces="0"
+                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount" ClientInstanceName="txtTempNotesCount" runat="server" DecimalPlaces="0"
+                                                                NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false" MinValue="0">
+                                                                <SpinButtons ShowIncrementButtons="False"></SpinButtons>
+                                                                <ClientSideEvents Validation="TempCount_Validation" />
+                                                                <ValidationSettings ErrorDisplayMode="ImageWithTooltip" ValidationGroup="CaseNoteVal" Display="Dynamic"
+                                                                    ErrorTextPosition="Right" SetFocusOnError="true">
+                                                                    <RequiredField ErrorText="This field is required" IsRequired="true" />
+                                                                </ValidationSettings>
+                                                            </dx:ASPxSpinEdit>
+                                                        </dx:LayoutItemNestedControlContainer>
+                                                    </LayoutItemNestedControlCollection>
+                                                    <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
+                                                </dx:LayoutItem>
+
+                                                <%-- <dx:LayoutItem Caption="Of the notes provided how many were temporary notes?:" Name="TempNotesCount" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
+                                                    <LayoutItemNestedControlCollection>
+                                                        <dx:LayoutItemNestedControlContainer runat="server">
+                                                            <dx:ASPxSpinEdit ID="txtTempNotesCount1" ClientInstanceName="txtTempNotesCount1" MinValue="0" runat="server" DecimalPlaces="0"
                                                                 NumberType="Integer" Width="200px" AllowMouseWheel="false" SpinButtons-ShowIncrementButtons="false"  ">
                                                                 <SpinButtons ShowIncrementButtons="False"></SpinButtons>
                                                                 <ClientSideEvents Validation="TempCount_Validation" />
@@ -330,11 +348,10 @@
                                                                 </ValidationSettings>
                                                             </dx:ASPxSpinEdit>
                                                         </dx:LayoutItemNestedControlContainer>
-
                                                     </LayoutItemNestedControlCollection>
-
                                                     <CaptionStyle CssClass="Form-Caption-Style"></CaptionStyle>
-                                                </dx:LayoutItem>
+                                                </dx:LayoutItem>--%>
+
                                                 <dx:LayoutItem Name="UnavailableCaseNoteCount" Caption="Number of case notes unavailable:" ColumnSpan="1" Width="100%" CaptionStyle-CssClass="Form-Caption-Style">
                                                     <LayoutItemNestedControlCollection>
                                                         <dx:LayoutItemNestedControlContainer runat="server">
@@ -370,12 +387,13 @@
                                 </dx:PanelContent>
                             </PanelCollection>
                         </dx:ASPxCallbackPanel>
+
                         <dx:ASPxCallbackPanel ID="CreateFormDynamically_CallbackPanel" runat="server" ClientInstanceName="CreateFormDynamically_CallbackPanel"
-                            OnCallback="CreateFormDynamically_CallbackPanel_Callback">
+                            OnCallback="CreateFormDynamically_CallbackPanel_Callback"  >
                             <ClientSideEvents EndCallback="CreateFormDynamically_CallbackPanel_EndCallback" />
                             <PanelCollection>
                                 <dx:PanelContent>
-                                    <dx:ASPxPageControl ID="PageControl" ClientInstanceName="PageControl" runat="server"  EnableCallBacks="false" Visible="false">
+                                    <dx:ASPxPageControl ID="PageControl" ClientInstanceName="PageControl" runat="server" EnableCallBacks="false" Visible="false">
                                         <TabPages>
                                         </TabPages>
                                     </dx:ASPxPageControl>

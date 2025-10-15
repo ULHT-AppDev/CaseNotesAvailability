@@ -112,7 +112,7 @@
                 OnAfterPerformCallback="ReviewAuditRecordsGridView_AfterPerformCallback"
                 Width="100%">
                 <ClientSideEvents EndCallback="ReviewAuditRecordsGridView_EndCallBack" />
-                <SettingsAdaptivity AdaptivityMode="HideDataCells"  AllowOnlyOneAdaptiveDetailExpanded="true"  ></SettingsAdaptivity>
+                <SettingsAdaptivity AdaptivityMode="HideDataCells" AllowOnlyOneAdaptiveDetailExpanded="true"></SettingsAdaptivity>
 
                 <SettingsEditing Mode="EditForm" EditFormColumnCount="2"></SettingsEditing>
 
@@ -256,9 +256,9 @@
                                                 </div>
                                             </DataItemTemplate>
                                         </dx:GridViewDataColumn>--%>
-                                        <dx:GridViewDataTextColumn caption="Patient details" FieldName="PatientDetails" PropertiesTextEdit-ClientInstanceName="txtPatientDetails" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
+                                        <dx:GridViewDataTextColumn Caption="Patient details" FieldName="PatientDetails" PropertiesTextEdit-ClientInstanceName="txtPatientDetails" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
                                         </dx:GridViewDataTextColumn>
-                                        <dx:GridViewDataTextColumn Caption ="Reason for unavailability" FieldName="ReasonUnavailable" PropertiesTextEdit-ClientInstanceName="ReasonUnavailable" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
+                                        <dx:GridViewDataTextColumn Caption="Reason for unavailability" FieldName="ReasonUnavailable" PropertiesTextEdit-ClientInstanceName="ReasonUnavailable" PropertiesTextEdit-ValidationSettings-EnableCustomValidation="true" PropertiesTextEdit-MaxLength="255" VisibleIndex="3" MinWidth="200" MaxWidth="300">
                                         </dx:GridViewDataTextColumn>
 
 
@@ -401,7 +401,18 @@
                                     OnInit="CompleteAuditReview_Init">
                                     <%--<ClientSideEvents Click="CompleteClient_Click" />--%>
                                 </dx:ASPxButton>
-                                <dx:ASPxLabel ID="lblMessage" ClientInstanceName="lblMessage" ForeColor="Red" runat="server" ></dx:ASPxLabel>
+                                <span style="display: inline-block; width: 25px;"></span>
+                                <dx:ASPxButton ID="CancelButton"
+                                    ClientInstanceName="CancelButton"
+                                    runat="server"
+                                    Text="Cancel"
+                                    AutoPostBack="false"
+                                    BackColor="Gray"
+                                    UseSubmitBehavior="false"
+                                    CausesValidation="false">
+                                    <ClientSideEvents Click="CancelDetails_Click" />
+                                </dx:ASPxButton>
+                                <dx:ASPxLabel ID="lblMessage" ClientInstanceName="lblMessage" ForeColor="Red" runat="server"></dx:ASPxLabel>
                     </EditForm>
                 </Templates>
             </dx:ASPxGridView>

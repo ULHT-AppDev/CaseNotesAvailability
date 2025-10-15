@@ -20,7 +20,7 @@ namespace CaseNotesAvailability
     {
         // in memory 
         private int CASAuditId;
-        private string Speciality;
+        //private string Speciality;
         private DateTime AuditDate;
         private string Specialty;
         private string AuditSite;
@@ -163,7 +163,7 @@ namespace CaseNotesAvailability
                             PageControl.Visible = true;
                             CreateFormDynamically_CallbackPanel.JSProperties["cpGeneratedItemsSuccess"] = true;
                         }
-                        catch (Exception ex)
+                        catch (Exception )
                         {
                             CreateFormDynamically_CallbackPanel.JSProperties["cpGeneratedItemsError"] = true;
                         }
@@ -191,6 +191,8 @@ namespace CaseNotesAvailability
                 tab.Text = "Page " + (tabIndex + 1);
 
                 ASPxFormLayout UnavailabilityFormLayout = new ASPxFormLayout();
+                UnavailabilityFormLayout.SettingsAdaptivity.AdaptivityMode = FormLayoutAdaptivityMode.SingleColumnWindowLimit;
+                UnavailabilityFormLayout.SettingsAdaptivity.SwitchToSingleColumnAtWindowInnerWidth = 700;
                 UnavailabilityFormLayout.ID = "formLayout_" + tabIndex;
                 UnavailabilityFormLayout.Width = Unit.Percentage(100);
                 UnavailabilityFormLayout.ColumnCount = 2;
@@ -276,6 +278,11 @@ namespace CaseNotesAvailability
             txtActualAppointments.Text = FullAuditClincAnswer.NumberOfAppointmentsAllocated.ToString();
             txtStartCount.Text = FullAuditClincAnswer.CaseNotesAvailableStartCount.ToString();
             txtTempNotesCount.Text = FullAuditClincAnswer.TemporaryNotesCount.ToString();
+
+
+            //txtUnavailableCaseNoteCount
+
+
             //txtCaseNoteCount.Text = FullAuditClincAnswer[0]..ToString();
         }
 

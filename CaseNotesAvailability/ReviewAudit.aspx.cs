@@ -24,7 +24,7 @@ namespace ReviewAudit
         private string AuditSite;
         //public int StatusID { get; set; }
         private string ClinicCode;
-        private string AuditClinicAnswersID;
+        //private string AuditClinicAnswersID;
 
         private void SortGrid(string columnName, DevExpress.Data.ColumnSortOrder order)
         {

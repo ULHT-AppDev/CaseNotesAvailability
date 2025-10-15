@@ -125,6 +125,10 @@ function CloseReviewButton_click(s, e) {
 
 }
 
+function CancelReviewButton_click(s, e) {
+    AddReviewPopup.Hide();
+
+}
 
 function DeleteImprovementReview_Click(s, e, id) {
 
@@ -169,6 +173,9 @@ function ImprovementDetailsGridView_EndCallback(s, e) {
         InMemoryImprovementDetailsCounter = 0; // reset
     }
 }
+function CancelDetails_Click(s, e) {
+    ReviewAuditRecordsGridView.CancelEdit();
+} 
 
 function AuditDetails_Click(s, e) {
     const relativeURL = 'default.aspx';
@@ -231,7 +238,7 @@ function CompleteAuditReview_Click(s, e, code) {
     else {
         lblMessage.SetVisible(true);
         //lblMessage.SetText("<i class='fas fa-exclamation-triangle'></i><span class='ps-2'> Please fill Improvement detail or Action point !");
-        lblMessage.SetText("<span class='ps-2'> Please fill Improvement detail or Action point !");
+        lblMessage.SetText("<span class='ps-2'> Please fill out at least one improvement or atleast one action point");
         return false;
     }
 }
